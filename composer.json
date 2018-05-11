@@ -1,0 +1,22 @@
+{
+  "name": "10up/tenup-auto-tweet",
+  "description": "Tenup Auto Tweet",
+  "authors": [
+    {
+      "name": "Author",
+      "email": "info@10up.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "abraham/twitteroauth": "^0.7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "TenupAutoTweet\\": "includes/classes/"
+    }
+  },
+  "require-dev": {
+    "10up/wp_mock": "dev-dev"
+  }
+}
