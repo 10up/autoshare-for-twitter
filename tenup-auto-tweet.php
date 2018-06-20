@@ -33,7 +33,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 // Include the main functionality
 require_once( 'includes/core.php' );
-//require_once( 'includes/utils.php' );
+require_once( 'includes/utils.php' );
 
 /**
  * Play nice with others.
