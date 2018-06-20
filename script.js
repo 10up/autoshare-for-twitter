@@ -1,3 +1,0 @@
-/**
- * Tenup Auto Tweet
- */
