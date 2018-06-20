@@ -1,0 +1,57 @@
+#auto-tweet_metabox p::before {
+	display: inline-block;
+	margin-left: -1px;
+	padding-right: 3px;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#auto-tweet_metabox pre {
+	font-size: 11px;
+	white-space: normal;
+}
+
+#tenup-auto-tweet-icon.pending {
+	animation: fadeIn 1s infinite alternate;
+	color: #00aced;
+}
+
+#tenup-auto-tweet-icon.enabled {
+	color: #00aced;
+}
+
+#tenup-auto-tweet-icon.disabled {
+	color: #72777c;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		color: #72777c;
+	}
+}
+
+a#tenup-auto-tweet-edit{
+	color: #0073aa;
+	text-decoration: underline;
+	transition-property: border, background, color;
+	transition-duration: .05s;
+	transition-timing-function: ease-in-out
+}
+
+#tenup-auto-tweet-override-body {
+	margin: 4px 0;
+}
+
+textarea#tenup-auto-tweet-text {
+	margin: 4px 0 0;
+	width: 100%
+}
+span#tenup-auto-tweet-counter-wrap{
+	background: rgba(0, 0, 0, 0.07);
+	font-family: Consolas, Monaco, monospace;
+}
+span.over-limit{
+	color: red;
+}
