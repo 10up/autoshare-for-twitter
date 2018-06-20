@@ -10,7 +10,7 @@ function setup() {
 	require_once 'admin/settings.php';
 	require_once 'admin/post-meta.php';
 	require_once 'admin/post-transition.php';
-	//require_once 'class-publish_tweet.php';
+	require_once 'class-publish_tweet.php';
 
 	/**
 	 * Allow others to hook into the core setup action
