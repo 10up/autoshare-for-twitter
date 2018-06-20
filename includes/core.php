@@ -8,7 +8,7 @@ function setup() {
 
 	// Includes and requires
 	require_once 'admin/settings.php';
-	//require_once 'admin/post-meta.php';
+	require_once 'admin/post-meta.php';
 	//require_once 'admin/post-transition.php';
 	//require_once 'class-publish_tweet.php';
 
