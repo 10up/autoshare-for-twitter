@@ -58,6 +58,13 @@ function enqueue_scripts( $hook ) {
 		return;
 	}
 
+	/**
+	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
+	 */
+	if ( ! Utils\opted_into_auto_tweet() ) {
+		return;
+	}
+
 	// Enqueue the styles
 	wp_enqueue_style( 'admin_tenup-auto-tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', TUAT_VERSION );
 
@@ -180,6 +187,14 @@ function save_tweet_meta( $post_id ) {
  * @return void
  */
 function tweet_submitbox_callback( $post ) {
+
+	/**
+	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
+	 */
+	if ( ! Utils\opted_into_auto_tweet() ) {
+		return;
+	}
+
 	?>
 	<div id="tenup-auto-tweet_metabox" class="misc-pub-section">
 		<?php do_action( 'tenup_auto_tweet_metabox', $post ); ?>

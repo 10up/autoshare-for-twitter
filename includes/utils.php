@@ -147,3 +147,12 @@ function get_tweet_body( int $id ) {
 
 	return $body;
 }
+
+/**
+ * Wrapper for post_type_supports.
+ *
+ * @return bool true if the current post type supports auto-tweet
+ */
+function opted_into_auto_tweet() {
+	return ( true === post_type_supports( get_post_type(), 'tenup-auto-tweet' ) ) ? true : false;
+}

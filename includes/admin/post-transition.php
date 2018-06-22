@@ -36,6 +36,13 @@ function publish_tweet( $new_status, $old_status, $post ) {
 	}
 
 	/**
+	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
+	 */
+	if ( ! Utils\opted_into_auto_tweet() ) {
+		return;
+	}
+
+	/**
 	 * This should never happen since the nonce field wouldn't exist.
 	 * But just in case one more check: check that the post doesn't
 	 * have a twitter-status entry already.
