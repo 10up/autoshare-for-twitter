@@ -59,7 +59,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
 			/**
 			 * Fires after the status update to Twitter is considered successful.
 			 */
-			do_action( 'auto_tweet_success' );
+			do_action( 'tenup_auto_tweet_success' );
 
 		} else {
 			// something here about it failing so do not allow republishing just in case.
@@ -68,7 +68,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
 			/**
 			 * Fires if the response back from Twitter was an error.
 			 */
-			do_action( 'auto_tweet_failed' );
+			do_action( 'tenup_auto_tweet_failed' );
 		}
 
 
@@ -84,7 +84,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
  */
 function validate_response( $response ) {
 
-	// Update considered succesful
+	// Update considered successful
 	if ( ! empty( $response->id ) ) {
 		$validated_response = array(
 			'id' => $response->id,
@@ -93,7 +93,7 @@ function validate_response( $response ) {
 
 	} else {
 		$validated_response = new \WP_Error(
-			'auto_tweet_failed',
+			'tenup_auto_tweet_failed',
 			__( 'Something happened during Twitter update.', 'tenup_auto_tweet' ),
 			$response->errors
 		);
@@ -120,7 +120,7 @@ function update_auto_tweet_meta( int $post_id, $data ) {
 
 		// Twitter sent back an error. Most likely a duplicate message.
 	} else if ( is_wp_error( $data ) ) {
-		$error_message = $data->error_data['auto_tweet_failed'][0];
+		$error_message = $data->error_data['tenup_auto_tweet_failed'][0];
 		$response = array(
 			'status' => 'error',
 			'message' => sanitize_text_field( 'Error: ' . $error_message->code . '. ' . $error_message->message )
@@ -137,7 +137,7 @@ function update_auto_tweet_meta( int $post_id, $data ) {
 	/**
 	 * Allow for filtering the Twitter status post meta.
 	 */
-	$response = apply_filters( 'auto_tweet_post_status_meta', $response );
+	$response = apply_filters( 'tenup_auto_tweet_post_status_meta', $response );
 
 	/**
 	 * Update the post meta entry that stores the response
@@ -150,7 +150,7 @@ function update_auto_tweet_meta( int $post_id, $data ) {
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
 	 */
-	do_action( 'auto_tweet_post_tweet_status_updated' );
+	do_action( 'tenup_auto_tweet_post_tweet_status_updated' );
 }
 
 /**
