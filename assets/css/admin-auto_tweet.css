@@ -1,4 +1,4 @@
-#auto-tweet_metabox p::before {
+#tenup-auto-tweet_metabox p::before {
 	display: inline-block;
 	margin-left: -1px;
 	padding-right: 3px;
@@ -7,7 +7,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-#auto-tweet_metabox pre {
+#tenup-auto-tweet_metabox pre {
 	font-size: 11px;
 	white-space: normal;
 }
