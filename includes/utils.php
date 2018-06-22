@@ -59,14 +59,14 @@ function compose_tweet_body( \WP_Post $post ) {
 	/**
 	 * Allow filtering of tweet body
 	 */
-	$tweet_body = apply_filters( 'auto_tweet_body', get_tweet_body( $post->ID ) );
+	$tweet_body = apply_filters( 'tenup_auto_tweet_body', get_tweet_body( $post->ID ) );
 
 	/**
 	 * Allow filtering of post permalink
 	 *
 	 * @param $permalink
 	 */
-	$url = apply_filters( 'auto_tweet_post_title', get_the_permalink( $post->ID ), $post );
+	$url = apply_filters( 'tenup_auto_tweet_post_title', get_the_permalink( $post->ID ), $post );
 
 	// Make it safe
 	$array_body = array(
