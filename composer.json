@@ -1,22 +1,20 @@
 {
-  "name": "10up/tenup-auto-tweet",
-  "description": "Tenup Auto Tweet",
-  "authors": [
-    {
-      "name": "Author",
-      "email": "info@10up.com"
+    "name": "10up Auto Tweet",
+    "description": "",
+    "version": "0.1.0",
+    "type": "wordpress-plugin",
+    "keywords": [],
+    "homepage": "https://10up.com",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "10up",
+            "email": "scott.lee@10up.com",
+            "homepage": "https://10up.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "abraham/twitteroauth": "^0.7.4"
     }
-  ],
-  "require": {
-    "php": ">=7.0",
-    "abraham/twitteroauth": "^0.7.4"
-  },
-  "autoload": {
-    "psr-4": {
-      "TenupAutoTweet\\": "includes/classes/"
-    }
-  },
-  "require-dev": {
-    "10up/wp_mock": "dev-dev"
-  }
 }
