@@ -14,6 +14,10 @@ Automatically tweets a post title, URL, and optional description.
 3. Activate the plugin
 4. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'tenup-auto-tweet' );`
 
+== FAQs ==
+Does this plugin work with Gutenberg?
+Nope, not yet.
+
 == Changelog ==
 
 = 0.1.0 =
