@@ -59,11 +59,11 @@ function enqueue_scripts( $hook ) {
 	}
 
 	// Enqueue the styles
-	wp_enqueue_style( 'admin-auto_tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', TUAT_VERSION );
+	wp_enqueue_style( 'admin_tenup-auto-tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', TUAT_VERSION );
 
 	// Enqueue the JS
 	wp_enqueue_script(
-		'admin_auto-tweet',
+		'admin_tenup-auto-tweet',
 		TUAT_URL . '/assets/js/admin-auto_tweet.js',
 		['jquery'],
 		TUAT_VERSION,
@@ -72,11 +72,11 @@ function enqueue_scripts( $hook ) {
 
 	// Pass some useful info to our script
 	$localization = array(
-		'nonce'  => wp_create_nonce( 'admin-auto_tweet' ),
+		'nonce'  => wp_create_nonce( 'admin_tenup-auto-tweet' ),
 		'postId' => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ),
 		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true )
 	);
-	wp_localize_script( 'admin_auto-tweet', 'adminAutoTweet', $localization );
+	wp_localize_script( 'admin_tenup-auto-tweet', 'adminTUAT', $localization );
 }
 
 /**
@@ -87,7 +87,7 @@ function enqueue_scripts( $hook ) {
 function ajax_save_tweet_meta() {
 
 	// Verify nonce.
-	if ( ! wp_verify_nonce( $_GET['nonce'], 'admin-auto_tweet' ) ) {
+	if ( ! wp_verify_nonce( $_GET['nonce'], 'admin_tenup-auto-tweet' ) ) {
 		wp_send_json_error( array( 'message' => esc_html__( 'Invalid request.', 'tenup_auto_tweet' ) ) );
 	}
 

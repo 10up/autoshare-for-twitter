@@ -41,7 +41,7 @@
 
 	// Runs on page load to auto-enable posts to be tweeted
 	window.onload = function(event) {
-		if ( '' === adminAutoTweet.currentStatus ) {
+		if ( '' === adminTUAT.currentStatus ) {
 			handleRequest(event, true)
 		}
 	}
@@ -58,8 +58,8 @@
 				'action': 'tenup_auto_tweet',
 				'checked': status,
 				'value': $tweetPost.val(),
-				'nonce': adminAutoTweet.nonce,
-				'post_id': adminAutoTweet.postId,
+				'nonce': adminTUAT.nonce,
+				'post_id': adminTUAT.postId,
 				'text': $tweetText.val(),
 				'type': event.type
 			},
