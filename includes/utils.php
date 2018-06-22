@@ -42,7 +42,7 @@ function maybe_auto_tweet( int $id ) {
  */
 function get_auto_tweet_settings( $key = '' ) {
 
-	$settings = get_option( TenUp\Auto_Tweet\Core\Admin\AT_SETTINGS );
+	$settings = get_option(  \TenUp\Auto_Tweet\Core\Admin\AT_SETTINGS );
 
 	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
 }
@@ -90,8 +90,9 @@ function compose_tweet_body( \WP_Post $post ) {
  */
 function date_from_twitter( $created_at ) {
 
+	$tz = ( ! empty( $tz = get_option( 'timezone_string' ) ) ) ? $tz : 'UTC';
 	$date = new \DateTime( $created_at, new \DateTimeZone( 'UTC' ) );
-	$date->setTimezone( new \DateTimeZone( get_option( 'timezone_string' ) ) );
+	$date->setTimezone( new \DateTimeZone( $tz ) );
 
 	return $date->format( 'Y-m-d @ g:iA' );
 }
