@@ -45,7 +45,7 @@ function register_settings() {
 
 	// Register the credential setting section
 	add_settings_section(
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		__( 'Twitter Credentials', 'tuat' ),
 		'',
 		'tenup-auto-tweet'
@@ -53,51 +53,51 @@ function register_settings() {
 
 	// API Key
 	add_settings_field(
-		'auto-tweet-api_key',
+		'tenup-auto-tweet-api_key',
 		__( 'API key', 'tuat' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'tenup-auto-tweet',
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		[ 'name' => 'api_key' ]
 	);
 
 	// API Secret
 	add_settings_field(
-		'auto-tweet-api_secret',
+		'tenup-auto-tweet-api_secret',
 		__( 'API secret', 'tuat' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'tenup-auto-tweet',
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		[ 'name' => 'api_secret' ]
 	);
 
 	// Access Token
 	add_settings_field(
-		'auto-tweet-access_token',
+		'tenup-auto-tweet-access_token',
 		__( 'Access token', 'tuat' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'tenup-auto-tweet',
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		[ 'name' => 'access_token' ]
 	);
 
 	// Access Secret
 	add_settings_field(
-		'auto-tweet-access_secret',
+		'tenup-auto-tweet-access_secret',
 		__( 'Access secret', 'tuat' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'tenup-auto-tweet',
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		[ 'name' => 'access_secret' ]
 	);
 
 	// Twitter Handle
 	add_settings_field(
-		'auto-tweet-twitter_handle',
+		'tenup-auto-tweet-twitter_handle',
 		__( 'Twitter handle', 'tuat' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'tenup-auto-tweet',
-		'auto-tweet-cred_section',
+		'tenup-auto-tweet-cred_section',
 		[ 'name' => 'twitter_handle' ]
 	);
 
