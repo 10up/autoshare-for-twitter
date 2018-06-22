@@ -40,7 +40,7 @@ function setup() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 10, 1 );
 	add_action( 'wp_ajax_tenup_auto_tweet', __NAMESPACE__ . '\ajax_save_tweet_meta' );
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
-	add_action( 'auto_tweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
+	add_action( 'tenup_auto_tweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
 }
 
@@ -151,8 +151,8 @@ function ajax_save_tweet_meta() {
 function save_tweet_meta( $post_id ) {
 
 	// Check check
-	if ( ! isset( $_POST['auto_tweet_meta_nonce'] ) ||
-	     ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['auto_tweet_meta_nonce'] ) ), 'auto_tweet_meta_fields' ) ||
+	if ( ! isset( $_POST['tenup_auto_tweet_meta_nonce'] ) ||
+	     ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tenup_auto_tweet_meta_nonce'] ) ), 'tenup_auto_tweet_meta_fields' ) ||
 	     ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
 	     ! current_user_can( 'edit_post', $post_id )
 	) {
@@ -181,8 +181,8 @@ function save_tweet_meta( $post_id ) {
  */
 function tweet_submitbox_callback( $post ) {
 	?>
-	<div id="auto-tweet_metabox" class="misc-pub-section">
-		<?php do_action( 'auto_tweet_metabox', $post ); ?>
+	<div id="tenup-auto-tweet_metabox" class="misc-pub-section">
+		<?php do_action( 'tenup_auto_tweet_metabox', $post ); ?>
 	</div>
 	<?php
 }
@@ -231,7 +231,7 @@ function render_tweet_submitbox( $post ) {
 }
 
 /**
- * Outputs the markeup and languange to be used when a post has been succesfully
+ * Outputs the markeup and language to be used when a post has been successfully
  * sent to Twitter
  *
  * @param array $status_meta
@@ -253,7 +253,7 @@ function markup_published( $status_meta ) {
 }
 
 /**
- * Outputs the markeup and languange to be used when a post has had an error
+ * Outputs the markeup and language to be used when a post has had an error
  * when posting to Twitter
  *
  * @param array $status_meta
@@ -270,7 +270,7 @@ function markup_error( $status_meta ) {
 }
 
 /**
- * Outputs the markeup and languange to be used when a post NOT been auto-posted to Twitter.
+ * Outputs the markeup and language to be used when a post NOT been auto-posted to Twitter.
  * Also considered a fallback message of sorts.
  *
  * @param array $status_meta
@@ -288,7 +288,7 @@ function markup_unknown( $status_meta ) {
  */
 function markup_default() {
 
-	wp_nonce_field( 'auto_tweet_meta_fields', 'auto_tweet_meta_nonce' );
+	wp_nonce_field( 'tenup_auto_tweet_meta_fields', 'tenup_auto_tweet_meta_nonce' );
 	ob_start();
 	?>
 	<label for="tenup-auto-tweet-enable">
