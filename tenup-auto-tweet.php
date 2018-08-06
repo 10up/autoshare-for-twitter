@@ -22,13 +22,6 @@ define( 'TUAT_INC', TUAT_PATH . 'includes/' );
  */
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
-} else {
-	add_action( 'admin_notices', function() {
-		printf(
-			'<div class="error notice"><p>%s</p></div>',
-			__( 'The 10up Auto Tweet plugin requires composer to be installed. Please run `composer install` to get started.', 'tenup_auto_tweet' )
-		);
-	} );
 }
 
 // Include the main functionality
