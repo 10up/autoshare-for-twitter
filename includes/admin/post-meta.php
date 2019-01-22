@@ -109,7 +109,7 @@ function ajax_save_tweet_meta() {
 	}
 
 	// One more check to see if the user has permission to edit the post.
-	$post_id = sanitize_text_field( sanitize_key( wp_unslash( $_GET['post_id'] ) ) ); // Input var ok.
+	$post_id = (int) $_GET['post_id']; // Input var ok.
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		wp_send_json_error( array( 'message' => esc_html__( 'Permission denied.', 'tenup_auto_tweet' ) ) );
 	}
