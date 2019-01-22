@@ -213,7 +213,7 @@ class TwitterOAuthTest extends \PHPUnit_Framework_TestCase
         $parameters = ['status' => 'Hello World ' . time(), 'media_ids' => $result->media_id_string];
         $result = $this->twitter->post('statuses/update', $parameters);
         $this->assertEquals(200, $this->twitter->getLastHttpCode());
-        if ($this->twitter->getLastHttpCode() == 200) {
+        if ($this->twitter->getLastHttpCode() === 200) {
             $result = $this->twitter->post('statuses/destroy/' . $result->id_str);
         }
         return $result;

@@ -97,7 +97,7 @@
 	function updateRemainingField() {
 		var count = $tweetText.val().length;
 
-		counterWrap.innerHTML = '<span class="counter">' + count + '</span>';
+		$( counterWrap ).text( count );
 
 		// Toggle the .over-limit class.
 		if (limit < count) {
