@@ -76,7 +76,7 @@ function enqueue_scripts( $hook ) {
 	wp_enqueue_script(
 		'admin_tenup-auto-tweet',
 		TUAT_URL . '/assets/js/admin-auto_tweet.js',
-		[ 'jquery' ],
+		['jquery'],
 		TUAT_VERSION,
 		true
 	);
