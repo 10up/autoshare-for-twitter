@@ -1,7 +1,10 @@
 <?php
 /**
  * Handles the Admin settings
+ *
+ * @package TenUp\Auto_Tweet\Core
  */
+
 namespace TenUp\Auto_Tweet\Core\Admin;
 
 const AT_GROUP    = 'tenup-auto-tweet';
@@ -43,7 +46,7 @@ function register_settings() {
 
 	register_setting( AT_GROUP, AT_SETTINGS );
 
-	// Register the credential setting section
+	// Register the credential setting section.
 	add_settings_section(
 		'tenup-auto-tweet-cred_section',
 		__( 'Twitter Credentials', 'tuat' ),
@@ -51,7 +54,7 @@ function register_settings() {
 		'tenup-auto-tweet'
 	);
 
-	// API Key
+	// API Key.
 	add_settings_field(
 		'tenup-auto-tweet-api_key',
 		__( 'API key', 'tuat' ),
@@ -61,7 +64,7 @@ function register_settings() {
 		[ 'name' => 'api_key' ]
 	);
 
-	// API Secret
+	// API Secret.
 	add_settings_field(
 		'tenup-auto-tweet-api_secret',
 		__( 'API secret', 'tuat' ),
@@ -71,7 +74,7 @@ function register_settings() {
 		[ 'name' => 'api_secret' ]
 	);
 
-	// Access Token
+	// Access Token.
 	add_settings_field(
 		'tenup-auto-tweet-access_token',
 		__( 'Access token', 'tuat' ),
@@ -81,7 +84,7 @@ function register_settings() {
 		[ 'name' => 'access_token' ]
 	);
 
-	// Access Secret
+	// Access Secret.
 	add_settings_field(
 		'tenup-auto-tweet-access_secret',
 		__( 'Access secret', 'tuat' ),
@@ -91,7 +94,7 @@ function register_settings() {
 		[ 'name' => 'access_secret' ]
 	);
 
-	// Twitter Handle
+	// Twitter Handle.
 	add_settings_field(
 		'tenup-auto-tweet-twitter_handle',
 		__( 'Twitter handle', 'tuat' ),
@@ -106,7 +109,7 @@ function register_settings() {
 /**
  * Helper for ouputing a text field.
  *
- * @param array $args
+ * @param array $args The field arguments.
  *
  * @return void
  */
@@ -130,7 +133,7 @@ function options_page() {
 
 	?>
 	<div class="wrap">
-		<h1><?php _e( '10up Auto Tweet', 'tuat' ) ?></h1>
+		<h1><?php esc_html_e( '10up Auto Tweet', 'tuat' ); ?></h1>
 
 		<form action='options.php' method='post'>
 			<?php

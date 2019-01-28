@@ -6,6 +6,8 @@
  * Author:      10up
  * Author URI:  https://10up.com
  * License:     GPLv2 or later
+ *
+ * @package TenUp\Auto_Tweet
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,15 +20,16 @@ define( 'TUAT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TUAT_INC', TUAT_PATH . 'includes/' );
 
 /**
- * Composer check
+ * Composer check.
  */
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
+
 // Include the main functionality
-require_once( 'includes/core.php' );
-require_once( 'includes/utils.php' );
+require_once plugin_dir_path( __FILE__ ) . 'includes/core.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/utils.php';
 
 /**
  * Play nice with others.
