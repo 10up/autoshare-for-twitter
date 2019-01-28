@@ -2,7 +2,7 @@
 /**
  * Class to handle Tweet publishing.
  *
- * @package 10upautotweet
+ * @package TenUp\Auto_Tweet\Core
  */
 
 namespace TenUp\Auto_Tweet\Core\Publish_Tweet;

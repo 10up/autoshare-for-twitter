@@ -2,7 +2,7 @@
 /**
  * Handler for POSTing a status update to Twitter.
  *
- * @package 10upautotweet
+ * @package TenUp\Auto_Tweet\Core
  */
 
 namespace TenUp\Auto_Tweet\Core\Post_Transition;

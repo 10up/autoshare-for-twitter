@@ -7,7 +7,7 @@
  * Author URI:  https://10up.com
  * License:     GPLv2 or later
  *
- * @package 10upautotweet;
+ * @package TenUp\Auto_Tweet
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

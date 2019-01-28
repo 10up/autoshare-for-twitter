@@ -3,7 +3,7 @@
  * A place for everything, everything in its place doesn't apply here.
  * This file is for utility and helper functions.
  *
- * @package 10upautotweet
+ * @package TenUp\Auto_Tweet\Utils
  */
 
 namespace TenUp\Auto_Tweet\Utils;

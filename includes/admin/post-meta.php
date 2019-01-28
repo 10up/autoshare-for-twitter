@@ -2,7 +2,7 @@
 /**
  * Responsible for the registration and display of the metabox.
  *
- * @package tenupautotweet;
+ * @package TenUp\Auto_Tweet\Core
  */
 
 namespace TenUp\Auto_Tweet\Core\Post_Meta;
