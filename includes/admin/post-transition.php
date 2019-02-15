@@ -122,7 +122,7 @@ function validate_response( $response ) {
  * @param int    $post_id The post id.
  * @param object $data    The tweet request data.
  */
-function update_auto_tweet_meta( int $post_id, $data ) {
+function update_auto_tweet_meta( $post_id, $data ) {
 
 	// No errors, Tweet considered successful.
 	if ( ! is_wp_error( $data ) ) {
