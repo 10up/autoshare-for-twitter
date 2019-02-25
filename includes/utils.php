@@ -18,7 +18,7 @@ use TenUp\Auto_Tweet\Core\Post_Meta as Meta;
  *
  * @return mixed
  */
-function get_auto_tweet_meta( int $id, string $key ) {
+function get_auto_tweet_meta( $id, $key ) {
 
 	return get_post_meta( $id, Meta\META_PREFIX . '_' . $key, true );
 }
@@ -30,7 +30,7 @@ function get_auto_tweet_meta( int $id, string $key ) {
  *
  * @return bool
  */
-function maybe_auto_tweet( int $post_id ) {
+function maybe_auto_tweet( $post_id ) {
 
 	return ( '1' === get_auto_tweet_meta( $post_id, 'auto-tweet' ) ) ? true : false;
 }
@@ -123,7 +123,7 @@ function link_from_twitter( $post_id ) {
  *
  * @return bool
  */
-function already_published( int $post_id ) {
+function already_published( $post_id ) {
 
 	$twitter_status = get_auto_tweet_meta( $post_id, Meta\STATUS_KEY );
 
@@ -140,7 +140,7 @@ function already_published( int $post_id ) {
  *
  * @return string
  */
-function get_tweet_body( int $post_id ) {
+function get_tweet_body( $post_id ) {
 
 	$body = sanitize_text_field( get_the_title( $post_id ) );
 
