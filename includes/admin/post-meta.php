@@ -104,24 +104,24 @@ function ajax_save_tweet_meta() {
 
 	// Verify nonce.
 	if (
-		! isset( $_GET['nonce'] ) || // Input var ok.
-		! isset( $_GET['post_id'] ) || // Input var ok.
-		! isset( $_GET['checked'] ) || // Input var ok.
-		! isset( $_GET['text'] ) || // Input var ok.
-		! isset( $_GET['value'] ) || // Input var ok.
-		! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'admin_tenup-auto-tweet' ) ) { // Input var ok.
+		! isset( $_GET['nonce'] ) ||
+		! isset( $_GET['post_id'] ) ||
+		! isset( $_GET['checked'] ) ||
+		! isset( $_GET['text'] ) ||
+		! isset( $_GET['value'] ) ||
+		! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'admin_tenup-auto-tweet' ) ) {
 		wp_send_json_error( array( 'message' => esc_html__( 'Invalid request.', 'tenup_auto_tweet' ) ) );
 	}
 
 	// One more check to see if the user has permission to edit the post.
-	$post_id = (int) $_GET['post_id']; // Input var ok.
+	$post_id = (int) $_GET['post_id'];
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		wp_send_json_error( array( 'message' => esc_html__( 'Permission denied.', 'tenup_auto_tweet' ) ) );
 	}
 
 	// Santize values.
-	$checked_safe       = sanitize_text_field( wp_unslash( $_GET['checked'] ) ); // Input var ok.
-	$text_override_safe = sanitize_text_field( wp_unslash( $_GET['text'] ) ); // Input var ok.
+	$checked_safe       = sanitize_text_field( wp_unslash( $_GET['checked'] ) );
+	$text_override_safe = sanitize_text_field( wp_unslash( $_GET['text'] ) );
 
 	// Auto-tweet post.
 	if ( 'true' === $checked_safe ) {
@@ -133,11 +133,11 @@ function ajax_save_tweet_meta() {
 		);
 
 		delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY );
-		add_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, sanitize_text_field( wp_unslash( $_GET['value'] ) ) ); // Input var ok.
+		add_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, sanitize_text_field( wp_unslash( $_GET['value'] ) ) );
 		// If there's a manual tweet text.
 		if ( ! empty( $text_override_safe ) ) {
 			delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
-			add_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_GET['text'] ) ) ); // Input var ok.
+			add_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_GET['text'] ) ) );
 			$response['override'] = 'true';
 		} else {
 			delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
@@ -181,8 +181,8 @@ function save_tweet_meta( $post_id ) {
 
 	// Check check.
 	if (
-		! isset( $_POST['tenup_auto_tweet_meta_nonce'] ) || // Input var ok.
-		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tenup_auto_tweet_meta_nonce'] ) ), 'tenup_auto_tweet_meta_fields' ) || // Input var ok.
+		! isset( $_POST['tenup_auto_tweet_meta_nonce'] ) ||
+		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tenup_auto_tweet_meta_nonce'] ) ), 'tenup_auto_tweet_meta_fields' ) ||
 		( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
 		! current_user_can( 'edit_post', $post_id )
 	) {
@@ -190,15 +190,15 @@ function save_tweet_meta( $post_id ) {
 	}
 
 	// Auto-tweet post.
-	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet'] ) ) { // Input var ok.
-		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, (int) $_POST['tenup-auto-tweet']['auto-tweet'] ); // Input var ok.
+	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet'] ) ) {
+		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, (int) $_POST['tenup-auto-tweet']['auto-tweet'] );
 	} else {
 		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, 0 );
 	}
 
 	// Auto-tweet body.
-	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) { // Input var ok.
-		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) ); // Input var ok.
+	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) {
+		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) );
 	} else {
 		delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
 	}
