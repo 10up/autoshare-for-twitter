@@ -70,21 +70,26 @@ function enqueue_scripts( $hook ) {
 	}
 
 	// Enqueue the styles.
-	wp_enqueue_style( 'admin_tenup-auto-tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', TUAT_VERSION );
+	wp_enqueue_style( 'admin_tenup-auto-tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', [], TUAT_VERSION );
 
 	// Enqueue the JS.
 	wp_enqueue_script(
 		'admin_tenup-auto-tweet',
 		TUAT_URL . '/assets/js/admin-auto_tweet.js',
-		['jquery'],
+		[ 'jquery' ],
 		TUAT_VERSION,
 		true
 	);
 
+	$post_id = get_the_ID();
+	if ( empty( $post_id ) ) {
+		$post_id = filter_input( INPUT_GET, 'post', FILTER_VALIDATE_INT );
+	}
+
 	// Pass some useful info to our script.
 	$localization = array(
 		'nonce'         => wp_create_nonce( 'admin_tenup-auto-tweet' ),
-		'postId'        => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ), // Input var ok. CSRF ok.
+		'postId'        => $post_id ? $post_id : 0,
 		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true ),
 	);
 	wp_localize_script( 'admin_tenup-auto-tweet', 'adminTUAT', $localization );
@@ -261,7 +266,7 @@ function render_tweet_submitbox( $post ) {
 
 		// Default output.
 	} else {
-		echo _safe_markup_default(); // XSS ok.
+		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 }
