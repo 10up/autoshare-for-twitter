@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<ruleset name="10up-autotweet">
+	<description>Extension of the 10up-Default</description>
+	<rule ref="10up-Default"></rule>
+</ruleset>

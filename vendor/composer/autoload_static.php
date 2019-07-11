@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitc18fd9b0b488cee5f9a73f3d076958a8
 {
     public static $prefixLengthsPsr4 = array (
+        'D' => 
+        array (
+            'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
+        ),
         'A' => 
         array (
             'Abraham\\TwitterOAuth\\' => 21,
@@ -14,6 +18,10 @@ class ComposerStaticInitc18fd9b0b488cee5f9a73f3d076958a8
     );
 
     public static $prefixDirsPsr4 = array (
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
+        ),
         'Abraham\\TwitterOAuth\\' => 
         array (
             0 => __DIR__ . '/..' . '/abraham/twitteroauth/src',

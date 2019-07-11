@@ -16,5 +16,14 @@
     ],
     "require": {
         "abraham/twitteroauth": "^0.7.4"
-    }
+    },
+    "require-dev": {
+        "10up/phpcs-composer": "dev-master"
+    },
+    "scripts": {
+        "lint": "./vendor/bin/phpcs .",
+        "lint-fix": "./vendor/bin/phpcbf ."
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
