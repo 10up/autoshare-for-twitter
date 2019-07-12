@@ -21,7 +21,7 @@
         "10up/phpcs-composer": "dev-master"
     },
     "scripts": {
-        "lint": "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s",
+        "lint": "./vendor/bin/phpcs --extensions=php --severity=3 -s .",
         "lint-fix": "./vendor/bin/phpcbf ."
     }
 }
