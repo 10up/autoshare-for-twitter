@@ -154,6 +154,16 @@ function get_tweet_body( $post_id ) {
 }
 
 /**
+ * Provides the name of post type support feature for opting into plugin functionality.
+ *
+ * @since 2.0.0
+ * @return string Post type support feature name.
+ */
+function post_type_support_feature_name() {
+	return apply_filters( 'tenup_autotweet_post_type_support_feature_name', 'tenup-auto-tweet' );
+}
+
+/**
  * Wrapper for post_type_supports.
  *
  * @param int $post_id The post id to check.
@@ -161,5 +171,5 @@ function get_tweet_body( $post_id ) {
  * @return bool true if the current post type supports auto-tweet.
  */
 function opted_into_auto_tweet( $post_id ) {
-	return ( true === post_type_supports( get_post_type( (int) $post_id ), 'tenup-auto-tweet' ) ) ? true : false;
+	return post_type_supports( get_post_type( (int) $post_id ), post_type_support_feature_name() );
 }
