@@ -23,7 +23,5 @@
     "scripts": {
         "lint": "./vendor/bin/phpcs .",
         "lint-fix": "./vendor/bin/phpcbf ."
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
