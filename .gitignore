@@ -1,4 +1,2 @@
 .DS_Store
-vendor/*
-!vendor/composer
-!vendor/abraham
+vendor
