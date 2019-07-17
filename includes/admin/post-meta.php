@@ -81,15 +81,10 @@ function enqueue_scripts( $hook ) {
 		true
 	);
 
-	$post_id = get_the_ID();
-	if ( empty( $post_id ) ) {
-		$post_id = filter_input( INPUT_GET, 'post', FILTER_VALIDATE_INT );
-	}
-
 	// Pass some useful info to our script.
 	$localization = array(
 		'nonce'         => wp_create_nonce( 'admin_tenup-auto-tweet' ),
-		'postId'        => $post_id ? $post_id : 0,
+		'postId'        => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true ),
 	);
 	wp_localize_script( 'admin_tenup-auto-tweet', 'adminTUAT', $localization );
