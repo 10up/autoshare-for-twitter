@@ -9,7 +9,7 @@
 namespace TenUp\Auto_Tweet\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Auto_Tweet\Utils\{get_auto_tweet_meta, opted_into_auto_tweet};
+use function TenUp\Auto_Tweet\Utils\{get_auto_tweet_meta, opted_into_autotweet};
 use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
 
 /**
@@ -35,18 +35,18 @@ class TestUtils extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests the opted_into_auto_tweet function.
+	 * Tests the opted_into_autotweet function.
 	 *
 	 * @since 1.0.0
 	 */
-	public function test_opted_into_auto_tweet() {
+	public function test_opted_into_autotweet() {
 		$post = $this->factory->post->create();
 
-		$this->assertTrue( opted_into_auto_tweet( $post ) );
+		$this->assertTrue( opted_into_autotweet( $post ) );
 
 		$post_type = register_non_default_post_type();
 		$other_post = $this->factory->post->create( compact( 'post_type' ) );
 		
-		$this->assertFalse( opted_into_auto_tweet( $other_post ) );
+		$this->assertFalse( opted_into_autotweet( $other_post ) );
 	}
 }

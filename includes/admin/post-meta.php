@@ -65,7 +65,7 @@ function enqueue_scripts( $hook ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting.
 	 */
-	if ( ! Utils\opted_into_auto_tweet( get_the_ID() ) ) {
+	if ( ! Utils\opted_into_autotweet( get_the_ID() ) ) {
 		return;
 	}
 
@@ -211,7 +211,7 @@ function tweet_submitbox_callback( $post ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting.
 	 */
-	if ( ! Utils\opted_into_auto_tweet( $post->ID ) ) {
+	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
 	}
 

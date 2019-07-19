@@ -161,6 +161,6 @@ function get_tweet_body( $post_id ) {
  *
  * @return bool true if the current post type supports auto-tweet.
  */
-function opted_into_auto_tweet( $post_id ) {
+function opted_into_autotweet( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );
 }
