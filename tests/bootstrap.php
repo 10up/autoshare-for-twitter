@@ -26,6 +26,7 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function load_plugin() {
 	require_once dirname( __DIR__ ) . '/tenup-auto-tweet.php';
+	require_once __DIR__ . '/helpers.php';
 }
 tests_add_filter( 'muplugins_loaded', __NAMESPACE__ . '\load_plugin' );
 
