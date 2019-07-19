@@ -1,0 +1,29 @@
+{
+  "name": "@10up/autotweet",
+  "version": "1.0.0",
+  "description": "Automatically tweets a post title, URL, and optional description.",
+  "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.php": [
+      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/10up-auto-tweet.git"
+  },
+  "author": "10up",
+  "bugs": {
+    "url": "https://github.com/10up/10up-auto-tweet/issues"
+  },
+  "homepage": "https://github.com/10up/10up-auto-tweet#readme",
+  "devDependencies": {
+    "husky": "^3.0.0",
+    "lint-staged": "^9.2.0"
+  }
+}
