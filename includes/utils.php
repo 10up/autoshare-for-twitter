@@ -9,6 +9,7 @@
 namespace TenUp\Auto_Tweet\Utils;
 
 use TenUp\Auto_Tweet\Core\Post_Meta as Meta;
+use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
 
 /**
  * Helper/Wrapper function for returning the meta entries for auto-tweeting.
@@ -154,16 +155,6 @@ function get_tweet_body( $post_id ) {
 }
 
 /**
- * Provides the name of post type support feature for opting into plugin functionality.
- *
- * @since 2.0.0
- * @return string Post type support feature name.
- */
-function post_type_support_feature_name() {
-	return apply_filters( 'tenup_autotweet_post_type_support_feature_name', 'tenup-auto-tweet' );
-}
-
-/**
  * Wrapper for post_type_supports.
  *
  * @param int $post_id The post id to check.
@@ -171,5 +162,5 @@ function post_type_support_feature_name() {
  * @return bool true if the current post type supports auto-tweet.
  */
 function opted_into_auto_tweet( $post_id ) {
-	return post_type_supports( get_post_type( (int) $post_id ), post_type_support_feature_name() );
+	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );
 }

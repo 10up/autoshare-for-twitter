@@ -7,7 +7,7 @@
 
 namespace TenUp\Auto_Tweet\Core;
 
-use function TenUp\Auto_Tweet\Utils\post_type_support_feature_name;
+const POST_TYPE_SUPPORT_FEATURE = 'tenup-auto-tweet';
 
 /**
  * The main setup action.
@@ -51,6 +51,6 @@ function set_default_post_type_supports() {
 	$post_types_supported_by_default = apply_filters( 'tenup_autotweet_default_post_types', [ 'post', 'page' ] );
 
 	foreach ( (array) $post_types_supported_by_default as $post_type ) {
-		add_post_type_support( $post_type, post_type_support_feature_name() );
+		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );
 	}
 }
