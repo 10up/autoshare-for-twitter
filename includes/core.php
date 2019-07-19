@@ -15,6 +15,7 @@ const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
 function setup() {
 
 	// Includes and requires.
+	require_once 'admin/assets.php';
 	require_once 'admin/settings.php';
 	require_once 'admin/post-meta.php';
 	require_once 'admin/post-transition.php';
