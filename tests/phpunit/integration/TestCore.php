@@ -10,7 +10,6 @@ namespace TenUp\Auto_Tweet\Tests;
 
 use \WP_UnitTestCase;
 use function TenUp\Auto_Tweet\Core\set_default_post_type_supports;
-use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
 
 /**
  * TestCore class.
@@ -32,15 +31,15 @@ class TestCore extends WP_UnitTestCase {
 
 		// Test that the feature is not supported by default.
 		reset_post_type_support();
-		$this->assertFalse( post_type_supports( 'post', POST_TYPE_SUPPORT_FEATURE ) );
+		$this->assertFalse( post_type_supports( 'post', 'tenup-autotweet' ) );
 
 		// Test that posts and pages support the feature by default, but not other post types.
 		reset_post_type_support();
 		set_default_post_type_supports();
-		$this->assertTrue( post_type_supports( 'post', POST_TYPE_SUPPORT_FEATURE ) );
-		$this->assertTrue( post_type_supports( 'page', POST_TYPE_SUPPORT_FEATURE ) );
+		$this->assertTrue( post_type_supports( 'post', 'tenup-autotweet' ) );
+		$this->assertTrue( post_type_supports( 'page', 'tenup-autotweet' ) );
 	
-		$this->assertFalse( post_type_supports( $non_default_post_type, POST_TYPE_SUPPORT_FEATURE ) );
+		$this->assertFalse( post_type_supports( $non_default_post_type, 'tenup-autotweet' ) );
 
 		// Test that the default supported post types can be filtered.
 		reset_post_type_support();
@@ -50,9 +49,9 @@ class TestCore extends WP_UnitTestCase {
 		add_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
 
 		set_default_post_type_supports();
-		$this->assertFalse( post_type_supports( 'post', POST_TYPE_SUPPORT_FEATURE ) );
-		$this->assertFalse( post_type_supports( 'page', POST_TYPE_SUPPORT_FEATURE ) );
-		$this->assertTrue( post_type_supports( $non_default_post_type, POST_TYPE_SUPPORT_FEATURE ) );
+		$this->assertFalse( post_type_supports( 'post', 'tenup-autotweet' ) );
+		$this->assertFalse( post_type_supports( 'page', 'tenup-autotweet' ) );
+		$this->assertTrue( post_type_supports( $non_default_post_type, 'tenup-autotweet' ) );
 
 		// Clean up.
 		remove_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
