@@ -1,5 +1,5 @@
 {
-    "name": "10up Auto Tweet",
+    "name": "10up/autotweet",
     "description": "",
     "version": "0.1.0",
     "type": "wordpress-plugin",
@@ -16,5 +16,15 @@
     ],
     "require": {
         "abraham/twitteroauth": "^0.7.4"
+    },
+    "require-dev": {
+        "10up/phpcs-composer": "dev-master",
+        "phpunit/phpunit": "^7"
+    },
+    "scripts": {
+        "lint": "./vendor/bin/phpcs --extensions=php --severity=3 -s .",
+        "lint-fix": "./vendor/bin/phpcbf .",
+        "test": "phpunit",
+        "setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root password mysql latest"
     }
 }
