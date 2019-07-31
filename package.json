@@ -27,7 +27,7 @@
     "lint-staged": "^9.2.0"
   },
   "scripts": {
-	  "test": "./vendor/bin/phpunit",
+	  "test:phpunit": "./vendor/bin/phpunit",
 	  "lint": "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s *.php **/*.php",
 	  "lint:fix": "./vendor/bin/phpcbf"
   }
