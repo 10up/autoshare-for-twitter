@@ -26,7 +26,7 @@ function setup() {
 	 */
 	do_action( 'tenup_auto_tweet_setup' );
 
-	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports', 99 );
+	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
 }
 
 /**
