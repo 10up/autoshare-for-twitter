@@ -101,7 +101,7 @@ function update_post_autotweet_meta_permission_check( $request ) {
 	$id = $request['id'] ? $request['id'] : null;
 
 	if ( empty( $id ) ) {
-		$id = $request->get_attributes()['id'] ? $request->get_attributes()['id'] : null;
+		$id = isset( $request->get_attributes()['id'] ) ? $request->get_attributes()['id'] : null;
 	}
 
 	if ( ! is_int( $id ) || 1 > $id ) {
@@ -119,10 +119,10 @@ function update_post_autotweet_meta_permission_check( $request ) {
  * @return WP_REST_Response REST response with information about the current autotweet status.
  */
 function update_post_autotweet_meta( $request ) {
-	$id = $request['id'] ? $request['id'] : null;
+	$post_id = $request['id'] ? $request['id'] : null;
 
-	if ( empty( $id ) ) {
-		$post_id = $request->get_attributes()['id'] ? $request->get_attributes()['id'] : null;
+	if ( empty( $post_id ) ) {
+		$post_id = isset( $request->get_attributes()['id'] ) ? $request->get_attributes()['id'] : null;
 	}
 
 	$params = $request->get_params();
