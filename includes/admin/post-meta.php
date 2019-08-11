@@ -21,7 +21,7 @@ const META_PREFIX = 'tenup-autotweet';
 /**
  * Enable auto-tweet checkbox
  */
-const ENABLE_AUTOTWEET_KEY = 'enable_autotweet';
+const ENABLE_AUTOTWEET_KEY = 'enable-autotweet';
 
 /**
  * Holds the auto-tweet boddy
