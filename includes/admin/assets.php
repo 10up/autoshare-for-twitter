@@ -13,8 +13,6 @@ use const TenUp\Auto_Tweet\Core\Post_Meta\{META_PREFIX, TWEET_KEY};
 
 const SCRIPT_HANDLE = 'autotweet';
 
-add_action( 'tenup_auto_tweet_setup', __NAMESPACE__ . '\add_hook_callbacks' );
-
 /**
  * Adds WP hook callbacks.
  *

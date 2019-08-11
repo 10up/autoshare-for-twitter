@@ -21,6 +21,8 @@ function setup() {
 	require_once 'admin/post-transition.php';
 	require_once 'class-publish-tweet.php';
 
+	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
+
 	/**
 	 * Allow others to hook into the core setup action
 	 */
