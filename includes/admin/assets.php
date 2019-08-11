@@ -8,12 +8,11 @@
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
-use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
-use const TenUp\Auto_Tweet\Core\Post_Meta\{META_PREFIX, TWEET_KEY};
+use function TenUp\Auto_Tweet\Utils\{get_autotweet_meta, opted_into_autotweet};
+use const TenUp\Auto_Tweet\Core\Post_Meta\{ENABLE_AUTOTWEET_KEY, TWEET_BODY_KEY};
+use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
 const SCRIPT_HANDLE = 'autotweet';
-
-add_action( 'tenup_auto_tweet_setup', __NAMESPACE__ . '\add_hook_callbacks' );
 
 /**
  * Adds WP hook callbacks.
@@ -92,11 +91,19 @@ function enqueue_editor_assets() {
  * @param string $handle Handle of the JS script intended to consume the data.
  */
 function localize_data( $handle = SCRIPT_HANDLE ) {
+	$post_id = intval( get_the_ID() );
+
+	if ( empty( $post_id ) ) {
+		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:disable WordPress.Security.NonceVerification.Recommended
+	}
+
 	$localization = [
-		'nonce'         => wp_create_nonce( 'admin_tenup-auto-tweet' ),
-		'postId'        => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true ),
+		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
+		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
+		'nonce'              => wp_create_nonce( 'wp_rest' ),
+		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
+		'tweetBodyKey'       => TWEET_BODY_KEY,
 	];
 
-	wp_localize_script( $handle, 'adminTUAT', $localization );
+	wp_localize_script( $handle, 'adminAutotweet', $localization );
 }
