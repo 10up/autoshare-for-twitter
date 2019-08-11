@@ -9,7 +9,10 @@
 namespace TenUp\Auto_Tweet\Utils;
 
 use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
-use const TenUp\Auto_Tweet\Core\Post_Meta\{ENABLE_AUTOTWEET_KEY, META_PREFIX, TWEET_BODY_KEY, TWITTER_STATUS_KEY};
+use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
  * Helper/Wrapper function for returning the meta entries for auto-tweeting.

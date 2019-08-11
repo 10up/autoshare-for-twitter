@@ -10,7 +10,8 @@ namespace TenUp\Auto_Tweet\Core\Post_Transition;
 use TenUp\Auto_Tweet\Core\Publish_Tweet\Publish_Tweet;
 use TenUp\Auto_Tweet\Core\Post_Meta as Meta;
 use TenUp\Auto_Tweet\Utils as Utils;
-use function TenUp\Auto_Tweet\Utils\{delete_autotweet_meta, update_autotweet_meta};
+use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
+use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
 
 /**
  * Setup function.

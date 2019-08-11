@@ -10,8 +10,10 @@ namespace TenUp\AutoTweet\REST;
 
 use WP_REST_Response;
 use WP_REST_Server;
-use const TenUp\Auto_Tweet\Core\Post_Meta\{TWEET_BODY_KEY, ENABLE_AUTOTWEET_KEY};
-use function TenUp\Auto_Tweet\Utils\{delete_autotweet_meta, update_autotweet_meta};
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
+use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
 
 /**
  * The namespace for plugin REST endpoints.
