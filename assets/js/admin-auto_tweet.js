@@ -6,7 +6,7 @@
 ( function( $ ) {
 	'use strict';
 
-	const $tweetPost = $( '#tenup-auto-tweet-enable' ),
+	var $tweetPost = $( '#tenup-auto-tweet-enable' ),
 		$icon = $( '#tenup-auto-tweet-icon' ),
 		$tweetText = $( '#tenup-auto-tweet-text' ),
 		$editLink = $( '#tenup-auto-tweet-edit' ),
@@ -57,7 +57,7 @@
 	 * @param event
 	 */
 	function handleRequest( event, status = $tweetPost.prop( 'checked' ) ) {
-		const data = {};
+		var data = {};
 		data[adminAutotweet.enableAutotweetKey] = status;
 		data[adminAutotweet.tweetBodyKey] = $tweetText.val();
 
@@ -89,7 +89,7 @@
 	 * Updates the counter
 	 */
 	function updateRemainingField() {
-		const count = $tweetText.val().length;
+		var count = $tweetText.val().length;
 
 		$( counterWrap ).text( count );
 
