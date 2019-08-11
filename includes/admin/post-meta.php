@@ -79,7 +79,7 @@ function save_tweet_meta( $post_id ) {
 
 	// Auto-tweet body.
 	if ( isset( $_POST[ META_PREFIX ][ TWEET_BODY_KEY ] ) ) {
-		update_autotweet__meta(
+		update_autotweet_meta(
 			$post_id,
 			TWEET_BODY_KEY,
 			sanitize_text_field( wp_unslash( $_POST[ META_PREFIX ][ TWEET_BODY_KEY ] ) )
