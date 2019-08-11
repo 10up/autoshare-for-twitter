@@ -9,8 +9,12 @@
 namespace TenUp\AutoTweet\Admin\Assets;
 
 use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
-use const TenUp\Auto_Tweet\Core\Post_Meta\{META_PREFIX, TWEET_KEY};
+use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_KEY;
 
+/**
+ * The handle used in registering plugin assets.
+ */
 const SCRIPT_HANDLE = 'autotweet';
 
 /**
