@@ -23,6 +23,8 @@ function setup() {
 	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoTweet\REST\add_hook_callbacks();
 
+	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
+
 	/**
 	 * Allow others to hook into the core setup action
 	 */

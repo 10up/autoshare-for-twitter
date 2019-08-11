@@ -14,6 +14,9 @@ use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
 use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
 use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
+/**
+ * The handle used in registering plugin assets.
+ */
 const SCRIPT_HANDLE = 'autotweet';
 
 /**

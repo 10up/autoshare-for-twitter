@@ -4,7 +4,8 @@
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -wd",
-		"build": "webpack -p"
+		"build": "webpack -p",
+		"lint": "eslint src"
 	},
 	"husky": {
 		"hooks": {
@@ -33,7 +34,9 @@
 		"@babel/core": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-react": "^7.0.0",
+		"babel-eslint": "^10.0.2",
 		"babel-loader": "^8.0.6",
+		"eslint": "^6.1.0",
 		"husky": "^3.0.0",
 		"lint-staged": "^9.2.0",
 		"webpack": "^4.36.1",
