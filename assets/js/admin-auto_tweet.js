@@ -73,7 +73,7 @@
 			success: function( response ) {
 				// Remove the pending and enabled/disabled classes depending on AJAX response
 				$icon.removeClass( 'pending' );
-				if ( 'true' === response.enabled ) {
+				if ( true === response.enabled ) {
 					$icon.toggleClass( 'enabled' );
 					$tweetPost.prop( 'checked', true );
 				} else {
