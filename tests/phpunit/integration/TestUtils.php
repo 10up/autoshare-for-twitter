@@ -9,7 +9,7 @@
 namespace TenUp\Auto_Tweet\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Auto_Tweet\Utils\{get_auto_tweet_meta, opted_into_autotweet};
+use function TenUp\Auto_Tweet\Utils\{get_autotweet_meta, opted_into_autotweet, update_autotweet_meta, delete_autotweet_meta};
 use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
 
 /**
@@ -20,18 +20,44 @@ use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
 class TestUtils extends WP_UnitTestCase {
 
 	/**
-	 * Tests the get_auto_tweet_meta utility function.
+	 * Tests the get_autotweet_meta utility function.
 	 *
 	 * @since 1.0.0
 	 */
-	public function test_get_auto_tweet_meta() {
+	public function test_get_autotweet_meta() {
 		$post = $this->factory->post->create();
 
-		$this->assertEquals( null, get_auto_tweet_meta( $post, 'some-key' ) );
+		$this->assertEquals( null, get_autotweet_meta( $post, 'some-key' ) );
 
 		update_post_meta( $post, sprintf( '%s_%s', META_PREFIX, 'some-key' ), 'some-data' );
 
-		$this->assertEquals( 'some-data', get_auto_tweet_meta( $post, 'some-key' ) );
+		$this->assertEquals( 'some-data', get_autotweet_meta( $post, 'some-key' ) );
+	}
+
+	/**
+	 * Tests the update_autotweet_meta utility function.
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_update_autotweet_meta() {
+		$post = $this->factory->post->create();
+		update_autotweet_meta( $post, 'some-update-key', 1234 );
+
+		$this->assertEquals( 1234, get_post_meta( $post, sprintf( '%s_%s', META_PREFIX, 'some-update-key' ), true ) );
+	}
+
+	/**
+	 * Tests the delete_autotweet_meta utility function.
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_delete_autotweet_meta() {
+		$post = $this->factory->post->create();
+		update_post_meta( $post, sprintf( '%s_%s', META_PREFIX, 'some-delete-key' ), '4321' );
+
+		delete_autotweet_meta( $post, 'some-delete-key' );
+
+		$this->assertFalse( metadata_exists( 'post', $post, sprintf( '%s_%s', META_PREFIX, 'some-delete-key' ) ) );
 	}
 
 	/**

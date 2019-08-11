@@ -8,8 +8,8 @@
 
 namespace TenUp\Auto_Tweet\Utils;
 
-use TenUp\Auto_Tweet\Core\Post_Meta as Meta;
 use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\Auto_Tweet\Core\Post_Meta\{ENABLE_AUTOTWEET_KEY, META_PREFIX, TWEET_BODY_KEY, TWITTER_STATUS_KEY};
 
 /**
  * Helper/Wrapper function for returning the meta entries for auto-tweeting.
@@ -19,9 +19,31 @@ use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
  *
  * @return mixed
  */
-function get_auto_tweet_meta( $id, $key ) {
+function get_autotweet_meta( $id, $key ) {
+	return get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
+}
 
-	return get_post_meta( $id, Meta\META_PREFIX . '_' . $key, true );
+/**
+ * Updates autotweet-related post metadata by prefixing the passed key.
+ *
+ * @param int    $id Post ID.
+ * @param string $key Autotweet meta key.
+ * @param mixed  $value The meta value to save.
+ * @return mixed meta_id if the meta doesn't exist, otherwise returns true on success and false on failure.
+ */
+function update_autotweet_meta( $id, $key, $value ) {
+	return update_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), $value );
+}
+
+/**
+ * Deletes autotweet-related metadata.
+ *
+ * @param int    $id  The post ID.
+ * @param string $key The key of the meta value to delete.
+ * @return boolean False for failure. True for success.
+ */
+function delete_autotweet_meta( $id, $key ) {
+	return delete_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ) );
 }
 
 /**
@@ -32,8 +54,7 @@ function get_auto_tweet_meta( $id, $key ) {
  * @return bool
  */
 function maybe_auto_tweet( $post_id ) {
-
-	return ( '1' === get_auto_tweet_meta( $post_id, 'auto-tweet' ) ) ? true : false;
+	return ( '1' === get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ? true : false;
 }
 
 /**
@@ -126,7 +147,7 @@ function link_from_twitter( $post_id ) {
  */
 function already_published( $post_id ) {
 
-	$twitter_status = get_auto_tweet_meta( $post_id, Meta\STATUS_KEY );
+	$twitter_status = get_autotweet_meta( $post_id, TWITTER_STATUS_KEY );
 
 	if ( ! empty( $twitter_status ) ) {
 		return ( 'published' === $twitter_status['status'] ) ? true : false;
@@ -146,7 +167,7 @@ function get_tweet_body( $post_id ) {
 	$body = sanitize_text_field( get_the_title( $post_id ) );
 
 	// Only if.
-	$text_override = get_auto_tweet_meta( $post_id, Meta\TWEET_BODY );
+	$text_override = get_autotweet_meta( $post_id, TWEET_BODY_KEY );
 	if ( ! empty( $text_override ) ) {
 		$body = $text_override;
 	}
