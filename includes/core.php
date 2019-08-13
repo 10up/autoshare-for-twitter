@@ -15,10 +15,13 @@ const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
 function setup() {
 
 	// Includes and requires.
+	require_once 'admin/assets.php';
 	require_once 'admin/settings.php';
 	require_once 'admin/post-meta.php';
 	require_once 'admin/post-transition.php';
 	require_once 'class-publish-tweet.php';
+
+	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
 
 	/**
 	 * Allow others to hook into the core setup action
