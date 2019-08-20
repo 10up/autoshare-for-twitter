@@ -17,12 +17,12 @@ use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
 /**
  * The meta prefix that all meta related keys should have
  */
-const META_PREFIX = 'tenup-autotweet';
+const META_PREFIX = 'tenup-auto-tweet';
 
 /**
  * Enable auto-tweet checkbox
  */
-const ENABLE_AUTOTWEET_KEY = 'enable-autotweet';
+const ENABLE_AUTOTWEET_KEY = 'auto-tweet';
 
 /**
  * Holds the auto-tweet boddy
