@@ -49,11 +49,40 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		return;
 	}
 
+	$api_fetch_handle = 'wp-api-fetch';
+	if ( ! wp_script_is( $api_fetch_handle, 'registered' ) ) {
+		wp_register_script(
+			$api_fetch_handle,
+			trailingslashit( TUAT_URL ) . 'dist/api-fetch.js',
+			[],
+			'3.4.0',
+			true
+		);
+
+		wp_add_inline_script(
+			$api_fetch_handle,
+			sprintf(
+				'wp.apiFetch.use( wp.apiFetch.createNonceMiddleware( "%s" ) );',
+				( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' )
+			),
+			'after'
+		);
+
+		wp_add_inline_script(
+			$api_fetch_handle,
+			sprintf(
+				'wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "%s" ) );',
+				esc_url_raw( get_rest_url() )
+			),
+			'after'
+		);
+	}
+
 	$handle = 'admin_tenup-auto-tweet';
 	wp_enqueue_script(
 		$handle,
 		trailingslashit( TUAT_URL ) . 'assets/js/admin-auto_tweet.js',
-		[ 'jquery' ],
+		[ 'jquery', 'wp-api-fetch' ],
 		TUAT_VERSION,
 		true
 	);

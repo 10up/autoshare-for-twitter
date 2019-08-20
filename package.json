@@ -41,5 +41,8 @@
 		"lint-staged": "^9.2.0",
 		"webpack": "^4.36.1",
 		"webpack-cli": "^3.3.6"
+	},
+	"dependencies": {
+		"@wordpress/api-fetch": "^3.4.0"
 	}
 }

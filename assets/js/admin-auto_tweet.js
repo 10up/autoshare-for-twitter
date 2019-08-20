@@ -61,17 +61,14 @@
 		data[adminAutotweet.enableAutotweetKey] = status;
 		data[adminAutotweet.tweetBodyKey] = $tweetText.val();
 
-		// Process AJAX action.
-		$.ajax( adminAutotweet.restUrl, {
-			beforeSend: function( xhr ) {
-				pendingStatus();
-				xhr.setRequestHeader( 'X-WP-Nonce', adminAutotweet.nonce );
-			},
-			data: data,
-			dataType: 'json',
-			error: onRequestFail,
-			success: function( response ) {
-				// Remove the pending and enabled/disabled classes depending on AJAX response
+		wp.apiFetch(
+			{
+				url: adminAutotweet.restUrl,
+				data: data,
+				method: 'POST',
+			}
+		).then(
+			function( response ) {
 				$icon.removeClass( 'pending' );
 				if ( true === response.enabled ) {
 					$icon.toggleClass( 'enabled' );
@@ -80,9 +77,8 @@
 					$icon.toggleClass( 'disabled' );
 					$tweetPost.prop( 'checked', false );
 				}
-			},
-			type: 'POST',
-		} );
+			}
+		).catch( onRequestFail );
 	}
 
 	/**
