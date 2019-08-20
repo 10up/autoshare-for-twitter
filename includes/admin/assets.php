@@ -128,7 +128,9 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$post_id = intval( get_the_ID() );
 
 	if ( empty( $post_id ) ) {
-		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$post_id = intval(
+			filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT )  // Filter removes all characters except digits.
+		);
 	}
 
 	$localization = [
