@@ -70,7 +70,7 @@
 		).then(
 			function( response ) {
 				$icon.removeClass( 'pending' );
-				if ( true === response.enabled ) {
+				if ( response.enabled ) {
 					$icon.toggleClass( 'enabled' );
 					$tweetPost.prop( 'checked', true );
 				} else {
