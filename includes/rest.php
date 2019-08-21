@@ -119,6 +119,7 @@ function update_post_autotweet_meta( $request ) {
 
 	save_autotweet_meta_data( $request['id'], $params );
 
+	return new \WP_REST_Response( null, 400 );
 	return rest_ensure_response(
 		[
 			'enabled'  => $params[ ENABLE_AUTOTWEET_KEY ],

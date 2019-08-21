@@ -136,9 +136,11 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$localization = [
 		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
 		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
+		'errorText'          => __( 'Error', 'autotweet' ),
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
 		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
+		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
 	];
 
 	wp_localize_script( $handle, 'adminAutotweet', $localization );
