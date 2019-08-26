@@ -16,4 +16,4 @@ Thank you to all the people who have already contributed to this repository via 
 
 The following software libraries are utilized in this repository.
 
-TBD
+[TwitterOAuth](https://twitteroauth.com/) by [Abraham Williams](https://github.com/abraham) and licensed [MIT](https://github.com/abraham/twitteroauth/blob/master/LICENSE.md).
