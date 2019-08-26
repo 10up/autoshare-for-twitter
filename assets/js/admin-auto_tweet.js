@@ -12,6 +12,7 @@
 		$editLink = $( '#tenup-auto-tweet-edit' ),
 		$editBody = $( '#tenup-auto-tweet-override-body' ),
 		$hideLink = $( '.cancel-tweet-text' ),
+		errorMessageContainer = document.getElementById( 'tenup-autotweet-error-message' ),
 		counterWrap = document.getElementById( 'tenup-auto-tweet-counter-wrap' ),
 		limit = 280;
 
@@ -47,7 +48,16 @@
 	/**
 	 * Callback for failed requests.
 	 */
-	function onRequestFail() {
+	function onRequestFail( error ) {
+		var errorText = '';
+		if ( 'statusText' in error && 'status' in error ) {
+			errorText = adminAutotweet.errorText + ' ' + error.status + ': ' + error.statusText;
+		} else {
+			errorText = adminAutotweet.unkonwnErrorText;
+		}
+
+		errorMessageContainer.innerText = errorText;
+
 		$icon.removeClass( 'pending' );
 		$tweetPost.prop( 'checked', false );
 	}
@@ -66,11 +76,23 @@
 				url: adminAutotweet.restUrl,
 				data: data,
 				method: 'POST',
+				parse: false // We'll check the response for errors.
 			}
 		).then(
 			function( response ) {
+				if ( ! response.ok ) {
+					throw response;
+				}
+
+				return response.json();
+			}
+		)
+		.then(
+			function( data ) {
+				errorMessageContainer.innerText = '';
+
 				$icon.removeClass( 'pending' );
-				if ( true === response.enabled ) {
+				if ( data.enabled ) {
 					$icon.toggleClass( 'enabled' );
 					$tweetPost.prop( 'checked', true );
 				} else {

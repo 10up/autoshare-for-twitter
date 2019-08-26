@@ -56,36 +56,70 @@ function setup() {
  * @return void
  */
 function save_tweet_meta( $post_id ) {
-
-	// Check check.
-	if (
-		! isset( $_POST['tenup_auto_tweet_meta_nonce'] ) ||
-		! wp_verify_nonce(
-			sanitize_text_field( wp_unslash( $_POST['tenup_auto_tweet_meta_nonce'] ) ),
-			'tenup_auto_tweet_meta_fields'
-		) ||
-		( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
-		! current_user_can( 'edit_post', $post_id )
-	) {
+	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 
-	// Auto-tweet post.
-	if ( isset( $_POST[ META_PREFIX ][ ENABLE_AUTOTWEET_KEY ] ) ) {
-		update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, (int) $_POST[ META_PREFIX ][ ENABLE_AUTOTWEET_KEY ] );
-	} else {
-		update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, 0 );
+	$form_data = sanitize_autotweet_meta_data(
+		// Using FILTER_DEFAULT here as data is being passed to sanitize function.
+		filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY )
+	);
+
+	save_autotweet_meta_data( $post_id, $form_data );
+}
+
+/**
+ * Sanitizes autotweet-related fields passed while saving a post.
+ *
+ * @since 1.0.0
+ * @param array $data Form data.
+ * @return array Filtered form data.
+ */
+function sanitize_autotweet_meta_data( $data ) {
+	if ( empty( $data ) || ! is_array( $data ) ) {
+		return [];
 	}
 
-	// Auto-tweet body.
-	if ( isset( $_POST[ META_PREFIX ][ TWEET_BODY_KEY ] ) ) {
-		update_autotweet_meta(
-			$post_id,
-			TWEET_BODY_KEY,
-			sanitize_text_field( wp_unslash( $_POST[ META_PREFIX ][ TWEET_BODY_KEY ] ) )
-		);
-	} else {
-		delete_autotweet_meta( $post_id, TWEET_BODY_KEY );
+	$filtered_data = [];
+	foreach ( $data as $key => $value ) {
+		switch ( $key ) {
+			case ENABLE_AUTOTWEET_KEY:
+				$filtered_data[ $key ] = boolval( $value );
+				break;
+
+			case TWEET_BODY_KEY:
+				$filtered_data[ $key ] = sanitize_text_field( $value );
+		}
+	}
+
+	return $filtered_data;
+}
+
+/**
+ * Saves fields in an array of autotweet meta.
+ *
+ * @since 1.0.0
+ * @param int   $post_id WP_Post ID.
+ * @param array $data Associative array of data to save.
+ */
+function save_autotweet_meta_data( $post_id, $data ) {
+	if ( empty( $data ) || ! is_array( $data ) ) {
+		return;
+	}
+
+	foreach ( $data as $key => $value ) {
+		switch ( $key ) {
+			case ENABLE_AUTOTWEET_KEY:
+				update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, $value );
+				break;
+
+			case TWEET_BODY_KEY:
+				if ( ! empty( $value ) ) {
+					update_autotweet_meta( $post_id, TWEET_BODY_KEY, $value );
+				} else {
+					delete_autotweet_meta( $post_id, TWEET_BODY_KEY );
+				}
+		}
 	}
 }
 
@@ -243,6 +277,8 @@ function _safe_markup_default() {
 
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
 	</div>
+
+	<p id="tenup-autotweet-error-message"></p>
 
 	<?php
 	return ob_get_clean();

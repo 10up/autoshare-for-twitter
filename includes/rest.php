@@ -12,8 +12,8 @@ use WP_REST_Response;
 use WP_REST_Server;
 use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
-use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
+
+use function TenUp\Auto_Tweet\Core\Post_Meta\save_autotweet_meta_data;
 
 /**
  * The namespace for plugin REST endpoints.
@@ -60,19 +60,25 @@ function register_post_autotweet_meta_rest_route() {
 			'permission_callback' => __NAMESPACE__ . '\update_post_autotweet_meta_permission_check',
 			'args'                => [
 				'id'                 => [
-					'description' => __( 'Unique identifier for the object.', 'tenup_auto_tweet' ),
-					'required'    => true,
-					'type'        => 'integer',
+					'description'       => __( 'Unique identifier for the object.', 'tenup_auto_tweet' ),
+					'required'          => true,
+					'sanitize_callback' => 'absint',
+					'type'              => 'integer',
+					'validate_callback' => 'rest_validate_request_arg',
 				],
 				TWEET_BODY_KEY       => [
-					'description' => __( 'Tweet text, if overriding the default', 'tenup_auto_tweet' ),
-					'required'    => true,
-					'type'        => 'string',
+					'description'       => __( 'Tweet text, if overriding the default', 'tenup_auto_tweet' ),
+					'required'          => true,
+					'sanitize_callback' => 'sanitize_text_field',
+					'type'              => 'string',
+					'validate_callback' => 'rest_validate_request_arg',
 				],
 				ENABLE_AUTOTWEET_KEY => [
-					'description' => __( 'Whether autotweet is enabled for the current post', 'tenup_auto_tweet' ),
-					'required'    => true,
-					'type'        => 'boolean',
+					'description'       => __( 'Whether autotweet is enabled for the current post', 'tenup_auto_tweet' ),
+					'required'          => true,
+					'sanitize_callback' => 'absint',
+					'type'              => 'boolean',
+					'validate_callback' => 'rest_validate_request_arg',
 				],
 			],
 		]
@@ -98,17 +104,7 @@ function post_autotweet_meta_rest_route( $post_id ) {
  * @return boolean
  */
 function update_post_autotweet_meta_permission_check( $request ) {
-	$id = $request['id'] ? $request['id'] : null;
-
-	if ( empty( $id ) ) {
-		$id = isset( $request->get_attributes()['id'] ) ? $request->get_attributes()['id'] : null;
-	}
-
-	if ( ! is_int( $id ) || 1 > $id ) {
-		return false;
-	}
-
-	return current_user_can( 'edit_post', $id );
+	return current_user_can( 'edit_post', $request['id'] );
 }
 
 /**
@@ -119,28 +115,15 @@ function update_post_autotweet_meta_permission_check( $request ) {
  * @return WP_REST_Response REST response with information about the current autotweet status.
  */
 function update_post_autotweet_meta( $request ) {
-	$post_id = $request['id'] ? $request['id'] : null;
-
-	if ( empty( $post_id ) ) {
-		$post_id = isset( $request->get_attributes()['id'] ) ? $request->get_attributes()['id'] : null;
-	}
-
 	$params = $request->get_params();
 
-	$sanitized_tweet_body = trim( sanitize_text_field( wp_unslash( $params[ TWEET_BODY_KEY ] ) ) );
-	if ( ! empty( $sanitized_tweet_body ) ) {
-		update_autotweet_meta( $post_id, TWEET_BODY_KEY, $sanitized_tweet_body );
-	} else {
-		delete_autotweet_meta( $post_id, TWEET_BODY_KEY );
-	}
-
-	update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, $params[ ENABLE_AUTOTWEET_KEY ] );
+	save_autotweet_meta_data( $request['id'], $params );
 
 	return rest_ensure_response(
 		[
 			'enabled'  => $params[ ENABLE_AUTOTWEET_KEY ],
 			'message'  => __( 'Auto-tweet enabled.', 'tenup_auto_tweet' ),
-			'override' => ! empty( $sanitized_tweet_body ),
+			'override' => ! empty( $params[ TWEET_BODY_KEY ] ),
 		]
 	);
 }
