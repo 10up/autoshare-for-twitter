@@ -29,10 +29,10 @@ function get_autotweet_meta( $id, $key ) {
 /**
  * Updates autotweet-related post metadata by prefixing the passed key.
  *
- * @param int    $id Post ID.
- * @param string $key Autotweet meta key.
+ * @param int    $id    Post ID.
+ * @param string $key   Autotweet meta key.
  * @param mixed  $value The meta value to save.
- * @return mixed meta_id if the meta doesn't exist, otherwise returns true on success and false on failure.
+ * @return mixed The meta_id if the meta doesn't exist, otherwise returns true on success and false on failure.
  */
 function update_autotweet_meta( $id, $key, $value ) {
 	return update_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), $value );
