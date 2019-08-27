@@ -9,7 +9,6 @@ namespace TenUp\Auto_Tweet\Core\Publish_Tweet;
 
 use TenUp\Auto_Tweet\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
-use stdClass;
 
 /**
  * Publish tweets to twitter.
