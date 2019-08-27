@@ -51,7 +51,7 @@
 	function onRequestFail( error ) {
 		var errorText = '';
 		if ( 'statusText' in error && 'status' in error ) {
-			errorText = adminAutotweet.errorText + ' ' + error.status + ': ' + error.statusText;
+			errorText = `${adminAutotweet.errorText} ${error.status}: ${error.statusText}`;
 		} else {
 			errorText = adminAutotweet.unkonwnErrorText;
 		}
