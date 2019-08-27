@@ -9,6 +9,7 @@ namespace TenUp\Auto_Tweet\Core\Publish_Tweet;
 
 use TenUp\Auto_Tweet\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
+use stdClass;
 
 /**
  * Publish tweets to twitter.
@@ -101,7 +102,27 @@ class Publish_Tweet {
 		$update_data = array(
 			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
+		if ( has_post_thumbnail( $post ) ) {
+			$attachment_id = get_post_thumbnail_id( $post );
+			$file          = get_attached_file( $attachment_id );
+			$media_id      = $this->upload( $file );
+
+			if ( $media_id ) {
+				$update_data['media_ids'] = [ $media_id ];
+			}
+		}
+
+		/**
+		 * Filters data posted to Twitter.
+		 *
+		 * @see https://twitteroauth.com/
+		 * @see https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-statuses-update
+		 *
+		 * @param array   Data sent to the Twitter endpoint.
+		 * @param WP_Post The post associated with the tweet.
+		 */
 		$update_data = apply_filters( 'tenup_auto_tweet_tweet', $update_data, $post );
+
 		$this->client->setTimeouts( 10, 30 );
 		$response = $this->client->post(
 			'statuses/update',
@@ -115,15 +136,19 @@ class Publish_Tweet {
 	/**
 	 * Upload an image
 	 *
-	 * @param Object $image The image object.
+	 * @see https://developer.twitter.com/en/docs/media/upload-media/overview
 	 *
-	 * @return Object The upload result.
+	 * @param string $image Image file path.
+	 * @return int|null The Twitter ID for the uploaded image, or null on failure.
 	 */
 	public function upload( $image ) {
 		$response = $this->client->upload( 'media/upload', array( 'media' => $image ) );
 
-		return $response;
+		if ( is_object( $response ) && isset( $response->media_id ) ) {
+			return $response->media_id;
+		}
 
+		return null;
 	}
 
 }

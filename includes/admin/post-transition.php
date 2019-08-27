@@ -65,6 +65,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
 	 * One final check: was the "auto tweet" checkbox selected?
 	 */
 	if ( Utils\maybe_auto_tweet( $post->ID ) ) {
+
 		$tweet = Utils\compose_tweet_body( $post );
 
 		$publish          = new Publish_Tweet();
