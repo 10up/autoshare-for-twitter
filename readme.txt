@@ -18,14 +18,6 @@ Automatically tweets a post title, URL, and optional description.
 Does this plugin work with Gutenberg?
 Nope, not yet.
 
-== TODOs ==
-- Reevaluate storing the Twitter credentials in the database OR do a environment check. There's potential for a local environment tweeting publicly if using a copy of the production database.
-- Allow for post types to opt into/out of the auto-tweeting.
-- Remove jQuery dependency
-- Gutenberg compatibility
-- Remove composer dependencies from the repo
-
-
 == Changelog ==
 
 = 0.1.0 =
