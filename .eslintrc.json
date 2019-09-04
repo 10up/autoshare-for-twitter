@@ -1,0 +1,6 @@
+{
+	"globals": {
+		"wp": "readonly"
+	},
+	"extends": "@10up/eslint-config"
+}

@@ -41,7 +41,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
 	 */
-	if ( ! Utils\opted_into_auto_tweet( $post->ID ) ) {
+	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
 	}
 

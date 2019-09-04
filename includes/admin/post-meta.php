@@ -41,53 +41,10 @@ const STATUS_KEY = 'twitter-status';
  */
 function setup() {
 
-	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 10, 1 );
 	add_action( 'wp_ajax_tenup_auto_tweet', __NAMESPACE__ . '\ajax_save_tweet_meta' );
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
 	add_action( 'tenup_auto_tweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
-}
-
-/**
- * Enqueue the admin related JS.
- *
- * @param string $hook The $hook_suffix for the current admin page.
- *
- * @return void
- */
-function enqueue_scripts( $hook ) {
-
-	// Only enqueue the JS on the edit post pages.
-	if ( ! in_array( $hook, array( 'post-new.php', 'post.php' ), true ) ) {
-		return;
-	}
-
-	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting.
-	 */
-	if ( ! Utils\opted_into_auto_tweet( get_the_ID() ) ) {
-		return;
-	}
-
-	// Enqueue the styles.
-	wp_enqueue_style( 'admin_tenup-auto-tweet', TUAT_URL . '/assets/css/admin-auto_tweet.css', [], TUAT_VERSION );
-
-	// Enqueue the JS.
-	wp_enqueue_script(
-		'admin_tenup-auto-tweet',
-		TUAT_URL . '/assets/js/admin-auto_tweet.js',
-		[ 'jquery' ],
-		TUAT_VERSION,
-		true
-	);
-
-	// Pass some useful info to our script.
-	$localization = array(
-		'nonce'         => wp_create_nonce( 'admin_tenup-auto-tweet' ),
-		'postId'        => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true ),
-	);
-	wp_localize_script( 'admin_tenup-auto-tweet', 'adminTUAT', $localization );
 }
 
 /**
@@ -211,7 +168,7 @@ function tweet_submitbox_callback( $post ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting.
 	 */
-	if ( ! Utils\opted_into_auto_tweet( $post->ID ) ) {
+	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
 	}
 
