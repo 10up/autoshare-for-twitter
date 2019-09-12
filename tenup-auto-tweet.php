@@ -1,11 +1,14 @@
 <?php
 /**
- * Plugin Name: 10up Auto Tweet
- * Description: Adds the ability to automatically publish a status update to Twitter.
- * Version:     0.1.0
- * Author:      10up
- * Author URI:  https://10up.com
- * License:     GPLv2 or later
+ * Plugin Name:       10up Auto Tweet
+ * Description:       Adds the ability to automatically publish a status update to Twitter.
+ * Version:           0.1.0
+ * Requires at least: 5.0
+ * Requires PHP:      7.0
+ * Author:            10up
+ * Author URI:        https://10up.com
+ * License:           MIT
+ * License URI:       https://opensource.org/licenses/MIT
  *
  * @package TenUp\Auto_Tweet
  */
