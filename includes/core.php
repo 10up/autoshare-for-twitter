@@ -13,13 +13,15 @@ const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
  * The main setup action.
  */
 function setup() {
+	require_once plugin_dir_path( TUAT ) . '/includes/admin/assets.php';
+	require_once plugin_dir_path( TUAT ) . '/includes/admin/settings.php';
+	require_once plugin_dir_path( TUAT ) . '/includes/admin/post-meta.php';
+	require_once plugin_dir_path( TUAT ) . '/includes/admin/post-transition.php';
+	require_once plugin_dir_path( TUAT ) . '/includes/class-publish-tweet.php';
+	require_once plugin_dir_path( TUAT ) . '/includes/rest.php';
 
-	// Includes and requires.
-	require_once 'admin/assets.php';
-	require_once 'admin/settings.php';
-	require_once 'admin/post-meta.php';
-	require_once 'admin/post-transition.php';
-	require_once 'class-publish-tweet.php';
+	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
+	\TenUp\AutoTweet\REST\add_hook_callbacks();
 
 	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
 
