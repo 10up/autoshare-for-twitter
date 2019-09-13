@@ -8,6 +8,11 @@
 
 **NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
+## Requirements
+
+* PHP 7.0+
+* [WordPress](http://wordpress.org) 4.7+
+
 ## Installation
 1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
