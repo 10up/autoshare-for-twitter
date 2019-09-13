@@ -3,7 +3,7 @@
  * Plugin Name:       10up Auto Tweet
  * Description:       Adds the ability to automatically publish a status update to Twitter.
  * Version:           0.1.0
- * Requires at least: 5.0
+ * Requires at least: 4.7
  * Requires PHP:      7.0
  * Author:            10up
  * Author URI:        https://10up.com
