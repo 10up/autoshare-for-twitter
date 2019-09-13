@@ -11,6 +11,8 @@ namespace TenUp\Auto_Tweet\Core\Post_Meta;
  * Aliases
  */
 use TenUp\Auto_Tweet\Utils as Utils;
+use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
+use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
 
 /**
  * The meta prefix that all meta related keys should have
@@ -20,19 +22,19 @@ const META_PREFIX = 'tenup-auto-tweet';
 /**
  * Enable auto-tweet checkbox
  */
-const TWEET_KEY = 'auto-tweet';
+const ENABLE_AUTOTWEET_KEY = 'auto-tweet';
 
 /**
  * Holds the auto-tweet boddy
  */
-const TWEET_BODY = 'tweet-body';
+const TWEET_BODY_KEY = 'tweet-body';
 
 /**
  * Holds the formatted response object from Twitter.
  *
  * @see post-transition.php
  */
-const STATUS_KEY = 'twitter-status';
+const TWITTER_STATUS_KEY = 'twitter-status';
 
 /**
  * The setup function
@@ -40,85 +42,9 @@ const STATUS_KEY = 'twitter-status';
  * @return void
  */
 function setup() {
-
-	add_action( 'wp_ajax_tenup_auto_tweet', __NAMESPACE__ . '\ajax_save_tweet_meta' );
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
 	add_action( 'tenup_auto_tweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
-}
-
-/**
- * AJAX save and response handler for our auto-tweet checkbox.
- *
- * @return void
- */
-function ajax_save_tweet_meta() {
-
-	// Verify nonce.
-	if (
-		! isset( $_GET['nonce'] ) ||
-		! isset( $_GET['post_id'] ) ||
-		! isset( $_GET['checked'] ) ||
-		! isset( $_GET['text'] ) ||
-		! isset( $_GET['value'] ) ||
-		! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'admin_tenup-auto-tweet' ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'Invalid request.', 'tenup_auto_tweet' ) ) );
-	}
-
-	// One more check to see if the user has permission to edit the post.
-	$post_id = (int) $_GET['post_id'];
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'Permission denied.', 'tenup_auto_tweet' ) ) );
-	}
-
-	// Santize values.
-	$checked_safe       = sanitize_text_field( wp_unslash( $_GET['checked'] ) );
-	$text_override_safe = sanitize_text_field( wp_unslash( $_GET['text'] ) );
-
-	// Auto-tweet post.
-	if ( 'true' === $checked_safe ) {
-
-		// Holds the response array.
-		$response = array(
-			'enabled' => 'true',
-			'message' => __( 'Auto-tweet enabled.', 'tenup_auto_tweet' ),
-		);
-
-		delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY );
-		add_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, sanitize_text_field( wp_unslash( $_GET['value'] ) ) );
-		// If there's a manual tweet text.
-		if ( ! empty( $text_override_safe ) ) {
-			delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
-			add_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_GET['text'] ) ) );
-			$response['override'] = 'true';
-		} else {
-			delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
-		}
-
-		wp_send_json_success( $response );
-
-		// Delete the value if the checkbox is empty.
-	} elseif ( 'false' === $checked_safe ) {
-		delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY );
-		add_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, 0 );
-
-		wp_send_json_success(
-			array(
-				'enabled' => 'false',
-				'message' => __( 'Auto-tweet disabled.', 'tenup_auto_tweet' ),
-			)
-		);
-
-		// Something happened during meta save or delete.
-	} else {
-		wp_send_json_error(
-			array(
-				'enabled' => 'false',
-				'message' => esc_html__( 'Unable to save auto-tweet status. Please try again.', 'tenup_auto_tweet' ),
-			)
-		);
-	}
-
 }
 
 /**
@@ -130,29 +56,70 @@ function ajax_save_tweet_meta() {
  * @return void
  */
 function save_tweet_meta( $post_id ) {
-
-	// Check check.
-	if (
-		! isset( $_POST['tenup_auto_tweet_meta_nonce'] ) ||
-		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tenup_auto_tweet_meta_nonce'] ) ), 'tenup_auto_tweet_meta_fields' ) ||
-		( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
-		! current_user_can( 'edit_post', $post_id )
-	) {
+	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 
-	// Auto-tweet post.
-	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet'] ) ) {
-		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, (int) $_POST['tenup-auto-tweet']['auto-tweet'] );
-	} else {
-		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_KEY, 0 );
+	$form_data = sanitize_autotweet_meta_data(
+		// Using FILTER_DEFAULT here as data is being passed to sanitize function.
+		filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY )
+	);
+
+	save_autotweet_meta_data( $post_id, $form_data );
+}
+
+/**
+ * Sanitizes autotweet-related fields passed while saving a post.
+ *
+ * @since 1.0.0
+ * @param array $data Form data.
+ * @return array Filtered form data.
+ */
+function sanitize_autotweet_meta_data( $data ) {
+	if ( empty( $data ) || ! is_array( $data ) ) {
+		return [];
 	}
 
-	// Auto-tweet body.
-	if ( isset( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) {
-		update_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY, sanitize_text_field( wp_unslash( $_POST['tenup-auto-tweet']['auto-tweet-text'] ) ) );
-	} else {
-		delete_post_meta( $post_id, META_PREFIX . '_' . TWEET_BODY );
+	$filtered_data = [];
+	foreach ( $data as $key => $value ) {
+		switch ( $key ) {
+			case ENABLE_AUTOTWEET_KEY:
+				$filtered_data[ $key ] = boolval( $value );
+				break;
+
+			case TWEET_BODY_KEY:
+				$filtered_data[ $key ] = sanitize_text_field( $value );
+		}
+	}
+
+	return $filtered_data;
+}
+
+/**
+ * Saves fields in an array of autotweet meta.
+ *
+ * @since 1.0.0
+ * @param int   $post_id WP_Post ID.
+ * @param array $data Associative array of data to save.
+ */
+function save_autotweet_meta_data( $post_id, $data ) {
+	if ( empty( $data ) || ! is_array( $data ) ) {
+		return;
+	}
+
+	foreach ( $data as $key => $value ) {
+		switch ( $key ) {
+			case ENABLE_AUTOTWEET_KEY:
+				update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, $value );
+				break;
+
+			case TWEET_BODY_KEY:
+				if ( ! empty( $value ) ) {
+					update_autotweet_meta( $post_id, TWEET_BODY_KEY, $value );
+				} else {
+					delete_autotweet_meta( $post_id, TWEET_BODY_KEY );
+				}
+		}
 	}
 }
 
@@ -193,7 +160,7 @@ function render_tweet_submitbox( $post ) {
 	// If the post is already published the output varies slightly.
 	if ( 'publish' === $post_status ) {
 
-		$twitter_status = Utils\get_auto_tweet_meta( get_the_ID(), STATUS_KEY );
+		$twitter_status = Utils\get_autotweet_meta( get_the_ID(), TWITTER_STATUS_KEY );
 		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
 		switch ( $status ) {
 
@@ -281,26 +248,36 @@ function markup_unknown( $status_meta ) {
  */
 function _safe_markup_default() {
 
-	wp_nonce_field( 'tenup_auto_tweet_meta_fields', 'tenup_auto_tweet_meta_nonce' );
 	ob_start();
 	?>
 	<label for="tenup-auto-tweet-enable">
-		<input type="checkbox" id="tenup-auto-tweet-enable"
-			name="tenup-auto-tweet[auto-tweet]" value="1" <?php checked( Utils\get_auto_tweet_meta( get_the_ID(), 'auto-tweet' ) ); ?>>
+		<input
+			type="checkbox"
+			id="tenup-auto-tweet-enable"
+			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOTWEET_KEY ) ); ?>"
+			value="1"
+			<?php checked( Utils\get_autotweet_meta( get_the_ID(), 'auto-tweet' ) ); ?>
+		>
 		<span id="tenup-auto-tweet-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'tenup_auto_tweet' ); ?>
 		<a href="#edit_tweet_text" id="tenup-auto-tweet-edit"><?php esc_html_e( 'Edit', 'tenup_auto_tweet' ); ?></a>
 	</label>
 
 	<div id="tenup-auto-tweet-override-body" style="display: none;">
-		<label for="tenup-auto-tweet[auto-tweet-text]">
+		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
 			<?php esc_html_e( 'Custom Message', 'tenup_auto_tweet' ); ?>:
 		</label>
 		<span id="tenup-auto-tweet-counter-wrap" class="alignright">0</span>
-		<textarea id="tenup-auto-tweet-text" name="tenup-auto-tweet[auto-tweet-text]" rows="3"><?php echo esc_textarea( Utils\get_auto_tweet_meta( get_the_ID(), TWEET_BODY ) ); ?></textarea>
+		<textarea
+			id="tenup-auto-tweet-text"
+			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
+			rows="3"
+		><?php echo esc_textarea( Utils\get_autotweet_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
 
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
 	</div>
+
+	<p id="tenup-autotweet-error-message"></p>
 
 	<?php
 	return ob_get_clean();

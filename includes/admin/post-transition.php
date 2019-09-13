@@ -10,6 +10,8 @@ namespace TenUp\Auto_Tweet\Core\Post_Transition;
 use TenUp\Auto_Tweet\Core\Publish_Tweet\Publish_Tweet;
 use TenUp\Auto_Tweet\Core\Post_Meta as Meta;
 use TenUp\Auto_Tweet\Utils as Utils;
+use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
+use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
 
 /**
  * Setup function.
@@ -157,8 +159,8 @@ function update_auto_tweet_meta( $post_id, $data ) {
 	 * Update the post meta entry that stores the response
 	 * and remove the "Auto-tweet this post" value as a double-check.
 	 */
-	update_post_meta( $post_id, Meta\META_PREFIX . '_' . Meta\STATUS_KEY, $response );
-	delete_post_meta( $post_id, Meta\META_PREFIX . '_' . Meta\TWEET_KEY );
+	update_autotweet_meta( $post_id, Meta\TWITTER_STATUS_KEY, $response );
+	delete_autotweet_meta( $post_id, Meta\ENABLE_AUTOTWEET_KEY );
 
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
