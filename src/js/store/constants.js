@@ -1,0 +1,5 @@
+export const SET_AUTOTWEET_ENABLED = 'SET_AUTOTWEET_ENABLED';
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
+export const SET_LOADED = 'SET_LOADED';
+export const SET_SAVING = 'SET_SAVING';
+export const SET_TWEET_TEXT = 'SET_TWEET_TEXT';

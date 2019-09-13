@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/js/AutotweetPrePublishPanel.js:67
+msgid "Tweet this post?"
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:80
+msgid "Cancel override."
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:80
+msgid "Override text."
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:92
+msgid "Enter tweet text."
+msgstr ""
+
+#: src/js/index.js:23
+msgid "Enabled"
+msgstr ""
+
+#: src/js/index.js:23
+msgid "Disabled"
+msgstr ""
+
+#: src/js/index.js:34
+msgid "Autotweet:"
+msgstr ""

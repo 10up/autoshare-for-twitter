@@ -8,10 +8,14 @@
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
+use function TenUp\Auto_Tweet\Utils\date_from_twitter;
 use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
+use function TenUp\Auto_Tweet\Utils\link_from_twitter;
 use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
 use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
 use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+
 use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
 /**
@@ -25,8 +29,23 @@ const SCRIPT_HANDLE = 'autotweet';
  * @since 1.0.0
  */
 function add_hook_callbacks() {
+	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_shared_assets' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_classic_editor_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
+}
+
+/**
+ * Enqueues assets shared by WP5.0 and classic editors.
+ *
+ * @since 1.0.0
+ */
+function enqueue_shared_assets() {
+	wp_enqueue_style(
+		'admin_tenup-auto-tweet',
+		trailingslashit( TUAT_URL ) . 'assets/css/admin-auto_tweet.css',
+		[],
+		TUAT_VERSION
+	);
 }
 
 /**
@@ -87,13 +106,6 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		true
 	);
 
-	wp_enqueue_style(
-		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/css/admin-auto_tweet.css',
-		[],
-		TUAT_VERSION
-	);
-
 	localize_data( $handle );
 }
 
@@ -110,7 +122,7 @@ function enqueue_editor_assets() {
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
 		trailingslashit( TUAT_URL ) . 'dist/autotweet.js',
-		[ 'wp-plugins', 'wp-edit-post' ],
+		[ 'wp-plugins', 'wp-edit-post', 'wp-data', 'wp-components', 'wp-compose' ],
 		TUAT_VERSION,
 		true
 	);
@@ -133,6 +145,8 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		);
 	}
 
+	$status_meta = get_autotweet_meta( $post_id, TWITTER_STATUS_KEY );
+
 	$localization = [
 		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
 		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
@@ -140,6 +154,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
 		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
+		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
 	];
 

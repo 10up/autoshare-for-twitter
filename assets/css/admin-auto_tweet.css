@@ -12,16 +12,37 @@
 	white-space: normal;
 }
 
-#tenup-auto-tweet-icon.pending {
+.autotweet-prepublish__checkbox-row {
+	display: flex;
+	margin-top: 0.75rem;
+	margin-bottom: 0.5rem;
+}
+
+.autotweet-prepublish__checkbox-row input[type=checkbox].components-checkbox-control__input {
+	margin-right: 0.5rem;
+}
+
+.autotweet-prepublish__override-row {
+	padding: 0.5rem 0;
+}
+
+.autotweet-prepublish__override-row .components-button {
+	margin-bottom: 1rem;
+}
+
+#tenup-auto-tweet-icon.pending,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.pending {
 	animation: fadeIn 1s infinite alternate;
 	color: #00aced;
 }
 
-#tenup-auto-tweet-icon.enabled {
+#tenup-auto-tweet-icon.enabled,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.enabled {
 	color: #00aced;
 }
 
-#tenup-auto-tweet-icon.disabled {
+#tenup-auto-tweet-icon.disabled,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.disabled {
 	color: #72777c;
 }
 
