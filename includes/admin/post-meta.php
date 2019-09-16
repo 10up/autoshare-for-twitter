@@ -17,7 +17,7 @@ use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
 /**
  * The meta prefix that all meta related keys should have
  */
-const META_PREFIX = 'tenup-auto-tweet';
+const META_PREFIX = 'autotweet';
 
 /**
  * Enable auto-tweet checkbox
@@ -140,7 +140,7 @@ function tweet_submitbox_callback( $post ) {
 	}
 
 	?>
-	<div id="tenup-auto-tweet_metabox" class="misc-pub-section">
+	<div id="autotweet_metabox" class="misc-pub-section">
 		<?php do_action( 'tenup_auto_tweet_metabox', $post ); ?>
 	</div>
 	<?php
@@ -250,26 +250,26 @@ function _safe_markup_default() {
 
 	ob_start();
 	?>
-	<label for="tenup-auto-tweet-enable">
+	<label for="autotweet-enable">
 		<input
 			type="checkbox"
-			id="tenup-auto-tweet-enable"
+			id="autotweet-enable"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOTWEET_KEY ) ); ?>"
 			value="1"
 			<?php checked( Utils\get_autotweet_meta( get_the_ID(), 'auto-tweet' ) ); ?>
 		>
-		<span id="tenup-auto-tweet-icon" class="dashicons-before dashicons-twitter"></span>
+		<span id="autotweet-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'tenup_auto_tweet' ); ?>
-		<a href="#edit_tweet_text" id="tenup-auto-tweet-edit"><?php esc_html_e( 'Edit', 'tenup_auto_tweet' ); ?></a>
+		<a href="#edit_tweet_text" id="autotweet-edit"><?php esc_html_e( 'Edit', 'tenup_auto_tweet' ); ?></a>
 	</label>
 
-	<div id="tenup-auto-tweet-override-body" style="display: none;">
+	<div id="autotweet-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
 			<?php esc_html_e( 'Custom Message', 'tenup_auto_tweet' ); ?>:
 		</label>
-		<span id="tenup-auto-tweet-counter-wrap" class="alignright">0</span>
+		<span id="autotweet-counter-wrap" class="alignright">0</span>
 		<textarea
-			id="tenup-auto-tweet-text"
+			id="autotweet-text"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
 			rows="3"
 		><?php echo esc_textarea( Utils\get_autotweet_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>

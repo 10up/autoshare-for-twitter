@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: 10up Auto Tweet
+ * Plugin Name: Autotweet
  * Description: Adds the ability to automatically publish a status update to Twitter.
  * Version:     0.1.0
  * Author:      10up
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'TUAT', __FILE__ );
+define( 'AUTOTWEET', __FILE__ );
 define( 'TUAT_VERSION', '0.1.0' );
 define( 'TUAT_URL', plugin_dir_url( __FILE__ ) );
 define( 'TUAT_PATH', plugin_dir_path( __FILE__ ) );

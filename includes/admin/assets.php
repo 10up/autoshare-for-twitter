@@ -78,7 +78,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		);
 	}
 
-	$handle = 'admin_tenup-auto-tweet';
+	$handle = 'admin_autotweet';
 	wp_enqueue_script(
 		$handle,
 		trailingslashit( TUAT_URL ) . 'assets/js/admin-auto_tweet.js',

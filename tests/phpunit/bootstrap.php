@@ -28,7 +28,7 @@ if ( false !== getenv( 'WP_TESTS_DIR' ) ) {
 }
 
 $GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/tenup-auto-tweet.php' ),
+	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/autotweet.php' ),
 );
 
 // Start up the WP testing environment.

@@ -1,19 +1,19 @@
 /**
- * Handles the 10up Auto Tweet JS.
+ * Handles the Autotweet JS.
  *
  * @todo soooo much dependency :facepalm:
  */
 ( function( $ ) {
 	'use strict';
 
-	var $tweetPost = $( '#tenup-auto-tweet-enable' ),
-		$icon = $( '#tenup-auto-tweet-icon' ),
-		$tweetText = $( '#tenup-auto-tweet-text' ),
-		$editLink = $( '#tenup-auto-tweet-edit' ),
-		$editBody = $( '#tenup-auto-tweet-override-body' ),
+	var $tweetPost = $( '#autotweet-enable' ),
+		$icon = $( '#autotweet-icon' ),
+		$tweetText = $( '#autotweet-text' ),
+		$editLink = $( '#autotweet-edit' ),
+		$editBody = $( '#autotweet-override-body' ),
 		$hideLink = $( '.cancel-tweet-text' ),
 		errorMessageContainer = document.getElementById( 'tenup-autotweet-error-message' ),
-		counterWrap = document.getElementById( 'tenup-auto-tweet-counter-wrap' ),
+		counterWrap = document.getElementById( 'autotweet-counter-wrap' ),
 		limit = 280;
 
 	// Add enabled class if checked
@@ -34,7 +34,7 @@
 	} );
 	$hideLink.on( 'click', function( e ) {
 		e.preventDefault();
-		$( '#tenup-auto-tweet-override-body' ).slideToggle();
+		$( '#autotweet-override-body' ).slideToggle();
 		$editLink.show();
 	} );
 
