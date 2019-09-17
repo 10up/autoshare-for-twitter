@@ -1,9 +1,8 @@
-const path = require('path');
+const path = require( 'path' );
 
 module.exports = {
 	entry: {
 		autotweet: './src/js/index.js',
-		'api-fetch': './src/js/externals/api-fetch'
 	},
 	module: {
 		rules: [
@@ -18,7 +17,7 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].js',
-		path: path.resolve('./dist'),
+		path: path.resolve( './dist' ),
 	},
 	externals: {
 		'admin-autotweet': 'adminAutotweet',
@@ -30,6 +29,6 @@ module.exports = {
 		'@wordpress/element': 'wp.element',
 		'@wordpress/i18n': 'wp.i18n',
 		'@wordpress/plugins': 'wp.plugins',
-		'lodash': 'lodash',
-	}
+		lodash: 'lodash',
+	},
 };

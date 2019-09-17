@@ -73,7 +73,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 			$api_fetch_handle,
 			trailingslashit( TUAT_URL ) . 'dist/api-fetch.js',
 			[],
-			'3.4.0',
+			'3.4.1',
 			true
 		);
 
