@@ -57,7 +57,7 @@ function delete_autotweet_meta( $id, $key ) {
  * @return bool
  */
 function maybe_auto_tweet( $post_id ) {
-	return ( '1' === get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ? true : false;
+	return ( 1 === intval( get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ) ? true : false;
 }
 
 /**

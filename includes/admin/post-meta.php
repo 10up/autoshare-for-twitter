@@ -248,7 +248,6 @@ function markup_unknown( $status_meta ) {
  */
 function _safe_markup_default() {
 
-	wp_nonce_field( 'tenup_auto_tweet_meta_fields', 'tenup_auto_tweet_meta_nonce' );
 	ob_start();
 	?>
 	<label for="tenup-auto-tweet-enable">

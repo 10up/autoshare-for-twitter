@@ -77,7 +77,7 @@ export function AutotweetPrePublishPanel( {
 					<Button isLink onClick={ () => {
 						setOverriding( ! overriding );
 					} }>
-						{ overriding ? __( 'Cancel override.', 'autotweet' ) : __( 'Override text.', 'autotweet' ) }
+						{ overriding ? __( 'Cancel', 'autotweet' ) : __( 'Edit', 'autotweet' ) }
 					</Button>
 
 					{ overriding && (

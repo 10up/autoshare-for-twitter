@@ -8,11 +8,11 @@ msgid "Tweet this post?"
 msgstr ""
 
 #: src/js/AutotweetPrePublishPanel.js:80
-msgid "Cancel override."
+msgid "Cancel"
 msgstr ""
 
 #: src/js/AutotweetPrePublishPanel.js:80
-msgid "Override text."
+msgid "Edit"
 msgstr ""
 
 #: src/js/AutotweetPrePublishPanel.js:92

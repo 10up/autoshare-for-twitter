@@ -76,7 +76,7 @@ class TestRest extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'enabled'  => true,
-				'message'  => 'Auto-tweet enabled.',
+				'message'  => 'Auto-tweet disabled.',
 				'override' => true,
 			],
 			$response->get_data()
