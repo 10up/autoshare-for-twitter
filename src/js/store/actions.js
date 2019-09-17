@@ -1,4 +1,12 @@
-import { SET_AUTOTWEET_ENABLED, SET_ERROR_MESSAGE, SET_TWEET_TEXT, SET_SAVING, SET_LOADED } from './constants';
+import {
+	SET_AUTOTWEET_ENABLED,
+	SET_ERROR_MESSAGE,
+	SET_TWEET_TEXT,
+	SET_SAVING,
+	SET_LOADED,
+	SET_OVERRIDING,
+	SET_OVERRIDE_LENGTH,
+} from './constants';
 
 export const setAutotweetEnabled = ( autotweetEnabled ) => ( {
 	type: SET_AUTOTWEET_ENABLED,
@@ -12,6 +20,16 @@ export const setErrorMessage = ( errorMessage ) => ( {
 
 export const setLoaded = () => ( {
 	type: SET_LOADED,
+} );
+
+export const setOverriding = ( overriding ) => ( {
+	type: SET_OVERRIDING,
+	overriding,
+} );
+
+export const setOverrideLength = ( overrideLength ) => ( {
+	type: SET_OVERRIDE_LENGTH,
+	overrideLength,
 } );
 
 export const setSaving = ( saving ) => ( {

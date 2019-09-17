@@ -9,9 +9,7 @@
 namespace TenUp\AutoTweet\Admin\Assets;
 
 use function TenUp\Auto_Tweet\Core\Post_Meta\get_tweet_status_message;
-use function TenUp\Auto_Tweet\Utils\date_from_twitter;
 use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
-use function TenUp\Auto_Tweet\Utils\link_from_twitter;
 use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
 use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
 use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
@@ -123,7 +121,16 @@ function enqueue_editor_assets() {
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
 		trailingslashit( TUAT_URL ) . 'dist/autotweet.js',
-		[ 'wp-plugins', 'wp-edit-post', 'wp-data', 'wp-components', 'wp-compose' ],
+		[
+			'lodash',
+			'wp-components',
+			'wp-compose',
+			'wp-data',
+			'wp-edit-post',
+			'wp-element',
+			'wp-i18n',
+			'wp-plugins',
+		],
 		TUAT_VERSION,
 		true
 	);
@@ -156,7 +163,6 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
-		'statusMessage'      => get_tweet_status_message( $post_id ),
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
 	];
 

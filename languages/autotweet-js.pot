@@ -3,23 +3,23 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/js/AutotweetPostStatusInfo.js:14
+#: src/js/AutotweetPostStatusInfo.js:16
 msgid "View"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:110
+#: src/js/AutotweetPrePublishPanel.js:106
 msgid "Hide"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:110
+#: src/js/AutotweetPrePublishPanel.js:106
 msgid "Edit"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:71
+#: src/js/AutotweetPrePublishPanel.js:70
 msgid "Tweet this post?"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:98
+#: src/js/AutotweetPrePublishPanel.js:93
 msgid "Custom message:"
 msgstr ""
 

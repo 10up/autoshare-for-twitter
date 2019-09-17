@@ -2,7 +2,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { Button, CheckboxControl, Dashicon, TextareaControl } from '@wordpress/components';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { debounce } from 'lodash';
 import { enableAutotweetKey, restUrl, tweetBodyKey } from 'admin-autotweet';
 import { __ } from '@wordpress/i18n';
@@ -12,16 +12,17 @@ import { STORE } from './store';
 export function AutotweetPrePublishPanel( {
 	autotweetEnabled,
 	errorMessage,
+	overriding,
+	overrideLength,
 	saving,
 	setAutotweetEnabled,
 	setErrorMessage,
+	setOverriding,
+	setOverrideLength,
 	setSaving,
 	setTweetText,
 	tweetText,
 } ) {
-	const [ overriding, setOverriding ] = useState( false );
-	const [ overrideLength, setOverrideLength ] = useState( 0 );
-
 	const saveData = debounce( async () => {
 		const body = {};
 		body[ enableAutotweetKey ] = autotweetEnabled;
@@ -61,17 +62,13 @@ export function AutotweetPrePublishPanel( {
 	return (
 		<>
 			<div className="autotweet-prepublish__checkbox-row">
-
 				<CheckboxControl
 					className="autotweet-prepublish__checkbox"
 					label={
-						(
-							<span className="autotweet-prepublish__checkbox-label">
-								<Dashicon icon="twitter" className={ twitterIconClass() } />
-								{ __( 'Tweet this post?', 'autotweet' ) }
-							</span>
-
-						)
+						<span className="autotweet-prepublish__checkbox-label">
+							<Dashicon icon="twitter" className={ twitterIconClass() } />
+							{ __( 'Tweet this post?', 'autotweet' ) }
+						</span>
 					}
 					checked={ autotweetEnabled }
 					onChange={ ( checked ) => {
@@ -82,31 +79,30 @@ export function AutotweetPrePublishPanel( {
 
 			{ autotweetEnabled && (
 				<div className="autotweet-prepublish__override-row">
-
 					{ overriding && (
-					<>
 						<TextareaControl
-							value={ tweetText } onChange={ ( value ) => {
+							value={ tweetText }
+							onChange={ ( value ) => {
 								if ( value.length <= 280 ) {
 									setTweetText( value );
 									setOverrideLength( value.length );
 								}
 							} }
 							label={
-								(
-									<span className="autotweet-prepublish__message-label">
-										<span>{ __( 'Custom message:', 'autotweet' ) }</span>
-										<span id="tenup-auto-tweet-counter-wrap">{ overrideLength }</span>
-									</span>
-								) }
+								<span className="autotweet-prepublish__message-label">
+									<span>{ __( 'Custom message:', 'autotweet' ) }</span>
+									<span id="tenup-auto-tweet-counter-wrap">{ overrideLength }</span>
+								</span>
+							}
 						/>
-
-					</>
 					) }
 
-					<Button isLink onClick={ () => {
-						setOverriding( ! overriding );
-					} }>
+					<Button
+						isLink
+						onClick={ () => {
+							setOverriding( ! overriding );
+						} }
+					>
 						{ overriding ? __( 'Hide', 'autotweet' ) : __( 'Edit', 'autotweet' ) }
 					</Button>
 				</div>
@@ -118,20 +114,20 @@ export function AutotweetPrePublishPanel( {
 }
 
 export default compose(
-	withSelect( ( select ) => {
-		return {
-			autotweetEnabled: select( STORE ).getAutotweetEnabled(),
-			errorMessage: select( STORE ).getErrorMessage(),
-			saving: select( STORE ).getSaving(),
-			tweetText: select( STORE ).getTweetText(),
-		};
-	} ),
-	withDispatch( ( dispatch ) => {
-		return {
-			setAutotweetEnabled: dispatch( STORE ).setAutotweetEnabled,
-			setErrorMessage: dispatch( STORE ).setErrorMessage,
-			setSaving: dispatch( STORE ).setSaving,
-			setTweetText: dispatch( STORE ).setTweetText,
-		};
-	} ),
+	withSelect( ( select ) => ( {
+		autotweetEnabled: select( STORE ).getAutotweetEnabled(),
+		errorMessage: select( STORE ).getErrorMessage(),
+		overriding: select( STORE ).getOverriding(),
+		overrideLength: select( STORE ).getOverrideLength(),
+		saving: select( STORE ).getSaving(),
+		tweetText: select( STORE ).getTweetText(),
+	} ) ),
+	withDispatch( ( dispatch ) => ( {
+		setAutotweetEnabled: dispatch( STORE ).setAutotweetEnabled,
+		setErrorMessage: dispatch( STORE ).setErrorMessage,
+		setOverriding: dispatch( STORE ).setOverriding,
+		setOverrideLength: dispatch( STORE ).setOverrideLength,
+		setSaving: dispatch( STORE ).setSaving,
+		setTweetText: dispatch( STORE ).setTweetText,
+	} ) ),
 )( AutotweetPrePublishPanel );

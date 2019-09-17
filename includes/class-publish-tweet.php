@@ -230,7 +230,6 @@ class Publish_Tweet {
 		if ( false === $attachment_id ) {
 			return null;
 		}
-
 		if ( is_null( $attachment_id ) && has_post_thumbnail( $post ) ) {
 			$attachment_id = get_post_thumbnail_id( $post );
 		}

@@ -19,26 +19,49 @@ use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
  * @return void
  */
 function setup() {
-	add_action( 'transition_post_status', __NAMESPACE__ . '\publish_tweet', 10, 3 );
+	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_add_save_post_hook', 10, 3 );
 }
 
 /**
- * Primary handler for the process of publishing to Twitter.
+ * Adds the save_post hook if a post is transitioning from unpublished to published.
  *
- * @param string   $new_status The new status.
- * @param string   $old_status The old status.
- * @param \WP_Post $post       The post object.
+ * The main Twitter publish action must run later than the transition_post_status hook because, when saving via REST,
+ * the post thumbnail and other metadata is not available at this point.
+ *
+ * @see  https://core.trac.wordpress.org/ticket/45114
+ *
+ * @since 1.0.0
+ *
+ * @param string  $new_status The new status.
+ * @param string  $old_status The old status.
+ * @param WP_Post $post       The current post.
  *
  * @return object
  */
-function publish_tweet( $new_status, $old_status, $post ) {
-
+function maybe_add_save_post_hook( $new_status, $old_status, $post ) {
 	/**
 	 * We're only interested in posts that are transitioning into publish.
 	 */
 	if ( 'publish' !== $new_status || 'publish' === $old_status ) {
 		return;
 	}
+
+	if ( defined( 'REST_REQUEST' ) && RESET_REQUEST ) {
+		add_action( sprintf( 'rest_after_insert_%s', $post->post_type ), __NAMESPACE__ . '\publish_tweet' );
+	} else {
+		publish_tweet( $post->ID );
+	}
+}
+
+/**
+ * Primary handler for the process of publishing to Twitter.
+ *
+ * @param int $post_id The current post ID.
+ *
+ * @return object
+ */
+function publish_tweet( $post_id ) {
+	$post = get_post( $post_id );
 
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
