@@ -46,7 +46,7 @@ function maybe_add_save_post_hook( $new_status, $old_status, $post ) {
 		return;
 	}
 
-	if ( defined( 'REST_REQUEST' ) && RESET_REQUEST ) {
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 		add_action( sprintf( 'rest_after_insert_%s', $post->post_type ), __NAMESPACE__ . '\publish_tweet' );
 	} else {
 		publish_tweet( $post->ID );
