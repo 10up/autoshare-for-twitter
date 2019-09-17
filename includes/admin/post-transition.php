@@ -25,10 +25,10 @@ function setup() {
 /**
  * Adds the save_post hook if a post is transitioning from unpublished to published.
  *
- * The main Twitter publish action must run later than the transition_post_status hook because, when saving via REST,
- * the post thumbnail and other metadata is not available at this point.
+ * In WP 5, the main Twitter publish action must run later than the transition_post_status hook because, when saving
+ * via REST, the post thumbnail and other metadata have not yet been saved.
  *
- * @see  https://core.trac.wordpress.org/ticket/45114
+ * @see https://core.trac.wordpress.org/ticket/45114
  *
  * @since 1.0.0
  *
