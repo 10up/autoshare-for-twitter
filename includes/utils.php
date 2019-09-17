@@ -23,7 +23,18 @@ use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
  * @return mixed
  */
 function get_autotweet_meta( $id, $key ) {
-	return get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
+	$data = get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
+
+	/**
+	 * Filters autotweet metadata.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed  Retrieved metadata.
+	 * @param int    Post ID.
+	 * @param string The meta key.
+	 */
+	return apply_filters( 'autotweet_meta', $data, $id, $key );
 }
 
 /**

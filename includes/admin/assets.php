@@ -8,6 +8,7 @@
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
+use function TenUp\Auto_Tweet\Core\Post_Meta\get_tweet_status_message;
 use function TenUp\Auto_Tweet\Utils\date_from_twitter;
 use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
 use function TenUp\Auto_Tweet\Utils\link_from_twitter;
@@ -155,6 +156,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
+		'statusMessage'      => get_tweet_status_message( $post_id ),
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
 	];
 

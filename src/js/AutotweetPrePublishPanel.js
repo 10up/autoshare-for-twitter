@@ -61,10 +61,18 @@ export function AutotweetPrePublishPanel( {
 	return (
 		<>
 			<div className="autotweet-prepublish__checkbox-row">
-				<Dashicon icon="twitter" className={ twitterIconClass() } />
+
 				<CheckboxControl
-					style={ { marginLeft: '1rem' } }
-					label={ __( 'Tweet this post?', 'autotweet' ) }
+					className="autotweet-prepublish__checkbox"
+					label={
+						(
+							<span className="autotweet-prepublish__checkbox-label">
+								<Dashicon icon="twitter" className={ twitterIconClass() } />
+								{ __( 'Tweet this post?', 'autotweet' ) }
+							</span>
+
+						)
+					}
 					checked={ autotweetEnabled }
 					onChange={ ( checked ) => {
 						setAutotweetEnabled( checked );
@@ -74,11 +82,6 @@ export function AutotweetPrePublishPanel( {
 
 			{ autotweetEnabled && (
 				<div className="autotweet-prepublish__override-row">
-					<Button isLink onClick={ () => {
-						setOverriding( ! overriding );
-					} }>
-						{ overriding ? __( 'Cancel', 'autotweet' ) : __( 'Edit', 'autotweet' ) }
-					</Button>
 
 					{ overriding && (
 					<>
@@ -89,12 +92,23 @@ export function AutotweetPrePublishPanel( {
 									setOverrideLength( value.length );
 								}
 							} }
-							label={ __( 'Enter tweet text.', 'autotweet' ) }
+							label={
+								(
+									<span className="autotweet-prepublish__message-label">
+										<span>{ __( 'Custom message:', 'autotweet' ) }</span>
+										<span id="tenup-auto-tweet-counter-wrap">{ overrideLength }</span>
+									</span>
+								) }
 						/>
-						<span id="tenup-auto-tweet-counter-wrap" className="alignright">{ overrideLength }</span>
+
 					</>
 					) }
 
+					<Button isLink onClick={ () => {
+						setOverriding( ! overriding );
+					} }>
+						{ overriding ? __( 'Hide', 'autotweet' ) : __( 'Edit', 'autotweet' ) }
+					</Button>
 				</div>
 			) }
 

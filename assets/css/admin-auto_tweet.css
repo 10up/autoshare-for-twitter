@@ -12,10 +12,22 @@
 	white-space: normal;
 }
 
-.autotweet-prepublish__checkbox-row {
+.autotweet-prepublish__checkbox .components-base-control__field, .autotweet-prepublish__checkbox-label { 
 	display: flex;
-	margin-top: 0.75rem;
-	margin-bottom: 0.5rem;
+	align-items: center;
+}
+
+.autotweet-prepublish__checkbox .components-base-control__field {
+	margin-top: 0.5rem;
+}
+
+.autotweet-prepublish__checkbox-label svg {
+	margin-right: 0.5rem;
+}
+
+.autotweet-prepublish__message-label {
+	display: flex;
+	justify-content: space-between;
 }
 
 .autotweet-prepublish__checkbox-row input[type=checkbox].components-checkbox-control__input {
@@ -28,6 +40,15 @@
 
 .autotweet-prepublish__override-row .components-button {
 	margin-bottom: 1rem;
+}
+
+.autotweet-post-status {
+	font-style: italic;
+}
+
+.autotweet-post-status svg {
+	transform: translate3d(0, 3px, 0);
+    margin-right: 5px;
 }
 
 #tenup-auto-tweet-icon.pending,
