@@ -202,7 +202,6 @@ function get_tweet_status_message( $post ) {
 	$post        = get_post( $post );
 	$post_status = get_post_status( $post );
 
-	// If the post is already published the output varies slightly.
 	if ( 'publish' === $post_status ) {
 
 		$twitter_status = Utils\get_autotweet_meta( $post->ID, TWITTER_STATUS_KEY );
