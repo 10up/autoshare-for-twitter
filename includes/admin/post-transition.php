@@ -19,11 +19,11 @@ use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
  * @return void
  */
 function setup() {
-	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_add_save_post_hook', 10, 3 );
+	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_publish_tweet', 10, 3 );
 }
 
 /**
- * Adds the save_post hook if a post is transitioning from unpublished to published.
+ * Publishes the tweeting the post has transititioned from unpublished to published.
  *
  * In WP 5, the main Twitter publish action must run later than the transition_post_status hook because, when saving
  * via REST, the post thumbnail and other metadata have not yet been saved.
@@ -38,7 +38,7 @@ function setup() {
  *
  * @return object
  */
-function maybe_add_save_post_hook( $new_status, $old_status, $post ) {
+function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/**
 	 * We're only interested in posts that are transitioning into publish.
 	 */
