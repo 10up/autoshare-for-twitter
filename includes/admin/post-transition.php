@@ -23,7 +23,7 @@ function setup() {
 }
 
 /**
- * Publishes the tweeting the post has transititioned from unpublished to published.
+ * Publishes the tweet if the post has transititioned from unpublished to published.
  *
  * In WP 5, the main Twitter publish action must run later than the transition_post_status hook because, when saving
  * via REST, the post thumbnail and other metadata have not yet been saved.
