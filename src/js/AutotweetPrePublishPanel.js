@@ -4,7 +4,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutotweetKey, restUrl, tweetBodyKey } from 'admin-autotweet';
+import { enableAutotweetKey, errorText, restUrl, tweetBodyKey } from 'admin-autotweet';
 import { __ } from '@wordpress/i18n';
 
 import { STORE } from './store';
@@ -45,8 +45,9 @@ export function AutotweetPrePublishPanel( {
 			setErrorMessage( '' );
 			setSaving( false );
 		} catch ( e ) {
-			// eslint-disable-next-line no-console
-			console.log( e );
+			setErrorMessage(
+				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autotweet' ),
+			);
 		}
 	}, 1000 );
 
