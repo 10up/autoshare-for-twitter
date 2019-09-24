@@ -81,7 +81,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 	$handle = 'admin_autotweet';
 	wp_enqueue_script(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/js/admin-auto_tweet.js',
+		trailingslashit( TUAT_URL ) . 'assets/js/admin-autotweet.js',
 		[ 'jquery', 'wp-api-fetch' ],
 		TUAT_VERSION,
 		true
@@ -89,7 +89,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 
 	wp_enqueue_style(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/css/admin-auto_tweet.css',
+		trailingslashit( TUAT_URL ) . 'assets/css/admin-autotweet.css',
 		[],
 		TUAT_VERSION
 	);
