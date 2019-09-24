@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginPrePublishPanel, PluginPostStatusInfo } from '@wordpress/edit-post';
 import { dispatch, select, subscribe } from '@wordpress/data';
@@ -10,36 +10,49 @@ import AutotweetPostStatusInfo from './AutotweetPostStatusInfo';
 
 createAutotweetStore();
 
-const AutotweetPrePublishPanelPlugin = () => {
-	const [ enabledText, setEnabledText ] = useState( '' );
+class AutotweetPrePublishPanelPlugin extends Component {
+	constructor( props ) {
+		super( props );
 
-	useEffect( () => {
+		this.state = {
+			enabledText: '',
+		};
+
+		this.maybeSetEnabledText = this.maybeSetEnabledText.bind( this );
+	}
+
+	componentDidMount() {
 		dispatch( STORE ).setLoaded();
-	} );
+		subscribe( this.maybeSetEnabledText );
+	}
 
-	const maybeSetEnabledText = () => {
+	maybeSetEnabledText() {
 		try {
 			const enabled = select( STORE ).getAutotweetEnabled();
-			setEnabledText( enabled ? __( 'Enabled', 'autotweet' ) : __( 'Disabled', 'autotweet' ) );
+			const enabledText = enabled ? __( 'Enabled', 'autotweet' ) : __( 'Disabled', 'autotweet' );
+
+			if ( enabledText !== this.state.enabledText ) {
+				this.setState( { enabledText } );
+			}
 		} catch ( e ) {}
-	};
+	}
 
-	useEffect( () => {
-		subscribe( maybeSetEnabledText );
-	}, [] );
+	render() {
+		const { enabledText } = this.state;
 
-	return (
-		<PluginPrePublishPanel
-			title={ [
-				__( 'Autotweet:', 'autotweet' ),
-				<span className="editor-post-publish-panel__link" key="label">
-					{ enabledText }
-				</span>,
-			] }>
-			<AutotweetPrePublishPanel />
-		</PluginPrePublishPanel>
-	);
-};
+		return (
+			<PluginPrePublishPanel
+				title={ [
+					__( 'Autotweet:', 'autotweet' ),
+					<span className="editor-post-publish-panel__link" key="label">
+						{ enabledText }
+					</span>,
+				] }>
+				<AutotweetPrePublishPanel />
+			</PluginPrePublishPanel>
+		);
+	}
+}
 
 const AutoTweetPostStatusInfoPlugin = () => {
 	return <PluginPostStatusInfo

@@ -7,34 +7,34 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:107
-msgid "Hide"
-msgstr ""
-
-#: src/js/AutotweetPrePublishPanel.js:107
-msgid "Edit"
-msgstr ""
-
-#: src/js/AutotweetPrePublishPanel.js:49
-msgid "An error occurred."
-msgstr ""
-
-#: src/js/AutotweetPrePublishPanel.js:71
-msgid "Tweet this post?"
-msgstr ""
-
-#: src/js/AutotweetPrePublishPanel.js:94
+#: src/js/AutotweetPrePublishPanel.js:109
 msgid "Custom message:"
 msgstr ""
 
-#: src/js/index.js:23
+#: src/js/AutotweetPrePublishPanel.js:122
+msgid "Hide"
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:122
+msgid "Edit"
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:54
+msgid "An error occurred."
+msgstr ""
+
+#: src/js/AutotweetPrePublishPanel.js:86
+msgid "Tweet this post?"
+msgstr ""
+
+#: src/js/index.js:32
 msgid "Enabled"
 msgstr ""
 
-#: src/js/index.js:23
+#: src/js/index.js:32
 msgid "Disabled"
 msgstr ""
 
-#: src/js/index.js:34
+#: src/js/index.js:46
 msgid "Autotweet:"
 msgstr ""
