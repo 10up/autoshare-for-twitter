@@ -4,7 +4,8 @@
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
-		"build": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader && webpack -p --config webpack.gutenberg.config.js",
+		"build": "webpack -p --config webpack.gutenberg.config.js",
+		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
 		"lint": "eslint src"
 	},
 	"husky": {
