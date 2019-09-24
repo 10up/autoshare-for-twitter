@@ -55,8 +55,8 @@ class TestPostMeta extends WP_UnitTestCase {
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
 				return [
-					'status'     => 'error',
-					'message'    => 'There was an error.'
+					'status'  => 'error',
+					'message' => 'There was an error.'
 				];
 			}
 
@@ -74,8 +74,8 @@ class TestPostMeta extends WP_UnitTestCase {
 		$unknown_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
 				return [
-					'status'     => 'unknown',
-					'message'    => 'There was an error.'
+					'status'  => 'unknown',
+					'message' => 'There was an error.'
 				];
 			}
 
@@ -93,7 +93,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
 				return [
-					'status'     => 'other',
+					'status' => 'other',
 				];
 			}
 
