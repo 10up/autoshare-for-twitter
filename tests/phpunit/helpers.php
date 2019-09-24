@@ -1,14 +1,14 @@
 <?php
 /**
  * Helper functions for testing.
- * 
+ *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
-use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
 
 function register_non_default_post_type( $post_type = 'event', $args = [ 'public' => true ] ) {
 	register_post_type( $post_type, $args );

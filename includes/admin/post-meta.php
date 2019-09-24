@@ -2,17 +2,17 @@
 /**
  * Responsible for the registration and display of the metabox.
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core\Post_Meta;
+namespace TenUp\AutoTweet\Core\Post_Meta;
 
 /**
  * Aliases
  */
-use TenUp\Auto_Tweet\Utils as Utils;
-use function TenUp\Auto_Tweet\Utils\update_autotweet_meta;
-use function TenUp\Auto_Tweet\Utils\delete_autotweet_meta;
+use TenUp\AutoTweet\Utils as Utils;
+use function TenUp\AutoTweet\Utils\update_autotweet_meta;
+use function TenUp\AutoTweet\Utils\delete_autotweet_meta;
 
 /**
  * The meta prefix that all meta related keys should have

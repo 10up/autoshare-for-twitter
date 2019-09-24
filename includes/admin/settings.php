@@ -2,10 +2,10 @@
 /**
  * Handles the Admin settings
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core\Admin;
+namespace TenUp\AutoTweet\Core\Admin;
 
 const AT_GROUP    = 'autotweet';
 const AT_SETTINGS = 'autotweet';

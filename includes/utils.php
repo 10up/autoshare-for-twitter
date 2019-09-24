@@ -3,16 +3,16 @@
  * A place for everything, everything in its place doesn't apply here.
  * This file is for utility and helper functions.
  *
- * @package TenUp\Auto_Tweet\Utils
+ * @package TenUp\AutoTweet\Utils
  */
 
-namespace TenUp\Auto_Tweet\Utils;
+namespace TenUp\AutoTweet\Utils;
 
-use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\META_PREFIX;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
  * Helper/Wrapper function for returning the meta entries for auto-tweeting.
@@ -69,7 +69,7 @@ function maybe_auto_tweet( $post_id ) {
  */
 function get_auto_tweet_settings( $key = '' ) {
 
-	$settings = get_option( \TenUp\Auto_Tweet\Core\Admin\AT_SETTINGS );
+	$settings = get_option( \TenUp\AutoTweet\Core\Admin\AT_SETTINGS );
 
 	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
 }

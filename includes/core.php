@@ -2,10 +2,10 @@
 /**
  * Core plugin setup.
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core;
+namespace TenUp\AutoTweet\Core;
 
 const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
 

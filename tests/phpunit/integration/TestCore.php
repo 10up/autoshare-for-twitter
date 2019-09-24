@@ -3,13 +3,13 @@
  * Tests functions in core.php.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Auto_Tweet\Core\set_default_post_type_supports;
+use function TenUp\AutoTweet\Core\set_default_post_type_supports;
 
 /**
  * TestCore class.
@@ -38,7 +38,7 @@ class TestCore extends WP_UnitTestCase {
 		set_default_post_type_supports();
 		$this->assertTrue( post_type_supports( 'post', 'tenup-autotweet' ) );
 		$this->assertTrue( post_type_supports( 'page', 'tenup-autotweet' ) );
-	
+
 		$this->assertFalse( post_type_supports( $non_default_post_type, 'tenup-autotweet' ) );
 
 		// Test that the default supported post types can be filtered.

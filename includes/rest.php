@@ -3,17 +3,17 @@
  * Sets up a WP REST route handling autotweet metadata.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
 namespace TenUp\AutoTweet\REST;
 
 use WP_REST_Response;
 use WP_REST_Server;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
 
-use function TenUp\Auto_Tweet\Core\Post_Meta\save_autotweet_meta_data;
+use function TenUp\AutoTweet\Core\Post_Meta\save_autotweet_meta_data;
 
 /**
  * The namespace for plugin REST endpoints.

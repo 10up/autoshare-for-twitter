@@ -3,15 +3,15 @@
  * Handles loading of JS and CSS.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
-use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
-use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use function TenUp\AutoTweet\Utils\get_autotweet_meta;
+use function TenUp\AutoTweet\Utils\opted_into_autotweet;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
 /**

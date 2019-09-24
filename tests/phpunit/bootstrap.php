@@ -3,10 +3,10 @@
  * 10up autotweet test bootstrap.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 define( 'TESTS_PLUGIN_DIR', dirname( dirname( __DIR__ ) ) );
 

@@ -3,20 +3,20 @@
  * Tests rest.php
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use WP_REST_Request;
 use WP_UnitTestCase;
 use function TenUp\AutoTweet\REST\{
 	post_autotweet_meta_rest_route,
-	update_post_autotweet_meta_permission_check, 
+	update_post_autotweet_meta_permission_check,
 	update_post_autotweet_meta
 };
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 
 /**
  * TestRest class.
@@ -65,7 +65,7 @@ class TestRest extends WP_UnitTestCase {
 		wp_set_current_user( 1 ); // Administrator user.
 		$this->assertTrue( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
 	}
-	
+
 	/**
 	 * Tests the update_post_autotweet_meta function.
 	 *

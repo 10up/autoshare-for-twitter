@@ -2,12 +2,12 @@
 /**
  * Class to handle Tweet publishing.
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core\Publish_Tweet;
+namespace TenUp\AutoTweet\Core\Publish_Tweet;
 
-use TenUp\Auto_Tweet\Utils as Utils;
+use TenUp\AutoTweet\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
 
 /**
