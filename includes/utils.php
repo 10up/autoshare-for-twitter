@@ -56,7 +56,7 @@ function delete_autotweet_meta( $id, $key ) {
  *
  * @return bool
  */
-function maybe_auto_tweet( $post_id ) {
+function maybe_autotweet( $post_id ) {
 	return ( 1 === intval( get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ) ? true : false;
 }
 
@@ -67,7 +67,7 @@ function maybe_auto_tweet( $post_id ) {
  *
  * @return mixed
  */
-function get_auto_tweet_settings( $key = '' ) {
+function get_autotweet_settings( $key = '' ) {
 
 	$settings = get_option( \TenUp\AutoTweet\Core\Admin\AT_SETTINGS );
 
@@ -86,14 +86,14 @@ function compose_tweet_body( \WP_Post $post ) {
 	/**
 	 * Allow filtering of tweet body
 	 */
-	$tweet_body = apply_filters( 'tenup_auto_tweet_body', get_tweet_body( $post->ID ), $post );
+	$tweet_body = apply_filters( 'tenup_autotweet_body', get_tweet_body( $post->ID ), $post );
 
 	/**
 	 * Allow filtering of post permalink.
 	 *
 	 * @param $permalink
 	 */
-	$url = apply_filters( 'tenup_auto_tweet_post_url', get_the_permalink( $post->ID ), $post );
+	$url = apply_filters( 'tenup_autotweet_post_url', get_the_permalink( $post->ID ), $post );
 
 	// Make it safe.
 	$array_body = array(
@@ -134,7 +134,7 @@ function date_from_twitter( $created_at ) {
  */
 function link_from_twitter( $post_id ) {
 
-	$handle = get_auto_tweet_settings( 'twitter_handle' );
+	$handle = get_autotweet_settings( 'twitter_handle' );
 
 	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $post_id );
 }

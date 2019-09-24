@@ -62,7 +62,7 @@ class Publish_Tweet {
 	 */
 	public function __construct() {
 
-		$at_settings = Utils\get_auto_tweet_settings();
+		$at_settings = Utils\get_autotweet_settings();
 
 		$this->consumer_key        = $at_settings['api_key'];
 		$this->consumer_secret     = $at_settings['api_secret'];
@@ -101,7 +101,7 @@ class Publish_Tweet {
 		$update_data = array(
 			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
-		$update_data = apply_filters( 'tenup_auto_tweet_tweet', $update_data, $post );
+		$update_data = apply_filters( 'tenup_autotweet_tweet', $update_data, $post );
 		$this->client->setTimeouts( 10, 30 );
 		$response = $this->client->post(
 			'statuses/update',

@@ -28,7 +28,7 @@ function setup() {
 	/**
 	 * Allow others to hook into the core setup action
 	 */
-	do_action( 'tenup_auto_tweet_setup' );
+	do_action( 'tenup_autotweet_setup' );
 
 	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
 }
@@ -36,9 +36,9 @@ function setup() {
 /**
  * Fire up the module.
  *
- * @uses auto_tweet_loaded
+ * @uses autotweet_loaded
  */
-add_action( 'tenup_auto_tweet_loaded', __NAMESPACE__ . '\setup' );
+add_action( 'tenup_autotweet_loaded', __NAMESPACE__ . '\setup' );
 
 /**
  * Adds autotweet support for default post types.

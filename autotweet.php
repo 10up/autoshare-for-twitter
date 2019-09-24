@@ -35,4 +35,4 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/utils.php';
 /**
  * Play nice with others.
  */
-do_action( 'tenup_auto_tweet_loaded' );
+do_action( 'tenup_autotweet_loaded' );
