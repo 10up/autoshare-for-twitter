@@ -282,6 +282,7 @@ class Publish_Tweet {
 			return $media_upload_id;
 		}
 
+		$this->client->setTimeouts( 10, 60 );
 		$response = $this->client->upload( 'media/upload', array( 'media' => $image ) );
 
 		if ( ! is_object( $response ) || ! isset( $response->media_id ) ) {
