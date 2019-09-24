@@ -182,6 +182,10 @@ class Publish_Tweet {
 			return $full_image;
 		}
 
+		if ( empty( $sizes ) ) {
+			return null;
+		}
+
 		// Sort the image sizes in order of total width + height, descending.
 		$sort_sizes = function( $size_1, $size_2 ) {
 			$size_1_total = $size_1['width'] + $size_1['height'];
@@ -243,7 +247,10 @@ class Publish_Tweet {
 			return;
 		}
 
-		$file = $this->get_largest_acceptable_image( get_attached_file( $attachment_id ), $metadata['sizes'] );
+		$file = $this->get_largest_acceptable_image(
+			get_attached_file( $attachment_id ),
+			isset( $metadata['sizes'] ) ? $metadata['sizes'] : []
+		);
 		if ( ! $file ) {
 			return null;
 		}
@@ -274,6 +281,7 @@ class Publish_Tweet {
 			return $media_upload_id;
 		}
 
+		$this->client->setTimeouts( 10, 60 );
 		$response = $this->client->upload( 'media/upload', array( 'media' => $image ) );
 
 		if ( ! is_object( $response ) || ! isset( $response->media_id ) ) {
