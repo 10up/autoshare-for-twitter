@@ -1,6 +1,6 @@
 import { Component } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginPrePublishPanel, PluginPostStatusInfo } from '@wordpress/edit-post';
+import { PluginPrePublishPanel, PluginPostPublishPanel, PluginPostStatusInfo } from '@wordpress/edit-post';
 import { dispatch, select, subscribe } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
@@ -62,5 +62,14 @@ const AutoTweetPostStatusInfoPlugin = () => {
 	</PluginPostStatusInfo>;
 };
 
-registerPlugin( 'autotweet-post-publish-panel', { render: AutotweetPrePublishPanelPlugin } );
+const AutotweetPostPublishPanelPlugin = () => {
+	return <PluginPostPublishPanel
+		className="my-plugin-post-status-info"
+	>
+		<AutotweetPostStatusInfo />
+	</PluginPostPublishPanel>;
+};
+
+registerPlugin( 'autotweet-pre-publish-panel', { render: AutotweetPrePublishPanelPlugin } );
 registerPlugin( 'autotweet-post-status-info', { render: AutoTweetPostStatusInfoPlugin } );
+registerPlugin( 'autotweet-post-publish-panel', { render: AutotweetPostPublishPanelPlugin } );

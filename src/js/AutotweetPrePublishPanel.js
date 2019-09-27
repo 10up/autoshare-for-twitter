@@ -13,6 +13,8 @@ class AutotweetPrePublishPanel extends Component {
 	constructor( props ) {
 		super( props );
 
+		// Although these values are delivered as props, we copy them into state so that we can check for changes
+		// and save data when they update.
 		this.state = { autotweetEnabled: null, tweetText: null };
 
 		this.saveData = debounce( this.saveData.bind( this ), 1000 );
@@ -21,6 +23,7 @@ class AutotweetPrePublishPanel extends Component {
 	componentDidUpdate() {
 		const { autotweetEnabled, tweetText } = this.props;
 
+		// Update if either of these values has changed in the data store.
 		if ( autotweetEnabled !== this.state.autotweetEnabled || tweetText !== this.state.tweetText ) {
 			this.setState( { autotweetEnabled, tweetText }, this.saveData );
 		}
