@@ -17,7 +17,13 @@ class AutotweetPrePublishPanel extends Component {
 		// and save data when they update.
 		this.state = { autotweetEnabled: null, tweetText: null };
 
-		this.saveData = debounce( this.saveData.bind( this ), 1000 );
+		this.saveData = debounce( this.saveData.bind( this ), 250 );
+	}
+
+	componentDidMount() {
+		const { autotweetEnabled, tweetText } = this.props;
+
+		this.setState( { autotweetEnabled, tweetText } );
 	}
 
 	componentDidUpdate() {
