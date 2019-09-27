@@ -74,7 +74,7 @@
 	}
 }
 
-a#tenup-auto-tweet-edit{
+a#tenup-auto-tweet-edit {
 	color: #0073aa;
 	text-decoration: underline;
 	transition-property: border, background, color;
@@ -90,15 +90,15 @@ textarea#tenup-auto-tweet-text {
 	margin: 4px 0 0;
 	width: 100%
 }
-span#tenup-auto-tweet-counter-wrap{
+span#tenup-auto-tweet-counter-wrap {
 	background: rgba(0, 0, 0, 0.07);
 	font-family: Consolas, Monaco, monospace;
 }
 
-span.near-limit{
+span.near-limit {
 	color: orange;
 }
 
-span.over-limit{
+span.over-limit {
 	color: red;
 }
