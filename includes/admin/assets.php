@@ -3,15 +3,15 @@
  * Handles loading of JS and CSS.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
-use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
-use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use function TenUp\AutoTweet\Utils\get_autotweet_meta;
+use function TenUp\AutoTweet\Utils\opted_into_autotweet;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
 /**
@@ -78,10 +78,10 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		);
 	}
 
-	$handle = 'admin_tenup-auto-tweet';
+	$handle = 'admin_autotweet';
 	wp_enqueue_script(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/js/admin-auto_tweet.js',
+		trailingslashit( TUAT_URL ) . 'assets/js/admin-autotweet.js',
 		[ 'jquery', 'wp-api-fetch' ],
 		TUAT_VERSION,
 		true
@@ -89,7 +89,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 
 	wp_enqueue_style(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/css/admin-auto_tweet.css',
+		trailingslashit( TUAT_URL ) . 'assets/css/admin-autotweet.css',
 		[],
 		TUAT_VERSION
 	);

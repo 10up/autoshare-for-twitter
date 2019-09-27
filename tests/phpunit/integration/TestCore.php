@@ -3,13 +3,13 @@
  * Tests functions in core.php.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Auto_Tweet\Core\set_default_post_type_supports;
+use function TenUp\AutoTweet\Core\set_default_post_type_supports;
 
 /**
  * TestCore class.
@@ -31,15 +31,15 @@ class TestCore extends WP_UnitTestCase {
 
 		// Test that the feature is not supported by default.
 		reset_post_type_support();
-		$this->assertFalse( post_type_supports( 'post', 'tenup-autotweet' ) );
+		$this->assertFalse( post_type_supports( 'post', 'autotweet' ) );
 
 		// Test that posts and pages support the feature by default, but not other post types.
 		reset_post_type_support();
 		set_default_post_type_supports();
-		$this->assertTrue( post_type_supports( 'post', 'tenup-autotweet' ) );
-		$this->assertTrue( post_type_supports( 'page', 'tenup-autotweet' ) );
-	
-		$this->assertFalse( post_type_supports( $non_default_post_type, 'tenup-autotweet' ) );
+		$this->assertTrue( post_type_supports( 'post', 'autotweet' ) );
+		$this->assertTrue( post_type_supports( 'page', 'autotweet' ) );
+
+		$this->assertFalse( post_type_supports( $non_default_post_type, 'autotweet' ) );
 
 		// Test that the default supported post types can be filtered.
 		reset_post_type_support();
@@ -49,9 +49,9 @@ class TestCore extends WP_UnitTestCase {
 		add_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
 
 		set_default_post_type_supports();
-		$this->assertFalse( post_type_supports( 'post', 'tenup-autotweet' ) );
-		$this->assertFalse( post_type_supports( 'page', 'tenup-autotweet' ) );
-		$this->assertTrue( post_type_supports( $non_default_post_type, 'tenup-autotweet' ) );
+		$this->assertFalse( post_type_supports( 'post', 'autotweet' ) );
+		$this->assertFalse( post_type_supports( 'page', 'autotweet' ) );
+		$this->assertTrue( post_type_supports( $non_default_post_type, 'autotweet' ) );
 
 		// Clean up.
 		remove_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
