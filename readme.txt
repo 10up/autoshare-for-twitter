@@ -30,6 +30,7 @@ Nope, not yet.
 == Added ==
 * Initial public release! 🎉
 * Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
+* Gutenberg support (props @johnwatkins0)
 * REST API endpoint to replace AJAX callback (props @johnwatkins0)
 * Build process, PHPCS linting, unit tests, and Travis CI (props @johnwatkins0, @adamsilverstein)
 * Plugin banner and icon images (props Stephanie Campbell)
