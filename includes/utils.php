@@ -3,19 +3,19 @@
  * A place for everything, everything in its place doesn't apply here.
  * This file is for utility and helper functions.
  *
- * @package TenUp\Auto_Tweet\Utils
+ * @package TenUp\AutoTweet\Utils
  */
 
-namespace TenUp\Auto_Tweet\Utils;
+namespace TenUp\AutoTweet\Utils;
 
-use const TenUp\Auto_Tweet\Core\POST_TYPE_SUPPORT_FEATURE;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\META_PREFIX;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
- * Helper/Wrapper function for returning the meta entries for auto-tweeting.
+ * Helper/Wrapper function for returning the meta entries for autotweeting.
  *
  * @param int    $id  The post ID.
  * @param string $key The meta key to retrieve.
@@ -50,13 +50,13 @@ function delete_autotweet_meta( $id, $key ) {
 }
 
 /**
- * Helper for determining if a post should auto-tweet.
+ * Helper for determining if a post should autotweet.
  *
  * @param int $post_id The post ID.
  *
  * @return bool
  */
-function maybe_auto_tweet( $post_id ) {
+function maybe_autotweet( $post_id ) {
 	return ( 1 === intval( get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ) ? true : false;
 }
 
@@ -67,9 +67,9 @@ function maybe_auto_tweet( $post_id ) {
  *
  * @return mixed
  */
-function get_auto_tweet_settings( $key = '' ) {
+function get_autotweet_settings( $key = '' ) {
 
-	$settings = get_option( \TenUp\Auto_Tweet\Core\Admin\AT_SETTINGS );
+	$settings = get_option( \TenUp\AutoTweet\Core\Admin\AT_SETTINGS );
 
 	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
 }
@@ -86,14 +86,14 @@ function compose_tweet_body( \WP_Post $post ) {
 	/**
 	 * Allow filtering of tweet body
 	 */
-	$tweet_body = apply_filters( 'tenup_auto_tweet_body', get_tweet_body( $post->ID ), $post );
+	$tweet_body = apply_filters( 'tenup_autotweet_body', get_tweet_body( $post->ID ), $post );
 
 	/**
 	 * Allow filtering of post permalink.
 	 *
 	 * @param $permalink
 	 */
-	$url = apply_filters( 'tenup_auto_tweet_post_url', get_the_permalink( $post->ID ), $post );
+	$url = apply_filters( 'tenup_autotweet_post_url', get_the_permalink( $post->ID ), $post );
 
 	// Make it safe.
 	$array_body = array(
@@ -134,7 +134,7 @@ function date_from_twitter( $created_at ) {
  */
 function link_from_twitter( $post_id ) {
 
-	$handle = get_auto_tweet_settings( 'twitter_handle' );
+	$handle = get_autotweet_settings( 'twitter_handle' );
 
 	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $post_id );
 }
@@ -183,7 +183,7 @@ function get_tweet_body( $post_id ) {
  *
  * @param int $post_id The post id to check.
  *
- * @return bool true if the current post type supports auto-tweet.
+ * @return bool true if the current post type supports autotweet.
  */
 function opted_into_autotweet( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );

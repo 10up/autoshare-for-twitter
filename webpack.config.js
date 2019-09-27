@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	entry: {
-		autotweet: './src/js/index.js',
+		'autotweet': './src/js/index.js',
 		'api-fetch': './src/js/externals/api-fetch'
 	},
 	module: {
