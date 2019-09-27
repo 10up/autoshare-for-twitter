@@ -32,7 +32,7 @@ In addition, adding support while registering custom post types also works.  Pos
 
 ## FAQs
 ### Does this plugin work with Gutenberg?
-Nope, not yet.
+Yes, yes it does!  For more details on this, see #44.
 
 ## Support Level
 
