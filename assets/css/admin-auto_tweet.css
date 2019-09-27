@@ -96,7 +96,7 @@ span#tenup-auto-tweet-counter-wrap {
 }
 
 span.near-limit {
-	color: orange;
+	color: darkorange;
 }
 
 span.over-limit {
