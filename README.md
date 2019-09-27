@@ -1,6 +1,6 @@
 # Auto Tweet
 
-> Automatically tweets a post title, URL, and optional description.
+> Automatically tweets the post title or custom message and a link to the post.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autotweet.svg)](https://github.com/10up/autotweet/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.9.8%20tested-success.svg) [![MIT License](https://img.shields.io/github/license/10up/autotweet.svg)](https://github.com/10up/autotweet/blob/develop/LICENSE.md)
 
