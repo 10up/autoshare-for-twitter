@@ -8,7 +8,7 @@ Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
-Automatically tweets a post title, URL, and optional description.
+Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
 Automatically tweets a post title, URL, and optional description.
