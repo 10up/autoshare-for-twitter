@@ -12,8 +12,11 @@ use WP_REST_Response;
 use WP_REST_Server;
 use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
 
+use function TenUp\AutoTweet\Core\Post_Meta\get_tweet_status_message;
 use function TenUp\AutoTweet\Core\Post_Meta\save_autotweet_meta_data;
+
 
 /**
  * The namespace for plugin REST endpoints.
@@ -43,6 +46,7 @@ const AUTOTWEET_REST_ROUTE = 'post-autotweet-meta';
  */
 function add_hook_callbacks() {
 	add_action( 'rest_api_init', __NAMESPACE__ . '\register_post_autotweet_meta_rest_route' );
+	add_action( 'rest_api_init', __NAMESPACE__ . '\register_tweet_status_rest_field' );
 }
 
 /**
@@ -127,6 +131,30 @@ function update_post_autotweet_meta( $request ) {
 			'enabled'  => $params[ ENABLE_AUTOTWEET_KEY ],
 			'message'  => $message,
 			'override' => ! empty( $params[ TWEET_BODY_KEY ] ),
+		]
+	);
+}
+
+/**
+ * Adds a REST field returning the tweet status message array for the current post.
+ *
+ * @since 0.1.0
+ */
+function register_tweet_status_rest_field() {
+	register_rest_field(
+		get_post_types_by_support( POST_TYPE_SUPPORT_FEATURE ),
+		'autotweet_status',
+		[
+			'get_callback' => function( $data ) {
+				return get_tweet_status_message( $data['id'] );
+			},
+			'schema'       => [
+				'context'     => [
+					'edit',
+				],
+				'description' => __( 'Autotweet status message', 'autotweet' ),
+				'type'        => 'object',
+			],
 		]
 	);
 }

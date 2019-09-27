@@ -191,6 +191,55 @@ function render_tweet_submitbox( $post ) {
 }
 
 /**
+ * Gets info on the post's Tweet status to send to REST.
+ *
+ * @since 1.0.0
+ *
+ * @param int|WP_Post $post The post we are rendering on.
+ * @return array Associative array containing a message and a URL if the post was tweeted.
+ */
+function get_tweet_status_message( $post ) {
+	$post        = get_post( $post );
+	$post_status = get_post_status( $post );
+
+	if ( 'publish' === $post_status ) {
+
+		$twitter_status = Utils\get_autotweet_meta( $post->ID, TWITTER_STATUS_KEY );
+		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
+
+		switch ( $status ) {
+			case 'published':
+				$date        = Utils\date_from_twitter( $twitter_status['created_at'] );
+				$twitter_url = Utils\link_from_twitter( $twitter_status['twitter_id'] );
+
+				return [
+					// Translators: Placeholder is a date.
+					'message' => sprintf( __( 'Tweeted on %s', 'autotweet' ), $date ),
+					'url'     => $twitter_url,
+				];
+
+			case 'error':
+				return [
+					'message' => __( 'Failed to tweet: ', 'autotweet' ) . $twitter_status['message'],
+				];
+
+			case 'unknown':
+				return [
+					'message' => $twitter_status['message'],
+				];
+
+			default:
+				return [
+					'message' => __( 'This post was not tweeted.', 'autotweet' ),
+				];
+		}
+	}
+
+	return [ 'message' => '' ];
+
+}
+
+/**
  * Outputs the markeup and language to be used when a post has been successfully
  * sent to Twitter
  *
