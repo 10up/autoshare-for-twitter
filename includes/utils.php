@@ -113,6 +113,7 @@ function compose_tweet_body( \WP_Post $post ) {
 	$ellipsis          = ''; // Initialize as empty. Will be set if the tweet body is too long.
 
 	while ( $body_max_length < $tweet_body_length ) {
+		// We can't use `&hellip;` here or it will display encoded when tweeting.
 		$ellipsis = ' ...';
 
 		// If there are no spaces in the tweet for whatever reason, truncate regardless of where spaces fall.
