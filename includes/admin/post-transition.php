@@ -70,15 +70,6 @@ function publish_tweet( $post_id ) {
 		return;
 	}
 
-	/**
-	 * This should never happen since the nonce field wouldn't exist.
-	 * But just in case one more check: check that the post doesn't
-	 * have a twitter-status entry already.
-	 */
-	if ( Utils\already_published( $post->ID ) ) {
-		return;
-	}
-
 	// Ensure we have a $post object.
 	if ( ! $post ) {
 		return;

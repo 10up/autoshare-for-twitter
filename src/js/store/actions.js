@@ -5,7 +5,7 @@ import {
 	SET_SAVING,
 	SET_LOADED,
 	SET_OVERRIDING,
-	SET_OVERRIDE_LENGTH,
+
 } from './constants';
 
 export const setAutotweetEnabled = ( autotweetEnabled ) => ( {
@@ -25,11 +25,6 @@ export const setLoaded = () => ( {
 export const setOverriding = ( overriding ) => ( {
 	type: SET_OVERRIDING,
 	overriding,
-} );
-
-export const setOverrideLength = ( overrideLength ) => ( {
-	type: SET_OVERRIDE_LENGTH,
-	overrideLength,
 } );
 
 export const setSaving = ( saving ) => ( {

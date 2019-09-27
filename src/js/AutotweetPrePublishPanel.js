@@ -4,7 +4,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutotweetKey, errorText, restUrl, tweetBodyKey } from 'admin-autotweet';
+import { enableAutotweetKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autotweet';
 import { __ } from '@wordpress/i18n';
 
 import { STORE } from './store';
@@ -61,11 +61,10 @@ class AutotweetPrePublishPanel extends Component {
 			autotweetEnabled,
 			errorMessage,
 			overriding,
-			overrideLength,
+			permalinkLength,
 			saving,
 			setAutotweetEnabled,
 			setOverriding,
-			setOverrideLength,
 			setTweetText,
 			tweetText,
 		} = this.props;
@@ -73,6 +72,18 @@ class AutotweetPrePublishPanel extends Component {
 		const twitterIconClass = () => {
 			const iconClass = autotweetEnabled ? 'enabled' : 'disabled';
 			return `${ iconClass } ${ saving ? 'pending' : '' }`;
+		};
+
+		const overrideLengthClass = () => {
+			if ( 280 <= permalinkLength + tweetText.length ) {
+				return 'over-limit';
+			}
+
+			if ( 240 <= permalinkLength + tweetText.length ) {
+				return 'near-limit';
+			}
+
+			return null;
 		};
 
 		return (
@@ -99,15 +110,12 @@ class AutotweetPrePublishPanel extends Component {
 							<TextareaControl
 								value={ tweetText }
 								onChange={ ( value ) => {
-									if ( value.length <= 280 ) {
-										setTweetText( value );
-										setOverrideLength( value.length );
-									}
+									setTweetText( value );
 								} }
 								label={
 									<span className="autotweet-prepublish__message-label">
 										<span>{ __( 'Custom message:', 'autotweet' ) }</span>
-										<span id="tenup-auto-tweet-counter-wrap">{ overrideLength }</span>
+										<span id="tenup-auto-tweet-counter-wrap" className={ overrideLengthClass() }>{ tweetText.length }</span>
 									</span>
 								}
 							/>
@@ -130,12 +138,26 @@ class AutotweetPrePublishPanel extends Component {
 	}
 }
 
+const permalinkLength = ( select ) => {
+	const permalink = select( 'core/editor' ).getPermalink();
+	if ( permalink ) {
+		return permalink.length;
+	}
+
+	const title = select( 'core/editor' ).getEditedPostAttribute( 'title' );
+	if ( title && 'rendered' in title ) {
+		return ( siteUrl + title.rendered ).length;
+	}
+
+	return siteUrl.length;
+};
+
 export default compose(
 	withSelect( ( select ) => ( {
 		autotweetEnabled: select( STORE ).getAutotweetEnabled(),
 		errorMessage: select( STORE ).getErrorMessage(),
 		overriding: select( STORE ).getOverriding(),
-		overrideLength: select( STORE ).getOverrideLength(),
+		permalinkLength: permalinkLength( select ),
 		saving: select( STORE ).getSaving(),
 		tweetText: select( STORE ).getTweetText(),
 	} ) ),
@@ -143,7 +165,6 @@ export default compose(
 		setAutotweetEnabled: dispatch( STORE ).setAutotweetEnabled,
 		setErrorMessage: dispatch( STORE ).setErrorMessage,
 		setOverriding: dispatch( STORE ).setOverriding,
-		setOverrideLength: dispatch( STORE ).setOverrideLength,
 		setSaving: dispatch( STORE ).setSaving,
 		setTweetText: dispatch( STORE ).setTweetText,
 	} ) ),

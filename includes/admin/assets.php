@@ -164,6 +164,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'tweetBodyKey'       => TWEET_BODY_KEY,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
+		'siteUrl'            => home_url(),
 	];
 
 	wp_localize_script( $handle, 'adminAutotweet', $localization );

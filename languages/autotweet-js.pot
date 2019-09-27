@@ -7,15 +7,15 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:109
+#: src/js/AutotweetPrePublishPanel.js:117
 msgid "Custom message:"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:122
+#: src/js/AutotweetPrePublishPanel.js:130
 msgid "Hide"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:122
+#: src/js/AutotweetPrePublishPanel.js:130
 msgid "Edit"
 msgstr ""
 
@@ -23,7 +23,7 @@ msgstr ""
 msgid "An error occurred."
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:86
+#: src/js/AutotweetPrePublishPanel.js:97
 msgid "Tweet this post?"
 msgstr ""
 

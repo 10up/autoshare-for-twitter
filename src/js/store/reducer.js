@@ -5,7 +5,6 @@ import {
 	SET_SAVING,
 	SET_LOADED,
 	SET_OVERRIDING,
-	SET_OVERRIDE_LENGTH,
 } from './constants';
 
 export const DEFAULT_STATE = {
@@ -42,13 +41,6 @@ export default function reducer( state = DEFAULT_STATE, action ) {
 			return {
 				...state,
 				overriding: action.overriding,
-			};
-		}
-
-		case SET_OVERRIDE_LENGTH: {
-			return {
-				...state,
-				overrideLength: action.overrideLength,
 			};
 		}
 
