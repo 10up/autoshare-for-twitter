@@ -12,7 +12,7 @@
 		$editLink = $( '#autotweet-edit' ),
 		$editBody = $( '#autotweet-override-body' ),
 		$hideLink = $( '.cancel-tweet-text' ),
-		errorMessageContainer = document.getElementById( 'tenup-autotweet-error-message' ),
+		errorMessageContainer = document.getElementById( 'autotweet-error-message' ),
 		counterWrap = document.getElementById( 'autotweet-counter-wrap' ),
 		limit = 280;
 

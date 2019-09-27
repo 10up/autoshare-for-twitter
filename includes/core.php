@@ -7,7 +7,7 @@
 
 namespace TenUp\AutoTweet\Core;
 
-const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
+const POST_TYPE_SUPPORT_FEATURE = 'autotweet';
 
 /**
  * The main setup action.

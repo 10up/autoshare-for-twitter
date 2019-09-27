@@ -277,7 +277,7 @@ function _safe_markup_default() {
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
 	</div>
 
-	<p id="tenup-autotweet-error-message"></p>
+	<p id="autotweet-error-message"></p>
 
 	<?php
 	return ob_get_clean();
