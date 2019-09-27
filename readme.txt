@@ -11,7 +11,8 @@ License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
-Automatically tweets a post title, URL, and optional description.
+
+Automatically tweets the post title or custom message and a link to the post.
 
 **NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
