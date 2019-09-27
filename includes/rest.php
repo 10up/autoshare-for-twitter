@@ -119,8 +119,8 @@ function update_post_autotweet_meta( $request ) {
 
 	save_autotweet_meta_data( $request['id'], $params );
 	$message = 1 === $params[ ENABLE_AUTOTWEET_KEY ] ?
-		__( 'Auto-tweet enabled.', 'tenup_autotweet' ) :
-		__( 'Auto-tweet disabled.', 'tenup_autotweet' );
+		__( 'Autotweet enabled.', 'tenup_autotweet' ) :
+		__( 'Autotweet disabled.', 'tenup_autotweet' );
 
 	return rest_ensure_response(
 		[

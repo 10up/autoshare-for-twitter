@@ -20,12 +20,12 @@ use function TenUp\AutoTweet\Utils\delete_autotweet_meta;
 const META_PREFIX = 'autotweet';
 
 /**
- * Enable auto-tweet checkbox
+ * Enable autotweet checkbox
  */
-const ENABLE_AUTOTWEET_KEY = 'auto-tweet';
+const ENABLE_AUTOTWEET_KEY = 'autotweet';
 
 /**
- * Holds the auto-tweet boddy
+ * Holds the autotweet boddy
  */
 const TWEET_BODY_KEY = 'tweet-body';
 
@@ -133,7 +133,7 @@ function save_autotweet_meta_data( $post_id, $data ) {
 function tweet_submitbox_callback( $post ) {
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting.
+	 * Don't bother enqueuing assets if the post type hasn't opted into autotweeting.
 	 */
 	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
@@ -242,7 +242,7 @@ function markup_unknown( $status_meta ) {
 }
 
 /**
- * Outputs the <input> markup required to set a post to auto-tweet.
+ * Outputs the <input> markup required to set a post to autotweet.
  *
  * @return string
  */
@@ -256,7 +256,7 @@ function _safe_markup_default() {
 			id="autotweet-enable"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOTWEET_KEY ) ); ?>"
 			value="1"
-			<?php checked( Utils\get_autotweet_meta( get_the_ID(), 'auto-tweet' ) ); ?>
+			<?php checked( Utils\get_autotweet_meta( get_the_ID(), ENABLE_AUTOTWEET_KEY ) ); ?>
 		>
 		<span id="autotweet-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'tenup_autotweet' ); ?>

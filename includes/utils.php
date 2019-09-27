@@ -15,7 +15,7 @@ use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
- * Helper/Wrapper function for returning the meta entries for auto-tweeting.
+ * Helper/Wrapper function for returning the meta entries for autotweeting.
  *
  * @param int    $id  The post ID.
  * @param string $key The meta key to retrieve.
@@ -50,7 +50,7 @@ function delete_autotweet_meta( $id, $key ) {
 }
 
 /**
- * Helper for determining if a post should auto-tweet.
+ * Helper for determining if a post should autotweet.
  *
  * @param int $post_id The post ID.
  *
@@ -183,7 +183,7 @@ function get_tweet_body( $post_id ) {
  *
  * @param int $post_id The post id to check.
  *
- * @return bool true if the current post type supports auto-tweet.
+ * @return bool true if the current post type supports autotweet.
  */
 function opted_into_autotweet( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );

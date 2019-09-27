@@ -41,7 +41,7 @@ function publish_tweet( $new_status, $old_status, $post ) {
 	}
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into auto-tweeting
+	 * Don't bother enqueuing assets if the post type hasn't opted into autotweeting
 	 */
 	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
@@ -157,7 +157,7 @@ function update_autotweet_meta_from_response( $post_id, $data ) {
 
 	/**
 	 * Update the post meta entry that stores the response
-	 * and remove the "Auto-tweet this post" value as a double-check.
+	 * and remove the "Autotweet this post" value as a double-check.
 	 */
 	update_autotweet_meta( $post_id, Meta\TWITTER_STATUS_KEY, $response );
 	delete_autotweet_meta( $post_id, Meta\ENABLE_AUTOTWEET_KEY );
