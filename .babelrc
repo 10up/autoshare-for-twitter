@@ -4,7 +4,7 @@
 		[
 			"@wordpress/babel-plugin-makepot",
 			{
-				"output": "languages/autotweet-js.pot",
+				"output": "languages/autotweet.pot",
 			}
 		],
 	]
