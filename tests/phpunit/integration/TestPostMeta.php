@@ -3,16 +3,16 @@
  * Tests functions admin/post-meta.php.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use WP_UnitTestCase;
 
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
-use function TenUp\Auto_Tweet\Core\Post_Meta\get_tweet_status_message;
+use function TenUp\AutoTweet\Core\Post_Meta\get_tweet_status_message;
 
 /**
  * TestUtils class.

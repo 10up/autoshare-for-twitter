@@ -23,13 +23,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/10up/10up-auto-tweet.git"
+		"url": "git+https://github.com/10up/autotweet.git"
 	},
 	"author": "10up",
 	"bugs": {
-		"url": "https://github.com/10up/10up-auto-tweet/issues"
+		"url": "https://github.com/10up/autotweet/issues"
 	},
-	"homepage": "https://github.com/10up/10up-auto-tweet#readme",
+	"homepage": "https://github.com/10up/autotweet#readme",
 	"devDependencies": {
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",

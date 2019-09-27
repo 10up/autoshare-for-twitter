@@ -2,23 +2,23 @@
 /**
  * Core plugin setup.
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core;
+namespace TenUp\AutoTweet\Core;
 
-const POST_TYPE_SUPPORT_FEATURE = 'tenup-autotweet';
+const POST_TYPE_SUPPORT_FEATURE = 'autotweet';
 
 /**
  * The main setup action.
  */
 function setup() {
-	require_once plugin_dir_path( TUAT ) . '/includes/admin/assets.php';
-	require_once plugin_dir_path( TUAT ) . '/includes/admin/settings.php';
-	require_once plugin_dir_path( TUAT ) . '/includes/admin/post-meta.php';
-	require_once plugin_dir_path( TUAT ) . '/includes/admin/post-transition.php';
-	require_once plugin_dir_path( TUAT ) . '/includes/class-publish-tweet.php';
-	require_once plugin_dir_path( TUAT ) . '/includes/rest.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/admin/assets.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/admin/settings.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/admin/post-meta.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/admin/post-transition.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/class-publish-tweet.php';
+	require_once plugin_dir_path( AUTOTWEET ) . '/includes/rest.php';
 
 	\TenUp\AutoTweet\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoTweet\REST\add_hook_callbacks();
@@ -28,7 +28,7 @@ function setup() {
 	/**
 	 * Allow others to hook into the core setup action
 	 */
-	do_action( 'tenup_auto_tweet_setup' );
+	do_action( 'tenup_autotweet_setup' );
 
 	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
 }
@@ -36,9 +36,9 @@ function setup() {
 /**
  * Fire up the module.
  *
- * @uses auto_tweet_loaded
+ * @uses autotweet_loaded
  */
-add_action( 'tenup_auto_tweet_loaded', __NAMESPACE__ . '\setup' );
+add_action( 'tenup_autotweet_loaded', __NAMESPACE__ . '\setup' );
 
 /**
  * Adds autotweet support for default post types.

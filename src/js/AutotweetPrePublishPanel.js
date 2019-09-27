@@ -124,7 +124,7 @@ class AutotweetPrePublishPanel extends Component {
 								label={
 									<span className="autotweet-prepublish__message-label">
 										<span>{ __( 'Custom message:', 'autotweet' ) }&nbsp;</span>
-										<span id="tenup-auto-tweet-counter-wrap" className={ overrideLengthClass() }>{ tweetText.length }</span>
+										<span id="autotweet-counter-wrap" className={ overrideLengthClass() }>{ tweetText.length }</span>
 									</span>
 								}
 							/>
