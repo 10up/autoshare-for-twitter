@@ -28,7 +28,7 @@ In addition, adding support while registering custom post types also works.  Pos
 ## Installation
 1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'tenup-auto-tweet' );`
+3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'autotweet' );`
 
 ## FAQs
 ### Does this plugin work with Gutenberg?
