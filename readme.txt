@@ -5,8 +5,8 @@ Requires at least: 4.7
 Tested up to:      5.2.3
 Requires PHP:      7.0
 Stable tag:        0.1.0
-License:           MIT
-License URI:       https://opensource.org/licenses/MIT
+License:           GPL-2.0-or-later
+License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
 Automatically tweets a post title, URL, and optional description.
 
