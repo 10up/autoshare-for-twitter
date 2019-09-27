@@ -41,7 +41,7 @@ Nope, not yet.
 * XSS prevention - switch from .innerHTML to text (props @adamsilverstein)
 
 = 0.1.0 =
-* Initial closed source release
+* Initial private release
 
 == Upgrade Notice ==
 
