@@ -7,8 +7,8 @@
  * Requires PHP:      7.0
  * Author:            10up
  * Author URI:        https://10up.com
- * License:           MIT
- * License URI:       https://opensource.org/licenses/MIT
+ * License:           GPL-2.0-or-later
+ * License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
  *
  * @package TenUp\Auto_Tweet
  */
