@@ -3,12 +3,12 @@
  * Tests functionality implemented by the Publish_Tweet class.
  * 
  * @since 0.1.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
-use TenUp\Auto_Tweet\Core\Publish_Tweet\Publish_Tweet;
+use TenUp\AutoTweet\Core\Publish_Tweet\Publish_Tweet;
 use WP_UnitTestCase;
 
 class TestPublish_Tweet extends WP_UnitTestCase {

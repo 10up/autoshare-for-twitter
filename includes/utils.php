@@ -23,7 +23,18 @@ use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
  * @return mixed
  */
 function get_autotweet_meta( $id, $key ) {
-	return get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
+	$data = get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
+
+	/**
+	 * Filters autotweet metadata.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed  Retrieved metadata.
+	 * @param int    Post ID.
+	 * @param string The meta key.
+	 */
+	return apply_filters( 'autotweet_meta', $data, $id, $key );
 }
 
 /**
@@ -95,17 +106,30 @@ function compose_tweet_body( \WP_Post $post ) {
 	 */
 	$url = apply_filters( 'tenup_autotweet_post_url', get_the_permalink( $post->ID ), $post );
 
-	// Make it safe.
-	$array_body = array(
-		'title'    => sanitize_text_field( $tweet_body ), // Twitter calls this the Title.
-		'url'      => esc_url( $url ),
-		'hashtags' => '', // coming soon!
-	);
+	$url               = esc_url( $url );
+	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.
+	$tweet_body        = sanitize_text_field( $tweet_body );
+	$tweet_body_length = strlen( $tweet_body );
+	$ellipsis          = ''; // Initialize as empty. Will be set if the tweet body is too long.
 
-	// Cleaner (ok, easier) way of string concatination.
-	$tweet_body = implode( ' ', $array_body );
+	while ( $body_max_length < $tweet_body_length ) {
+		// We can't use `&hellip;` here or it will display encoded when tweeting.
+		$ellipsis = ' ...';
 
-	return $tweet_body;
+		// If there are no spaces in the tweet for whatever reason, truncate regardless of where spaces fall.
+		if ( false === strpos( $tweet_body, ' ' ) ) {
+			$tweet_body = substr( $tweet_body, 0, $body_max_length );
+			break;
+		}
+
+		// Otherwise, cut off the last word in the text until the tweet is short enough.
+		$tweet_words = explode( ' ', $tweet_body );
+		array_pop( $tweet_words );
+		$tweet_body        = implode( ' ', $tweet_words );
+		$tweet_body_length = strlen( $tweet_body );
+	}
+
+	return sprintf( '%s%s %s', $tweet_body, $ellipsis, $url );
 }
 
 /**

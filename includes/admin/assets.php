@@ -10,9 +10,10 @@ namespace TenUp\AutoTweet\Admin\Assets;
 
 use function TenUp\AutoTweet\Utils\get_autotweet_meta;
 use function TenUp\AutoTweet\Utils\opted_into_autotweet;
+use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
 use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
-use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
+use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
  * The handle used in registering plugin assets.
@@ -25,8 +26,23 @@ const SCRIPT_HANDLE = 'autotweet';
  * @since 1.0.0
  */
 function add_hook_callbacks() {
+	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_shared_assets' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_classic_editor_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
+}
+
+/**
+ * Enqueues assets shared by WP5.0 and classic editors.
+ *
+ * @since 1.0.0
+ */
+function enqueue_shared_assets() {
+	wp_enqueue_style(
+		'admin_autotweet',
+		trailingslashit( TUAT_URL ) . 'assets/css/admin-autotweet.css',
+		[],
+		TUAT_VERSION
+	);
 }
 
 /**
@@ -110,7 +126,16 @@ function enqueue_editor_assets() {
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
 		trailingslashit( TUAT_URL ) . 'dist/autotweet.js',
-		[ 'wp-plugins', 'wp-edit-post' ],
+		[
+			'lodash',
+			'wp-components',
+			'wp-compose',
+			'wp-data',
+			'wp-edit-post',
+			'wp-element',
+			'wp-i18n',
+			'wp-plugins',
+		],
 		TUAT_VERSION,
 		true
 	);
@@ -133,6 +158,8 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		);
 	}
 
+	$status_meta = get_autotweet_meta( $post_id, TWITTER_STATUS_KEY );
+
 	$localization = [
 		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
 		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
@@ -140,7 +167,9 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
 		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
+		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
+		'siteUrl'            => home_url(),
 	];
 
 	wp_localize_script( $handle, 'adminAutotweet', $localization );

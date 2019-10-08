@@ -116,7 +116,7 @@ class Publish_Tweet {
 		 * @param array   Data sent to the Twitter endpoint.
 		 * @param WP_Post The post associated with the tweet.
 		 */
-		$update_data = apply_filters( 'tenup_auto_tweet_tweet', $update_data, $post );
+		$update_data = apply_filters( 'autotweet_tweet', $update_data, $post );
 
 		/**
 		 * Filters the client response before it is sent, to facilitate caching and testing.

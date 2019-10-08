@@ -19,20 +19,26 @@ use function TenUp\AutoTweet\Utils\update_autotweet_meta;
  * @return void
  */
 function setup() {
-	add_action( 'transition_post_status', __NAMESPACE__ . '\publish_tweet', 10, 3 );
+	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_publish_tweet', 10, 3 );
 }
 
 /**
- * Primary handler for the process of publishing to Twitter.
+ * Publishes the tweet if the post has transititioned from unpublished to published.
  *
- * @param string   $new_status The new status.
- * @param string   $old_status The old status.
- * @param \WP_Post $post       The post object.
+ * In WP 5, the main Twitter publish action must run later than the transition_post_status hook because, when saving
+ * via REST, the post thumbnail and other metadata have not yet been saved.
+ *
+ * @see https://core.trac.wordpress.org/ticket/45114
+ *
+ * @since 1.0.0
+ *
+ * @param string  $new_status The new status.
+ * @param string  $old_status The old status.
+ * @param WP_Post $post       The current post.
  *
  * @return object
  */
-function publish_tweet( $new_status, $old_status, $post ) {
-
+function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/**
 	 * We're only interested in posts that are transitioning into publish.
 	 */
@@ -47,12 +53,27 @@ function publish_tweet( $new_status, $old_status, $post ) {
 		return;
 	}
 
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		add_action( sprintf( 'rest_after_insert_%s', $post->post_type ), __NAMESPACE__ . '\publish_tweet' );
+	} else {
+		publish_tweet( $post->ID );
+	}
+}
+
+/**
+ * Primary handler for the process of publishing to Twitter.
+ *
+ * @param int $post_id The current post ID.
+ *
+ * @return object
+ */
+function publish_tweet( $post_id ) {
+	$post = get_post( $post_id );
+
 	/**
-	 * This should never happen since the nonce field wouldn't exist.
-	 * But just in case one more check: check that the post doesn't
-	 * have a twitter-status entry already.
+	 * Don't bother enqueuing assets if the post type hasn't opted into autotweeting
 	 */
-	if ( Utils\already_published( $post->ID ) ) {
+	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
 		return;
 	}
 
