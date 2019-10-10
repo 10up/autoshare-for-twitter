@@ -1,0 +1,29 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test_js:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Test JS
+      run: |
+        npm install
+        npm run lint
+     
+  test_php:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3']
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Lint and test PHP
+      run: |
+        composer install
+        composer run lint
+        composer run setup-local-tests
+        composer test
