@@ -23,8 +23,8 @@
 	},
 	"scripts": {
 		"test": "phpunit",
-		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root password mysql latest",
-		"lint": "./vendor/bin/phpcs --extensions=php --severity=3 -s .",
+		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root root localhost latest",
+		"lint": "./vendor/bin/phpcs --extensions=php -s .",
 		"lint-fix": "./vendor/bin/phpcbf ."
 	}
 }
