@@ -125,7 +125,7 @@ class Publish_Tweet {
 		 * @param array      Data to send to the Twitter endpoint.
 		 * @param WP_Post    The post associated with the tweet.
 		 */
-		$response = apply_filters( 'tenup_autotweet_pre_status_update', null, $update_data, $post );
+		$response    = apply_filters( 'tenup_autotweet_pre_status_update', null, $update_data, $post );
 		$update_data = apply_filters( 'tenup_autotweet_tweet', $update_data, $post );
 
 		if ( ! is_null( $response ) ) {
