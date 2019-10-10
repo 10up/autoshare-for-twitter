@@ -6,7 +6,7 @@
 ( function( $ ) {
 	'use strict';
 
-	const $tweetPost = $( '#autotweet-enable' ),
+	var $tweetPost = $( '#autotweet-enable' ),
 		$icon = $( '#autotweet-icon' ),
 		$tweetText = $( '#autotweet-text' ),
 		$editLink = $( '#autotweet-edit' ),
@@ -47,13 +47,11 @@
 
 	/**
 	 * Callback for failed requests.
-	 *
-	 * @param {Object} error Error object.
 	 */
 	function onRequestFail( error ) {
-		let errorText = '';
+		var errorText = '';
 		if ( 'statusText' in error && 'status' in error ) {
-			errorText = `${ adminAutotweet.errorText } ${ error.status }: ${ error.statusText }`;
+			errorText = `${adminAutotweet.errorText} ${error.status}: ${error.statusText}`;
 		} else {
 			errorText = adminAutotweet.unkonwnErrorText;
 		}
@@ -66,48 +64,50 @@
 
 	/**
 	 * AJAX handler
-	 *
-	 * @param {Object} event Click/change event.
-	 * @param {string} status The status of whether to autotweet.
+	 * @param event
 	 */
 	function handleRequest( event, status = $tweetPost.prop( 'checked' ) ) {
-		const data = {};
-		data[ adminAutotweet.enableAutotweetKey ] = status;
-		data[ adminAutotweet.tweetBodyKey ] = $tweetText.val();
+		var data = {};
+		data[adminAutotweet.enableAutotweetKey] = status;
+		data[adminAutotweet.tweetBodyKey] = $tweetText.val();
 
-		wp.apiFetch( {
-			url: adminAutotweet.restUrl,
-			data,
-			method: 'POST',
-			parse: false, // We'll check the response for errors.
-		} )
-			.then( function( response ) {
+		wp.apiFetch(
+			{
+				url: adminAutotweet.restUrl,
+				data: data,
+				method: 'POST',
+				parse: false // We'll check the response for errors.
+			}
+		).then(
+			function( response ) {
 				if ( ! response.ok ) {
 					throw response;
 				}
 
 				return response.json();
-			} )
-			.then( function( responseData ) {
+			}
+		)
+		.then(
+			function( data ) {
 				errorMessageContainer.innerText = '';
 
 				$icon.removeClass( 'pending' );
-				if ( responseData.enabled ) {
+				if ( data.enabled ) {
 					$icon.toggleClass( 'enabled' );
 					$tweetPost.prop( 'checked', true );
 				} else {
 					$icon.toggleClass( 'disabled' );
 					$tweetPost.prop( 'checked', false );
 				}
-			} )
-			.catch( onRequestFail );
+			}
+		).catch( onRequestFail );
 	}
 
 	/**
 	 * Updates the counter
 	 */
 	function updateRemainingField() {
-		const count = $tweetText.val().length;
+		var count = $tweetText.val().length;
 
 		$( counterWrap ).text( count );
 
@@ -118,5 +118,13 @@
 			counterWrap.classList.remove( 'over-limit' );
 		}
 	}
-// eslint-disable-next-line func-call-spacing
-} ( jQuery ) );
+
+	/**
+	 * Helper for toggling classes to indicate something is happening.
+	 */
+	function pendingStatus() {
+		$icon.toggleClass( 'pending' );
+		$icon.removeClass( 'enabled' );
+		$icon.removeClass( 'disabled' );
+	}
+} )( jQuery );
