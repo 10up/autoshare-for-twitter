@@ -70,7 +70,7 @@ class TestUtils extends WP_UnitTestCase {
 
 		$this->assertTrue( opted_into_autotweet( $post ) );
 
-		$post_type = register_non_default_post_type();
+		$post_type  = register_non_default_post_type();
 		$other_post = $this->factory->post->create( compact( 'post_type' ) );
 
 		$this->assertFalse( opted_into_autotweet( $other_post ) );

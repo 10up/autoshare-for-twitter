@@ -6,7 +6,7 @@
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
 		"build": "webpack -p --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
-		"lint": "eslint src"
+		"lint": "eslint ."
 	},
 	"husky": {
 		"hooks": {

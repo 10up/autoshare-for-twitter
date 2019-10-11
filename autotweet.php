@@ -28,7 +28,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 
-// Include the main functionality
+// Include the main functionality.
 require_once plugin_dir_path( __FILE__ ) . 'includes/core.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/utils.php';
 

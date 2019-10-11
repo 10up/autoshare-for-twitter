@@ -55,7 +55,7 @@ class TestCore extends WP_UnitTestCase {
 
 		// Clean up.
 		remove_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
-		$_wp_post_type_features = $saved__wp_post_type_features;
+		$_wp_post_type_features = $saved__wp_post_type_features; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 
 }
