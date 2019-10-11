@@ -24,6 +24,12 @@ use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
  * @sincd 1.0.0
  */
 class TestRest extends WP_UnitTestCase {
+	/**
+	 * Provides a valid request for testing the autotweet endpoint.
+	 *
+	 * @param int $post Post ID.
+	 * @return WP_REST_Requst $requst;
+	 */
 	private function get_valid_request( $post = null ) {
 		if ( empty( $post ) ) {
 			$post = $this->factory->post->create();
@@ -58,7 +64,7 @@ class TestRest extends WP_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	public function _test_update_post_autotweet_meta_permission_check() {
+	public function test_update_post_autotweet_meta_permission_check() {
 		wp_set_current_user( $this->factory->user->create() );
 		$this->assertFalse( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
 
