@@ -11,7 +11,7 @@ import AutotweetPostStatusInfo from './AutotweetPostStatusInfo';
 createAutotweetStore();
 
 class AutotweetPrePublishPanelPlugin extends Component {
-	constructor( props ) {
+	constructor(props ) {
 		super( props );
 
 		this.state = {
