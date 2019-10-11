@@ -24,9 +24,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Lint and test PHP
+    - name: Install dependencies
+      run: composer install
+    - name: Run PHPCS
+      if: matrix.php-versions == '7.3'
+      run: composer run lint
+    - name: Run PHPUnit
       run: |
-        composer install
-        composer run lint
         composer run setup-local-tests
         composer test
