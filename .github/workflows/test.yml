@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Test JS
-      run: |
-        npm install
-        npm run lint
+    - name: ESLint checks
+      uses: gimenete/eslint-action@1.0
      
   test_php:
     runs-on: ubuntu-latest
