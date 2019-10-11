@@ -36,9 +36,16 @@ class TestRest extends WP_UnitTestCase {
 		}
 
 		$request = WP_REST_Request::from_url( rest_url( post_autotweet_meta_rest_route( $post ) ) );
+		$request->set_method( 'POST' );
+		$request->set_body_params(
+			[
+				ENABLE_AUTOTWEET_KEY => true,
+				TWEET_BODY_KEY       => 'tweet override',
+				'id'                 => $post,
+			]
+		);
 		$request->set_attributes( [ 'id' => $post ] );
-		$request->set_param( ENABLE_AUTOTWEET_KEY, true );
-		$request->set_param( TWEET_BODY_KEY, 'tweet override' );
+
 		return $request;
 	}
 
@@ -68,8 +75,15 @@ class TestRest extends WP_UnitTestCase {
 		wp_set_current_user( $this->factory->user->create() );
 		$this->assertFalse( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
 
-		wp_set_current_user( 1 ); // Administrator user.
-		$this->assertTrue( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
+		$user = $this->factory->user->create(
+			[
+				'role' => 'administrator',
+			]
+		);
+
+		wp_set_current_user( $user );
+		$request = $this->get_valid_request();
+		$this->assertTrue( update_post_autotweet_meta_permission_check( $request ) );
 	}
 
 	/**
