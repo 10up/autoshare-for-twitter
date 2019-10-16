@@ -1,12 +1,24 @@
 # Auto Tweet
 
-> Automatically tweets a post title, URL, and optional description.
+> Automatically tweets the post title or custom message and a link to the post.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autotweet.svg)](https://github.com/10up/autotweet/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.9.8%20tested-success.svg) [![MIT License](https://img.shields.io/github/license/10up/autotweet.svg)](https://github.com/10up/autotweet/blob/develop/LICENSE.md)
 
 ## Overview
 
-**NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
+**NOTE:** Posts and pages are supported by default. Developers can use the `tenup_autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
+
+Custom post types can now be opted into autotweet features like so:
+```
+{{{
+function opt_my_cpt_into_autotweet() {
+add_post_type_support( 'my-cpt', 'autotweet' );
+}
+add_action( 'init', 'opt_my_cpt_into_autotweet' );
+}}}
+```
+
+In addition, adding support while registering custom post types also works.  Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
 ## Requirements
 
@@ -16,11 +28,11 @@
 ## Installation
 1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'tenup-auto-tweet' );`
+3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'autotweet' );`
 
 ## FAQs
 ### Does this plugin work with Gutenberg?
-Nope, not yet.
+Yes, yes it does!  For more details on this, see #44.
 
 ## Support Level
 
