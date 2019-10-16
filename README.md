@@ -9,16 +9,27 @@
 **NOTE:** Posts and pages are supported by default. Developers can use the `tenup_autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
 
 Custom post types can now be opted into autotweet features like so:
-```
-{{{
+
+```php
 function opt_my_cpt_into_autotweet() {
-add_post_type_support( 'my-cpt', 'autotweet' );
+	add_post_type_support( 'my-cpt', 'autotweet' );
 }
 add_action( 'init', 'opt_my_cpt_into_autotweet' );
-}}}
 ```
 
 In addition, adding support while registering custom post types also works.  Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
+
+## Plugin Compatibility ##
+
+### Distributor ###
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-tweet if they are already tweeted from the origin site. Autotweet tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autotweet_twitter-status' meta value from being distrivuted :
+
+```php
+add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
+	$blacklisted_metas[] = 'autotweet_twitter-status';
+	return $blacklisted_metas;
+} )
+```
 
 ## Requirements
 
