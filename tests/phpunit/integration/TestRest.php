@@ -3,20 +3,20 @@
  * Tests rest.php
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use WP_REST_Request;
 use WP_UnitTestCase;
 use function TenUp\AutoTweet\REST\{
 	post_autotweet_meta_rest_route,
-	update_post_autotweet_meta_permission_check, 
+	update_post_autotweet_meta_permission_check,
 	update_post_autotweet_meta
 };
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
 
 /**
  * TestRest class.
@@ -24,15 +24,28 @@ use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
  * @sincd 1.0.0
  */
 class TestRest extends WP_UnitTestCase {
+	/**
+	 * Provides a valid request for testing the autotweet endpoint.
+	 *
+	 * @param int $post Post ID.
+	 * @return WP_REST_Requst $requst;
+	 */
 	private function get_valid_request( $post = null ) {
 		if ( empty( $post ) ) {
 			$post = $this->factory->post->create();
 		}
 
 		$request = WP_REST_Request::from_url( rest_url( post_autotweet_meta_rest_route( $post ) ) );
+		$request->set_method( 'POST' );
+		$request->set_body_params(
+			[
+				ENABLE_AUTOTWEET_KEY => true,
+				TWEET_BODY_KEY       => 'tweet override',
+				'id'                 => $post,
+			]
+		);
 		$request->set_attributes( [ 'id' => $post ] );
-		$request->set_param( ENABLE_AUTOTWEET_KEY, true );
-		$request->set_param( TWEET_BODY_KEY, 'tweet override' );
+
 		return $request;
 	}
 
@@ -58,14 +71,21 @@ class TestRest extends WP_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	public function _test_update_post_autotweet_meta_permission_check() {
+	public function test_update_post_autotweet_meta_permission_check() {
 		wp_set_current_user( $this->factory->user->create() );
 		$this->assertFalse( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
 
-		wp_set_current_user( 1 ); // Administrator user.
-		$this->assertTrue( update_post_autotweet_meta_permission_check( $this->get_valid_request() ) );
+		$user = $this->factory->user->create(
+			[
+				'role' => 'administrator',
+			]
+		);
+
+		wp_set_current_user( $user );
+		$request = $this->get_valid_request();
+		$this->assertTrue( update_post_autotweet_meta_permission_check( $request ) );
 	}
-	
+
 	/**
 	 * Tests the update_post_autotweet_meta function.
 	 *
@@ -76,7 +96,7 @@ class TestRest extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'enabled'  => true,
-				'message'  => 'Auto-tweet disabled.',
+				'message'  => 'Autotweet disabled.',
 				'override' => true,
 			],
 			$response->get_data()

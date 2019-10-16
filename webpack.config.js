@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require( 'path' );
 
 module.exports = {
 	entry: {
 		autotweet: './src/js/index.js',
-		'api-fetch': './src/js/externals/api-fetch'
+		'api-fetch': './src/js/externals/api-fetch',
 	},
 	module: {
 		rules: [
@@ -18,6 +18,6 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].js',
-		path: path.resolve('./dist'),
+		path: path.resolve( './dist' ),
 	},
 };

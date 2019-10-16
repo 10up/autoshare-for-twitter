@@ -1,6 +1,8 @@
 {
 	"globals": {
+		"adminAutotweet": "readonly",
+		"jQuery": "readonly",
 		"wp": "readonly"
 	},
-	"extends": "@10up/eslint-config"
+	"extends": "plugin:@wordpress/eslint-plugin/recommended"
 }

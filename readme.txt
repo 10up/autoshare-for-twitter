@@ -1,6 +1,6 @@
-=== Tenup Auto Tweet ===
-Contributors:      10up, adamsilverstein, johnwatkins0
-Tags:              twitter
+=== Autotweet ===
+Contributors:      10up
+Tags:
 Requires at least: 4.7
 Tested up to:      5.2.3
 Requires PHP:      7.0
@@ -17,14 +17,18 @@ Automatically tweets the post title or custom message and a link to the post.
 **NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
-1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
+1. Upload the entire `/autotweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'tenup-auto-tweet' );`
+3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'autotweet' );`
 
 == FAQs ==
 Does this plugin work with Gutenberg?
 Nope, not yet.
 
+- Reevaluate storing the Twitter credentials in the database OR do a environment check. There's potential for a local environment tweeting publicly if using a copy of the production database.
+- Allow for post types to opt into/out of the autotweeting.
+- Remove jQuery dependency
+- Gutenberg compatibility
 == Changelog ==
 
 = 1.0.0 =

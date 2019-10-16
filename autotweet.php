@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       10up Auto Tweet
- * Description:       Automatically tweets the post title or custom message and a link to the post.
- * Version:           0.1.0
+ * Plugin Name: Autotweet
+ * Description: Automatically tweets the post title or custom message and a link to the post.
+ * Version:     1.0.0
  * Requires at least: 4.7
  * Requires PHP:      7.0
  * Author:            10up
@@ -10,14 +10,14 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
  *
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'TUAT', __FILE__ );
+define( 'AUTOTWEET', __FILE__ );
 define( 'TUAT_VERSION', '0.1.0' );
 define( 'TUAT_URL', plugin_dir_url( __FILE__ ) );
 define( 'TUAT_PATH', plugin_dir_path( __FILE__ ) );
@@ -31,11 +31,11 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 
-// Include the main functionality
+// Include the main functionality.
 require_once plugin_dir_path( __FILE__ ) . 'includes/core.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/utils.php';
 
 /**
  * Play nice with others.
  */
-do_action( 'tenup_auto_tweet_loaded' );
+do_action( 'tenup_autotweet_loaded' );

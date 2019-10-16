@@ -2,12 +2,12 @@
 /**
  * Class to handle Tweet publishing.
  *
- * @package TenUp\Auto_Tweet\Core
+ * @package TenUp\AutoTweet\Core
  */
 
-namespace TenUp\Auto_Tweet\Core\Publish_Tweet;
+namespace TenUp\AutoTweet\Core\Publish_Tweet;
 
-use TenUp\Auto_Tweet\Utils as Utils;
+use TenUp\AutoTweet\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
 
 /**
@@ -62,7 +62,7 @@ class Publish_Tweet {
 	 */
 	public function __construct() {
 
-		$at_settings = Utils\get_auto_tweet_settings();
+		$at_settings = Utils\get_autotweet_settings();
 
 		$this->consumer_key        = $at_settings['api_key'];
 		$this->consumer_secret     = $at_settings['api_secret'];
@@ -98,7 +98,6 @@ class Publish_Tweet {
 		if ( empty( $body ) ) {
 			return;
 		}
-
 		$update_data = array(
 			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
@@ -117,7 +116,7 @@ class Publish_Tweet {
 		 * @param array   Data sent to the Twitter endpoint.
 		 * @param WP_Post The post associated with the tweet.
 		 */
-		$update_data = apply_filters( 'tenup_auto_tweet_tweet', $update_data, $post );
+		$update_data = apply_filters( 'autotweet_tweet', $update_data, $post );
 
 		/**
 		 * Filters the client response before it is sent, to facilitate caching and testing.
@@ -126,7 +125,8 @@ class Publish_Tweet {
 		 * @param array      Data to send to the Twitter endpoint.
 		 * @param WP_Post    The post associated with the tweet.
 		 */
-		$response = apply_filters( 'tenup_autotweet_pre_status_update', null, $update_data, $post );
+		$response    = apply_filters( 'tenup_autotweet_pre_status_update', null, $update_data, $post );
+		$update_data = apply_filters( 'tenup_autotweet_tweet', $update_data, $post );
 
 		if ( ! is_null( $response ) ) {
 			return $response;
