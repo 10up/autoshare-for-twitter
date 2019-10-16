@@ -3,9 +3,10 @@
 	"version": "1.0.0",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
-		"watch": "webpack -wd",
-		"build": "webpack -p",
-		"lint": "eslint src"
+		"watch": "webpack -wd --config webpack.gutenberg.config.js",
+		"build": "webpack -p --config webpack.gutenberg.config.js",
+		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
+		"lint": "eslint ."
 	},
 	"husky": {
 		"hooks": {
@@ -22,18 +23,20 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/10up/10up-auto-tweet.git"
+		"url": "git+https://github.com/10up/autotweet.git"
 	},
 	"author": "10up",
 	"bugs": {
-		"url": "https://github.com/10up/10up-auto-tweet/issues"
+		"url": "https://github.com/10up/autotweet/issues"
 	},
-	"homepage": "https://github.com/10up/10up-auto-tweet#readme",
+	"homepage": "https://github.com/10up/autotweet#readme",
 	"devDependencies": {
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",
 		"@babel/preset-env": "^7.6.0",
 		"@babel/preset-react": "^7.0.0",
+		"@wordpress/babel-plugin-makepot": "^3.2.0",
+		"@wordpress/eslint-plugin": "^3.0.0",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
 		"eslint": "^6.3.0",

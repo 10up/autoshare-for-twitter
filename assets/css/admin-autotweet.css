@@ -1,0 +1,104 @@
+#autotweet_metabox p::before {
+	display: inline-block;
+	margin-left: -1px;
+	padding-right: 3px;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#autotweet_metabox pre {
+	font-size: 11px;
+	white-space: normal;
+}
+
+.autotweet-prepublish__checkbox .components-base-control__field, .autotweet-prepublish__checkbox-label { 
+	display: flex;
+	align-items: center;
+}
+
+.autotweet-prepublish__checkbox .components-base-control__field {
+	margin-top: 0.5rem;
+}
+
+.autotweet-prepublish__checkbox-label svg {
+	margin-right: 0.5rem;
+}
+
+.autotweet-prepublish__message-label {
+	display: flex;
+	justify-content: space-between;
+}
+
+.autotweet-prepublish__checkbox-row input[type=checkbox].components-checkbox-control__input {
+	margin-right: 0.5rem;
+}
+
+.autotweet-prepublish__override-row {
+	padding: 0.5rem 0;
+}
+
+.autotweet-prepublish__override-row .components-button {
+	margin-bottom: 1rem;
+}
+
+.autotweet-post-status {
+	font-style: italic;
+}
+
+.autotweet-post-status svg {
+	transform: translate3d(0, 3px, 0);
+    margin-right: 5px;
+}
+
+#autotweet-icon.pending,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.pending {
+	animation: fadeIn 1s infinite alternate;
+	color: #00aced;
+}
+
+#autotweet-icon.enabled,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.enabled {
+	color: #00aced;
+}
+
+#autotweet-icon.disabled,
+.autotweet-prepublish__checkbox-row .dashicons-twitter.disabled {
+	color: #72777c;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		color: #72777c;
+	}
+}
+
+a#autotweet-edit {
+	color: #0073aa;
+	text-decoration: underline;
+	transition-property: border, background, color;
+	transition-duration: .05s;
+	transition-timing-function: ease-in-out
+}
+
+#autotweet-override-body {
+	margin: 4px 0;
+}
+
+textarea#autotweet-text {
+	margin: 4px 0 0;
+	width: 100%
+}
+span#autotweet-counter-wrap {
+	background: rgba(0, 0, 0, 0.07);
+	font-family: Consolas, Monaco, monospace;
+}
+
+span.near-limit {
+	color: darkorange;
+}
+
+span.over-limit {
+	color: red;
+}

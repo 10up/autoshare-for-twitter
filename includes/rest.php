@@ -3,17 +3,20 @@
  * Sets up a WP REST route handling autotweet metadata.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
 namespace TenUp\AutoTweet\REST;
 
 use WP_REST_Response;
 use WP_REST_Server;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
 
-use function TenUp\Auto_Tweet\Core\Post_Meta\save_autotweet_meta_data;
+use function TenUp\AutoTweet\Core\Post_Meta\get_tweet_status_message;
+use function TenUp\AutoTweet\Core\Post_Meta\save_autotweet_meta_data;
+
 
 /**
  * The namespace for plugin REST endpoints.
@@ -43,6 +46,7 @@ const AUTOTWEET_REST_ROUTE = 'post-autotweet-meta';
  */
 function add_hook_callbacks() {
 	add_action( 'rest_api_init', __NAMESPACE__ . '\register_post_autotweet_meta_rest_route' );
+	add_action( 'rest_api_init', __NAMESPACE__ . '\register_tweet_status_rest_field' );
 }
 
 /**
@@ -60,21 +64,21 @@ function register_post_autotweet_meta_rest_route() {
 			'permission_callback' => __NAMESPACE__ . '\update_post_autotweet_meta_permission_check',
 			'args'                => [
 				'id'                 => [
-					'description'       => __( 'Unique identifier for the object.', 'tenup_auto_tweet' ),
+					'description'       => __( 'Unique identifier for the object.', 'tenup_autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'integer',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				TWEET_BODY_KEY       => [
-					'description'       => __( 'Tweet text, if overriding the default', 'tenup_auto_tweet' ),
+					'description'       => __( 'Tweet text, if overriding the default', 'tenup_autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'sanitize_text_field',
 					'type'              => 'string',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				ENABLE_AUTOTWEET_KEY => [
-					'description'       => __( 'Whether autotweet is enabled for the current post', 'tenup_auto_tweet' ),
+					'description'       => __( 'Whether autotweet is enabled for the current post', 'tenup_autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'boolean',
@@ -119,14 +123,38 @@ function update_post_autotweet_meta( $request ) {
 
 	save_autotweet_meta_data( $request['id'], $params );
 	$message = 1 === $params[ ENABLE_AUTOTWEET_KEY ] ?
-		__( 'Auto-tweet enabled.', 'tenup_auto_tweet' ) :
-		__( 'Auto-tweet disabled.', 'tenup_auto_tweet' );
+		__( 'Autotweet enabled.', 'tenup_autotweet' ) :
+		__( 'Autotweet disabled.', 'tenup_autotweet' );
 
 	return rest_ensure_response(
 		[
 			'enabled'  => $params[ ENABLE_AUTOTWEET_KEY ],
 			'message'  => $message,
 			'override' => ! empty( $params[ TWEET_BODY_KEY ] ),
+		]
+	);
+}
+
+/**
+ * Adds a REST field returning the tweet status message array for the current post.
+ *
+ * @since 0.1.0
+ */
+function register_tweet_status_rest_field() {
+	register_rest_field(
+		get_post_types_by_support( POST_TYPE_SUPPORT_FEATURE ),
+		'autotweet_status',
+		[
+			'get_callback' => function( $data ) {
+				return get_tweet_status_message( $data['id'] );
+			},
+			'schema'       => [
+				'context'     => [
+					'edit',
+				],
+				'description' => __( 'Autotweet status message', 'autotweet' ),
+				'type'        => 'object',
+			],
 		]
 	);
 }

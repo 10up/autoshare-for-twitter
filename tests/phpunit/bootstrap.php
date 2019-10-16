@@ -3,10 +3,10 @@
  * 10up autotweet test bootstrap.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 define( 'TESTS_PLUGIN_DIR', dirname( dirname( __DIR__ ) ) );
 
@@ -28,7 +28,7 @@ if ( false !== getenv( 'WP_TESTS_DIR' ) ) {
 }
 
 $GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/tenup-auto-tweet.php' ),
+	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/autotweet.php' ),
 );
 
 // Start up the WP testing environment.

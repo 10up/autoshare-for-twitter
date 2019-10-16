@@ -3,14 +3,14 @@
  * Tests functions in utils.php.
  *
  * @since 1.0.0
- * @package TenUp\Auto_Tweet
+ * @package TenUp\AutoTweet
  */
 
-namespace TenUp\Auto_Tweet\Tests;
+namespace TenUp\AutoTweet\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Auto_Tweet\Utils\{get_autotweet_meta, opted_into_autotweet, update_autotweet_meta, delete_autotweet_meta};
-use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
+use function TenUp\AutoTweet\Utils\{get_autotweet_meta, opted_into_autotweet, update_autotweet_meta, delete_autotweet_meta};
+use const TenUp\AutoTweet\Core\Post_Meta\META_PREFIX;
 
 /**
  * TestUtils class.
@@ -70,9 +70,9 @@ class TestUtils extends WP_UnitTestCase {
 
 		$this->assertTrue( opted_into_autotweet( $post ) );
 
-		$post_type = register_non_default_post_type();
+		$post_type  = register_non_default_post_type();
 		$other_post = $this->factory->post->create( compact( 'post_type' ) );
-		
+
 		$this->assertFalse( opted_into_autotweet( $other_post ) );
 	}
 }
