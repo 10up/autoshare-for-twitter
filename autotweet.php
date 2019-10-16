@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'AUTOTWEET', __FILE__ );
-define( 'TUAT_VERSION', '0.1.0' );
+define( 'TUAT_VERSION', '1.0.0' );
 define( 'TUAT_URL', plugin_dir_url( __FILE__ ) );
 define( 'TUAT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TUAT_INC', TUAT_PATH . 'includes/' );

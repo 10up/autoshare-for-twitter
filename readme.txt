@@ -4,7 +4,7 @@ Tags:
 Requires at least: 4.7
 Tested up to:      5.2.3
 Requires PHP:      7.0
-Stable tag:        0.1.0
+Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -23,12 +23,8 @@ Automatically tweets the post title or custom message and a link to the post.
 
 == FAQs ==
 Does this plugin work with Gutenberg?
-Nope, not yet.
+Yes, yes it does!  For more details on this, see #44.
 
-- Reevaluate storing the Twitter credentials in the database OR do a environment check. There's potential for a local environment tweeting publicly if using a copy of the production database.
-- Allow for post types to opt into/out of the autotweeting.
-- Remove jQuery dependency
-- Gutenberg compatibility
 == Changelog ==
 
 = 1.0.0 =
