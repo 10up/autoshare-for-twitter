@@ -8,9 +8,11 @@
 
 namespace TenUp\AutoTweet\Admin\Assets;
 
+use function TenUp\Auto_Tweet\Utils\get_autotweet_meta;
 use function TenUp\Auto_Tweet\Utils\opted_into_autotweet;
-use const TenUp\Auto_Tweet\Core\Post_Meta\META_PREFIX;
-use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
+use const TenUp\Auto_Tweet\Core\Post_Meta\TWEET_BODY_KEY;
+use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
 
 /**
  * The handle used in registering plugin assets.
@@ -47,11 +49,40 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		return;
 	}
 
+	$api_fetch_handle = 'wp-api-fetch';
+	if ( ! wp_script_is( $api_fetch_handle, 'registered' ) ) {
+		wp_register_script(
+			$api_fetch_handle,
+			trailingslashit( TUAT_URL ) . 'dist/api-fetch.js',
+			[],
+			'3.4.0',
+			true
+		);
+
+		wp_add_inline_script(
+			$api_fetch_handle,
+			sprintf(
+				'wp.apiFetch.use( wp.apiFetch.createNonceMiddleware( "%s" ) );',
+				( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' )
+			),
+			'after'
+		);
+
+		wp_add_inline_script(
+			$api_fetch_handle,
+			sprintf(
+				'wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "%s" ) );',
+				esc_url_raw( get_rest_url() )
+			),
+			'after'
+		);
+	}
+
 	$handle = 'admin_tenup-auto-tweet';
 	wp_enqueue_script(
 		$handle,
 		trailingslashit( TUAT_URL ) . 'assets/js/admin-auto_tweet.js',
-		[ 'jquery' ],
+		[ 'jquery', 'wp-api-fetch' ],
 		TUAT_VERSION,
 		true
 	);
@@ -94,11 +125,23 @@ function enqueue_editor_assets() {
  * @param string $handle Handle of the JS script intended to consume the data.
  */
 function localize_data( $handle = SCRIPT_HANDLE ) {
+	$post_id = intval( get_the_ID() );
+
+	if ( empty( $post_id ) ) {
+		$post_id = intval(
+			filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT )  // Filter removes all characters except digits.
+		);
+	}
+
 	$localization = [
-		'nonce'         => wp_create_nonce( 'admin_tenup-auto-tweet' ),
-		'postId'        => get_the_ID() ? get_the_ID() : ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		'currentStatus' => get_post_meta( get_the_ID(), META_PREFIX . '_' . TWEET_KEY, true ),
+		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
+		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
+		'errorText'          => __( 'Error', 'autotweet' ),
+		'nonce'              => wp_create_nonce( 'wp_rest' ),
+		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
+		'tweetBodyKey'       => TWEET_BODY_KEY,
+		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
 	];
 
-	wp_localize_script( $handle, 'adminTUAT', $localization );
+	wp_localize_script( $handle, 'adminAutotweet', $localization );
 }
