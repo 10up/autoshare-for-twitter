@@ -30,6 +30,7 @@ Yes, yes it does!  For more details on this, see #44.
 = 1.0.0 =
 == Added ==
 * Initial public release! 🎉
+* Plugin renamed to "Autotweet".
 * Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
 * Gutenberg support (props @johnwatkins0)
 * REST API endpoint to replace AJAX callback (props @johnwatkins0)
