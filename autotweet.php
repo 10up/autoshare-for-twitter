@@ -1,11 +1,14 @@
 <?php
 /**
  * Plugin Name: Autotweet
- * Description: Adds the ability to automatically publish a status update to Twitter.
- * Version:     0.1.0
- * Author:      10up
- * Author URI:  https://10up.com
- * License:     GPLv2 or later
+ * Description: Automatically tweets the post title or custom message and a link to the post.
+ * Version:     1.0.0
+ * Requires at least: 4.7
+ * Requires PHP:      7.0
+ * Author:            10up
+ * Author URI:        https://10up.com
+ * License:           GPL-2.0-or-later
+ * License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
  *
  * @package TenUp\AutoTweet
  */
@@ -15,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'AUTOTWEET', __FILE__ );
-define( 'TUAT_VERSION', '0.1.0' );
+define( 'TUAT_VERSION', '1.0.0' );
 define( 'TUAT_URL', plugin_dir_url( __FILE__ ) );
 define( 'TUAT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TUAT_INC', TUAT_PATH . 'includes/' );

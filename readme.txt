@@ -1,13 +1,20 @@
 === Autotweet ===
 Contributors:      10up
 Tags:
-Tested up to:      4.9.8
-Stable tag:        0.1.0
+Requires at least: 4.7
+Tested up to:      5.2.3
+Requires PHP:      7.0
+Stable tag:        1.0.0
+License:           GPL-2.0-or-later
+License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
+
+Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
-Automatically tweets a post title, URL, and optional description.
 
-**NOTE:** Post types are automatically set to autotweet. Future versions of this plugin could allow this to be set manually.
+Automatically tweets the post title or custom message and a link to the post.
+
+**NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
 1. Upload the entire `/autotweet` directory to the `/wp-content/plugins/` directory.
@@ -16,20 +23,28 @@ Automatically tweets a post title, URL, and optional description.
 
 == FAQs ==
 Does this plugin work with Gutenberg?
-Nope, not yet.
-
-== TODOs ==
-- Reevaluate storing the Twitter credentials in the database OR do a environment check. There's potential for a local environment tweeting publicly if using a copy of the production database.
-- Allow for post types to opt into/out of the autotweeting.
-- Remove jQuery dependency
-- Gutenberg compatibility
-- Remove composer dependencies from the repo
-
+Yes, yes it does!  For more details on this, see #44.
 
 == Changelog ==
 
+= 1.0.0 =
+== Added ==
+* Initial public release! 🎉
+* Plugin renamed to "Autotweet".
+* Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
+* Gutenberg support (props @johnwatkins0)
+* REST API endpoint to replace AJAX callback (props @johnwatkins0)
+* Build process, PHPCS linting, unit tests, and Travis CI (props @johnwatkins0, @adamsilverstein)
+* Plugin banner and icon images (props Stephanie Campbell)
+
+== Changed ==
+* Refactor v0.1.0 significantly (props @adamsilverstein)
+
+== Security ==
+* XSS prevention - switch from .innerHTML to text (props @adamsilverstein)
+
 = 0.1.0 =
-* First release
+* Initial private release
 
 == Upgrade Notice ==
 
