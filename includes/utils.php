@@ -97,14 +97,14 @@ function compose_tweet_body( \WP_Post $post ) {
 	/**
 	 * Allow filtering of tweet body
 	 */
-	$tweet_body = apply_filters( 'tenup_autotweet_body', get_tweet_body( $post->ID ), $post );
+	$tweet_body = apply_filters( 'autotweet_body', get_tweet_body( $post->ID ), $post );
 
 	/**
 	 * Allow filtering of post permalink.
 	 *
 	 * @param $permalink
 	 */
-	$url = apply_filters( 'tenup_autotweet_post_url', get_the_permalink( $post->ID ), $post );
+	$url = apply_filters( 'autotweet_post_url', get_the_permalink( $post->ID ), $post );
 
 	$url               = esc_url( $url );
 	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.

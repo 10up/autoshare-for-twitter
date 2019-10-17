@@ -28,7 +28,7 @@ function setup() {
 	/**
 	 * Allow others to hook into the core setup action
 	 */
-	do_action( 'tenup_autotweet_setup' );
+	do_action( 'autotweet_setup' );
 
 	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
 }
@@ -38,7 +38,7 @@ function setup() {
  *
  * @uses autotweet_loaded
  */
-add_action( 'tenup_autotweet_loaded', __NAMESPACE__ . '\setup' );
+add_action( 'autotweet_loaded', __NAMESPACE__ . '\setup' );
 
 /**
  * Adds autotweet support for default post types.
@@ -53,7 +53,7 @@ function set_default_post_type_supports() {
 	 * @since 1.0.0
 	 * @param array Array of post types.
 	 */
-	$post_types_supported_by_default = apply_filters( 'tenup_autotweet_default_post_types', [ 'post', 'page' ] );
+	$post_types_supported_by_default = apply_filters( 'autotweet_default_post_types', [ 'post', 'page' ] );
 
 	foreach ( (array) $post_types_supported_by_default as $post_type ) {
 		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );

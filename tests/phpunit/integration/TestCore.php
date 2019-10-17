@@ -46,7 +46,7 @@ class TestCore extends WP_UnitTestCase {
 		$filter_post_type_supports = function( $post_types ) use ( $non_default_post_type ) {
 			return [ $non_default_post_type ];
 		};
-		add_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
+		add_filter( 'autotweet_default_post_types', $filter_post_type_supports );
 
 		set_default_post_type_supports();
 		$this->assertFalse( post_type_supports( 'post', 'autotweet' ) );
@@ -54,7 +54,7 @@ class TestCore extends WP_UnitTestCase {
 		$this->assertTrue( post_type_supports( $non_default_post_type, 'autotweet' ) );
 
 		// Clean up.
-		remove_filter( 'tenup_autotweet_default_post_types', $filter_post_type_supports );
+		remove_filter( 'autotweet_default_post_types', $filter_post_type_supports );
 		$_wp_post_type_features = $saved__wp_post_type_features; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 

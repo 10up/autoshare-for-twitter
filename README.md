@@ -6,7 +6,7 @@
 
 ## Overview
 
-**NOTE:** Posts and pages are supported by default. Developers can use the `tenup_autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
+**NOTE:** Posts and pages are supported by default. Developers can use the `autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
 
 Custom post types can now be opted into autotweet features like so:
 

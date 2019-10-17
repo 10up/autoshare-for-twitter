@@ -125,8 +125,8 @@ class Publish_Tweet {
 		 * @param array      Data to send to the Twitter endpoint.
 		 * @param WP_Post    The post associated with the tweet.
 		 */
-		$response    = apply_filters( 'tenup_autotweet_pre_status_update', null, $update_data, $post );
-		$update_data = apply_filters( 'tenup_autotweet_tweet', $update_data, $post );
+		$response    = apply_filters( 'autotweet_pre_status_update', null, $update_data, $post );
+		$update_data = apply_filters( 'autotweet_tweet', $update_data, $post );
 
 		if ( ! is_null( $response ) ) {
 			return $response;
@@ -145,7 +145,7 @@ class Publish_Tweet {
 		 * @param array        Data to send to the Twitter endpoint.
 		 * @param WP_Post      The post associated with the tweet.
 		 */
-		do_action( 'tenup_autotweet_after_status_update', $response, $update_data, $post );
+		do_action( 'autotweet_after_status_update', $response, $update_data, $post );
 
 		return $response;
 	}
@@ -163,7 +163,7 @@ class Publish_Tweet {
 		 *
 		 * @param int Default 5MB.
 		 */
-		return apply_filters( 'tenup_autotweet_max_image_size', 5000000 ); // 5MB default.
+		return apply_filters( 'autotweet_max_image_size', 5000000 ); // 5MB default.
 	}
 
 
@@ -229,7 +229,7 @@ class Publish_Tweet {
 		 * @param null|int An attachment ID, null to fall back to the featured image, or false to send no image.
 		 * @param WP_Post  The post associated with the tweet.
 		 */
-		$attachment_id = apply_filters( 'tenup_autotweet_attached_image', null, $post );
+		$attachment_id = apply_filters( 'autotweet_attached_image', null, $post );
 
 		if ( false === $attachment_id ) {
 			return null;
@@ -276,7 +276,7 @@ class Publish_Tweet {
 		 * @param null|mixed Any non-null value will suppress the request to Twitter's media upload endpoint.
 		 * @param string     The path to the image file.
 		 */
-		$media_upload_id = apply_filters( 'tenup_autotweet_pre_media_upload', null, $image );
+		$media_upload_id = apply_filters( 'autotweet_pre_media_upload', null, $image );
 
 		if ( ! is_null( $media_upload_id ) ) {
 			return $media_upload_id;
@@ -298,7 +298,7 @@ class Publish_Tweet {
 		 * @param string The path to the image file that was uploaded to Twitter.
 		 * @param object The full response object recieved from Twitter.
 		 */
-		do_action( 'tenup_autotweet_after_media_upload', $media_upload_id, $image, $response );
+		do_action( 'autotweet_after_media_upload', $media_upload_id, $image, $response );
 
 		return $media_upload_id;
 	}

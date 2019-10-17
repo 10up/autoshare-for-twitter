@@ -64,21 +64,21 @@ function register_post_autotweet_meta_rest_route() {
 			'permission_callback' => __NAMESPACE__ . '\update_post_autotweet_meta_permission_check',
 			'args'                => [
 				'id'                 => [
-					'description'       => __( 'Unique identifier for the object.', 'tenup_autotweet' ),
+					'description'       => __( 'Unique identifier for the object.', 'autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'integer',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				TWEET_BODY_KEY       => [
-					'description'       => __( 'Tweet text, if overriding the default', 'tenup_autotweet' ),
+					'description'       => __( 'Tweet text, if overriding the default', 'autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'sanitize_text_field',
 					'type'              => 'string',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				ENABLE_AUTOTWEET_KEY => [
-					'description'       => __( 'Whether autotweet is enabled for the current post', 'tenup_autotweet' ),
+					'description'       => __( 'Whether autotweet is enabled for the current post', 'autotweet' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'boolean',
@@ -123,8 +123,8 @@ function update_post_autotweet_meta( $request ) {
 
 	save_autotweet_meta_data( $request['id'], $params );
 	$message = 1 === $params[ ENABLE_AUTOTWEET_KEY ] ?
-		__( 'Autotweet enabled.', 'tenup_autotweet' ) :
-		__( 'Autotweet disabled.', 'tenup_autotweet' );
+		__( 'Autotweet enabled.', 'autotweet' ) :
+		__( 'Autotweet disabled.', 'autotweet' );
 
 	return rest_ensure_response(
 		[

@@ -43,7 +43,7 @@ const TWITTER_STATUS_KEY = 'twitter-status';
  */
 function setup() {
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
-	add_action( 'tenup_autotweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
+	add_action( 'autotweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
 }
 
@@ -141,7 +141,7 @@ function tweet_submitbox_callback( $post ) {
 
 	?>
 	<div id="autotweet_metabox" class="misc-pub-section">
-		<?php do_action( 'tenup_autotweet_metabox', $post ); ?>
+		<?php do_action( 'autotweet_metabox', $post ); ?>
 	</div>
 	<?php
 }
@@ -177,7 +177,7 @@ function render_tweet_submitbox( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not tweeted.', 'tenup_autotweet' );
+				$output = __( 'This post was not tweeted.', 'autotweet' );
 				break;
 		}
 
@@ -254,10 +254,10 @@ function markup_published( $status_meta ) {
 
 	return sprintf(
 		'%s <span>%s</span> (<a href="%s" target="_blank">%s</a>)</p>',
-		esc_html__( 'Tweeted on', 'tenup_autotweet' ),
+		esc_html__( 'Tweeted on', 'autotweet' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'tenup_autotweet' )
+		esc_html__( 'View', 'autotweet' )
 	);
 }
 
@@ -273,7 +273,7 @@ function markup_error( $status_meta ) {
 
 	return sprintf(
 		'%s<br><pre>%s</pre></p>',
-		esc_html__( 'Failed to tweet', 'tenup_autotweet' ),
+		esc_html__( 'Failed to tweet', 'autotweet' ),
 		esc_html( $status_meta['message'] )
 	);
 }
@@ -308,13 +308,13 @@ function _safe_markup_default() {
 			<?php checked( Utils\get_autotweet_meta( get_the_ID(), ENABLE_AUTOTWEET_KEY ) ); ?>
 		>
 		<span id="autotweet-icon" class="dashicons-before dashicons-twitter"></span>
-		<?php esc_html_e( 'Tweet this post', 'tenup_autotweet' ); ?>
-		<a href="#edit_tweet_text" id="autotweet-edit"><?php esc_html_e( 'Edit', 'tenup_autotweet' ); ?></a>
+		<?php esc_html_e( 'Tweet this post', 'autotweet' ); ?>
+		<a href="#edit_tweet_text" id="autotweet-edit"><?php esc_html_e( 'Edit', 'autotweet' ); ?></a>
 	</label>
 
 	<div id="autotweet-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
-			<?php esc_html_e( 'Custom Message', 'tenup_autotweet' ); ?>:
+			<?php esc_html_e( 'Custom Message', 'autotweet' ); ?>:
 		</label>
 		<span id="autotweet-counter-wrap" class="alignright">0</span>
 		<textarea
@@ -337,4 +337,4 @@ function _safe_markup_default() {
  *
  * @uses autotweet_setup
  */
-add_action( 'tenup_autotweet_setup', __NAMESPACE__ . '\setup' );
+add_action( 'autotweet_setup', __NAMESPACE__ . '\setup' );

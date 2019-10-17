@@ -151,4 +151,4 @@ function options_page() {
  *
  * @uses autotweet_setup
  */
-add_action( 'tenup_autotweet_setup', __NAMESPACE__ . '\setup' );
+add_action( 'autotweet_setup', __NAMESPACE__ . '\setup' );
