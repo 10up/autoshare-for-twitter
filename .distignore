@@ -1,7 +1,22 @@
 /.wordpress-org
 /.git
 /.github
+/.babelrc
+/.eslintignore
+/phpcs.xml
 /node_modules
+/tests
+/bin
+/phpunit.xml
+
+# Exclude vendor folder, except required dependencies.
+/vendor
+!/vendor/composer
+!/vendor/autoload.php
+!/vendor/abraham
+!/vendor/symfony
+!/vendor/myclabs
 
 .distignore
 .gitignore
+
