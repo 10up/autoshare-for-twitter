@@ -14,7 +14,9 @@ Automatically tweets the post title or custom message and a link to the post.
 
 Automatically tweets the post title or custom message and a link to the post.
 
-**NOTE:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
+**Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
+
+**Note:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
 1. Upload the entire `/autotweet` directory to the `/wp-content/plugins/` directory.
