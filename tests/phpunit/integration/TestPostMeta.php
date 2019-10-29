@@ -20,6 +20,9 @@ use function TenUp\AutoTweet\Core\Post_Meta\get_tweet_status_message;
  * @sincd 1.0.0
  */
 class TestPostMeta extends WP_UnitTestCase {
+	/**
+	 * Tests the get_tweet_status_message function.
+	 */
 	public function test_get_tweet_status_message() {
 		$this->assertEquals(
 			[
@@ -28,11 +31,10 @@ class TestPostMeta extends WP_UnitTestCase {
 			get_tweet_status_message( -1 )
 		);
 
-
 		$post = $this->factory->post->create( [ 'status' => 'publish' ] );
-		
+
 		$published_filter = function( $data, $id, $key ) use ( $post ) {
-			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
+			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
 				return [
 					'status'     => 'published',
 					'created_at' => '2017-01-01',
@@ -53,10 +55,10 @@ class TestPostMeta extends WP_UnitTestCase {
 		remove_filter( 'autotweet_meta', $published_filter );
 
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
-			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
+			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
 				return [
 					'status'  => 'error',
-					'message' => 'There was an error.'
+					'message' => 'There was an error.',
 				];
 			}
 
@@ -72,10 +74,10 @@ class TestPostMeta extends WP_UnitTestCase {
 		remove_filter( 'autotweet_meta', $failed_filter );
 
 		$unknown_filter = function( $data, $id, $key ) use ( $post ) {
-			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
+			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
 				return [
 					'status'  => 'unknown',
-					'message' => 'There was an error.'
+					'message' => 'There was an error.',
 				];
 			}
 
@@ -91,7 +93,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		remove_filter( 'autotweet_meta', $unknown_filter );
 
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
-			if ( intval( $post ) === intval( $id ) && $key === TWITTER_STATUS_KEY ) {
+			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
 				return [
 					'status' => 'other',
 				];
@@ -108,5 +110,5 @@ class TestPostMeta extends WP_UnitTestCase {
 		);
 		remove_filter( 'autotweet_meta', $other_filter );
 	}
-	
+
 }

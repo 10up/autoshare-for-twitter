@@ -6,7 +6,8 @@
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
 		"build": "webpack -p --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
-		"lint": "eslint src"
+		"makepot": "wpi18n makepot --domain-path languages && echo '.pot file updated'",
+		"lint": "eslint ."
 	},
 	"husky": {
 		"hooks": {
@@ -42,6 +43,7 @@
 		"eslint": "^6.3.0",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
+		"node-wp-i18n": "^1.2.3",
 		"webpack": "^4.40.2",
 		"webpack-cli": "^3.3.8"
 	},
