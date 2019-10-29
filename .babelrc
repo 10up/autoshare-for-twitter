@@ -4,8 +4,8 @@
 		[
 			"@wordpress/babel-plugin-makepot",
 			{
-				"output": "languages/autotweet.pot",
+				"output": "languages/autoshare.pot"
 			}
-		],
+		]
 	]
 }

@@ -1,0 +1,126 @@
+/**
+ * Handles the Autoshare JS.
+ *
+ * @todo soooo much dependency :facepalm:
+ */
+(function($) {
+	'use strict';
+
+	var $tweetPost = $('#autoshare-enable'),
+		$icon = $('#autoshare-icon'),
+		$tweetText = $('#autoshare-text'),
+		$editLink = $('#autoshare-edit'),
+		$editBody = $('#autoshare-override-body'),
+		$hideLink = $('.cancel-tweet-text'),
+		errorMessageContainer = document.getElementById('autoshare-error-message'),
+		counterWrap = document.getElementById('autoshare-counter-wrap'),
+		limit = 280;
+
+	// Add enabled class if checked
+	if ($tweetPost.prop('checked')) {
+		$icon.addClass('enabled');
+	}
+
+	// Event handlers.
+	$tweetPost.on('click', handleRequest);
+	$tweetText.change(handleRequest);
+	$editLink.on('click', function() {
+		$editBody.slideToggle();
+		updateRemainingField();
+		$(this).hide();
+	});
+	$tweetText.on('keyup', function() {
+		updateRemainingField();
+	});
+	$hideLink.on('click', function(e) {
+		e.preventDefault();
+		$('#autoshare-override-body').slideToggle();
+		$editLink.show();
+	});
+
+	// Runs on page load to auto-enable posts to be tweeted
+	window.onload = function(event) {
+		if ('' === adminAutoshare.currentStatus) {
+			handleRequest(event, true);
+		}
+	};
+
+	/**
+	 * Callback for failed requests.
+	 */
+	function onRequestFail(error) {
+		var errorText = '';
+		if ('statusText' in error && 'status' in error) {
+			errorText = `${adminAutoshare.errorText} ${error.status}: ${error.statusText}`;
+		} else {
+			errorText = adminAutoshare.unkonwnErrorText;
+		}
+
+		errorMessageContainer.innerText = errorText;
+
+		$icon.removeClass('pending');
+		$tweetPost.prop('checked', false);
+	}
+
+	/**
+	 * AJAX handler
+	 * @param event
+	 */
+	function handleRequest(event, status = $tweetPost.prop('checked')) {
+		var data = {};
+		data[adminAutoshare.enableAutoshareKey] = status;
+		data[adminAutoshare.tweetBodyKey] = $tweetText.val();
+
+		wp.apiFetch({
+			url: adminAutoshare.restUrl,
+			data: data,
+			method: 'POST',
+			parse: false, // We'll check the response for errors.
+		})
+			.then(function(response) {
+				if (!response.ok) {
+					throw response;
+				}
+
+				return response.json();
+			})
+			.then(function(data) {
+				errorMessageContainer.innerText = '';
+
+				$icon.removeClass('pending');
+				if (data.enabled) {
+					$icon.toggleClass('enabled');
+					$tweetPost.prop('checked', true);
+				} else {
+					$icon.toggleClass('disabled');
+					$tweetPost.prop('checked', false);
+				}
+			})
+			.catch(onRequestFail);
+	}
+
+	/**
+	 * Updates the counter
+	 */
+	function updateRemainingField() {
+		var count = $tweetText.val().length;
+
+		$(counterWrap).text(count);
+
+		// Toggle the .over-limit class.
+		if (limit < count) {
+			counterWrap.classList.add('over-limit');
+		} else if (counterWrap.classList.contains('over-limit')) {
+			counterWrap.classList.remove('over-limit');
+		}
+	}
+
+	/**
+	 * Helper for toggling classes to indicate something is happening.
+	 */
+	function pendingStatus() {
+		$icon.toggleClass('pending');
+		$icon.removeClass('enabled');
+		$icon.removeClass('disabled');
+	}
+})(jQuery);

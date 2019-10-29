@@ -1,4 +1,4 @@
-export const getAutotweetEnabled = ( state ) => state.autotweetEnabled;
+export const getAutoshareEnabled = ( state ) => state.autoshareEnabled;
 
 export const getErrorMessage = ( state ) => state.errorMessage;
 

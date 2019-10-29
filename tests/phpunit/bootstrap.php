@@ -1,12 +1,12 @@
 <?php
 /**
- * 10up autotweet test bootstrap.
+ * 10up autoshare test bootstrap.
  *
  * @since 1.0.0
- * @package TenUp\AutoTweet
+ * @package TenUp\Autoshare
  */
 
-namespace TenUp\AutoTweet\Tests;
+namespace TenUp\Autoshare\Tests;
 
 define( 'TESTS_PLUGIN_DIR', dirname( dirname( __DIR__ ) ) );
 
@@ -28,7 +28,7 @@ if ( false !== getenv( 'WP_TESTS_DIR' ) ) {
 }
 
 $GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/autotweet.php' ),
+	'active_plugins' => array( basename( TESTS_PLUGIN_DIR ) . '/autoshare.php' ),
 );
 
 // Start up the WP testing environment.

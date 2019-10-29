@@ -4,13 +4,13 @@ import { PluginPrePublishPanel, PluginPostPublishPanel, PluginPostStatusInfo } f
 import { dispatch, select, subscribe } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
-import { createAutotweetStore, STORE } from './store';
-import AutotweetPrePublishPanel from './AutotweetPrePublishPanel';
-import AutotweetPostStatusInfo from './AutotweetPostStatusInfo';
+import { createAutoshareStore, STORE } from './store';
+import AutosharePrePublishPanel from './AutosharePrePublishPanel';
+import AutosharePostStatusInfo from './AutosharePostStatusInfo';
 
-createAutotweetStore();
+createAutoshareStore();
 
-class AutotweetPrePublishPanelPlugin extends Component {
+class AutosharePrePublishPanelPlugin extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -28,8 +28,8 @@ class AutotweetPrePublishPanelPlugin extends Component {
 
 	maybeSetEnabledText() {
 		try {
-			const enabled = select( STORE ).getAutotweetEnabled();
-			const enabledText = enabled ? __( 'Enabled', 'autotweet' ) : __( 'Disabled', 'autotweet' );
+			const enabled = select( STORE ).getAutoshareEnabled();
+			const enabledText = enabled ? __( 'Enabled', 'autoshare' ) : __( 'Disabled', 'autoshare' );
 
 			if ( enabledText !== this.state.enabledText ) {
 				this.setState( { enabledText } );
@@ -43,33 +43,34 @@ class AutotweetPrePublishPanelPlugin extends Component {
 		return (
 			<PluginPrePublishPanel
 				title={ [
-					__( 'Autotweet:', 'autotweet' ),
+					__( 'Autoshare:', 'autoshare' ),
 					<span className="editor-post-publish-panel__link" key="label">
 						{ enabledText }
 					</span>,
-				] }>
-				<AutotweetPrePublishPanel />
+				] }
+			>
+				<AutosharePrePublishPanel />
 			</PluginPrePublishPanel>
 		);
 	}
 }
 
-const AutoTweetPostStatusInfoPlugin = () => {
-	return <PluginPostStatusInfo
-		className="my-plugin-post-status-info"
-	>
-		<AutotweetPostStatusInfo />
-	</PluginPostStatusInfo>;
+const AutosharePostStatusInfoPlugin = () => {
+	return (
+		<PluginPostStatusInfo className="my-plugin-post-status-info">
+			<AutosharePostStatusInfo />
+		</PluginPostStatusInfo>
+	);
 };
 
-const AutotweetPostPublishPanelPlugin = () => {
-	return <PluginPostPublishPanel
-		className="my-plugin-post-status-info"
-	>
-		<AutotweetPostStatusInfo />
-	</PluginPostPublishPanel>;
+const AutosharePostPublishPanelPlugin = () => {
+	return (
+		<PluginPostPublishPanel className="my-plugin-post-status-info">
+			<AutosharePostStatusInfo />
+		</PluginPostPublishPanel>
+	);
 };
 
-registerPlugin( 'autotweet-pre-publish-panel', { render: AutotweetPrePublishPanelPlugin } );
-registerPlugin( 'autotweet-post-status-info', { render: AutoTweetPostStatusInfoPlugin } );
-registerPlugin( 'autotweet-post-publish-panel', { render: AutotweetPostPublishPanelPlugin } );
+registerPlugin( 'autoshare-pre-publish-panel', { render: AutosharePrePublishPanelPlugin } );
+registerPlugin( 'autoshare-post-status-info', { render: AutosharePostStatusInfoPlugin } );
+registerPlugin( 'autoshare-post-publish-panel', { render: AutosharePostPublishPanelPlugin } );

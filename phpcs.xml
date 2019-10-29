@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="10up-autotweet">
+<ruleset name="10up-autoshare">
 	<description>Extension of the WordPress standard</description>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />

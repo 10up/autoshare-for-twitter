@@ -1,4 +1,4 @@
-# Auto Tweet
+# Auto Share for Twitter
 
 > Automatically tweets the post title or custom message and a link to the post.
 
@@ -6,54 +6,54 @@
 
 ## Overview
 
-<<<<<<< HEAD
-**NOTE:** Posts and pages are supported by default. Developers can use the `autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
-=======
-**Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
+**Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
 
-**Note:** Posts and pages are supported by default. Developers can use the `tenup_autotweet_default_post_types` filter to change the default supported post types (for more, see #25).  The plugin namespace changed to just 'autotweet' as of version 1.0.0.
->>>>>>> develop
+**Note:** Posts and pages are supported by default. Developers can use the `tenup_autoshare_default_post_types` filter to change the default supported post types (for more, see #25). The plugin namespace changed to just 'autoshare' as of version 1.0.0.
 
-Custom post types can now be opted into autotweet features like so:
+Custom post types can now be opted into autoshare features like so:
 
 ```php
-function opt_my_cpt_into_autotweet() {
-	add_post_type_support( 'my-cpt', 'autotweet' );
+function opt_my_cpt_into_autoshare() {
+	add_post_type_support( 'my-cpt', 'autoshare' );
 }
-add_action( 'init', 'opt_my_cpt_into_autotweet' );
+add_action( 'init', 'opt_my_cpt_into_autoshare' );
 ```
 
-In addition, adding support while registering custom post types also works.  Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
+In addition, adding support while registering custom post types also works. Post types are automatically set to auto-share. Future versions of this plugin could allow this to be set manually.
 
-## Plugin Compatibility ##
+## Plugin Compatibility
 
-### Distributor ###
-When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-tweet if they are already tweeted from the origin site. Autotweet tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autotweet_twitter-status' meta value from being distrivuted :
+### Distributor
+
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-shared if they are already tweeted from the origin site. Auto Share for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_twitter-status' meta value from being distrivuted :
 
 ```php
 add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
-	$blacklisted_metas[] = 'autotweet_twitter-status';
+	$blacklisted_metas[] = 'autoshare_twitter-status';
 	return $blacklisted_metas;
 } )
 ```
 
 ## Requirements
 
-* PHP 7.0+
-* [WordPress](http://wordpress.org) 4.7+
+-   PHP 7.0+
+-   [WordPress](http://wordpress.org) 4.7+
 
 ## Installation
+
 1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'autotweet' );`
+3. Register post type support for types that should be allowed to auto-share. `add_post_type_support( 'post', 'autoshare' );`
 
 ## FAQs
+
 ### Does this plugin work with Gutenberg?
-Yes, yes it does!  For more details on this, see #44.
+
+Yes, yes it does! For more details on this, see #44.
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress. Bug reports, feature requests, questions, and pull requests are welcome.
 
 ## Changelog
 
@@ -61,7 +61,7 @@ A complete listing of all notable changes to Eight Day Week are documented in [C
 
 ## Contributing
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/10up/autotweet/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/autotweet/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/autotweet/blob/develop/CREDITS.md) for a listing of maintainers, contributors, and libraries for Auto Tweet.
+Please read [CODE_OF_CONDUCT.md](https://github.com/10up/autotweet/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/autotweet/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/autotweet/blob/develop/CREDITS.md) for a listing of maintainers, contributors, and libraries for Auto Share for Twitter.
 
 ## Like what you see?
 

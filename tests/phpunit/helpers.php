@@ -3,12 +3,12 @@
  * Helper functions for testing.
  *
  * @since 1.0.0
- * @package TenUp\AutoTweet
+ * @package TenUp\Autoshare
  */
 
-namespace TenUp\AutoTweet\Tests;
+namespace TenUp\Autoshare\Tests;
 
-use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\Autoshare\Core\POST_TYPE_SUPPORT_FEATURE;
 
 /**
  * Registers a post type not included in WP core.

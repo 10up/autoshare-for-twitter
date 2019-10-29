@@ -3,13 +3,13 @@
  * Tests functions in core.php.
  *
  * @since 1.0.0
- * @package TenUp\AutoTweet
+ * @package TenUp\Autoshare
  */
 
-namespace TenUp\AutoTweet\Tests;
+namespace TenUp\Autoshare\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\AutoTweet\Core\set_default_post_type_supports;
+use function TenUp\Autoshare\Core\set_default_post_type_supports;
 
 /**
  * TestCore class.
@@ -31,30 +31,30 @@ class TestCore extends WP_UnitTestCase {
 
 		// Test that the feature is not supported by default.
 		reset_post_type_support();
-		$this->assertFalse( post_type_supports( 'post', 'autotweet' ) );
+		$this->assertFalse( post_type_supports( 'post', 'autoshare' ) );
 
 		// Test that posts and pages support the feature by default, but not other post types.
 		reset_post_type_support();
 		set_default_post_type_supports();
-		$this->assertTrue( post_type_supports( 'post', 'autotweet' ) );
-		$this->assertTrue( post_type_supports( 'page', 'autotweet' ) );
+		$this->assertTrue( post_type_supports( 'post', 'autoshare' ) );
+		$this->assertTrue( post_type_supports( 'page', 'autoshare' ) );
 
-		$this->assertFalse( post_type_supports( $non_default_post_type, 'autotweet' ) );
+		$this->assertFalse( post_type_supports( $non_default_post_type, 'autoshare' ) );
 
 		// Test that the default supported post types can be filtered.
 		reset_post_type_support();
 		$filter_post_type_supports = function( $post_types ) use ( $non_default_post_type ) {
 			return [ $non_default_post_type ];
 		};
-		add_filter( 'autotweet_default_post_types', $filter_post_type_supports );
+		add_filter( 'autoshare_default_post_types', $filter_post_type_supports );
 
 		set_default_post_type_supports();
-		$this->assertFalse( post_type_supports( 'post', 'autotweet' ) );
-		$this->assertFalse( post_type_supports( 'page', 'autotweet' ) );
-		$this->assertTrue( post_type_supports( $non_default_post_type, 'autotweet' ) );
+		$this->assertFalse( post_type_supports( 'post', 'autoshare' ) );
+		$this->assertFalse( post_type_supports( 'page', 'autoshare' ) );
+		$this->assertTrue( post_type_supports( $non_default_post_type, 'autoshare' ) );
 
 		// Clean up.
-		remove_filter( 'autotweet_default_post_types', $filter_post_type_supports );
+		remove_filter( 'autoshare_default_post_types', $filter_post_type_supports );
 		$_wp_post_type_features = $saved__wp_post_type_features; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 

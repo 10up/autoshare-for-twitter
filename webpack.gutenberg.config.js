@@ -2,7 +2,7 @@ const path = require( 'path' );
 
 module.exports = {
 	entry: {
-		autotweet: './src/js/index.js',
+		autoshare: './src/js/index.js',
 	},
 	module: {
 		rules: [
@@ -20,7 +20,7 @@ module.exports = {
 		path: path.resolve( './dist' ),
 	},
 	externals: {
-		'admin-autotweet': 'adminAutotweet',
+		'admin-autoshare': 'adminAutoshare',
 		'@wordpress/api-fetch': 'wp.apiFetch',
 		'@wordpress/components': 'wp.components',
 		'@wordpress/compose': 'wp.compose',

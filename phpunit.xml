@@ -11,7 +11,7 @@
 		<ini name="error_reporting" value="24575" />
 	</php>
 	<testsuites>
-		<testsuite name="10up-autotweet">
+		<testsuite name="10up-autoshare">
 			<directory prefix="Test" suffix=".php">./tests/phpunit/integration</directory>
 		</testsuite>
 	</testsuites>

@@ -3,30 +3,30 @@
  * A place for everything, everything in its place doesn't apply here.
  * This file is for utility and helper functions.
  *
- * @package TenUp\AutoTweet\Utils
+ * @package TenUp\Autoshare\Utils
  */
 
-namespace TenUp\AutoTweet\Utils;
+namespace TenUp\Autoshare\Utils;
 
-use const TenUp\AutoTweet\Core\POST_TYPE_SUPPORT_FEATURE;
-use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\AutoTweet\Core\Post_Meta\META_PREFIX;
-use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\Autoshare\Core\POST_TYPE_SUPPORT_FEATURE;
+use const TenUp\Autoshare\Core\Post_Meta\ENABLE_AUTOSHARE_KEY;
+use const TenUp\Autoshare\Core\Post_Meta\META_PREFIX;
+use const TenUp\Autoshare\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\Autoshare\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
- * Helper/Wrapper function for returning the meta entries for autotweeting.
+ * Helper/Wrapper function for returning the meta entries for autoshareing.
  *
  * @param int    $id  The post ID.
  * @param string $key The meta key to retrieve.
  *
  * @return mixed
  */
-function get_autotweet_meta( $id, $key ) {
+function get_autoshare_meta( $id, $key ) {
 	$data = get_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), true );
 
 	/**
-	 * Filters autotweet metadata.
+	 * Filters autoshare metadata.
 	 *
 	 * @since 1.0.0
 	 *
@@ -34,41 +34,41 @@ function get_autotweet_meta( $id, $key ) {
 	 * @param int    Post ID.
 	 * @param string The meta key.
 	 */
-	return apply_filters( 'autotweet_meta', $data, $id, $key );
+	return apply_filters( 'autoshare_meta', $data, $id, $key );
 }
 
 /**
- * Updates autotweet-related post metadata by prefixing the passed key.
+ * Updates autoshare-related post metadata by prefixing the passed key.
  *
  * @param int    $id    Post ID.
- * @param string $key   Autotweet meta key.
+ * @param string $key   Autoshare meta key.
  * @param mixed  $value The meta value to save.
  * @return mixed The meta_id if the meta doesn't exist, otherwise returns true on success and false on failure.
  */
-function update_autotweet_meta( $id, $key, $value ) {
+function update_autoshare_meta( $id, $key, $value ) {
 	return update_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ), $value );
 }
 
 /**
- * Deletes autotweet-related metadata.
+ * Deletes autoshare-related metadata.
  *
  * @param int    $id  The post ID.
  * @param string $key The key of the meta value to delete.
  * @return boolean False for failure. True for success.
  */
-function delete_autotweet_meta( $id, $key ) {
+function delete_autoshare_meta( $id, $key ) {
 	return delete_post_meta( $id, sprintf( '%s_%s', META_PREFIX, $key ) );
 }
 
 /**
- * Helper for determining if a post should autotweet.
+ * Helper for determining if a post should autoshare.
  *
  * @param int $post_id The post ID.
  *
  * @return bool
  */
-function maybe_autotweet( $post_id ) {
-	return ( 1 === intval( get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ) ) ) ? true : false;
+function maybe_autoshare( $post_id ) {
+	return ( 1 === intval( get_autoshare_meta( $post_id, ENABLE_AUTOSHARE_KEY ) ) ) ? true : false;
 }
 
 /**
@@ -78,9 +78,9 @@ function maybe_autotweet( $post_id ) {
  *
  * @return mixed
  */
-function get_autotweet_settings( $key = '' ) {
+function get_autoshare_settings( $key = '' ) {
 
-	$settings = get_option( \TenUp\AutoTweet\Core\Admin\AT_SETTINGS );
+	$settings = get_option( \TenUp\Autoshare\Core\Admin\AT_SETTINGS );
 
 	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
 }
@@ -97,14 +97,14 @@ function compose_tweet_body( \WP_Post $post ) {
 	/**
 	 * Allow filtering of tweet body
 	 */
-	$tweet_body = apply_filters( 'autotweet_body', get_tweet_body( $post->ID ), $post );
+	$tweet_body = apply_filters( 'autoshare_body', get_tweet_body( $post->ID ), $post );
 
 	/**
 	 * Allow filtering of post permalink.
 	 *
 	 * @param $permalink
 	 */
-	$url = apply_filters( 'autotweet_post_url', get_the_permalink( $post->ID ), $post );
+	$url = apply_filters( 'autoshare_post_url', get_the_permalink( $post->ID ), $post );
 
 	$url               = esc_url( $url );
 	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.
@@ -158,7 +158,7 @@ function date_from_twitter( $created_at ) {
  */
 function link_from_twitter( $post_id ) {
 
-	$handle = get_autotweet_settings( 'twitter_handle' );
+	$handle = get_autoshare_settings( 'twitter_handle' );
 
 	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $post_id );
 }
@@ -174,7 +174,7 @@ function link_from_twitter( $post_id ) {
  */
 function already_published( $post_id ) {
 
-	$twitter_status = get_autotweet_meta( $post_id, TWITTER_STATUS_KEY );
+	$twitter_status = get_autoshare_meta( $post_id, TWITTER_STATUS_KEY );
 
 	if ( ! empty( $twitter_status ) ) {
 		return ( 'published' === $twitter_status['status'] ) ? true : false;
@@ -194,7 +194,7 @@ function get_tweet_body( $post_id ) {
 	$body = sanitize_text_field( get_the_title( $post_id ) );
 
 	// Only if.
-	$text_override = get_autotweet_meta( $post_id, TWEET_BODY_KEY );
+	$text_override = get_autoshare_meta( $post_id, TWEET_BODY_KEY );
 	if ( ! empty( $text_override ) ) {
 		$body = $text_override;
 	}
@@ -207,8 +207,8 @@ function get_tweet_body( $post_id ) {
  *
  * @param int $post_id The post id to check.
  *
- * @return bool true if the current post type supports autotweet.
+ * @return bool true if the current post type supports autoshare.
  */
-function opted_into_autotweet( $post_id ) {
+function opted_into_autoshare( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );
 }
