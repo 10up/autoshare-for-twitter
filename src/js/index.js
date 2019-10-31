@@ -29,7 +29,7 @@ class AutosharePrePublishPanelPlugin extends Component {
 	maybeSetEnabledText() {
 		try {
 			const enabled = select( STORE ).getAutoshareEnabled();
-			const enabledText = enabled ? __( 'Enabled', 'autoshare' ) : __( 'Disabled', 'autoshare' );
+			const enabledText = enabled ? __( 'Enabled', 'auto-share-for-twitter' ) : __( 'Disabled', 'auto-share-for-twitter' );
 
 			if ( enabledText !== this.state.enabledText ) {
 				this.setState( { enabledText } );
@@ -43,7 +43,7 @@ class AutosharePrePublishPanelPlugin extends Component {
 		return (
 			<PluginPrePublishPanel
 				title={ [
-					__( 'Autoshare:', 'autoshare' ),
+					__( 'Autoshare:', 'auto-share-for-twitter' ),
 					<span className="editor-post-publish-panel__link" key="label">
 						{ enabledText }
 					</span>,

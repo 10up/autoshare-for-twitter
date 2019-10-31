@@ -13,7 +13,7 @@ export function AutosharePostStatusInfo( { statusMessage } ) {
 					<>
 						{ ' (' }
 						<a target="_blank" rel="noopener noreferrer" href={ statusMessage.url }>
-							{ __( 'View', 'autoshare' ) }
+							{ __( 'View', 'auto-share-for-twitter' ) }
 						</a>
 						{ ')' }
 					</>

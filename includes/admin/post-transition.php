@@ -132,7 +132,7 @@ function validate_response( $response ) {
 	} else {
 		$validated_response = new \WP_Error(
 			'autoshare_failed',
-			__( 'Something happened during Twitter update.', 'autoshare' ),
+			__( 'Something happened during Twitter update.', 'auto-share-for-twitter' ),
 			$response->errors
 		);
 	}
@@ -168,7 +168,7 @@ function update_autoshare_meta_from_response( $post_id, $data ) {
 	} else {
 		$response = array(
 			'status'  => 'unknown',
-			'message' => __( 'This post was not published to Twitter.', 'autoshare' ),
+			'message' => __( 'This post was not published to Twitter.', 'auto-share-for-twitter' ),
 		);
 	}
 

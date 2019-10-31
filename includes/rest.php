@@ -64,21 +64,21 @@ function register_post_autoshare_meta_rest_route() {
 			'permission_callback' => __NAMESPACE__ . '\update_post_autoshare_meta_permission_check',
 			'args'                => [
 				'id'                 => [
-					'description'       => __( 'Unique identifier for the object.', 'autoshare' ),
+					'description'       => __( 'Unique identifier for the object.', 'auto-share-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'integer',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				TWEET_BODY_KEY       => [
-					'description'       => __( 'Tweet text, if overriding the default', 'autoshare' ),
+					'description'       => __( 'Tweet text, if overriding the default', 'auto-share-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'sanitize_text_field',
 					'type'              => 'string',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				ENABLE_AUTOSHARE_KEY => [
-					'description'       => __( 'Whether autoshare is enabled for the current post', 'autoshare' ),
+					'description'       => __( 'Whether autoshare is enabled for the current post', 'auto-share-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'boolean',
@@ -123,8 +123,8 @@ function update_post_autoshare_meta( $request ) {
 
 	save_autoshare_meta_data( $request['id'], $params );
 	$message = 1 === $params[ ENABLE_AUTOSHARE_KEY ] ?
-		__( 'Autoshare enabled.', 'autoshare' ) :
-		__( 'Autoshare disabled.', 'autoshare' );
+		__( 'Autoshare enabled.', 'auto-share-for-twitter' ) :
+		__( 'Autoshare disabled.', 'auto-share-for-twitter' );
 
 	return rest_ensure_response(
 		[
@@ -152,7 +152,7 @@ function register_tweet_status_rest_field() {
 				'context'     => [
 					'edit',
 				],
-				'description' => __( 'Autoshare status message', 'autoshare' ),
+				'description' => __( 'Autoshare status message', 'auto-share-for-twitter' ),
 				'type'        => 'object',
 			],
 		]

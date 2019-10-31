@@ -7,7 +7,7 @@
 
 namespace TenUp\Autoshare\Core;
 
-const POST_TYPE_SUPPORT_FEATURE = 'autoshare';
+const POST_TYPE_SUPPORT_FEATURE = 'auto-share-for-twitter';
 
 /**
  * The main setup action.

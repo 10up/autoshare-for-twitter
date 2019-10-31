@@ -29,8 +29,8 @@ function setup() {
 function admin_menu() {
 
 	add_options_page(
-		__( 'Autoshare', 'autoshare' ),
-		__( 'Autoshare', 'autoshare' ),
+		__( 'Autoshare', 'auto-share-for-twitter' ),
+		__( 'Autoshare', 'auto-share-for-twitter' ),
 		'manage_options',
 		'autoshare',
 		__NAMESPACE__ . '\options_page'
@@ -49,7 +49,7 @@ function register_settings() {
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
-		__( 'Twitter Credentials', 'autoshare' ),
+		__( 'Twitter Credentials', 'auto-share-for-twitter' ),
 		'',
 		'autoshare'
 	);
@@ -57,7 +57,7 @@ function register_settings() {
 	// API Key.
 	add_settings_field(
 		'autoshare-api_key',
-		__( 'API key', 'autoshare' ),
+		__( 'API key', 'auto-share-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare',
 		'autoshare-cred_section',
@@ -67,7 +67,7 @@ function register_settings() {
 	// API Secret.
 	add_settings_field(
 		'autoshare-api_secret',
-		__( 'API secret', 'autoshare' ),
+		__( 'API secret', 'auto-share-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare',
 		'autoshare-cred_section',
@@ -77,7 +77,7 @@ function register_settings() {
 	// Access Token.
 	add_settings_field(
 		'autoshare-access_token',
-		__( 'Access token', 'autoshare' ),
+		__( 'Access token', 'auto-share-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare',
 		'autoshare-cred_section',
@@ -87,7 +87,7 @@ function register_settings() {
 	// Access Secret.
 	add_settings_field(
 		'autoshare-access_secret',
-		__( 'Access secret', 'autoshare' ),
+		__( 'Access secret', 'auto-share-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare',
 		'autoshare-cred_section',
@@ -97,7 +97,7 @@ function register_settings() {
 	// Twitter Handle.
 	add_settings_field(
 		'autoshare-twitter_handle',
-		__( 'Twitter handle', 'autoshare' ),
+		__( 'Twitter handle', 'auto-share-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare',
 		'autoshare-cred_section',
@@ -133,7 +133,7 @@ function options_page() {
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Autoshare', 'autoshare' ); ?></h1>
+		<h1><?php esc_html_e( 'Autoshare', 'auto-share-for-twitter' ); ?></h1>
 
 		<form action='options.php' method='post'>
 			<?php
