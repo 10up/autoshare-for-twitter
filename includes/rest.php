@@ -63,14 +63,14 @@ function register_post_autoshare_for_twitter_meta_rest_route() {
 			'callback'            => __NAMESPACE__ . '\update_post_autoshare_for_twitter_meta',
 			'permission_callback' => __NAMESPACE__ . '\update_post_autoshare_for_twitter_meta_permission_check',
 			'args'                => [
-				'id'                 => [
+				'id'                             => [
 					'description'       => __( 'Unique identifier for the object.', 'autoshare-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'integer',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
-				TWEET_BODY_KEY       => [
+				TWEET_BODY_KEY                   => [
 					'description'       => __( 'Tweet text, if overriding the default', 'autoshare-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'sanitize_text_field',

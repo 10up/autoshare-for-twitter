@@ -40,8 +40,8 @@ class TestRest extends WP_UnitTestCase {
 		$request->set_body_params(
 			[
 				ENABLE_AUTOSHARE_FOR_TWITTER_KEY => true,
-				TWEET_BODY_KEY       => 'tweet override',
-				'id'                 => $post,
+				TWEET_BODY_KEY                   => 'tweet override',
+				'id'                             => $post,
 			]
 		);
 		$request->set_attributes( [ 'id' => $post ] );
