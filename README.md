@@ -19,13 +19,13 @@ function opt_my_cpt_into_autoshare() {
 add_action( 'init', 'opt_my_cpt_into_autoshare' );
 ```
 
-In addition, adding support while registering custom post types also works. Post types are automatically set to auto-share. Future versions of this plugin could allow this to be set manually.
+In addition, adding support while registering custom post types also works. Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
 
 ## Plugin Compatibility
 
 ### Distributor
 
-When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-shared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distrivuted :
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distrivuted :
 
 ```php
 add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
@@ -43,7 +43,7 @@ add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 
 1. Upload the entire `/tenup-auto-tweet` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto-share. `add_post_type_support( 'post', 'autoshare-for-twitter' );`
+3. Register post type support for types that should be allowed to autoshare. `add_post_type_support( 'post', 'autoshare-for-twitter' );`
 
 ## FAQs
 
