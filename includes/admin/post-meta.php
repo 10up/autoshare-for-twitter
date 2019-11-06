@@ -25,7 +25,7 @@ const META_PREFIX = 'autoshare';
 const ENABLE_AUTOSHARE_FOR_TWITTER_KEY = 'autoshare_for_twitter';
 
 /**
- * Holds the autoshare boddy
+ * Holds the autoshare body
  */
 const TWEET_BODY_KEY = 'tweet-body';
 
@@ -133,7 +133,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 function tweet_submitbox_callback( $post ) {
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into autoshareing.
+	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing.
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;

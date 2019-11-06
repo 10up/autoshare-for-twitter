@@ -15,7 +15,7 @@ use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
- * Helper/Wrapper function for returning the meta entries for autoshareing.
+ * Helper/Wrapper function for returning the meta entries for autosharing.
  *
  * @param int    $id  The post ID.
  * @param string $key The meta key to retrieve.

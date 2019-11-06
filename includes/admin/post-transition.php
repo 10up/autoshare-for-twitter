@@ -47,7 +47,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	}
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into autoshareing
+	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
@@ -71,7 +71,7 @@ function publish_tweet( $post_id ) {
 	$post = get_post( $post_id );
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into autoshareing
+	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
