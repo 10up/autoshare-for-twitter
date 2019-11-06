@@ -60,7 +60,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			setSaving( false );
 		} catch ( e ) {
 			setErrorMessage(
-				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'auto-share-for-twitter' ),
+				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autoshare-for-twitter' ),
 			);
 		}
 	}
@@ -103,7 +103,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 						label={
 							<span className="autoshare-for-twitter-prepublish__checkbox-label">
 								<Dashicon icon="twitter" className={ twitterIconClass() } />
-								{ __( 'Tweet this post?', 'auto-share-for-twitter' ) }
+								{ __( 'Tweet this post?', 'autoshare-for-twitter' ) }
 							</span>
 						}
 						checked={ autoshareEnabled }
@@ -123,7 +123,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 								} }
 								label={
 									<span className="autoshare-for-twitter-prepublish__message-label">
-										<span>{ __( 'Custom message:', 'auto-share-for-twitter' ) }&nbsp;</span>
+										<span>{ __( 'Custom message:', 'autoshare-for-twitter' ) }&nbsp;</span>
 										<span id="autoshare-for-twitter-counter-wrap" className={ overrideLengthClass() }>
 											{ tweetText.length }
 										</span>
@@ -138,7 +138,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 								setOverriding( ! overriding );
 							} }
 						>
-							{ overriding ? __( 'Hide', 'auto-share-for-twitter' ) : __( 'Edit', 'auto-share-for-twitter' ) }
+							{ overriding ? __( 'Hide', 'autoshare-for-twitter' ) : __( 'Edit', 'autoshare-for-twitter' ) }
 						</Button>
 					</div>
 				) }

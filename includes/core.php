@@ -7,23 +7,21 @@
 
 namespace TenUp\AutoshareForTwitter\Core;
 
-const POST_TYPE_SUPPORT_FEATURE = 'auto-share-for-twitter';
+const POST_TYPE_SUPPORT_FEATURE = 'autoshare-for-twitter';
 
 /**
  * The main setup action.
  */
 function setup() {
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/assets.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/settings.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/post-meta.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/post-transition.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/class-publish-tweet.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/rest.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/admin/assets.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/admin/settings.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/admin/post-meta.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/admin/post-transition.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-publish-tweet.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/rest.php';
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
-
-	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 
 	/**
 	 * Allow others to hook into the core setup action

@@ -23,6 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.1.0] - 2018-05-11
 - Initial closed source release
 
-[Unreleased]: https://github.com/10up/auto-share-for-twitter/compare/master...develop
-[1.0.0]: https://github.com/10up/auto-share-for-twitter/compare/1020035...1.0.0
-[0.1.0]: https://github.com/10up/auto-share-for-twitter/commit/1020035f2d4843221d996bd5f8fe39d9ee850b5d
+[Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/master...develop
+[1.0.0]: https://github.com/10up/autoshare-for-twitter/compare/1020035...1.0.0
+[0.1.0]: https://github.com/10up/autoshare-for-twitter/commit/1020035f2d4843221d996bd5f8fe39d9ee850b5d

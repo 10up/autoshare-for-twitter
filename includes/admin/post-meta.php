@@ -34,7 +34,7 @@ const TWEET_BODY_KEY = 'tweet-body';
  *
  * @see post-transition.php
  */
-const TWITTER_STATUS_KEY = 'twitter-status';
+const TWITTER_STATUS_KEY = 'status';
 
 /**
  * The setup function
@@ -178,7 +178,7 @@ function render_tweet_submitbox( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not tweeted.', 'auto-share-for-twitter' );
+				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
 				break;
 		}
 
@@ -215,13 +215,13 @@ function get_tweet_status_message( $post ) {
 
 				return [
 					// Translators: Placeholder is a date.
-					'message' => sprintf( __( 'Tweeted on %s', 'auto-share-for-twitter' ), $date ),
+					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 				];
 
 			case 'error':
 				return [
-					'message' => __( 'Failed to tweet: ', 'auto-share-for-twitter' ) . $twitter_status['message'],
+					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $twitter_status['message'],
 				];
 
 			case 'unknown':
@@ -231,7 +231,7 @@ function get_tweet_status_message( $post ) {
 
 			default:
 				return [
-					'message' => __( 'This post was not tweeted.', 'auto-share-for-twitter' ),
+					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
 				];
 		}
 	}
@@ -255,10 +255,10 @@ function markup_published( $status_meta ) {
 
 	return sprintf(
 		'%s <span>%s</span> (<a href="%s" target="_blank">%s</a>)</p>',
-		esc_html__( 'Tweeted on', 'auto-share-for-twitter' ),
+		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'auto-share-for-twitter' )
+		esc_html__( 'View', 'autoshare-for-twitter' )
 	);
 }
 
@@ -274,7 +274,7 @@ function markup_error( $status_meta ) {
 
 	return sprintf(
 		'%s<br><pre>%s</pre></p>',
-		esc_html__( 'Failed to tweet', 'auto-share-for-twitter' ),
+		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
 		esc_html( $status_meta['message'] )
 	);
 }
@@ -309,13 +309,13 @@ function _safe_markup_default() {
 			<?php checked( Utils\get_autoshare_for_twitter_meta( get_the_ID(), ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>
 		>
 		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
-		<?php esc_html_e( 'Tweet this post', 'auto-share-for-twitter' ); ?>
-		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'auto-share-for-twitter' ); ?></a>
+		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
+		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
 	</label>
 
 	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
-			<?php esc_html_e( 'Custom Message', 'auto-share-for-twitter' ); ?>:
+			<?php esc_html_e( 'Custom Message', 'autoshare-for-twitter' ); ?>:
 		</label>
 		<span id="autoshare-for-twitter-counter-wrap" class="alignright">0</span>
 		<textarea

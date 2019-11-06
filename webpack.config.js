@@ -2,7 +2,7 @@ const path = require( 'path' );
 
 module.exports = {
 	entry: {
-		autoshare: './src/js/index.js',
+		'autoshare-for-twitter': './src/js/index.js',
 		'api-fetch': './src/js/externals/api-fetch',
 	},
 	module: {

@@ -10,11 +10,11 @@ Contributing isn't just writing code - it's anything that improves the project. 
 
 ### Reporting bugs
 
-If you're running into an issue with the plugin, please take a look through [existing issues](https://github.com/10up/auto-share-for-twitter/issues) and [open a new one](https://github.com/10up/auto-share-for-twitter/issues/new) if needed. If you're able, include steps to reproduce, environment information, and screenshots/screencasts as relevant.
+If you're running into an issue with the plugin, please take a look through [existing issues](https://github.com/10up/autoshare-for-twitter/issues) and [open a new one](https://github.com/10up/autoshare-for-twitter/issues/new) if needed. If you're able, include steps to reproduce, environment information, and screenshots/screencasts as relevant.
 
 ### Suggesting enhancements
 
-New features and enhancements are also managed via [issues](https://github.com/10up/auto-share-for-twitter/issues).
+New features and enhancements are also managed via [issues](https://github.com/10up/autoshare-for-twitter/issues).
 
 ### Pull requests
 
@@ -29,14 +29,14 @@ The `develop` branch is the development branch which means it contains the next 
 ## Release instructions
 
 1. Starting from `develop`, cut a release branch named `release/X.Y.Z` for your changes.
-2. Version bump: Bump the version number in `auto-share-for-twitter.php` if it does not already reflect the version being released.
+2. Version bump: Bump the version number in `autoshare-for-twitter.php` if it does not already reflect the version being released.
 3. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`
 4. Update the `.pot` file by running `npm run makepot`.
 5. Check to be sure any new files/paths that are unnecessary in the production version are included in `.github/action-release/rsync-filter.txt`.
 6. Merge: Make a non-fast-forward merge from your release branch to `develop`, then do the same for `develop` into `master`. `master` contains the stable development version.
 7. Push: Push your `master` branch to GitHub, e.g. `git push origin master`.
-8. [Wait for build](https://xkcd.com/303/): Head to the [Actions](https://github.com/10up/auto-share-for-twitter/actions) tab in the repo and wait for it to finish if it hasn't already. If it doesn't succeed, figure out why and start over.
+8. [Wait for build](https://xkcd.com/303/): Head to the [Actions](https://github.com/10up/autoshare-for-twitter/actions) tab in the repo and wait for it to finish if it hasn't already. If it doesn't succeed, figure out why and start over.
 9. Check the build: Check out the `stable` branch and test for functionality locally.
-10. Git tag: Create the release as `X.Y.Z` on the `stable` branch in GitHub. It should now appear under [releases](https://github.com/10up/auto-share-for-twitter/releases) and in the WordPress admin as an update as well.
-11. Edit the [X.Y.Z milestone](https://github.com/10up/auto-share-for-twitter/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close `X.Y.Z` milestone.
+10. Git tag: Create the release as `X.Y.Z` on the `stable` branch in GitHub. It should now appear under [releases](https://github.com/10up/autoshare-for-twitter/releases) and in the WordPress admin as an update as well.
+11. Edit the [X.Y.Z milestone](https://github.com/10up/autoshare-for-twitter/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close `X.Y.Z` milestone.
 12. If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X+1.0.0`, `X.Y+1.0`, `X.Y.Z+1`, or `Future Release`

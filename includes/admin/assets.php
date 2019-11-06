@@ -163,12 +163,12 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$localization = [
 		'enabled'            => get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ),
 		'enableAutoshareKey' => ENABLE_AUTOSHARE_FOR_TWITTER_KEY,
-		'errorText'          => __( 'Error', 'auto-share-for-twitter' ),
+		'errorText'          => __( 'Error', 'autoshare-for-twitter' ),
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
 		'restUrl'            => rest_url( post_autoshare_for_twitter_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
-		'unknownErrorText'   => __( 'An unknown error occurred', 'auto-share-for-twitter' ),
+		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
 	];
 
