@@ -5,12 +5,12 @@ import { dispatch, select, subscribe } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 import { createAutoshareStore, STORE } from './store';
-import AutosharePrePublishPanel from './AutosharePrePublishPanel';
-import AutosharePostStatusInfo from './AutosharePostStatusInfo';
+import AutoshareForTwitterPrePublishPanel from './AutoshareForTwitterPrePublishPanel';
+import AutoshareForTwitterPostStatusInfo from './AutoshareForTwitterPostStatusInfo';
 
 createAutoshareStore();
 
-class AutosharePrePublishPanelPlugin extends Component {
+class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -49,28 +49,28 @@ class AutosharePrePublishPanelPlugin extends Component {
 					</span>,
 				] }
 			>
-				<AutosharePrePublishPanel />
+				<AutoshareForTwitterPrePublishPanel />
 			</PluginPrePublishPanel>
 		);
 	}
 }
 
-const AutosharePostStatusInfoPlugin = () => {
+const AutoshareForTwitterPostStatusInfoPlugin = () => {
 	return (
 		<PluginPostStatusInfo className="my-plugin-post-status-info">
-			<AutosharePostStatusInfo />
+			<AutoshareForTwitterPostStatusInfo />
 		</PluginPostStatusInfo>
 	);
 };
 
-const AutosharePostPublishPanelPlugin = () => {
+const AutoshareForTwitterPostPublishPanelPlugin = () => {
 	return (
 		<PluginPostPublishPanel className="my-plugin-post-status-info">
-			<AutosharePostStatusInfo />
+			<AutoshareForTwitterPostStatusInfo />
 		</PluginPostPublishPanel>
 	);
 };
 
-registerPlugin( 'autoshare-pre-publish-panel', { render: AutosharePrePublishPanelPlugin } );
-registerPlugin( 'autoshare-post-status-info', { render: AutosharePostStatusInfoPlugin } );
-registerPlugin( 'autoshare-post-publish-panel', { render: AutosharePostPublishPanelPlugin } );
+registerPlugin( 'autoshare-for-twitter-pre-publish-panel', { render: AutoshareForTwitterPrePublishPanelPlugin } );
+registerPlugin( 'autoshare-for-twitter-post-status-info', { render: AutoshareForTwitterPostStatusInfoPlugin } );
+registerPlugin( 'autoshare-for-twitter-post-publish-panel', { render: AutoshareForTwitterPostPublishPanelPlugin } );

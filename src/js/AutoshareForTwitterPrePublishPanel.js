@@ -4,12 +4,12 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autoshare';
+import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autoshare-for-twitter';
 import { __ } from '@wordpress/i18n';
 
 import { STORE } from './store';
 
-class AutosharePrePublishPanel extends Component {
+class AutoshareForTwitterPrePublishPanel extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -97,11 +97,11 @@ class AutosharePrePublishPanel extends Component {
 
 		return (
 			<>
-				<div className="autoshare-prepublish__checkbox-row">
+				<div className="autoshare-for-twitter-prepublish__checkbox-row">
 					<CheckboxControl
-						className="autoshare-prepublish__checkbox"
+						className="autoshare-for-twitter-prepublish__checkbox"
 						label={
-							<span className="autoshare-prepublish__checkbox-label">
+							<span className="autoshare-for-twitter-prepublish__checkbox-label">
 								<Dashicon icon="twitter" className={ twitterIconClass() } />
 								{ __( 'Tweet this post?', 'auto-share-for-twitter' ) }
 							</span>
@@ -114,7 +114,7 @@ class AutosharePrePublishPanel extends Component {
 				</div>
 
 				{ autoshareEnabled && (
-					<div className="autoshare-prepublish__override-row">
+					<div className="autoshare-for-twitter-prepublish__override-row">
 						{ overriding && (
 							<TextareaControl
 								value={ tweetText }
@@ -122,9 +122,9 @@ class AutosharePrePublishPanel extends Component {
 									setTweetText( value );
 								} }
 								label={
-									<span className="autoshare-prepublish__message-label">
+									<span className="autoshare-for-twitter-prepublish__message-label">
 										<span>{ __( 'Custom message:', 'auto-share-for-twitter' ) }&nbsp;</span>
-										<span id="autoshare-counter-wrap" className={ overrideLengthClass() }>
+										<span id="autoshare-for-twitter-counter-wrap" className={ overrideLengthClass() }>
 											{ tweetText.length }
 										</span>
 									</span>
@@ -179,4 +179,4 @@ export default compose(
 		setSaving: dispatch( STORE ).setSaving,
 		setTweetText: dispatch( STORE ).setTweetText,
 	} ) ),
-)( AutosharePrePublishPanel );
+)( AutoshareForTwitterPrePublishPanel );

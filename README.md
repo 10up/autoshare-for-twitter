@@ -8,7 +8,7 @@
 
 **Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
 
-**Note:** Posts and pages are supported by default. Developers can use the `tenup_autoshare_default_post_types` filter to change the default supported post types (for more, see #25). The plugin namespace changed to just 'autoshare' as of version 1.0.0.
+**Note:** Posts and pages are supported by default. Developers can use the `tenup_autoshare_for_twitter_default_post_types` filter to change the default supported post types (for more, see #25). The plugin namespace changed to just 'autoshare' as of version 1.0.0.
 
 Custom post types can now be opted into autoshare features like so:
 
@@ -25,11 +25,11 @@ In addition, adding support while registering custom post types also works. Post
 
 ### Distributor
 
-When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-shared if they are already tweeted from the origin site. Auto Share for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_twitter-status' meta value from being distrivuted :
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not auto-shared if they are already tweeted from the origin site. Auto Share for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_twitter-status' meta value from being distrivuted :
 
 ```php
 add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
-	$blacklisted_metas[] = 'autoshare_twitter-status';
+	$blacklisted_metas[] = 'autoshare_for_twitter_twitter-status';
 	return $blacklisted_metas;
 } )
 ```

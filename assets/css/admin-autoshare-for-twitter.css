@@ -1,0 +1,104 @@
+#autoshare_for_twitter_metabox p::before {
+	display: inline-block;
+	margin-left: -1px;
+	padding-right: 3px;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#autoshare_for_twitter_metabox pre {
+	font-size: 11px;
+	white-space: normal;
+}
+
+.autoshare-for-twitter-prepublish__checkbox .components-base-control__field, .autoshare-for-twitter-prepublish__checkbox-label { 
+	display: flex;
+	align-items: center;
+}
+
+.autoshare-for-twitter-prepublish__checkbox .components-base-control__field {
+	margin-top: 0.5rem;
+}
+
+.autoshare-for-twitter-prepublish__checkbox-label svg {
+	margin-right: 0.5rem;
+}
+
+.autoshare-for-twitter-prepublish__message-label {
+	display: flex;
+	justify-content: space-between;
+}
+
+.autoshare-for-twitter-prepublish__checkbox-row input[type=checkbox].components-checkbox-control__input {
+	margin-right: 0.5rem;
+}
+
+.autoshare-for-twitter-prepublish__override-row {
+	padding: 0.5rem 0;
+}
+
+.autoshare-for-twitter-prepublish__override-row .components-button {
+	margin-bottom: 1rem;
+}
+
+.autoshare-for-twitter-post-status {
+	font-style: italic;
+}
+
+.autoshare-for-twitter-post-status svg {
+	transform: translate3d(0, 3px, 0);
+    margin-right: 5px;
+}
+
+#autoshare-for-twitter-icon.pending,
+.autoshare-for-twitter-prepublish__checkbox-row .dashicons-twitter.pending {
+	animation: fadeIn 1s infinite alternate;
+	color: #00aced;
+}
+
+#autoshare-for-twitter-icon.enabled,
+.autoshare-for-twitter-prepublish__checkbox-row .dashicons-twitter.enabled {
+	color: #00aced;
+}
+
+#autoshare-for-twitter-icon.disabled,
+.autoshare-for-twitter-prepublish__checkbox-row .dashicons-twitter.disabled {
+	color: #72777c;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		color: #72777c;
+	}
+}
+
+a#autoshare-for-twitter-edit {
+	color: #0073aa;
+	text-decoration: underline;
+	transition-property: border, background, color;
+	transition-duration: .05s;
+	transition-timing-function: ease-in-out
+}
+
+#autoshare-for-twitter-override-body {
+	margin: 4px 0;
+}
+
+textarea#autoshare-for-twitter-text {
+	margin: 4px 0 0;
+	width: 100%
+}
+span#autoshare-for-twitter-counter-wrap {
+	background: rgba(0, 0, 0, 0.07);
+	font-family: Consolas, Monaco, monospace;
+}
+
+span.near-limit {
+	color: darkorange;
+}
+
+span.over-limit {
+	color: red;
+}

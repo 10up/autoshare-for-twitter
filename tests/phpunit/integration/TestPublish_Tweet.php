@@ -3,12 +3,12 @@
  * Tests functionality implemented by the Publish_Tweet class.
  *
  * @since 0.1.0
- * @package TenUp\Autoshare
+ * @package TenUp\AutoshareForTwitter
  */
 
-namespace TenUp\Autoshare\Tests;
+namespace TenUp\AutoshareForTwitter\Tests;
 
-use TenUp\Autoshare\Core\Publish_Tweet\Publish_Tweet;
+use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
 use WP_UnitTestCase;
 
 /**
@@ -42,17 +42,17 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 		$attachment = $this->factory->attachment->create_upload_object( DIR_TESTDATA . '/images/33772.jpg', $post->ID );
 		set_post_thumbnail( $post, $attachment );
 
-		add_filter( 'autoshare_attached_image', '__return_false' );
+		add_filter( 'autoshare_for_twitter_attached_image', '__return_false' );
 		$this->assertNull( $this->publish_tweet->get_upload_data_media_id( $post ) );
-		remove_filter( 'autoshare_attached_image', '__return_false' );
+		remove_filter( 'autoshare_for_twitter_attached_image', '__return_false' );
 
 		$filter_media_upload_id = function() {
 			return 999;
 		};
 
-		add_filter( 'autoshare_pre_media_upload', $filter_media_upload_id );
+		add_filter( 'autoshare_for_twitter_pre_media_upload', $filter_media_upload_id );
 		$this->assertEquals( 999, $this->publish_tweet->get_upload_data_media_id( $post ) );
-		remove_filter( 'autoshare_pre_media_upload', $filter_media_upload_id );
+		remove_filter( 'autoshare_for_twitter_pre_media_upload', $filter_media_upload_id );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 		$set_150kb_max_filesize = function() {
 			return 150000;
 		};
-		add_filter( 'autoshare_max_image_size', $set_150kb_max_filesize );
+		add_filter( 'autoshare_for_twitter_max_image_size', $set_150kb_max_filesize );
 		$file = $this->publish_tweet->get_largest_acceptable_image(
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
@@ -75,18 +75,18 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
 		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/2004-07-22-DSC_0008.jpg', date( 'Y' ), date( 'm' ) ), $file );
-		remove_filter( 'autoshare_max_image_size', $set_150kb_max_filesize );
+		remove_filter( 'autoshare_for_twitter_max_image_size', $set_150kb_max_filesize );
 
 		$set_1kb_max_filesize = function() {
 			return 1000;
 		};
-		add_filter( 'autoshare_max_image_size', $set_1kb_max_filesize );
+		add_filter( 'autoshare_for_twitter_max_image_size', $set_1kb_max_filesize );
 		$file = $this->publish_tweet->get_largest_acceptable_image(
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
 		$this->assertNull( $file );
 
-		remove_filter( 'autoshare_max_image_size', $set_1kb_max_filesize );
+		remove_filter( 'autoshare_for_twitter_max_image_size', $set_1kb_max_filesize );
 	}
 }

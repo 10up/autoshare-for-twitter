@@ -2,16 +2,16 @@
 /**
  * Handler for POSTing a status update to Twitter.
  *
- * @package TenUp\Autoshare\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\Autoshare\Core\Post_Transition;
+namespace TenUp\AutoshareForTwitter\Core\Post_Transition;
 
-use TenUp\Autoshare\Core\Publish_Tweet\Publish_Tweet;
-use TenUp\Autoshare\Core\Post_Meta as Meta;
-use TenUp\Autoshare\Utils as Utils;
-use function TenUp\Autoshare\Utils\delete_autoshare_meta;
-use function TenUp\Autoshare\Utils\update_autoshare_meta;
+use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
+use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
+use TenUp\AutoshareForTwitter\Utils as Utils;
+use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 
 /**
  * Setup function.
@@ -49,7 +49,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into autoshareing
 	 */
-	if ( ! Utils\opted_into_autoshare( $post->ID ) ) {
+	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
 	}
 
@@ -73,7 +73,7 @@ function publish_tweet( $post_id ) {
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into autoshareing
 	 */
-	if ( ! Utils\opted_into_autoshare( $post->ID ) ) {
+	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
 	}
 
@@ -94,21 +94,21 @@ function publish_tweet( $post_id ) {
 		$response = validate_response( $twitter_response );
 
 		if ( ! is_wp_error( $response ) ) {
-			update_autoshare_meta_from_response( $post->ID, $response );
+			update_autoshare_for_twitter_meta_from_response( $post->ID, $response );
 
 			/**
 			 * Fires after the status update to Twitter is considered successful.
 			 */
-			do_action( 'autoshare_success' );
+			do_action( 'autoshare_for_twitter_success' );
 
 		} else {
 			// something here about it failing so do not allow republishing just in case.
-			update_autoshare_meta_from_response( $post->ID, $response );
+			update_autoshare_for_twitter_meta_from_response( $post->ID, $response );
 
 			/**
 			 * Fires if the response back from Twitter was an error.
 			 */
-			do_action( 'autoshare_failed' );
+			do_action( 'autoshare_for_twitter_failed' );
 		}
 	}
 }
@@ -131,7 +131,7 @@ function validate_response( $response ) {
 
 	} else {
 		$validated_response = new \WP_Error(
-			'autoshare_failed',
+			'autoshare_for_twitter_failed',
 			__( 'Something happened during Twitter update.', 'auto-share-for-twitter' ),
 			$response->errors
 		);
@@ -146,7 +146,7 @@ function validate_response( $response ) {
  * @param int    $post_id The post id.
  * @param object $data    The tweet request data.
  */
-function update_autoshare_meta_from_response( $post_id, $data ) {
+function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 
 	// No errors, Tweet considered successful.
 	if ( ! is_wp_error( $data ) ) {
@@ -158,7 +158,7 @@ function update_autoshare_meta_from_response( $post_id, $data ) {
 
 		// Twitter sent back an error. Most likely a duplicate message.
 	} elseif ( is_wp_error( $data ) ) {
-		$error_message = $data->error_data['autoshare_failed'][0];
+		$error_message = $data->error_data['autoshare_for_twitter_failed'][0];
 		$response      = array(
 			'status'  => 'error',
 			'message' => sanitize_text_field( 'Error: ' . $error_message->code . '. ' . $error_message->message ),
@@ -175,24 +175,24 @@ function update_autoshare_meta_from_response( $post_id, $data ) {
 	/**
 	 * Allow for filtering the Twitter status post meta.
 	 */
-	$response = apply_filters( 'autoshare_post_status_meta', $response );
+	$response = apply_filters( 'autoshare_for_twitter_post_status_meta', $response );
 
 	/**
 	 * Update the post meta entry that stores the response
 	 * and remove the "Autoshare this post" value as a double-check.
 	 */
-	update_autoshare_meta( $post_id, Meta\TWITTER_STATUS_KEY, $response );
-	delete_autoshare_meta( $post_id, Meta\ENABLE_AUTOSHARE_KEY );
+	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $response );
+	delete_autoshare_for_twitter_meta( $post_id, Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
 
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
 	 */
-	do_action( 'autoshare_post_tweet_status_updated' );
+	do_action( 'autoshare_for_twitter_post_tweet_status_updated' );
 }
 
 /**
  * Fire up the module.
  *
- * @uses autoshare_setup
+ * @uses autoshare_for_twitter_setup
  */
-add_action( 'autoshare_setup', __NAMESPACE__ . '\setup' );
+add_action( 'autoshare_for_twitter_setup', __NAMESPACE__ . '\setup' );

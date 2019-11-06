@@ -2,10 +2,10 @@
 /**
  * Handles the Admin settings
  *
- * @package TenUp\Autoshare\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\Autoshare\Core\Admin;
+namespace TenUp\AutoshareForTwitter\Core\Admin;
 
 const AT_GROUP    = 'autoshare';
 const AT_SETTINGS = 'autoshare';

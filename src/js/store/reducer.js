@@ -1,5 +1,5 @@
 import {
-	SET_AUTOSHARE_ENABLED,
+	SET_AUTOSHARE_FOR_TWITTER_ENABLED,
 	SET_ERROR_MESSAGE,
 	SET_TWEET_TEXT,
 	SET_SAVING,
@@ -18,7 +18,7 @@ export const DEFAULT_STATE = {
 
 export default function reducer( state = DEFAULT_STATE, action ) {
 	switch ( action.type ) {
-		case SET_AUTOSHARE_ENABLED:
+		case SET_AUTOSHARE_FOR_TWITTER_ENABLED:
 			return {
 				...state,
 				autoshareEnabled: action.autoshareEnabled,

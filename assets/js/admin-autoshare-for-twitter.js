@@ -6,14 +6,14 @@
 (function($) {
 	'use strict';
 
-	var $tweetPost = $('#autoshare-enable'),
-		$icon = $('#autoshare-icon'),
-		$tweetText = $('#autoshare-text'),
-		$editLink = $('#autoshare-edit'),
-		$editBody = $('#autoshare-override-body'),
+	var $tweetPost = $('#autoshare-for-twitter-enable'),
+		$icon = $('#autoshare-for-twitter-icon'),
+		$tweetText = $('#autoshare-for-twitter-text'),
+		$editLink = $('#autoshare-for-twitter-edit'),
+		$editBody = $('#autoshare-for-twitter-override-body'),
 		$hideLink = $('.cancel-tweet-text'),
-		errorMessageContainer = document.getElementById('autoshare-error-message'),
-		counterWrap = document.getElementById('autoshare-counter-wrap'),
+		errorMessageContainer = document.getElementById('autoshare-for-twitter-error-message'),
+		counterWrap = document.getElementById('autoshare-for-twitter-counter-wrap'),
 		limit = 280;
 
 	// Add enabled class if checked
@@ -34,13 +34,13 @@
 	});
 	$hideLink.on('click', function(e) {
 		e.preventDefault();
-		$('#autoshare-override-body').slideToggle();
+		$('#autoshare-for-twitter-override-body').slideToggle();
 		$editLink.show();
 	});
 
 	// Runs on page load to auto-enable posts to be tweeted
 	window.onload = function(event) {
-		if ('' === adminAutoshare.currentStatus) {
+		if ('' === adminAutoshareForTwitter.currentStatus) {
 			handleRequest(event, true);
 		}
 	};
@@ -51,9 +51,9 @@
 	function onRequestFail(error) {
 		var errorText = '';
 		if ('statusText' in error && 'status' in error) {
-			errorText = `${adminAutoshare.errorText} ${error.status}: ${error.statusText}`;
+			errorText = `${adminAutoshareForTwitter.errorText} ${error.status}: ${error.statusText}`;
 		} else {
-			errorText = adminAutoshare.unkonwnErrorText;
+			errorText = adminAutoshareForTwitter.unkonwnErrorText;
 		}
 
 		errorMessageContainer.innerText = errorText;
@@ -68,11 +68,11 @@
 	 */
 	function handleRequest(event, status = $tweetPost.prop('checked')) {
 		var data = {};
-		data[adminAutoshare.enableAutoshareKey] = status;
-		data[adminAutoshare.tweetBodyKey] = $tweetText.val();
+		data[adminAutoshareForTwitter.enableAutoshareKey] = status;
+		data[adminAutoshareForTwitter.tweetBodyKey] = $tweetText.val();
 
 		wp.apiFetch({
-			url: adminAutoshare.restUrl,
+			url: adminAutoshareForTwitter.restUrl,
 			data: data,
 			method: 'POST',
 			parse: false, // We'll check the response for errors.

@@ -2,10 +2,10 @@
 /**
  * Core plugin setup.
  *
- * @package TenUp\Autoshare\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\Autoshare\Core;
+namespace TenUp\AutoshareForTwitter\Core;
 
 const POST_TYPE_SUPPORT_FEATURE = 'auto-share-for-twitter';
 
@@ -13,22 +13,22 @@ const POST_TYPE_SUPPORT_FEATURE = 'auto-share-for-twitter';
  * The main setup action.
  */
 function setup() {
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/admin/assets.php';
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/admin/settings.php';
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/admin/post-meta.php';
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/admin/post-transition.php';
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/class-publish-tweet.php';
-	require_once plugin_dir_path( AUTOSHARE ) . '/includes/rest.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/assets.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/settings.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/post-meta.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/admin/post-transition.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/class-publish-tweet.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . '/includes/rest.php';
 
-	\TenUp\Autoshare\Admin\Assets\add_hook_callbacks();
-	\TenUp\Autoshare\REST\add_hook_callbacks();
+	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
+	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
 
-	\TenUp\Autoshare\Admin\Assets\add_hook_callbacks();
+	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 
 	/**
 	 * Allow others to hook into the core setup action
 	 */
-	do_action( 'autoshare_setup' );
+	do_action( 'autoshare_for_twitter_setup' );
 
 	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
 }
@@ -36,9 +36,9 @@ function setup() {
 /**
  * Fire up the module.
  *
- * @uses autoshare_loaded
+ * @uses autoshare_for_twitter_loaded
  */
-add_action( 'autoshare_loaded', __NAMESPACE__ . '\setup' );
+add_action( 'autoshare_for_twitter_loaded', __NAMESPACE__ . '\setup' );
 
 /**
  * Adds autoshare support for default post types.
@@ -53,7 +53,7 @@ function set_default_post_type_supports() {
 	 * @since 1.0.0
 	 * @param array Array of post types.
 	 */
-	$post_types_supported_by_default = apply_filters( 'autoshare_default_post_types', [ 'post', 'page' ] );
+	$post_types_supported_by_default = apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
 
 	foreach ( (array) $post_types_supported_by_default as $post_type ) {
 		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );

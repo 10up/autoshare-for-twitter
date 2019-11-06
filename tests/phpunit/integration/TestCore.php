@@ -3,13 +3,13 @@
  * Tests functions in core.php.
  *
  * @since 1.0.0
- * @package TenUp\Autoshare
+ * @package TenUp\AutoshareForTwitter
  */
 
-namespace TenUp\Autoshare\Tests;
+namespace TenUp\AutoshareForTwitter\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\Autoshare\Core\set_default_post_type_supports;
+use function TenUp\AutoshareForTwitter\Core\set_default_post_type_supports;
 
 /**
  * TestCore class.
@@ -46,7 +46,7 @@ class TestCore extends WP_UnitTestCase {
 		$filter_post_type_supports = function( $post_types ) use ( $non_default_post_type ) {
 			return [ $non_default_post_type ];
 		};
-		add_filter( 'autoshare_default_post_types', $filter_post_type_supports );
+		add_filter( 'autoshare_for_twitter_default_post_types', $filter_post_type_supports );
 
 		set_default_post_type_supports();
 		$this->assertFalse( post_type_supports( 'post', 'auto-share-for-twitter' ) );
@@ -54,7 +54,7 @@ class TestCore extends WP_UnitTestCase {
 		$this->assertTrue( post_type_supports( $non_default_post_type, 'auto-share-for-twitter' ) );
 
 		// Clean up.
-		remove_filter( 'autoshare_default_post_types', $filter_post_type_supports );
+		remove_filter( 'autoshare_for_twitter_default_post_types', $filter_post_type_supports );
 		$_wp_post_type_features = $saved__wp_post_type_features; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 

@@ -1,5 +1,5 @@
 import {
-	SET_AUTOSHARE_ENABLED,
+	SET_AUTOSHARE_FOR_TWITTER_ENABLED,
 	SET_ERROR_MESSAGE,
 	SET_TWEET_TEXT,
 	SET_SAVING,
@@ -8,7 +8,7 @@ import {
 } from './constants';
 
 export const setAutoshareEnabled = ( autoshareEnabled ) => ( {
-	type: SET_AUTOSHARE_ENABLED,
+	type: SET_AUTOSHARE_FOR_TWITTER_ENABLED,
 	autoshareEnabled,
 } );
 

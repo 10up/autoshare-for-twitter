@@ -3,10 +3,10 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { Dashicon } from '@wordpress/components';
 
-export function AutosharePostStatusInfo( { statusMessage } ) {
+export function AutoshareForTwitterPostStatusInfo( { statusMessage } ) {
 	return (
 		statusMessage.message && (
-			<div className="autoshare-post-status">
+			<div className="autoshare-for-twitter-post-status">
 				<Dashicon icon="twitter" />
 				{ statusMessage.message }
 				{ statusMessage.url && (
@@ -25,6 +25,6 @@ export function AutosharePostStatusInfo( { statusMessage } ) {
 
 export default compose(
 	withSelect( ( select ) => ( {
-		statusMessage: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_status' ),
+		statusMessage: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' ),
 	} ) ),
-)( AutosharePostStatusInfo );
+)( AutoshareForTwitterPostStatusInfo );

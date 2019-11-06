@@ -2,12 +2,12 @@
 /**
  * Class to handle Tweet publishing.
  *
- * @package TenUp\Autoshare\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\Autoshare\Core\Publish_Tweet;
+namespace TenUp\AutoshareForTwitter\Core\Publish_Tweet;
 
-use TenUp\Autoshare\Utils as Utils;
+use TenUp\AutoshareForTwitter\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
 
 /**
@@ -62,7 +62,7 @@ class Publish_Tweet {
 	 */
 	public function __construct() {
 
-		$at_settings = Utils\get_autoshare_settings();
+		$at_settings = Utils\get_autoshare_for_twitter_settings();
 
 		$this->consumer_key        = $at_settings['api_key'];
 		$this->consumer_secret     = $at_settings['api_secret'];
@@ -116,7 +116,7 @@ class Publish_Tweet {
 		 * @param array   Data sent to the Twitter endpoint.
 		 * @param WP_Post The post associated with the tweet.
 		 */
-		$update_data = apply_filters( 'autoshare_tweet', $update_data, $post );
+		$update_data = apply_filters( 'autoshare_for_twitter_tweet', $update_data, $post );
 
 		/**
 		 * Filters the client response before it is sent, to facilitate caching and testing.
@@ -125,8 +125,8 @@ class Publish_Tweet {
 		 * @param array      Data to send to the Twitter endpoint.
 		 * @param WP_Post    The post associated with the tweet.
 		 */
-		$response    = apply_filters( 'autoshare_pre_status_update', null, $update_data, $post );
-		$update_data = apply_filters( 'autoshare_tweet', $update_data, $post );
+		$response    = apply_filters( 'autoshare_for_twitter_pre_status_update', null, $update_data, $post );
+		$update_data = apply_filters( 'autoshare_for_twitter_tweet', $update_data, $post );
 
 		if ( ! is_null( $response ) ) {
 			return $response;
@@ -145,7 +145,7 @@ class Publish_Tweet {
 		 * @param array        Data to send to the Twitter endpoint.
 		 * @param WP_Post      The post associated with the tweet.
 		 */
-		do_action( 'autoshare_after_status_update', $response, $update_data, $post );
+		do_action( 'autoshare_for_twitter_after_status_update', $response, $update_data, $post );
 
 		return $response;
 	}
@@ -163,7 +163,7 @@ class Publish_Tweet {
 		 *
 		 * @param int Default 5MB.
 		 */
-		return apply_filters( 'autoshare_max_image_size', 5000000 ); // 5MB default.
+		return apply_filters( 'autoshare_for_twitter_max_image_size', 5000000 ); // 5MB default.
 	}
 
 
@@ -229,7 +229,7 @@ class Publish_Tweet {
 		 * @param null|int An attachment ID, null to fall back to the featured image, or false to send no image.
 		 * @param WP_Post  The post associated with the tweet.
 		 */
-		$attachment_id = apply_filters( 'autoshare_attached_image', null, $post );
+		$attachment_id = apply_filters( 'autoshare_for_twitter_attached_image', null, $post );
 
 		if ( false === $attachment_id ) {
 			return null;
@@ -276,7 +276,7 @@ class Publish_Tweet {
 		 * @param null|mixed Any non-null value will suppress the request to Twitter's media upload endpoint.
 		 * @param string     The path to the image file.
 		 */
-		$media_upload_id = apply_filters( 'autoshare_pre_media_upload', null, $image );
+		$media_upload_id = apply_filters( 'autoshare_for_twitter_pre_media_upload', null, $image );
 
 		if ( ! is_null( $media_upload_id ) ) {
 			return $media_upload_id;
@@ -298,7 +298,7 @@ class Publish_Tweet {
 		 * @param string The path to the image file that was uploaded to Twitter.
 		 * @param object The full response object recieved from Twitter.
 		 */
-		do_action( 'autoshare_after_media_upload', $media_upload_id, $image, $response );
+		do_action( 'autoshare_for_twitter_after_media_upload', $media_upload_id, $image, $response );
 
 		return $media_upload_id;
 	}
