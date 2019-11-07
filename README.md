@@ -2,7 +2,7 @@
 
 > Automatically tweets the post title or custom message and a link to the post.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autotweet.svg)](https://github.com/10up/autoshare-for-twittert/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.9.8%20tested-success.svg) [![MIT License](https://img.shields.io/github/license/10up/autotweet.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.9.8%20tested-success.svg) [![MIT License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
 
 ## Overview
 
@@ -57,7 +57,7 @@ Yes, yes it does! For more details on this, see #44.
 
 ## Changelog
 
-A complete listing of all notable changes to Eight Day Week are documented in [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/develop/CHANGELOG.md).
+A complete listing of all notable changes to Autoshare for Twitter are documented in [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/develop/CHANGELOG.md).
 
 ## Contributing
 
