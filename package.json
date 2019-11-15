@@ -1,5 +1,5 @@
 {
-	"name": "@10up/autotweet",
+	"name": "@10up/autoshare",
 	"version": "1.0.0",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
@@ -24,13 +24,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/10up/autotweet.git"
+		"url": "git+https://github.com/10up/autoshare.git"
 	},
 	"author": "10up",
 	"bugs": {
-		"url": "https://github.com/10up/autotweet/issues"
+		"url": "https://github.com/10up/autoshare/issues"
 	},
-	"homepage": "https://github.com/10up/autotweet#readme",
+	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",

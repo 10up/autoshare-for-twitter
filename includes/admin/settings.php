@@ -2,13 +2,13 @@
 /**
  * Handles the Admin settings
  *
- * @package TenUp\AutoTweet\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\AutoTweet\Core\Admin;
+namespace TenUp\AutoshareForTwitter\Core\Admin;
 
-const AT_GROUP    = 'autotweet';
-const AT_SETTINGS = 'autotweet';
+const AT_GROUP    = 'autoshare-for-twitter';
+const AT_SETTINGS = 'autoshare-for-twitter';
 
 /**
  * Main setup function for the Admin
@@ -16,7 +16,6 @@ const AT_SETTINGS = 'autotweet';
  * @return void
  */
 function setup() {
-
 	add_action( 'admin_menu', __NAMESPACE__ . '\admin_menu' );
 	add_action( 'admin_init', __NAMESPACE__ . '\register_settings' );
 }
@@ -27,12 +26,11 @@ function setup() {
  * @return void
  */
 function admin_menu() {
-
 	add_options_page(
-		__( 'Autotweet', 'autotweet' ),
-		__( 'Autotweet', 'autotweet' ),
+		__( 'Autoshare for Twitter', 'autoshare-for-twitter' ),
+		__( 'Autoshare for Twitter', 'autoshare-for-twitter' ),
 		'manage_options',
-		'autotweet',
+		'autoshare-for-twitter',
 		__NAMESPACE__ . '\options_page'
 	);
 }
@@ -48,59 +46,59 @@ function register_settings() {
 
 	// Register the credential setting section.
 	add_settings_section(
-		'autotweet-cred_section',
-		__( 'Twitter Credentials', 'autotweet' ),
+		'autoshare-cred_section',
+		__( 'Twitter Credentials', 'autoshare-for-twitter' ),
 		'',
-		'autotweet'
+		'autoshare-for-twitter'
 	);
 
 	// API Key.
 	add_settings_field(
-		'autotweet-api_key',
-		__( 'API key', 'autotweet' ),
+		'autoshare-api_key',
+		__( 'API key', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
-		'autotweet',
-		'autotweet-cred_section',
+		'autoshare-for-twitter',
+		'autoshare-cred_section',
 		[ 'name' => 'api_key' ]
 	);
 
 	// API Secret.
 	add_settings_field(
-		'autotweet-api_secret',
-		__( 'API secret', 'autotweet' ),
+		'autoshare-api_secret',
+		__( 'API secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
-		'autotweet',
-		'autotweet-cred_section',
+		'autoshare-for-twitter',
+		'autoshare-cred_section',
 		[ 'name' => 'api_secret' ]
 	);
 
 	// Access Token.
 	add_settings_field(
-		'autotweet-access_token',
-		__( 'Access token', 'autotweet' ),
+		'autoshare-access_token',
+		__( 'Access token', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
-		'autotweet',
-		'autotweet-cred_section',
+		'autoshare-for-twitter',
+		'autoshare-cred_section',
 		[ 'name' => 'access_token' ]
 	);
 
 	// Access Secret.
 	add_settings_field(
-		'autotweet-access_secret',
-		__( 'Access secret', 'autotweet' ),
+		'autoshare-access_secret',
+		__( 'Access secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
-		'autotweet',
-		'autotweet-cred_section',
+		'autoshare-for-twitter',
+		'autoshare-cred_section',
 		[ 'name' => 'access_secret' ]
 	);
 
 	// Twitter Handle.
 	add_settings_field(
-		'autotweet-twitter_handle',
-		__( 'Twitter handle', 'autotweet' ),
+		'autoshare-twitter_handle',
+		__( 'Twitter handle', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
-		'autotweet',
-		'autotweet-cred_section',
+		'autoshare-for-twitter',
+		'autoshare-cred_section',
 		[ 'name' => 'twitter_handle' ]
 	);
 
@@ -133,12 +131,12 @@ function options_page() {
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Autotweet', 'autotweet' ); ?></h1>
+		<h1><?php esc_html_e( 'Autoshare for Twitter', 'autoshare-for-twitter' ); ?></h1>
 
 		<form action='options.php' method='post'>
 			<?php
 			settings_fields( AT_GROUP );
-			do_settings_sections( 'autotweet' );
+			do_settings_sections( 'autoshare-for-twitter' );
 			submit_button();
 			?>
 		</form>
@@ -149,6 +147,6 @@ function options_page() {
 /**
  * Fire up the module.
  *
- * @uses autotweet_setup
+ * @uses autoshare_for_twitter_setup
  */
-add_action( 'tenup_autotweet_setup', __NAMESPACE__ . '\setup' );
+add_action( 'autoshare_for_twitter_setup', __NAMESPACE__ . '\setup' );

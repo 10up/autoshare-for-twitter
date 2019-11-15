@@ -1,8 +1,8 @@
-=== Autotweet ===
+=== Autoshare for Twitter ===
 Contributors:      10up
 Tags:
 Requires at least: 4.7
-Tested up to:      5.2.3
+Tested up to:      5.3
 Requires PHP:      7.0
 Stable tag:        1.0.0
 License:           GPL-2.0-or-later
@@ -16,12 +16,12 @@ Automatically tweets the post title or custom message and a link to the post.
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
 
-**Note:** Post types are automatically set to auto-tweet. Future versions of this plugin could allow this to be set manually.
+**Note:** Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
-1. Upload the entire `/autotweet` directory to the `/wp-content/plugins/` directory.
+1. Upload the entire `/autoshare-for-twitter` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
-3. Register post type support for types that should be allowed to auto tweet. `add_post_type_support( 'post', 'autotweet' );`
+3. Register post type support for types that should be allowed to autoshare. `add_post_type_support( 'post', 'autoshare-for-twitter' );`
 
 == FAQs ==
 Does this plugin work with Gutenberg?
@@ -32,7 +32,7 @@ Yes, yes it does!  For more details on this, see #44.
 = 1.0.0 =
 == Added ==
 * Initial public release! 🎉
-* Plugin renamed to "Autotweet".
+* Plugin renamed to "Autoshare for Twitter".
 * Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
 * Gutenberg support (props @johnwatkins0)
 * REST API endpoint to replace AJAX callback (props @johnwatkins0)

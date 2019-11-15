@@ -1,6 +1,6 @@
 {
 	"globals": {
-		"adminAutotweet": "readonly",
+		"adminAutoshareForTwitter": "readonly",
 		"jQuery": "readonly",
 		"wp": "readonly"
 	},

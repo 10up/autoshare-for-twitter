@@ -4,42 +4,42 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutotweetKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autotweet';
+import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autoshare-for-twitter';
 import { __ } from '@wordpress/i18n';
 
 import { STORE } from './store';
 
-class AutotweetPrePublishPanel extends Component {
+class AutoshareForTwitterPrePublishPanel extends Component {
 	constructor( props ) {
 		super( props );
 
 		// Although these values are delivered as props, we copy them into state so that we can check for changes
 		// and save data when they update.
-		this.state = { autotweetEnabled: null, tweetText: null };
+		this.state = { autoshareEnabled: null, tweetText: null };
 
 		this.saveData = debounce( this.saveData.bind( this ), 250 );
 	}
 
 	componentDidMount() {
-		const { autotweetEnabled, tweetText } = this.props;
+		const { autoshareEnabled, tweetText } = this.props;
 
-		this.setState( { autotweetEnabled, tweetText } );
+		this.setState( { autoshareEnabled, tweetText } );
 	}
 
 	componentDidUpdate() {
-		const { autotweetEnabled, tweetText } = this.props;
+		const { autoshareEnabled, tweetText } = this.props;
 
 		// Update if either of these values has changed in the data store.
-		if ( autotweetEnabled !== this.state.autotweetEnabled || tweetText !== this.state.tweetText ) {
-			this.setState( { autotweetEnabled, tweetText }, this.saveData );
+		if ( autoshareEnabled !== this.state.autoshareEnabled || tweetText !== this.state.tweetText ) {
+			this.setState( { autoshareEnabled, tweetText }, this.saveData );
 		}
 	}
 
 	async saveData() {
-		const { autotweetEnabled, setErrorMessage, setSaving, tweetText } = this.props;
+		const { autoshareEnabled, setErrorMessage, setSaving, tweetText } = this.props;
 
 		const body = {};
-		body[ enableAutotweetKey ] = autotweetEnabled;
+		body[ enableAutoshareKey ] = autoshareEnabled;
 		body[ tweetBodyKey ] = tweetText;
 
 		try {
@@ -60,26 +60,26 @@ class AutotweetPrePublishPanel extends Component {
 			setSaving( false );
 		} catch ( e ) {
 			setErrorMessage(
-				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autotweet' ),
+				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autoshare-for-twitter' ),
 			);
 		}
 	}
 
 	render() {
 		const {
-			autotweetEnabled,
+			autoshareEnabled,
 			errorMessage,
 			overriding,
 			permalinkLength,
 			saving,
-			setAutotweetEnabled,
+			setAutoshareEnabled,
 			setOverriding,
 			setTweetText,
 			tweetText,
 		} = this.props;
 
 		const twitterIconClass = () => {
-			const iconClass = autotweetEnabled ? 'enabled' : 'disabled';
+			const iconClass = autoshareEnabled ? 'enabled' : 'disabled';
 			return `${ iconClass } ${ saving ? 'pending' : '' }`;
 		};
 
@@ -97,24 +97,24 @@ class AutotweetPrePublishPanel extends Component {
 
 		return (
 			<>
-				<div className="autotweet-prepublish__checkbox-row">
+				<div className="autoshare-for-twitter-prepublish__checkbox-row">
 					<CheckboxControl
-						className="autotweet-prepublish__checkbox"
+						className="autoshare-for-twitter-prepublish__checkbox"
 						label={
-							<span className="autotweet-prepublish__checkbox-label">
+							<span className="autoshare-for-twitter-prepublish__checkbox-label">
 								<Dashicon icon="twitter" className={ twitterIconClass() } />
-								{ __( 'Tweet this post?', 'autotweet' ) }
+								{ __( 'Tweet this post?', 'autoshare-for-twitter' ) }
 							</span>
 						}
-						checked={ autotweetEnabled }
+						checked={ autoshareEnabled }
 						onChange={ ( checked ) => {
-							setAutotweetEnabled( checked );
+							setAutoshareEnabled( checked );
 						} }
 					/>
 				</div>
 
-				{ autotweetEnabled && (
-					<div className="autotweet-prepublish__override-row">
+				{ autoshareEnabled && (
+					<div className="autoshare-for-twitter-prepublish__override-row">
 						{ overriding && (
 							<TextareaControl
 								value={ tweetText }
@@ -122,9 +122,11 @@ class AutotweetPrePublishPanel extends Component {
 									setTweetText( value );
 								} }
 								label={
-									<span className="autotweet-prepublish__message-label">
-										<span>{ __( 'Custom message:', 'autotweet' ) }&nbsp;</span>
-										<span id="autotweet-counter-wrap" className={ overrideLengthClass() }>{ tweetText.length }</span>
+									<span className="autoshare-for-twitter-prepublish__message-label">
+										<span>{ __( 'Custom message:', 'autoshare-for-twitter' ) }&nbsp;</span>
+										<span id="autoshare-for-twitter-counter-wrap" className={ overrideLengthClass() }>
+											{ tweetText.length }
+										</span>
 									</span>
 								}
 							/>
@@ -136,7 +138,7 @@ class AutotweetPrePublishPanel extends Component {
 								setOverriding( ! overriding );
 							} }
 						>
-							{ overriding ? __( 'Hide', 'autotweet' ) : __( 'Edit', 'autotweet' ) }
+							{ overriding ? __( 'Hide', 'autoshare-for-twitter' ) : __( 'Edit', 'autoshare-for-twitter' ) }
 						</Button>
 					</div>
 				) }
@@ -163,7 +165,7 @@ const permalinkLength = ( select ) => {
 
 export default compose(
 	withSelect( ( select ) => ( {
-		autotweetEnabled: select( STORE ).getAutotweetEnabled(),
+		autoshareEnabled: select( STORE ).getAutoshareEnabled(),
 		errorMessage: select( STORE ).getErrorMessage(),
 		overriding: select( STORE ).getOverriding(),
 		permalinkLength: permalinkLength( select ),
@@ -171,10 +173,10 @@ export default compose(
 		tweetText: select( STORE ).getTweetText(),
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
-		setAutotweetEnabled: dispatch( STORE ).setAutotweetEnabled,
+		setAutoshareEnabled: dispatch( STORE ).setAutoshareEnabled,
 		setErrorMessage: dispatch( STORE ).setErrorMessage,
 		setOverriding: dispatch( STORE ).setOverriding,
 		setSaving: dispatch( STORE ).setSaving,
 		setTweetText: dispatch( STORE ).setTweetText,
 	} ) ),
-)( AutotweetPrePublishPanel );
+)( AutoshareForTwitterPrePublishPanel );
