@@ -3,16 +3,16 @@
  * Tests functions admin/post-meta.php.
  *
  * @since 1.0.0
- * @package TenUp\AutoTweet
+ * @package TenUp\AutoshareForTwitter
  */
 
-namespace TenUp\AutoTweet\Tests;
+namespace TenUp\AutoshareForTwitter\Tests;
 
 use WP_UnitTestCase;
 
-use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
-use function TenUp\AutoTweet\Core\Post_Meta\get_tweet_status_message;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
 
 /**
  * TestUtils class.
@@ -44,7 +44,7 @@ class TestPostMeta extends WP_UnitTestCase {
 
 			return $data;
 		};
-		add_filter( 'autotweet_meta', $published_filter, 10, 3 );
+		add_filter( 'autoshare_for_twitter_meta', $published_filter, 10, 3 );
 		$this->assertEquals(
 			[
 				'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
@@ -52,7 +52,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			],
 			get_tweet_status_message( $post )
 		);
-		remove_filter( 'autotweet_meta', $published_filter );
+		remove_filter( 'autoshare_for_twitter_meta', $published_filter );
 
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
@@ -64,14 +64,14 @@ class TestPostMeta extends WP_UnitTestCase {
 
 			return $data;
 		};
-		add_filter( 'autotweet_meta', $failed_filter, 10, 3 );
+		add_filter( 'autoshare_for_twitter_meta', $failed_filter, 10, 3 );
 		$this->assertEquals(
 			[
 				'message' => 'Failed to tweet: There was an error.',
 			],
 			get_tweet_status_message( $post )
 		);
-		remove_filter( 'autotweet_meta', $failed_filter );
+		remove_filter( 'autoshare_for_twitter_meta', $failed_filter );
 
 		$unknown_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
@@ -83,14 +83,14 @@ class TestPostMeta extends WP_UnitTestCase {
 
 			return $data;
 		};
-		add_filter( 'autotweet_meta', $unknown_filter, 10, 3 );
+		add_filter( 'autoshare_for_twitter_meta', $unknown_filter, 10, 3 );
 		$this->assertEquals(
 			[
 				'message' => 'There was an error.',
 			],
 			get_tweet_status_message( $post )
 		);
-		remove_filter( 'autotweet_meta', $unknown_filter );
+		remove_filter( 'autoshare_for_twitter_meta', $unknown_filter );
 
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
 			if ( intval( $post ) === intval( $id ) && TWITTER_STATUS_KEY === $key ) {
@@ -101,14 +101,14 @@ class TestPostMeta extends WP_UnitTestCase {
 
 			return $data;
 		};
-		add_filter( 'autotweet_meta', $other_filter, 10, 3 );
+		add_filter( 'autoshare_for_twitter_meta', $other_filter, 10, 3 );
 		$this->assertEquals(
 			[
 				'message' => 'This post was not tweeted.',
 			],
 			get_tweet_status_message( $post )
 		);
-		remove_filter( 'autotweet_meta', $other_filter );
+		remove_filter( 'autoshare_for_twitter_meta', $other_filter );
 	}
 
 }
