@@ -13,9 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - REST API endpoint to replace AJAX callback (props @johnwatkins0 via #33)
 - Build process, PHPCS linting, unit tests, and Travis CI (props @johnwatkins0, @adamsilverstein via #23, #24, #28, #29)
 - Plugin banner and icon images (props @sncampbell via #31)
+- Twitter disclaimer per their trademark guidelines as part of their brand guidelines (props @jeffpaul via #50)
 
 ### Changed
-- Refactor v0.1.0 significantly (props @adamsilverstein via #1)
+- Refactor v0.1.0 significantly (props @adamsilverstein, @johnwatkins0, @jeffpaul via #1, #49)
 
 ### Security
 - XSS prevention - switch from .innerHTML to text (props @adamsilverstein via #1)
