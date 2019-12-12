@@ -241,7 +241,7 @@ function get_tweet_status_message( $post ) {
 }
 
 /**
- * Outputs the markeup and language to be used when a post has been successfully
+ * Outputs the markup and language to be used when a post has been successfully
  * sent to Twitter
  *
  * @param array $status_meta The status meta.
@@ -263,7 +263,7 @@ function markup_published( $status_meta ) {
 }
 
 /**
- * Outputs the markeup and language to be used when a post has had an error
+ * Outputs the markup and language to be used when a post has had an error
  * when posting to Twitter
  *
  * @param array $status_meta The status meta.
@@ -280,7 +280,7 @@ function markup_error( $status_meta ) {
 }
 
 /**
- * Outputs the markeup and language to be used when a post NOT been auto-posted to Twitter.
+ * Outputs the markup and language to be used when a post NOT been auto-posted to Twitter.
  * Also considered a fallback message of sorts.
  *
  * @param array $status_meta The status meta.
