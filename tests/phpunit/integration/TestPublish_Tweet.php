@@ -68,7 +68,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
-		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/33772-1024x576.jpg', date( 'Y' ), date( 'm' ) ), $file );
+		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/33772-1536x864.jpg', date( 'Y' ), date( 'm' ) ), $file );
 		$attachment = $this->factory->attachment->create_upload_object( DIR_TESTDATA . '/images/2004-07-22-DSC_0008.jpg' ); // ~109kb image.
 		$file       = $this->publish_tweet->get_largest_acceptable_image(
 			get_attached_file( $attachment ),
