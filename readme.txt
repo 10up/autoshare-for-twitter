@@ -1,6 +1,6 @@
 === Autoshare for Twitter ===
 Contributors:      10up
-Tags:
+Tags:              twitter, tweet, autoshare, auto-share, share, social media
 Requires at least: 4.7
 Tested up to:      5.3
 Requires PHP:      7.0
@@ -30,20 +30,15 @@ Yes, yes it does!  For more details on this, see #44.
 == Changelog ==
 
 = 1.0.0 =
-== Added ==
-* Initial public release! 🎉
-* Plugin renamed to "Autoshare for Twitter".
-* Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
-* Gutenberg support (props @johnwatkins0)
-* REST API endpoint to replace AJAX callback (props @johnwatkins0)
-* Build process, PHPCS linting, unit tests, and Travis CI (props @johnwatkins0, @adamsilverstein)
-* Plugin banner and icon images (props Stephanie Campbell)
-
-== Changed ==
-* Refactor v0.1.0 significantly (props @adamsilverstein)
-
-== Security ==
-* XSS prevention - switch from .innerHTML to text (props @adamsilverstein)
+* **Added:** Initial public release! 🎉
+* **Added:** Plugin renamed to "Autoshare for Twitter"
+* **Added:** Support Post and Page post types by default, provide Custom Post Type (props @johnwatkins0)
+* **Added:** Gutenberg support (props @johnwatkins0)
+* **Added:** REST API endpoint to replace AJAX callback (props @johnwatkins0)
+* **Added:** Build process, PHPCS linting, unit tests, and Travis CI (props @johnwatkins0, @adamsilverstein)
+* **Added:** Plugin banner and icon images (props Stephanie Campbell)
+* **Changed:** Refactor v0.1.0 significantly (props @adamsilverstein, @johnwatkins0, @jeffpaul)
+* **Security:** XSS prevention - switch from .innerHTML to text (props @adamsilverstein)
 
 = 0.1.0 =
 * Initial private release
