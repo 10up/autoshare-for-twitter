@@ -1,29 +1,53 @@
 {
-  "name": "@10up/autotweet",
-  "version": "1.0.0",
-  "description": "Automatically tweets a post title, URL, and optional description.",
-  "main": "index.js",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.php": [
-      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/10up/10up-auto-tweet.git"
-  },
-  "author": "10up",
-  "bugs": {
-    "url": "https://github.com/10up/10up-auto-tweet/issues"
-  },
-  "homepage": "https://github.com/10up/10up-auto-tweet#readme",
-  "devDependencies": {
-    "husky": "^3.0.0",
-    "lint-staged": "^9.2.0"
-  }
+	"name": "@10up/autoshare",
+	"version": "1.0.0",
+	"description": "Automatically tweets a post title, URL, and optional description.",
+	"scripts": {
+		"watch": "webpack -wd --config webpack.gutenberg.config.js",
+		"build": "webpack -p --config webpack.gutenberg.config.js",
+		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
+		"makepot": "wpi18n makepot --domain-path languages && echo '.pot file updated'",
+		"lint": "eslint ."
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint"
+		],
+		"*.php": [
+			"./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/10up/autoshare.git"
+	},
+	"author": "10up",
+	"bugs": {
+		"url": "https://github.com/10up/autoshare/issues"
+	},
+	"homepage": "https://github.com/10up/autoshare#readme",
+	"devDependencies": {
+		"@10up/eslint-config": "^1.0.9",
+		"@babel/core": "^7.6.0",
+		"@babel/preset-env": "^7.6.0",
+		"@babel/preset-react": "^7.0.0",
+		"@wordpress/babel-plugin-makepot": "^3.2.0",
+		"@wordpress/eslint-plugin": "^3.0.0",
+		"babel-eslint": "^10.0.3",
+		"babel-loader": "^8.0.6",
+		"eslint": "^6.3.0",
+		"husky": "^3.0.5",
+		"lint-staged": "^9.2.5",
+		"node-wp-i18n": "^1.2.3",
+		"webpack": "^4.40.2",
+		"webpack-cli": "^3.3.8"
+	},
+	"dependencies": {
+		"@wordpress/api-fetch": "^3.5.0"
+	}
 }
