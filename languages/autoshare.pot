@@ -3,27 +3,27 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/js/AutotweetPostStatusInfo.js:16
+#: src/js/AutoshareForTwitterPostStatusInfo.js:16
 msgid "View"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:106
+#: src/js/AutoshareForTwitterPrePublishPanel.js:106
 msgid "Tweet this post?"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:126
+#: src/js/AutoshareForTwitterPrePublishPanel.js:126
 msgid "Custom message:"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:139
+#: src/js/AutoshareForTwitterPrePublishPanel.js:141
 msgid "Hide"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:139
+#: src/js/AutoshareForTwitterPrePublishPanel.js:141
 msgid "Edit"
 msgstr ""
 
-#: src/js/AutotweetPrePublishPanel.js:63
+#: src/js/AutoshareForTwitterPrePublishPanel.js:63
 msgid "An error occurred."
 msgstr ""
 
@@ -36,5 +36,5 @@ msgid "Disabled"
 msgstr ""
 
 #: src/js/index.js:46
-msgid "Autotweet:"
+msgid "Autoshare:"
 msgstr ""

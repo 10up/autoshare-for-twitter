@@ -2,30 +2,30 @@
 /**
  * Responsible for the registration and display of the metabox.
  *
- * @package TenUp\AutoTweet\Core
+ * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\AutoTweet\Core\Post_Meta;
+namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
 
 /**
  * Aliases
  */
-use TenUp\AutoTweet\Utils as Utils;
-use function TenUp\AutoTweet\Utils\update_autotweet_meta;
-use function TenUp\AutoTweet\Utils\delete_autotweet_meta;
+use TenUp\AutoshareForTwitter\Utils as Utils;
+use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 
 /**
  * The meta prefix that all meta related keys should have
  */
-const META_PREFIX = 'autotweet';
+const META_PREFIX = 'autoshare';
 
 /**
- * Enable autotweet checkbox
+ * Enable autoshare checkbox
  */
-const ENABLE_AUTOTWEET_KEY = 'autotweet';
+const ENABLE_AUTOSHARE_FOR_TWITTER_KEY = 'autoshare_for_twitter';
 
 /**
- * Holds the autotweet boddy
+ * Holds the autoshare body
  */
 const TWEET_BODY_KEY = 'tweet-body';
 
@@ -34,7 +34,7 @@ const TWEET_BODY_KEY = 'tweet-body';
  *
  * @see post-transition.php
  */
-const TWITTER_STATUS_KEY = 'twitter-status';
+const TWITTER_STATUS_KEY = 'status';
 
 /**
  * The setup function
@@ -43,7 +43,7 @@ const TWITTER_STATUS_KEY = 'twitter-status';
  */
 function setup() {
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
-	add_action( 'tenup_autotweet_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
+	add_action( 'autoshare_for_twitter_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
 }
 
@@ -60,22 +60,22 @@ function save_tweet_meta( $post_id ) {
 		return;
 	}
 
-	$form_data = sanitize_autotweet_meta_data(
+	$form_data = sanitize_autoshare_for_twitter_meta_data(
 		// Using FILTER_DEFAULT here as data is being passed to sanitize function.
 		filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY )
 	);
 
-	save_autotweet_meta_data( $post_id, $form_data );
+	save_autoshare_for_twitter_meta_data( $post_id, $form_data );
 }
 
 /**
- * Sanitizes autotweet-related fields passed while saving a post.
+ * Sanitizes autoshare-related fields passed while saving a post.
  *
  * @since 1.0.0
  * @param array $data Form data.
  * @return array Filtered form data.
  */
-function sanitize_autotweet_meta_data( $data ) {
+function sanitize_autoshare_for_twitter_meta_data( $data ) {
 	if ( empty( $data ) || ! is_array( $data ) ) {
 		return [];
 	}
@@ -83,7 +83,7 @@ function sanitize_autotweet_meta_data( $data ) {
 	$filtered_data = [];
 	foreach ( $data as $key => $value ) {
 		switch ( $key ) {
-			case ENABLE_AUTOTWEET_KEY:
+			case ENABLE_AUTOSHARE_FOR_TWITTER_KEY:
 				$filtered_data[ $key ] = boolval( $value );
 				break;
 
@@ -96,28 +96,28 @@ function sanitize_autotweet_meta_data( $data ) {
 }
 
 /**
- * Saves fields in an array of autotweet meta.
+ * Saves fields in an array of autoshare meta.
  *
  * @since 1.0.0
  * @param int   $post_id WP_Post ID.
  * @param array $data Associative array of data to save.
  */
-function save_autotweet_meta_data( $post_id, $data ) {
+function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 	if ( empty( $data ) || ! is_array( $data ) ) {
 		return;
 	}
 
 	foreach ( $data as $key => $value ) {
 		switch ( $key ) {
-			case ENABLE_AUTOTWEET_KEY:
-				update_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY, $value );
+			case ENABLE_AUTOSHARE_FOR_TWITTER_KEY:
+				update_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $value );
 				break;
 
 			case TWEET_BODY_KEY:
 				if ( ! empty( $value ) ) {
-					update_autotweet_meta( $post_id, TWEET_BODY_KEY, $value );
+					update_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY, $value );
 				} else {
-					delete_autotweet_meta( $post_id, TWEET_BODY_KEY );
+					delete_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY );
 				}
 		}
 	}
@@ -133,15 +133,15 @@ function save_autotweet_meta_data( $post_id, $data ) {
 function tweet_submitbox_callback( $post ) {
 
 	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into autotweeting.
+	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing.
 	 */
-	if ( ! Utils\opted_into_autotweet( $post->ID ) ) {
+	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
 	}
 
 	?>
-	<div id="autotweet_metabox" class="misc-pub-section">
-		<?php do_action( 'tenup_autotweet_metabox', $post ); ?>
+	<div id="autoshare_for_twitter_metabox" class="misc-pub-section">
+		<?php do_action( 'autoshare_for_twitter_metabox', $post ); ?>
 	</div>
 	<?php
 }
@@ -160,8 +160,9 @@ function render_tweet_submitbox( $post ) {
 	// If the post is already published the output varies slightly.
 	if ( 'publish' === $post_status ) {
 
-		$twitter_status = Utils\get_autotweet_meta( get_the_ID(), TWITTER_STATUS_KEY );
+		$twitter_status = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWITTER_STATUS_KEY );
 		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
+
 		switch ( $status ) {
 
 			case 'published':
@@ -177,7 +178,7 @@ function render_tweet_submitbox( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not tweeted.', 'tenup_autotweet' );
+				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
 				break;
 		}
 
@@ -204,7 +205,7 @@ function get_tweet_status_message( $post ) {
 
 	if ( 'publish' === $post_status ) {
 
-		$twitter_status = Utils\get_autotweet_meta( $post->ID, TWITTER_STATUS_KEY );
+		$twitter_status = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
 		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
 
 		switch ( $status ) {
@@ -214,13 +215,13 @@ function get_tweet_status_message( $post ) {
 
 				return [
 					// Translators: Placeholder is a date.
-					'message' => sprintf( __( 'Tweeted on %s', 'autotweet' ), $date ),
+					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 				];
 
 			case 'error':
 				return [
-					'message' => __( 'Failed to tweet: ', 'autotweet' ) . $twitter_status['message'],
+					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $twitter_status['message'],
 				];
 
 			case 'unknown':
@@ -230,7 +231,7 @@ function get_tweet_status_message( $post ) {
 
 			default:
 				return [
-					'message' => __( 'This post was not tweeted.', 'autotweet' ),
+					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
 				];
 		}
 	}
@@ -240,7 +241,7 @@ function get_tweet_status_message( $post ) {
 }
 
 /**
- * Outputs the markeup and language to be used when a post has been successfully
+ * Outputs the markup and language to be used when a post has been successfully
  * sent to Twitter
  *
  * @param array $status_meta The status meta.
@@ -254,15 +255,15 @@ function markup_published( $status_meta ) {
 
 	return sprintf(
 		'%s <span>%s</span> (<a href="%s" target="_blank">%s</a>)</p>',
-		esc_html__( 'Tweeted on', 'tenup_autotweet' ),
+		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'tenup_autotweet' )
+		esc_html__( 'View', 'autoshare-for-twitter' )
 	);
 }
 
 /**
- * Outputs the markeup and language to be used when a post has had an error
+ * Outputs the markup and language to be used when a post has had an error
  * when posting to Twitter
  *
  * @param array $status_meta The status meta.
@@ -273,13 +274,13 @@ function markup_error( $status_meta ) {
 
 	return sprintf(
 		'%s<br><pre>%s</pre></p>',
-		esc_html__( 'Failed to tweet', 'tenup_autotweet' ),
+		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
 		esc_html( $status_meta['message'] )
 	);
 }
 
 /**
- * Outputs the markeup and language to be used when a post NOT been auto-posted to Twitter.
+ * Outputs the markup and language to be used when a post NOT been auto-posted to Twitter.
  * Also considered a fallback message of sorts.
  *
  * @param array $status_meta The status meta.
@@ -291,7 +292,7 @@ function markup_unknown( $status_meta ) {
 }
 
 /**
- * Outputs the <input> markup required to set a post to autotweet.
+ * Outputs the <input> markup required to set a post to autoshare.
  *
  * @return string
  */
@@ -299,34 +300,34 @@ function _safe_markup_default() {
 
 	ob_start();
 	?>
-	<label for="autotweet-enable">
+	<label for="autoshare-for-twitter-enable">
 		<input
 			type="checkbox"
-			id="autotweet-enable"
-			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOTWEET_KEY ) ); ?>"
+			id="autoshare-for-twitter-enable"
+			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>"
 			value="1"
-			<?php checked( Utils\get_autotweet_meta( get_the_ID(), ENABLE_AUTOTWEET_KEY ) ); ?>
+			<?php checked( Utils\get_autoshare_for_twitter_meta( get_the_ID(), ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>
 		>
-		<span id="autotweet-icon" class="dashicons-before dashicons-twitter"></span>
-		<?php esc_html_e( 'Tweet this post', 'tenup_autotweet' ); ?>
-		<a href="#edit_tweet_text" id="autotweet-edit"><?php esc_html_e( 'Edit', 'tenup_autotweet' ); ?></a>
+		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
+		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
+		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
 	</label>
 
-	<div id="autotweet-override-body" style="display: none;">
+	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
-			<?php esc_html_e( 'Custom Message', 'tenup_autotweet' ); ?>:
+			<?php esc_html_e( 'Custom Message', 'autoshare-for-twitter' ); ?>:
 		</label>
-		<span id="autotweet-counter-wrap" class="alignright">0</span>
+		<span id="autoshare-for-twitter-counter-wrap" class="alignright">0</span>
 		<textarea
-			id="autotweet-text"
+			id="autoshare-for-twitter-text"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
 			rows="3"
-		><?php echo esc_textarea( Utils\get_autotweet_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
+		><?php echo esc_textarea( Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
 
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
 	</div>
 
-	<p id="autotweet-error-message"></p>
+	<p id="autoshare-for-twitter-error-message"></p>
 
 	<?php
 	return ob_get_clean();
@@ -335,6 +336,6 @@ function _safe_markup_default() {
 /**
  * Fire up the module.
  *
- * @uses autotweet_setup
+ * @uses autoshare_for_twitter_setup
  */
-add_action( 'tenup_autotweet_setup', __NAMESPACE__ . '\setup' );
+add_action( 'autoshare_for_twitter_setup', __NAMESPACE__ . '\setup' );

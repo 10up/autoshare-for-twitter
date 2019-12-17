@@ -3,22 +3,22 @@
  * Handles loading of JS and CSS.
  *
  * @since 1.0.0
- * @package TenUp\AutoTweet
+ * @package TenUp\AutoshareForTwitter
  */
 
-namespace TenUp\AutoTweet\Admin\Assets;
+namespace TenUp\AutoshareForTwitter\Admin\Assets;
 
-use function TenUp\AutoTweet\Utils\get_autotweet_meta;
-use function TenUp\AutoTweet\Utils\opted_into_autotweet;
-use function TenUp\AutoTweet\REST\post_autotweet_meta_rest_route;
-use const TenUp\AutoTweet\Core\Post_Meta\ENABLE_AUTOTWEET_KEY;
-use const TenUp\AutoTweet\Core\Post_Meta\TWEET_BODY_KEY;
-use const TenUp\AutoTweet\Core\Post_Meta\TWITTER_STATUS_KEY;
+use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
+use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 /**
  * The handle used in registering plugin assets.
  */
-const SCRIPT_HANDLE = 'autotweet';
+const SCRIPT_HANDLE = 'autoshare_for_twitter';
 
 /**
  * Adds WP hook callbacks.
@@ -38,10 +38,10 @@ function add_hook_callbacks() {
  */
 function enqueue_shared_assets() {
 	wp_enqueue_style(
-		'admin_autotweet',
-		trailingslashit( TUAT_URL ) . 'assets/css/admin-autotweet.css',
+		'admin_autoshare_for_twitter',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
 		[],
-		TUAT_VERSION
+		AUTOSHARE_FOR_TWITTER_VERSION
 	);
 }
 
@@ -56,7 +56,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		return;
 	}
 
-	if ( ! opted_into_autotweet( get_the_ID() ) ) {
+	if ( ! opted_into_autoshare_for_twitter( get_the_ID() ) ) {
 		return;
 	}
 
@@ -69,7 +69,7 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 	if ( ! wp_script_is( $api_fetch_handle, 'registered' ) ) {
 		wp_register_script(
 			$api_fetch_handle,
-			trailingslashit( TUAT_URL ) . 'dist/api-fetch.js',
+			trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/api-fetch.js',
 			[],
 			'3.4.0',
 			true
@@ -94,20 +94,20 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		);
 	}
 
-	$handle = 'admin_autotweet';
+	$handle = 'admin_autoshare_for_twitter';
 	wp_enqueue_script(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/js/admin-autotweet.js',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter.js',
 		[ 'jquery', 'wp-api-fetch' ],
-		TUAT_VERSION,
+		AUTOSHARE_FOR_TWITTER_VERSION,
 		true
 	);
 
 	wp_enqueue_style(
 		$handle,
-		trailingslashit( TUAT_URL ) . 'assets/css/admin-autotweet.css',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
 		[],
-		TUAT_VERSION
+		AUTOSHARE_FOR_TWITTER_VERSION
 	);
 
 	localize_data( $handle );
@@ -119,13 +119,13 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
  * @since 1.0.0
  */
 function enqueue_editor_assets() {
-	if ( ! opted_into_autotweet( get_the_ID() ) ) {
+	if ( ! opted_into_autoshare_for_twitter( get_the_ID() ) ) {
 		return;
 	}
 
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
-		trailingslashit( TUAT_URL ) . 'dist/autotweet.js',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/autoshare-for-twitter.js',
 		[
 			'lodash',
 			'wp-components',
@@ -136,7 +136,7 @@ function enqueue_editor_assets() {
 			'wp-i18n',
 			'wp-plugins',
 		],
-		TUAT_VERSION,
+		AUTOSHARE_FOR_TWITTER_VERSION,
 		true
 	);
 
@@ -158,19 +158,19 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		);
 	}
 
-	$status_meta = get_autotweet_meta( $post_id, TWITTER_STATUS_KEY );
+	$status_meta = get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
 
 	$localization = [
-		'enabled'            => get_autotweet_meta( $post_id, ENABLE_AUTOTWEET_KEY ),
-		'enableAutotweetKey' => ENABLE_AUTOTWEET_KEY,
-		'errorText'          => __( 'Error', 'autotweet' ),
+		'enabled'            => get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ),
+		'enableAutoshareKey' => ENABLE_AUTOSHARE_FOR_TWITTER_KEY,
+		'errorText'          => __( 'Error', 'autoshare-for-twitter' ),
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
-		'restUrl'            => rest_url( post_autotweet_meta_rest_route( $post_id ) ),
+		'restUrl'            => rest_url( post_autoshare_for_twitter_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
-		'unknownErrorText'   => __( 'An unknown error occurred', 'autotweet' ),
+		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
 	];
 
-	wp_localize_script( $handle, 'adminAutotweet', $localization );
+	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );
 }

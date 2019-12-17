@@ -1,12 +1,13 @@
 {
-	"name": "@10up/autotweet",
+	"name": "@10up/autoshare",
 	"version": "1.0.0",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
 		"build": "webpack -p --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
-		"lint": "eslint src"
+		"makepot": "wpi18n makepot --domain-path languages && echo '.pot file updated'",
+		"lint": "eslint ."
 	},
 	"husky": {
 		"hooks": {
@@ -23,13 +24,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/10up/autotweet.git"
+		"url": "git+https://github.com/10up/autoshare.git"
 	},
 	"author": "10up",
 	"bugs": {
-		"url": "https://github.com/10up/autotweet/issues"
+		"url": "https://github.com/10up/autoshare/issues"
 	},
-	"homepage": "https://github.com/10up/autotweet#readme",
+	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",
@@ -42,6 +43,7 @@
 		"eslint": "^6.3.0",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
+		"node-wp-i18n": "^1.2.3",
 		"webpack": "^4.40.2",
 		"webpack-cli": "^3.3.8"
 	},
