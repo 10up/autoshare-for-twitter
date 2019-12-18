@@ -1,5 +1,4 @@
-.DS_Store
+assets
 dist
 node_modules
-tests/coverage
 vendor

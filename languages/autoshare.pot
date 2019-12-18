@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/js/AutoshareForTwitterPostStatusInfo.js:16
+msgid "View"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:106
+msgid "Tweet this post?"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:126
+msgid "Custom message:"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:141
+msgid "Hide"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:141
+msgid "Edit"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:63
+msgid "An error occurred."
+msgstr ""
+
+#: src/js/index.js:32
+msgid "Enabled"
+msgstr ""
+
+#: src/js/index.js:32
+msgid "Disabled"
+msgstr ""
+
+#: src/js/index.js:46
+msgid "Autoshare:"
+msgstr ""

@@ -1,0 +1,11 @@
+{
+	"presets": ["@babel/env", "@babel/preset-react"],
+	"plugins": [
+		[
+			"@wordpress/babel-plugin-makepot",
+			{
+				"output": "languages/autoshare-for-twitter.pot"
+			}
+		]
+	]
+}
