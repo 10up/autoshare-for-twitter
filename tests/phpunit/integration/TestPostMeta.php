@@ -22,28 +22,6 @@ use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
  */
 class TestPostMeta extends WP_UnitTestCase {
 	/**
-	 * Performs test setup.
-	 *
-	 * @return void
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		add_filter(
-			sprintf( 'option_%s', AT_SETTINGS ),
-			function() {
-				return [
-					'api_key'        => 'API_KEY',
-					'api_secret'     => 'API_SECRET',
-					'access_token'   => 'ACCESS_TOKEN',
-					'access_secret'  => 'ACCESS_SECRET',
-					'twitter_handle' => 'TWITTER_HANDLE',
-				];
-			}
-		);
-	}
-
-	/**
 	 * Tests the get_tweet_status_message function.
 	 */
 	public function test_get_tweet_status_message() {
