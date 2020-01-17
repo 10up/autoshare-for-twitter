@@ -95,11 +95,15 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 
 	$settings = wp_parse_args( $settings, $defaults );
 
-	if ( ! empty( $key ) && isset( $settings[ $key ] ) ) {
+	if ( empty( $key ) ) {
+		return $settings;
+	}
+
+	if ( isset( $settings[ $key ] ) ) {
 		return $settings[ $key ];
 	}
 
-	return empty( $key ) ? $settings : '';
+	return '';
 }
 
 /**
