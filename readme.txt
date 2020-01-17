@@ -19,12 +19,15 @@ Automatically tweets the post title or custom message and a link to the post.
 **Note:** Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
+
 1. Upload the entire `/autoshare-for-twitter` directory to the `/wp-content/plugins/` directory.
 2. Activate the plugin
 3. Register post type support for types that should be allowed to autoshare: `add_post_type_support( 'post', 'autoshare-for-twitter' );`
 
-== FAQs ==
+== Frequently Asked Questions ==
+
 = Does this plugin work with Gutenberg? =
+
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
