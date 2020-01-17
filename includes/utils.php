@@ -79,10 +79,31 @@ function maybe_autoshare( $post_id ) {
  * @return mixed
  */
 function get_autoshare_for_twitter_settings( $key = '' ) {
+	$defaults = [
+		'access_secret'  => '',
+		'access_token'   => '',
+		'api_key'        => '',
+		'api_secret'     => '',
+		'twitter_handle' => '',
+	];
 
 	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );
 
-	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
+	if ( empty( $settings ) ) {
+		$settings = [];
+	}
+
+	$settings = wp_parse_args( $settings, $defaults );
+
+	if ( empty( $key ) ) {
+		return $settings;
+	}
+
+	if ( isset( $settings[ $key ] ) ) {
+		return $settings[ $key ];
+	}
+
+	return '';
 }
 
 /**
