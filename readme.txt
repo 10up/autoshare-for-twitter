@@ -1,5 +1,5 @@
 === Autoshare for Twitter ===
-Contributors:      10up, johnwatkins0, adamsilverstein
+Contributors:      10up, johnwatkins0, adamsilverstein, scottlee
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
 Requires at least: 4.7
 Tested up to:      5.3.2
@@ -44,7 +44,7 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * **Security:** XSS prevention - switch from .innerHTML to text (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein/))
 
 = 0.1.0 =
-* Initial private release
+* Initial private release (props [@scottlee](https://profiles.wordpress.org/scottlee/))
 
 == Upgrade Notice ==
 
