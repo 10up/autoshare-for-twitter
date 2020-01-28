@@ -258,7 +258,7 @@ class Publish_Tweet {
 
 		$media_id = $this->upload( $file );
 
-		return $media_id ?: null;
+		return $media_id ? $media_id : null;
 	}
 
 	/**
