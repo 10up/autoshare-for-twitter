@@ -72,6 +72,27 @@ function delete_autoshare_for_twitter_meta( $id, $key ) {
 }
 
 /**
+ * Returns whether autoshare is enabled for a post.
+ *
+ * @param int $post_id A post ID.
+ * @return boolean
+ */
+function autoshare_enabled( $post_id ) {
+	if ( has_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) {
+		return get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+	}
+
+	/**
+	 * Filters whether autoshare is enabled by default on a post type or post.
+	 *
+	 * @param bool   Whether autoshare is enabled by default. False by default.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_enabled_default', false, get_post_type( $post_id ), $post_id );
+}
+
+/**
  * Helper for determining if a post should autoshare.
  *
  * @param int $post_id The post ID.

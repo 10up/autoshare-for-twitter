@@ -11,7 +11,7 @@ namespace TenUp\AutoshareForTwitter\Admin\Assets;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
-use function TenUp\AutoshareForTwitter\Utils\has_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
@@ -162,21 +162,8 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 
 	$status_meta = get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
 
-	if ( has_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) {
-		$enabled = get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
-	} else {
-		/**
-		 * Filters whether autoshare is enabled by default on a post type or post.
-		 *
-		 * @param bool   Whether autoshare is enabled by default. False by default.
-		 * @param string Post type.
-		 * @param int    The current post ID.
-		 */
-		$enabled = apply_filters( 'autoshare_for_twitter_enabled_default', false, get_post_type( $post_id ), $post_id );
-	}
-
 	$localization = [
-		'enabled'            => $enabled,
+		'enabled'            => autoshare_enabled( $post_id ),
 		'enableAutoshareKey' => ENABLE_AUTOSHARE_FOR_TWITTER_KEY,
 		'errorText'          => __( 'Error', 'autoshare-for-twitter' ),
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
