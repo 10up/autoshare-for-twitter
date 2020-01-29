@@ -33,7 +33,7 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 
 	return $enabled;
 }
-add_filter( 'autoshare_for_twitter_enabled_default' 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
+add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
 
 ## Plugin Compatibility
 
