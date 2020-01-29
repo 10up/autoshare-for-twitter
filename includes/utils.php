@@ -93,17 +93,6 @@ function autoshare_enabled( $post_id ) {
 }
 
 /**
- * Helper for determining if a post should autoshare.
- *
- * @param int $post_id The post ID.
- *
- * @return bool
- */
-function maybe_autoshare( $post_id ) {
-	return ( 1 === intval( autoshare_enabled( $post_id ) ) ) ? true : false;
-}
-
-/**
  * Helper for returning the Auto Tweet site settings.
  *
  * @param string $key The option key.
