@@ -100,7 +100,7 @@ function autoshare_enabled( $post_id ) {
  * @return bool
  */
 function maybe_autoshare( $post_id ) {
-	return ( 1 === intval( get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) ) ? true : false;
+	return ( 1 === intval( autoshare_enabled( $post_id ) ) ) ? true : false;
 }
 
 /**
