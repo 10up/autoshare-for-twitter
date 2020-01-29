@@ -50,6 +50,17 @@ function update_autoshare_for_twitter_meta( $id, $key, $value ) {
 }
 
 /**
+ * Determines whether an Autoshare for Twitter post meta key exists on the provided post.
+ *
+ * @param int    $id  A Post ID.
+ * @param string $key A meta key.
+ * @return boolean
+ */
+function has_autoshare_for_twitter_meta( $id, $key ) {
+	return metadata_exists( 'post', $id, sprintf( '%s_%s', META_PREFIX, $key ) );
+}
+
+/**
  * Deletes autoshare-for-twitter-related metadata.
  *
  * @param int    $id  The post ID.
