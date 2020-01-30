@@ -1,3 +1,5 @@
+import { enabled } from 'admin-autoshare-for-twitter';
+
 import {
 	SET_AUTOSHARE_FOR_TWITTER_ENABLED,
 	SET_ERROR_MESSAGE,
@@ -8,7 +10,7 @@ import {
 } from './constants';
 
 export const DEFAULT_STATE = {
-	autoshareEnabled: false,
+	autoshareEnabled: ! ! enabled,
 	errorMessage: '',
 	loaded: false,
 	overriding: false,

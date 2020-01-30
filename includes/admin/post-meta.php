@@ -11,6 +11,8 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
  * Aliases
  */
 use TenUp\AutoshareForTwitter\Utils as Utils;
+
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 
@@ -306,7 +308,7 @@ function _safe_markup_default() {
 			id="autoshare-for-twitter-enable"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>"
 			value="1"
-			<?php checked( Utils\get_autoshare_for_twitter_meta( get_the_ID(), ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>
+			<?php checked( autoshare_enabled( get_the_ID() ) ); ?>
 		>
 		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>

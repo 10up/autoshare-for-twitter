@@ -50,6 +50,17 @@ function update_autoshare_for_twitter_meta( $id, $key, $value ) {
 }
 
 /**
+ * Determines whether an Autoshare for Twitter post meta key exists on the provided post.
+ *
+ * @param int    $id  A Post ID.
+ * @param string $key A meta key.
+ * @return boolean
+ */
+function has_autoshare_for_twitter_meta( $id, $key ) {
+	return metadata_exists( 'post', $id, sprintf( '%s_%s', META_PREFIX, $key ) );
+}
+
+/**
  * Deletes autoshare-for-twitter-related metadata.
  *
  * @param int    $id  The post ID.
@@ -61,14 +72,24 @@ function delete_autoshare_for_twitter_meta( $id, $key ) {
 }
 
 /**
- * Helper for determining if a post should autoshare.
+ * Returns whether autoshare is enabled for a post.
  *
- * @param int $post_id The post ID.
- *
- * @return bool
+ * @param int $post_id A post ID.
+ * @return boolean
  */
-function maybe_autoshare( $post_id ) {
-	return ( 1 === intval( get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) ) ? true : false;
+function autoshare_enabled( $post_id ) {
+	if ( has_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) {
+		return get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+	}
+
+	/**
+	 * Filters whether autoshare is enabled by default on a post type or post.
+	 *
+	 * @param bool   Whether autoshare is enabled by default. False by default.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_enabled_default', false, get_post_type( $post_id ), $post_id );
 }
 
 /**
