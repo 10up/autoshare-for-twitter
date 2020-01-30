@@ -85,7 +85,7 @@ function publish_tweet( $post_id ) {
 	/**
 	 * One final check: was the "auto tweet" checkbox selected?
 	 */
-	if ( Utils\maybe_autoshare( $post->ID ) ) {
+	if ( Utils\autoshare_enabled( $post->ID ) ) {
 		$tweet = Utils\compose_tweet_body( $post );
 
 		$publish          = new Publish_Tweet();
