@@ -32,6 +32,11 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Changelog ==
 
+= 1.0.1 =
+* **Added:** `autoshare_for_twitter_enabled_default` filter to allow autoshare to be enabled by default for a post type (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@rickalee](https://profiles.wordpress.org/rickalee/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu/))
+* **Changed:** bypass character texturization when the post title is tweeted (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@rickalee](https://profiles.wordpress.org/rickalee/))
+* **Removed:** second instance of the `autoshare_for_twitter_tweet` filter (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))
+
 = 1.0.0 =
 * **Added:** Initial public release! 🎉
 * **Added:** Plugin renamed to "Autoshare for Twitter"
