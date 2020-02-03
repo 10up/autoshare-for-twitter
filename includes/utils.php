@@ -232,8 +232,10 @@ function already_published( $post_id ) {
  * @return string
  */
 function get_tweet_body( $post_id ) {
-
-	$body = sanitize_text_field( get_the_title( $post_id ) );
+	// Use $post->post_title instead of get_the_title( $post_id ) because the latter may introduce texturized characters
+	// that Twitter won't decode.
+	$post = get_post( $post_id );
+	$body = sanitize_text_field( $post->post_title );
 
 	// Only if.
 	$text_override = get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY );
