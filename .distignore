@@ -1,3 +1,4 @@
+# Directories
 /.wordpress-org
 /.git
 /.github
@@ -17,6 +18,7 @@
 !/vendor/symfony
 !/vendor/myclabs
 
+# Files
 .babelrc
 .distignore
 .eslintignore
@@ -25,14 +27,14 @@
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
-composer.json
-composer.lock
 CREDITS.md
 LICENSE.md
+README.md
+composer.json
+composer.lock
 package-lock.json
 package.json
 phpcs.xml
 phpunit.xml
-README.md
 webpack.config.js
 webpack.gutenberg.config.js
