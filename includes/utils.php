@@ -50,6 +50,17 @@ function update_autoshare_for_twitter_meta( $id, $key, $value ) {
 }
 
 /**
+ * Determines whether an Autoshare for Twitter post meta key exists on the provided post.
+ *
+ * @param int    $id  A Post ID.
+ * @param string $key A meta key.
+ * @return boolean
+ */
+function has_autoshare_for_twitter_meta( $id, $key ) {
+	return metadata_exists( 'post', $id, sprintf( '%s_%s', META_PREFIX, $key ) );
+}
+
+/**
  * Deletes autoshare-for-twitter-related metadata.
  *
  * @param int    $id  The post ID.
@@ -61,14 +72,24 @@ function delete_autoshare_for_twitter_meta( $id, $key ) {
 }
 
 /**
- * Helper for determining if a post should autoshare.
+ * Returns whether autoshare is enabled for a post.
  *
- * @param int $post_id The post ID.
- *
- * @return bool
+ * @param int $post_id A post ID.
+ * @return boolean
  */
-function maybe_autoshare( $post_id ) {
-	return ( 1 === intval( get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) ) ? true : false;
+function autoshare_enabled( $post_id ) {
+	if ( has_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ) {
+		return get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+	}
+
+	/**
+	 * Filters whether autoshare is enabled by default on a post type or post.
+	 *
+	 * @param bool   Whether autoshare is enabled by default. False by default.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_enabled_default', false, get_post_type( $post_id ), $post_id );
 }
 
 /**
@@ -79,10 +100,31 @@ function maybe_autoshare( $post_id ) {
  * @return mixed
  */
 function get_autoshare_for_twitter_settings( $key = '' ) {
+	$defaults = [
+		'access_secret'  => '',
+		'access_token'   => '',
+		'api_key'        => '',
+		'api_secret'     => '',
+		'twitter_handle' => '',
+	];
 
 	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );
 
-	return ( ! empty( $key ) ) ? $settings[ $key ] : $settings;
+	if ( empty( $settings ) ) {
+		$settings = [];
+	}
+
+	$settings = wp_parse_args( $settings, $defaults );
+
+	if ( empty( $key ) ) {
+		return $settings;
+	}
+
+	if ( isset( $settings[ $key ] ) ) {
+		return $settings[ $key ];
+	}
+
+	return '';
 }
 
 /**
@@ -190,8 +232,10 @@ function already_published( $post_id ) {
  * @return string
  */
 function get_tweet_body( $post_id ) {
-
-	$body = sanitize_text_field( get_the_title( $post_id ) );
+	// Use $post->post_title instead of get_the_title( $post_id ) because the latter may introduce texturized characters
+	// that Twitter won't decode.
+	$post = get_post( $post_id );
+	$body = sanitize_text_field( $post->post_title );
 
 	// Only if.
 	$text_override = get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY );

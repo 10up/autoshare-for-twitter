@@ -1,7 +1,7 @@
 {
 	"name": "10up/autoshare-for-twitter",
 	"description": "",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "wordpress-plugin",
 	"keywords": [],
 	"homepage": "https://10up.com",
@@ -19,7 +19,7 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7",
-		"wp-coding-standards/wpcs": "^2.1",
+		"wp-coding-standards/wpcs": "^2.2",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
 	},
 	"scripts": {

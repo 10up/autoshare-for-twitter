@@ -125,8 +125,7 @@ class Publish_Tweet {
 		 * @param array      Data to send to the Twitter endpoint.
 		 * @param WP_Post    The post associated with the tweet.
 		 */
-		$response    = apply_filters( 'autoshare_for_twitter_pre_status_update', null, $update_data, $post );
-		$update_data = apply_filters( 'autoshare_for_twitter_tweet', $update_data, $post );
+		$response = apply_filters( 'autoshare_for_twitter_pre_status_update', null, $update_data, $post );
 
 		if ( ! is_null( $response ) ) {
 			return $response;
@@ -258,7 +257,7 @@ class Publish_Tweet {
 
 		$media_id = $this->upload( $file );
 
-		return $media_id ?: null;
+		return $media_id ? $media_id : null;
 	}
 
 	/**

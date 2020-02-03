@@ -10,6 +10,7 @@ namespace TenUp\AutoshareForTwitter\Tests;
 
 use WP_UnitTestCase;
 
+use const TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
