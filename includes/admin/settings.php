@@ -7,6 +7,8 @@
 
 namespace TenUp\AutoshareForTwitter\Core\Admin;
 
+use TenUp\AutoshareForTwitter\Utils;
+
 const AT_GROUP    = 'autoshare-for-twitter';
 const AT_SETTINGS = 'autoshare-for-twitter';
 
@@ -18,6 +20,7 @@ const AT_SETTINGS = 'autoshare-for-twitter';
 function setup() {
 	add_action( 'admin_menu', __NAMESPACE__ . '\admin_menu' );
 	add_action( 'admin_init', __NAMESPACE__ . '\register_settings' );
+	add_filter( 'plugin_action_links_' . plugin_basename( AUTOSHARE_FOR_TWITTER ), __NAMESPACE__ . '\action_links' );
 }
 
 /**
@@ -142,6 +145,31 @@ function options_page() {
 		</form>
 	</div>
 	<?php
+}
+
+/**
+ * Plugin action links for AT.
+ *
+ * @param array $links Current action links.
+ *
+ * @return array
+ */
+function action_links( $links ) {
+	if ( Utils\is_twitter_configured() ) {
+		$links['settings'] = sprintf(
+			/* translators: %s is the plugin setting page URL */
+			__( '<a href="%s">Settings</a>', 'autoshare-for-twitter' ),
+			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
+		);
+	} else {
+		$links['initial-setup'] = sprintf(
+			/* translators: %s is the plugin setting page URL */
+			__( '<a href="%s">Setup your Twitter account</a>', 'autoshare-for-twitter' ),
+			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
+		);
+	}
+
+	return $links;
 }
 
 /**
