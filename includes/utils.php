@@ -141,7 +141,7 @@ function is_twitter_configured() {
 		'twitter_handle' => '',
 	];
 
-	$settings = get_autoshare_for_twitter_settings();
+	$settings    = get_autoshare_for_twitter_settings();
 	$credentials = array_intersect_key( $settings, $defaults );
 	return 5 === count( array_filter( $credentials ) );
 }

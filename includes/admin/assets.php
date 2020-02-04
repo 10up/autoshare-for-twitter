@@ -29,6 +29,7 @@ const SCRIPT_HANDLE = 'autoshare_for_twitter';
  */
 function add_hook_callbacks() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_shared_assets' );
+	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_settings_assets' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_classic_editor_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 }
@@ -42,6 +43,25 @@ function enqueue_shared_assets() {
 	wp_enqueue_style(
 		'admin_autoshare_for_twitter',
 		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
+		[],
+		AUTOSHARE_FOR_TWITTER_VERSION
+	);
+}
+
+/**
+ * Enqueues assets shared by WP5.0 and classic editors.
+ *
+ * @since 1.0.2
+ */
+function enqueue_settings_assets() {
+	$current_screen = get_current_screen();
+	if ( 'settings_page_autoshare-for-twitter' !== $current_screen->id ) {
+		return;
+	}
+
+	wp_enqueue_style(
+		'admin_autoshare_for_twitter_settings',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter-settings.css',
 		[],
 		AUTOSHARE_FOR_TWITTER_VERSION
 	);
