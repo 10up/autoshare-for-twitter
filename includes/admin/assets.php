@@ -65,6 +65,14 @@ function enqueue_settings_assets() {
 		[],
 		AUTOSHARE_FOR_TWITTER_VERSION
 	);
+
+	wp_enqueue_script(
+		'admin_autoshare_for_twitter_settings',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter-settings.js',
+		[],
+		AUTOSHARE_FOR_TWITTER_VERSION,
+		true
+	);
 }
 
 /**
