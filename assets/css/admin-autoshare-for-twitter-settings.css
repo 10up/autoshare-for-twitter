@@ -1,0 +1,51 @@
+.autoshare-settings .brand {
+	display: none;
+}
+
+.autoshare-settings .logo img {
+	width: 120px;
+	max-width: 100%;
+}
+
+.autoshare-settings .credentials-actions a {
+	text-decoration: none;
+}
+
+.autoshare-settings .credentials-actions span {
+	font-size: inherit;
+	line-height: 1.5;
+}
+
+.autoshare-settings .credentials-actions:not(.connected) .open {
+	display: none;
+}
+
+.autoshare-settings .credentials-actions.connected .close {
+	display: none;
+}
+
+.autoshare-settings .credentials-actions.connected + table {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	.autoshare-settings {
+		display: flex;
+	}
+
+	.autoshare-settings form {
+		width: 70%;
+		margin-right: 50px;
+	}
+
+	.autoshare-settings .brand {
+		display: block;
+	}
+}
+
+@media (min-width: 1200px) {
+	.autoshare-settings form {
+		width: 60%;
+		margin-right: 10%;
+	}
+}

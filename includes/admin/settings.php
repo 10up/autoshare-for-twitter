@@ -51,7 +51,7 @@ function register_settings() {
 	add_settings_section(
 		'autoshare-cred_section',
 		__( 'Twitter Credentials', 'autoshare-for-twitter' ),
-		'',
+		__NAMESPACE__ . '\cred_section_cb',
 		'autoshare-for-twitter'
 	);
 
@@ -62,7 +62,10 @@ function register_settings() {
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
-		[ 'name' => 'api_key' ]
+		[
+			'name'  => 'api_key',
+			'class' => 'large-text',
+		]
 	);
 
 	// API Secret.
@@ -72,7 +75,10 @@ function register_settings() {
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
-		[ 'name' => 'api_secret' ]
+		[
+			'name'  => 'api_secret',
+			'class' => 'large-text',
+		]
 	);
 
 	// Access Token.
@@ -82,7 +88,10 @@ function register_settings() {
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
-		[ 'name' => 'access_token' ]
+		[
+			'name'  => 'access_token',
+			'class' => 'large-text',
+		]
 	);
 
 	// Access Secret.
@@ -92,7 +101,10 @@ function register_settings() {
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
-		[ 'name' => 'access_secret' ]
+		[
+			'name'  => 'access_secret',
+			'class' => 'large-text',
+		]
 	);
 
 	// Twitter Handle.
@@ -120,8 +132,30 @@ function text_field_cb( $args ) {
 	$key     = $args['name'];
 	$name    = AT_SETTINGS . "[$key]";
 	$value   = $options[ $key ];
+	$class   = isset( $args['class'] ) ? $args['class'] : 'regular-text';
 	?>
-	<input type='text' name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>">
+	<input type='text' class="<?php echo esc_attr( $class ); ?>" name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>">
+	<?php
+}
+
+/**
+ * Helper for ouputing credentials section.
+ *
+ * @param array $args The field arguments.
+ *
+ * @return void
+ */
+function cred_section_cb( $args ) {
+	$wrapper_class = Utils\is_twitter_configured() ? 'connected' : '';
+	?>
+<p class="credentials-actions <?php echo esc_attr( $wrapper_class ); ?>">
+	<a href="JavaScript:void(0);" class="open">
+		<?php echo esc_html__( 'Open credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+	</a>
+	<a href="JavaScript:void(0);" class="close">
+		<?php echo esc_html__( 'Close credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
+	</a>
+</p>
 	<?php
 }
 
@@ -136,13 +170,25 @@ function options_page() {
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Autoshare for Twitter', 'autoshare-for-twitter' ); ?></h1>
 
-		<form action='options.php' method='post'>
-			<?php
-			settings_fields( AT_GROUP );
-			do_settings_sections( 'autoshare-for-twitter' );
-			submit_button();
-			?>
-		</form>
+		<div class="autoshare-settings">
+			<form action='options.php' method='post'>
+				<?php
+				settings_fields( AT_GROUP );
+				do_settings_sections( 'autoshare-for-twitter' );
+				submit_button();
+				?>
+			</form>
+			<div class="brand">
+				<a href="https://10up.com" class="logo" title="<?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?>">
+					<img src="<?php echo esc_url( trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/images/10up.svg' ); ?>" alt="<?php echo esc_html__( '10up logo', 'autoshare-for-twitter' ); ?>" />
+				</a>
+				<p>
+					<strong>
+						<?php echo esc_html__( 'Autoshare for Twitter', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?>"><?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?></a>
+					</strong>
+				</p>
+			</div>
+		</div>
 	</div>
 	<?php
 }
