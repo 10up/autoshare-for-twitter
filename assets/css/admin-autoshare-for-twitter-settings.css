@@ -7,6 +7,10 @@
 	max-width: 100%;
 }
 
+.autoshare-settings .general-settings:not(.connected) {
+	display: none;
+}
+
 .autoshare-settings .credentials-actions a {
 	text-decoration: none;
 }
