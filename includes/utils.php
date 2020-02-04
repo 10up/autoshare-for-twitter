@@ -128,6 +128,25 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 }
 
 /**
+ * Helper for checking if Twitter account is configured.
+ *
+ * @return bool
+ */
+function is_twitter_configured() {
+	$defaults = [
+		'access_secret'  => '',
+		'access_token'   => '',
+		'api_key'        => '',
+		'api_secret'     => '',
+		'twitter_handle' => '',
+	];
+
+	$settings = get_autoshare_for_twitter_settings();
+	$credentials = array_intersect_key( $settings, $defaults );
+	return 5 === count( array_filter( $credentials ) );
+}
+
+/**
  * Composes the tweet based off Title and URL.
  *
  * @param \WP_Post $post The post object.
