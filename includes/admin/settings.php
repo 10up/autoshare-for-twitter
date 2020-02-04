@@ -148,14 +148,23 @@ function text_field_cb( $args ) {
 function cred_section_cb( $args ) {
 	$wrapper_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
-<p class="credentials-actions <?php echo esc_attr( $wrapper_class ); ?>">
-	<a href="JavaScript:void(0);" class="open">
-		<?php echo esc_html__( 'Open credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
-	</a>
-	<a href="JavaScript:void(0);" class="close">
-		<?php echo esc_html__( 'Close credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
-	</a>
-</p>
+	<?php if ( 'connected' === $wrapper_class ) : ?>
+		<p class="credentials-actions <?php echo esc_attr( $wrapper_class ); ?>">
+			<a href="JavaScript:void(0);" class="open">
+				<?php echo esc_html__( 'Open credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+			</a>
+			<a href="JavaScript:void(0);" class="close">
+				<?php echo esc_html__( 'Close credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
+			</a>
+		</p>
+		<?php return; ?>
+	<?php endif; ?>
+	<section class="credentials-setup">
+		<h4>1. Step 1</h4>
+		<p>Step 1 detail.</p>
+		<h4>2. Step 2</h4>
+		<p>Step 2 detail.</p>
+	</section>
 	<?php
 }
 
