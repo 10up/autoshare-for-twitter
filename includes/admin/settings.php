@@ -47,6 +47,30 @@ function register_settings() {
 
 	register_setting( AT_GROUP, AT_SETTINGS );
 
+	// Register the general setting section.
+	add_settings_section(
+		'autoshare-general_section',
+		'',
+		__NAMESPACE__ . '\general_section_cb',
+		'autoshare-for-twitter'
+	);
+
+	// Post type.
+	add_settings_field(
+		'autoshare-enable_for',
+		__( 'Enable Autoshare for', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\radio_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name'  => 'enable_for',
+			'choices' => [
+				'all'      => __( 'All content types', 'autoshare-for-twitter' ),
+				'selected' => __( 'Selected content types only', 'autoshare-for-twitter' ),
+			],
+		]
+	);
+
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
@@ -139,13 +163,53 @@ function text_field_cb( $args ) {
 }
 
 /**
- * Helper for ouputing credentials section.
+ * Helper for ouputing a radio field.
  *
  * @param array $args The field arguments.
  *
  * @return void
  */
-function cred_section_cb( $args ) {
+function radio_field_cb( $args ) {
+	if ( empty( $args['choices'] ) ) {
+		return;
+	}
+
+	$options = get_option( AT_SETTINGS );
+	$key     = $args['name'];
+	$name    = AT_SETTINGS . "[$key]";
+	$value   = isset( $options[ $key ] ) ? $options[ $key ] : 'selected';
+
+	foreach ( $args['choices'] as $key => $label ) {
+		printf(
+			'<p><label><input type="radio" name="%1$s" value="%2$s" %3$s /> %4$s</label></p>',
+			esc_attr( $name ),
+			esc_attr( $key ),
+			checked( $value, $key, false ),
+			esc_html( $label )
+		);
+	}
+}
+
+/**
+ * Helper for ouputing credentials section.
+ *
+ * @return void
+ */
+function general_section_cb() {
+	$cred_class = Utils\is_twitter_configured() ? 'connected' : '';
+	?>
+	<div class="general-settings <?php echo esc_attr( $cred_class ); ?>">
+		<h2><?php echo esc_html__( 'Twitter Settings', 'autoshare-for-twitter' ); ?>
+	</div>
+	<?php
+}
+
+/**
+ * Helper for ouputing credentials section.
+ *
+ * @return void
+ */
+function cred_section_cb() {
 	$wrapper_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
 	<?php if ( 'connected' === $wrapper_class ) : ?>
