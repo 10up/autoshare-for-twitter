@@ -272,14 +272,14 @@ function cred_section_cb() {
 				<?php echo esc_html__( 'Close credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
 			</a>
 		</p>
-		<?php return; ?>
-	<?php endif; ?>
+	<?php else : ?>
 	<section class="credentials-setup">
 		<h4>1. Step 1</h4>
 		<p>Step 1 detail.</p>
 		<h4>2. Step 2</h4>
 		<p>Step 2 detail.</p>
 	</section>
+	<?php endif; ?>
 	<?php
 }
 
