@@ -11,6 +11,15 @@
 	display: none;
 }
 
+.autoshare-settings .enable-for td {
+	padding-bottom: 5px;
+}
+
+.autoshare-settings .post-types td {
+	padding-top: 0;
+	padding-left: 40px;
+}
+
 .autoshare-settings .credentials-actions a {
 	text-decoration: none;
 }
