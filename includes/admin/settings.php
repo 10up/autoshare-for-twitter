@@ -63,11 +63,27 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-general_section',
 		[
-			'name'  => 'enable_for',
+			'name'    => 'enable_for',
 			'choices' => [
 				'all'      => __( 'All content types', 'autoshare-for-twitter' ),
 				'selected' => __( 'Selected content types only', 'autoshare-for-twitter' ),
 			],
+			'default' => 'selected',
+			'class'   => 'enable-for',
+		]
+	);
+
+	add_settings_field(
+		'autoshare-post_types',
+		'',
+		__NAMESPACE__ . '\checkbox_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name'    => 'post_types',
+			'choices' => Utils\get_available_post_types(),
+			'default' => Utils\get_post_types_supported_by_default(),
+			'class'   => 'all' === Utils\get_autoshare_for_twitter_settings( 'enable_for' ) ? 'post-types hidden' : 'post-types',
 		]
 	);
 
@@ -177,7 +193,7 @@ function radio_field_cb( $args ) {
 	$options = get_option( AT_SETTINGS );
 	$key     = $args['name'];
 	$name    = AT_SETTINGS . "[$key]";
-	$value   = isset( $options[ $key ] ) ? $options[ $key ] : 'selected';
+	$value   = isset( $options[ $key ] ) ? $options[ $key ] : $options['default'];
 
 	foreach ( $args['choices'] as $key => $label ) {
 		printf(
@@ -185,6 +201,34 @@ function radio_field_cb( $args ) {
 			esc_attr( $name ),
 			esc_attr( $key ),
 			checked( $value, $key, false ),
+			esc_html( $label )
+		);
+	}
+}
+
+/**
+ * Helper for ouputing a checkbox field.
+ *
+ * @param array $args The field arguments.
+ *
+ * @return void
+ */
+function checkbox_field_cb( $args ) {
+	if ( empty( $args['choices'] ) ) {
+		return;
+	}
+
+	$options = get_option( AT_SETTINGS );
+	$key     = $args['name'];
+	$name    = AT_SETTINGS . "[$key][]";
+	$value   = isset( $options[ $key ] ) ? (array) $options[ $key ] : $args['default'];
+
+	foreach ( $args['choices'] as $key => $label ) {
+		printf(
+			'<p><label><input type="checkbox" name="%1$s" value="%2$s" %3$s /> %4$s</label></p>',
+			esc_attr( $name ),
+			esc_attr( $key ),
+			in_array( $key, $value, true ) ? 'checked' : '',
 			esc_html( $label )
 		);
 	}

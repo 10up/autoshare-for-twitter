@@ -275,3 +275,41 @@ function get_tweet_body( $post_id ) {
 function opted_into_autoshare_for_twitter( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );
 }
+
+/**
+ * Get all availabel post types.
+ *
+ * @return array
+ */
+function get_available_post_types() {
+	$output     = [];
+	$post_types = get_post_types(
+		[
+			'public' => true,
+		],
+		'object'
+	);
+
+	unset( $post_types['attachment'] );
+
+	foreach ( $post_types as $post_type ) {
+		$output[ $post_type->name ] = $post_type->label;
+	}
+
+	return apply_filters( 'autoshare_available_post_types', $output );
+}
+
+/**
+ * Get post types that are supported by default.
+ *
+ * @return array
+ */
+function get_post_types_supported_by_default() {
+	/**
+	 * Filters post types supported by default.
+	 *
+	 * @since 1.0.0
+	 * @param array Array of post types.
+	 */
+	return apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
+}
