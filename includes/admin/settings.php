@@ -80,10 +80,11 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-general_section',
 		[
-			'name'    => 'post_types',
-			'choices' => Utils\get_available_post_types(),
-			'default' => Utils\get_post_types_supported_by_default(),
-			'class'   => 'all' === Utils\get_autoshare_for_twitter_settings( 'enable_for' ) ? 'post-types hidden' : 'post-types',
+			'name'     => 'post_types',
+			'choices'  => Utils\get_available_post_types_data(),
+			'default'  => Utils\get_post_types_supported_by_default(),
+			'disabled' => Utils\get_hardcoded_supported_post_types(),
+			'class'    => 'all' === Utils\get_autoshare_for_twitter_settings( 'enable_for' ) ? 'post-types hidden' : 'post-types',
 		]
 	);
 
@@ -224,11 +225,17 @@ function checkbox_field_cb( $args ) {
 	$value   = isset( $options[ $key ] ) ? (array) $options[ $key ] : $args['default'];
 
 	foreach ( $args['choices'] as $key => $label ) {
+		$state = '';
+		if ( in_array( $key, $args['disabled'], true ) ) {
+			$state = 'checked disabled';
+		} elseif ( in_array( $key, $value, true ) ) {
+			$state = 'checked';
+		}
 		printf(
-			'<p><label><input type="checkbox" name="%1$s" value="%2$s" %3$s /> %4$s</label></p>',
+			'<p><label><input type="checkbox" name="%1$s" value="%2$s" %3$s/> %4$s</label></p>',
 			esc_attr( $name ),
 			esc_attr( $key ),
-			in_array( $key, $value, true ) ? 'checked' : '',
+			esc_attr( $state ),
 			esc_html( $label )
 		);
 	}

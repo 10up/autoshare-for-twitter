@@ -7,6 +7,8 @@
 
 namespace TenUp\AutoshareForTwitter\Core;
 
+use TenUp\AutoshareForTwitter\Utils;
+
 const POST_TYPE_SUPPORT_FEATURE = 'autoshare-for-twitter';
 
 /**
@@ -28,7 +30,7 @@ function setup() {
 	 */
 	do_action( 'autoshare_for_twitter_setup' );
 
-	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
+	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports' );
 }
 
 /**
@@ -43,17 +45,14 @@ add_action( 'autoshare_for_twitter_loaded', __NAMESPACE__ . '\setup' );
  *
  * @since 1.0.0
  */
-function set_default_post_type_supports() {
-
-	/**
-	 * Filters post types supported by default.
-	 *
-	 * @since 1.0.0
-	 * @param array Array of post types.
-	 */
-	$post_types_supported_by_default = apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
-
-	foreach ( (array) $post_types_supported_by_default as $post_type ) {
+function set_post_type_supports() {
+	$enable_for = Utils\get_autoshare_for_twitter_settings( 'enable_for' );
+	if ( 'all' === $enable_for ) {
+		$post_types = Utils\get_available_post_types();
+	} else {
+		$post_types = Utils\get_autoshare_for_twitter_settings( 'post_types' );
+	}
+	foreach ( (array) $post_types as $post_type ) {
 		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );
 	}
 }
