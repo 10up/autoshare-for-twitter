@@ -2,9 +2,20 @@
 	display: none;
 }
 
-.autoshare-settings .logo img {
+.autoshare-settings .brand .logo img {
 	width: 120px;
 	max-width: 100%;
+}
+
+.autoshare-settings .brand nav a {
+	display: block;
+	text-decoration: none;
+}
+
+.autoshare-settings .brand nav a span {
+	font-size: inherit;
+	line-height: inherit;
+	vertical-align: unset;
 }
 
 .autoshare-settings .general-settings:not(.connected) {

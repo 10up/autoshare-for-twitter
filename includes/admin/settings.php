@@ -311,6 +311,17 @@ function options_page() {
 						<?php echo esc_html__( 'Autoshare for Twitter', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?>"><?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?></a>
 					</strong>
 				</p>
+				<nav>
+					<a href="https://github.com/10up/autoshare-for-twitter#installation" target="_blank" title="<?php echo esc_attr__( 'Installation & Set up', 'autoshare-for-twitter' ); ?>">
+						<?php echo esc_html__( 'Installation & Set up', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					</a>
+					<a href="https://github.com/10up/autoshare-for-twitter#faq" target="_blank" title="<?php echo esc_attr__( 'FAQ', 'autoshare-for-twitter' ); ?>">
+						<?php echo esc_html__( 'FAQ', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					</a>
+					<a href="https://github.com/10up/autoshare-for-twitter/issues" target="_blank" title="<?php echo esc_attr__( 'Support', 'autoshare-for-twitter' ); ?>">
+						<?php echo esc_html__( 'Support', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					</a>
+				</nav>
 			</div>
 		</div>
 	</div>
@@ -334,7 +345,7 @@ function action_links( $links ) {
 	} else {
 		$links['initial-setup'] = sprintf(
 			/* translators: %s is the plugin setting page URL */
-			__( '<a href="%s">Setup your Twitter account</a>', 'autoshare-for-twitter' ),
+			__( '<a href="%s">Set up your Twitter account</a>', 'autoshare-for-twitter' ),
 			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
 		);
 	}
