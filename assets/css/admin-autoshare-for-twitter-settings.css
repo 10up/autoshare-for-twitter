@@ -18,7 +18,8 @@
 	vertical-align: unset;
 }
 
-.autoshare-settings .general-settings:not(.connected) {
+.autoshare-settings .general-settings:not(.connected),
+.autoshare-settings .general-settings:not(.connected) + table {
 	display: none;
 }
 
