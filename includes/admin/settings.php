@@ -91,7 +91,7 @@ function register_settings() {
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
-		__( 'Twitter Credentials', 'autoshare-for-twitter' ),
+		__( 'Twitter connection settings', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\cred_section_cb',
 		'autoshare-for-twitter'
 	);
@@ -274,10 +274,37 @@ function cred_section_cb() {
 		</p>
 	<?php else : ?>
 	<section class="credentials-setup">
-		<h4>1. Step 1</h4>
-		<p>Step 1 detail.</p>
-		<h4>2. Step 2</h4>
-		<p>Step 2 detail.</p>
+		<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
+		<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Click the "Create an app" button on the', 'autoshare-for-twitter' ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?></a></li>
+			<li><?php esc_html_e( 'Fill out the "App name" and "Application description" fields.', 'autoshare-for-twitter' ); ?></li>
+			<li><?php esc_html_e( 'Set the "Website URL" and "Callback URLs" fields to yourdomain.yourdomainextension.', 'autoshare-for-twitter' ); ?></li>
+			<li><?php esc_html_e( 'Fill out the "Tell us how this app will be used" field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
+		<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Click on the "Keys and tokens" tab within your newly created Twitter developer app.', 'autoshare-for-twitter' ); ?></li>
+			<li><?php esc_html_e( 'Copy the "API key" and "API secret key" values from your Twitter app "Consumer API keys" section and paste them below.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
+		<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Click on the "Keys and tokens" tab within your newly created Twitter developer app.', 'autoshare-for-twitter' ); ?></li>
+			<li><?php esc_html_e( 'Copy the "API key" and "API secret key" values from your Twitter app "Consumer API keys" section and paste them below.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
+		<h4><?php esc_html_e( '4. Configure access to your Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Click on the "Generate" button from your Twitter app "Access token & access token secret" section.', 'autoshare-for-twitter' ); ?></li>
+			<li><?php esc_html_e( 'Copy the "Access token" and "Access token secret" values and paste them below.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
+		<h4><?php esc_html_e( '5. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Fill out your Twitter handle that will be used to tweet your posts, pages, etc.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
+		<h4><?php esc_html_e( '6. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
+		<ul>
+			<li><?php esc_html_e( 'Click the "Connect to Twitter" button below.', 'autoshare-for-twitter' ); ?></li>
+		</ul>
 	</section>
 	<?php endif; ?>
 	<?php

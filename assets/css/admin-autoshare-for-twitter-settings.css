@@ -32,6 +32,11 @@
 	padding-left: 40px;
 }
 
+.autoshare-settings .credentials-setup ul {
+	list-style: disc;
+	padding-left: 25px;
+}
+
 .autoshare-settings .credentials-actions a {
 	text-decoration: none;
 }
