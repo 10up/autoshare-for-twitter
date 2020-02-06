@@ -103,6 +103,7 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 	$defaults = [
 		'enable_for'     => 'selected',
 		'post_types'     => get_post_types_supported_by_default(),
+		'enable_default' => 1,
 		'access_secret'  => '',
 		'access_token'   => '',
 		'api_key'        => '',
@@ -346,3 +347,15 @@ function get_hardcoded_supported_post_types() {
 	);
 }
 
+/**
+ * Get enabled post types.
+ *
+ * @return array
+ */
+function get_enabled_post_types() {
+	$enable_for = get_autoshare_for_twitter_settings( 'enable_for' );
+	if ( 'all' === $enable_for ) {
+		return get_available_post_types();
+	}
+	return get_autoshare_for_twitter_settings( 'post_types' );
+}

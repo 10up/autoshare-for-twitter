@@ -88,6 +88,19 @@ function register_settings() {
 		]
 	);
 
+	add_settings_field(
+		'autoshare-enable_default',
+		__( 'Enable by default', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\checkbox_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name'    => 'enable_default',
+			'choices' => __( 'Enable Autoshare by default when publishing content', 'autoshare-for-twitter' ),
+			'default' => true,
+		]
+	);
+
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
@@ -221,12 +234,28 @@ function checkbox_field_cb( $args ) {
 
 	$options = get_option( AT_SETTINGS );
 	$key     = $args['name'];
-	$name    = AT_SETTINGS . "[$key][]";
-	$value   = isset( $options[ $key ] ) ? (array) $options[ $key ] : $args['default'];
+
+	if ( ! is_array( $args['choices'] ) ) {
+		$name  = AT_SETTINGS . "[$key]";
+		$value = isset( $options[ $key ] ) ? $options[ $key ] : $args['default'];
+
+		printf(
+			'<label><input type="hidden" name="%1$s" value="0" /><input type="checkbox" name="%1$s" value="1" %3$s/> %4$s</label>',
+			esc_attr( $name ),
+			esc_attr( $key ),
+			checked( $value, 1, false ),
+			esc_html( $args['choices'] )
+		);
+
+		return;
+	}
+
+	$name  = AT_SETTINGS . "[$key][]";
+	$value = isset( $options[ $key ] ) ? (array) $options[ $key ] : $args['default'];
 
 	foreach ( $args['choices'] as $key => $label ) {
 		$state = '';
-		if ( in_array( $key, $args['disabled'], true ) ) {
+		if ( isset( $args['disabled'] ) && in_array( $key, $args['disabled'], true ) ) {
 			$state = 'checked disabled';
 		} elseif ( in_array( $key, $value, true ) ) {
 			$state = 'checked';
