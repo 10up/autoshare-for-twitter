@@ -31,6 +31,7 @@ function setup() {
 	do_action( 'autoshare_for_twitter_setup' );
 
 	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports' );
+	add_filter( 'autoshare_for_twitter_enabled_default', __NAMESPACE__ . '\maybe_enable_autoshare_by_default' );
 }
 
 /**
@@ -46,13 +47,17 @@ add_action( 'autoshare_for_twitter_loaded', __NAMESPACE__ . '\setup' );
  * @since 1.0.0
  */
 function set_post_type_supports() {
-	$enable_for = Utils\get_autoshare_for_twitter_settings( 'enable_for' );
-	if ( 'all' === $enable_for ) {
-		$post_types = Utils\get_available_post_types();
-	} else {
-		$post_types = Utils\get_autoshare_for_twitter_settings( 'post_types' );
-	}
+	$post_types = Utils\get_enabled_post_types();
 	foreach ( (array) $post_types as $post_type ) {
 		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );
 	}
+}
+
+/**
+ * Adds autoshare support for default post types.
+ *
+ * @since 1.0.0
+ */
+function maybe_enable_autoshare_by_default() {
+	return (bool) Utils\get_autoshare_for_twitter_settings( 'enable_default' );
 }
