@@ -32,6 +32,7 @@ function setup() {
 
 	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports' );
 	add_filter( 'autoshare_for_twitter_enabled_default', __NAMESPACE__ . '\maybe_enable_autoshare_by_default' );
+	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image' );
 }
 
 /**
@@ -54,10 +55,28 @@ function set_post_type_supports() {
 }
 
 /**
- * Adds autoshare support for default post types.
+ * Enable autoshare by default.
  *
  * @since 1.0.0
  */
 function maybe_enable_autoshare_by_default() {
 	return (bool) Utils\get_autoshare_for_twitter_settings( 'enable_default' );
+}
+
+/**
+ * Maybe disable uploading image to Twitter. We upload attached image to Twitter
+ * by default, so we disable it if needed here.
+ *
+ * @since 1.0.0
+ *
+ * @param null|int $attachment_id ID of attachment being uploaded.
+ *
+ * @return null|int|bool
+ */
+function maybe_disable_upload_image( $attachment_id ) {
+	if ( ! Utils\get_autoshare_for_twitter_settings( 'enable_upload' ) ) {
+		return false;
+	}
+
+	return $attachment_id;
 }
