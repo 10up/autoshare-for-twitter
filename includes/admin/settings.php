@@ -101,6 +101,19 @@ function register_settings() {
 		]
 	);
 
+	add_settings_field(
+		'autoshare-enable_upload',
+		__( 'Upload featured image', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\checkbox_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name'    => 'enable_upload',
+			'choices' => __( 'Add featured image to the tweet by default', 'autoshare-for-twitter' ),
+			'default' => true,
+		]
+	);
+
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',

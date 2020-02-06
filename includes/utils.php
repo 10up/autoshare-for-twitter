@@ -104,6 +104,7 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 		'enable_for'     => 'selected',
 		'post_types'     => get_post_types_supported_by_default(),
 		'enable_default' => 1,
+		'enable_upload'  => 1,
 		'access_secret'  => '',
 		'access_token'   => '',
 		'api_key'        => '',
