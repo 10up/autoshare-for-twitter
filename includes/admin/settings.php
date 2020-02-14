@@ -284,7 +284,7 @@ function checkbox_field_cb( $args ) {
 }
 
 /**
- * Helper for ouputing credentials section.
+ * Helper for ouputing general section heading and description.
  *
  * @return void
  */
@@ -294,6 +294,25 @@ function general_section_cb() {
 	<div class="general-settings <?php echo esc_attr( $cred_class ); ?>">
 		<h2><?php echo esc_html__( 'Twitter Settings', 'autoshare-for-twitter' ); ?>
 	</div>
+	<?php
+}
+
+/**
+ * Helper for ouputing credentials section.
+ *
+ * @param array $args Setting field arguments.
+ *
+ * @return void
+ */
+function instruction_field_cb( $args ) {
+	?>
+	<h4><?php esc_html( $args['title'] ); ?></h4>
+	<ul>
+		<li><?php esc_html_e( 'Click the "Create an app" button on the', 'autoshare-for-twitter' ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?></a></li>
+		<li><?php esc_html_e( 'Fill out the "App name" and "Application description" fields.', 'autoshare-for-twitter' ); ?></li>
+		<li><?php esc_html_e( 'Set the "Website URL" and "Callback URLs" fields to yourdomain.yourdomainextension.', 'autoshare-for-twitter' ); ?></li>
+		<li><?php esc_html_e( 'Fill out the "Tell us how this app will be used" field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ); ?></li>
+	</ul>
 	<?php
 }
 
@@ -381,11 +400,8 @@ function options_page() {
 					</strong>
 				</p>
 				<nav>
-					<a href="https://github.com/10up/autoshare-for-twitter#installation" target="_blank" title="<?php echo esc_attr__( 'Installation & Set up', 'autoshare-for-twitter' ); ?>">
-						<?php echo esc_html__( 'Installation & Set up', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
-					</a>
-					<a href="https://github.com/10up/autoshare-for-twitter#faq" target="_blank" title="<?php echo esc_attr__( 'FAQ', 'autoshare-for-twitter' ); ?>">
-						<?php echo esc_html__( 'FAQ', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					<a href="https://github.com/10up/autoshare-for-twitter#faqs" target="_blank" title="<?php echo esc_attr__( 'FAQs', 'autoshare-for-twitter' ); ?>">
+						<?php echo esc_html__( 'FAQs', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
 					</a>
 					<a href="https://github.com/10up/autoshare-for-twitter/issues" target="_blank" title="<?php echo esc_attr__( 'Support', 'autoshare-for-twitter' ); ?>">
 						<?php echo esc_html__( 'Support', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
