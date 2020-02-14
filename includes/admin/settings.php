@@ -228,7 +228,8 @@ function radio_field_cb( $args ) {
 	$options = get_option( AT_SETTINGS );
 	$key     = $args['name'];
 	$name    = AT_SETTINGS . "[$key]";
-	$value   = isset( $options[ $key ] ) ? $options[ $key ] : $options['default'];
+	$default = ! empty( $args['default'] ) ? $args['default'] : '';
+	$value   = ! empty( $options[ $key ] ) ? $options[ $key ] : $default;
 
 	foreach ( $args['choices'] as $key => $label ) {
 		printf(
