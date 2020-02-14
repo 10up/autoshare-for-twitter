@@ -46,15 +46,13 @@
 	line-height: 1.5;
 }
 
-.autoshare-settings .credentials-actions:not(.connected) .open {
+.autoshare-settings .credentials-setup:not(.connected) .open {
 	display: none;
 }
 
-.autoshare-settings .credentials-actions.connected .close {
-	display: none;
-}
-
-.autoshare-settings .credentials-actions.connected + table {
+.autoshare-settings .credentials-setup.connected .close,
+.autoshare-settings .credentials-setup.connected .credentials-instructions,
+.autoshare-settings .credentials-setup.connected + table {
 	display: none;
 }
 

@@ -314,8 +314,8 @@ function general_section_cb() {
 function cred_section_cb() {
 	$wrapper_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
-	<?php if ( 'connected' === $wrapper_class ) : ?>
-		<p class="credentials-actions <?php echo esc_attr( $wrapper_class ); ?>">
+	<section class="credentials-setup <?php echo esc_attr( $wrapper_class ); ?>">
+		<p class="credentials-actions">
 			<a href="JavaScript:void(0);" class="open">
 				<?php echo esc_html__( 'Open connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
 			</a>
@@ -323,36 +323,35 @@ function cred_section_cb() {
 				<?php echo esc_html__( 'Close connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
 			</a>
 		</p>
-	<?php else : ?>
-	<section class="credentials-setup">
-		<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
-		<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?></a></li>
-			<li><?php echo wp_kses_data( __( 'Fill out the <code>App name</code> and <code>Application description</code> fields.', 'autoshare-for-twitter' ) ); ?></li>
-			<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension.', 'autoshare-for-twitter' ) ); ?></li>
-			<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
-		</ul>
-		<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php echo wp_kses_data( __( 'Click on the <code>Keys and tokens</code> tab within your newly created Twitter developer app.', 'autoshare-for-twitter' ) ); ?></li>
-			<li><?php echo wp_kses_data( __( 'Copy the <code>API key</code> and <code>API secret key</code> values from your Twitter app <code>Consumer API keys</code> section and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
-		</ul>
-		<h4><?php esc_html_e( '4. Configure access to your Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button from your Twitter app <code>Access token & access token secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
-			<li><?php echo wp_kses_data( __( 'Copy the <code>Access token</code> and <code>Access token secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
-		</ul>
-		<h4><?php esc_html_e( '5. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php esc_html_e( 'Fill out your Twitter handle that will be used to tweet your posts, pages, etc.', 'autoshare-for-twitter' ); ?></li>
-		</ul>
-		<h4><?php esc_html_e( '6. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php echo wp_kses_data( __( 'Click the <code>Connect to Twitter</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
-		</ul>
+		<section class="credentials-instructions">
+			<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
+			<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
+			<ul>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?></a></li>
+				<li><?php echo wp_kses_data( __( 'Fill out the <code>App name</code> and <code>Application description</code> fields.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
+			</ul>
+			<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
+			<ul>
+				<li><?php echo wp_kses_data( __( 'Click on the <code>Keys and tokens</code> tab within your newly created Twitter developer app.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>API key</code> and <code>API secret key</code> values from your Twitter app <code>Consumer API keys</code> section and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+			</ul>
+			<h4><?php esc_html_e( '4. Configure access to your Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
+			<ul>
+				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button from your Twitter app <code>Access token & access token secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>Access token</code> and <code>Access token secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+			</ul>
+			<h4><?php esc_html_e( '5. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
+			<ul>
+				<li><?php esc_html_e( 'Fill out your Twitter handle that will be used to tweet your posts, pages, etc.', 'autoshare-for-twitter' ); ?></li>
+			</ul>
+			<h4><?php esc_html_e( '6. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
+			<ul>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Connect to Twitter</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
+			</ul>
+		</section>
 	</section>
-	<?php endif; ?>
 	<?php
 }
 

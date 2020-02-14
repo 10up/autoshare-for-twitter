@@ -1,18 +1,18 @@
 ( function() {
 
 	document.addEventListener( 'DOMContentLoaded', function() {
-		var credActions = document.querySelector( '.credentials-actions' ),
-			openCredSettingsBtn = credActions.querySelector( '.open' ),
-			closeCredSettingsBtn = credActions.querySelector( '.close' ),
+		var credSetup = document.querySelector( '.credentials-setup' ),
+			openCredSettingsBtn = credSetup.querySelector( '.open' ),
+			closeCredSettingsBtn = credSetup.querySelector( '.close' ),
 			postTypesWrap = document.querySelector( '.post-types' ),
 			postTypesCheckboxes = document.getElementsByName( 'autoshare-for-twitter[enable_for]' );
 
 		openCredSettingsBtn.addEventListener( 'click', function() {
-			credActions.classList.remove( 'connected' );
+			credSetup.classList.remove( 'connected' );
 		} );
 
 		closeCredSettingsBtn.addEventListener( 'click', function() {
-			credActions.classList.add( 'connected' );
+			credSetup.classList.add( 'connected' );
 		} );
 
 		postTypesCheckboxes.forEach( function( item ) {
