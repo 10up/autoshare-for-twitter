@@ -103,13 +103,13 @@ function register_settings() {
 
 	add_settings_field(
 		'autoshare-enable_upload',
-		__( 'Upload featured image', 'autoshare-for-twitter' ),
+		__( 'Image setting', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\checkbox_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-general_section',
 		[
 			'name'    => 'enable_upload',
-			'choices' => __( 'Add featured image to the tweet by default', 'autoshare-for-twitter' ),
+			'choices' => __( 'Always add the featured image to tweets', 'autoshare-for-twitter' ),
 			'default' => true,
 		]
 	);
@@ -130,8 +130,9 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
-			'name'  => 'api_key',
-			'class' => 'large-text',
+			'name'        => 'api_key',
+			'class'       => 'large-text',
+			'placeholder' => __( 'paste your API key here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -143,8 +144,9 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
-			'name'  => 'api_secret',
-			'class' => 'large-text',
+			'name'        => 'api_secret',
+			'class'       => 'large-text',
+			'placeholder' => __( 'paste your API secret key here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -156,8 +158,9 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
-			'name'  => 'access_token',
-			'class' => 'large-text',
+			'name'        => 'access_token',
+			'class'       => 'large-text',
+			'placeholder' => __( 'paste your Access token here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -169,8 +172,9 @@ function register_settings() {
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
-			'name'  => 'access_secret',
-			'class' => 'large-text',
+			'name'        => 'access_secret',
+			'class'       => 'large-text',
+			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -181,7 +185,10 @@ function register_settings() {
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
-		[ 'name' => 'twitter_handle' ]
+		[
+			'name'        => 'twitter_handle',
+			'placeholder' => __( 'enter your Twitter handle here', 'autoshare-for-twitter' ),
+		]
 	);
 
 }
@@ -195,13 +202,14 @@ function register_settings() {
  */
 function text_field_cb( $args ) {
 
-	$options = get_option( AT_SETTINGS );
-	$key     = $args['name'];
-	$name    = AT_SETTINGS . "[$key]";
-	$value   = $options[ $key ];
-	$class   = isset( $args['class'] ) ? $args['class'] : 'regular-text';
+	$options     = get_option( AT_SETTINGS );
+	$key         = $args['name'];
+	$name        = AT_SETTINGS . "[$key]";
+	$value       = $options[ $key ];
+	$class       = isset( $args['class'] ) ? $args['class'] : 'regular-text';
+	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
 	?>
-	<input type='text' class="<?php echo esc_attr( $class ); ?>" name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>">
+		<input type='text' class="<?php echo esc_attr( $class ); ?>" name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>">
 	<?php
 }
 
@@ -308,10 +316,10 @@ function cred_section_cb() {
 	<?php if ( 'connected' === $wrapper_class ) : ?>
 		<p class="credentials-actions <?php echo esc_attr( $wrapper_class ); ?>">
 			<a href="JavaScript:void(0);" class="open">
-				<?php echo esc_html__( 'Open credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+				<?php echo esc_html__( 'Open connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
 			</a>
 			<a href="JavaScript:void(0);" class="close">
-				<?php echo esc_html__( 'Close credentials settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
+				<?php echo esc_html__( 'Close connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
 			</a>
 		</p>
 	<?php else : ?>
@@ -323,11 +331,6 @@ function cred_section_cb() {
 			<li><?php echo wp_kses_data( __( 'Fill out the <code>App name</code> and <code>Application description</code> fields.', 'autoshare-for-twitter' ) ); ?></li>
 			<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension.', 'autoshare-for-twitter' ) ); ?></li>
 			<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
-		</ul>
-		<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
-		<ul>
-			<li><?php echo wp_kses_data( __( 'Click on the <code>Keys and tokens</code> tab within your newly created Twitter developer app.', 'autoshare-for-twitter' ) ); ?></li>
-			<li><?php echo wp_kses_data( __( 'Copy the <code>API key</code> and <code>API secret key</code> values from your Twitter app <code>Consumer API keys</code> section and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 		</ul>
 		<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
 		<ul>
