@@ -46,19 +46,21 @@ const TWITTER_STATUS_KEY = 'status';
 function setup() {
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
 	add_action( 'autoshare_for_twitter_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
-	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
+	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 3 );
 }
 
 /**
  * Handles the saving of post_meta to catch the times the ajax save might not run.
  * Like when clicking 'Save Draft' or 'Publish' straight from the tweet body field.
  *
- * @param int $post_id The post id.
+ * @param int     $post_id The post id.
+ * @param WP_Post $post Post object.
+ * @param boolean $update Whether the post already exists.
  *
  * @return void
  */
-function save_tweet_meta( $post_id ) {
-	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
+function save_tweet_meta( $post_id, $post = null, $update = true ) {
+	if ( ! $update || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 
@@ -105,8 +107,14 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
  * @param array $data Associative array of data to save.
  */
 function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
-	if ( empty( $data ) || ! is_array( $data ) ) {
-		return;
+
+	if ( ! is_array( $data ) ) {
+		$data = [];
+	}
+
+	// If the enable key is not set, it should be turned off.
+	if ( ! isset( $data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] ) ) {
+		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
 	}
 
 	foreach ( $data as $key => $value ) {
