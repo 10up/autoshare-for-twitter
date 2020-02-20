@@ -11,9 +11,7 @@ namespace TenUp\AutoshareForTwitter\Tests;
 use WP_UnitTestCase;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
-use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
-use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
 use function TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet;
 
 /**
