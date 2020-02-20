@@ -60,7 +60,20 @@ function setup() {
  * @return void
  */
 function save_tweet_meta( $post_id, $post = null, $update = true ) {
-	if ( ! $update || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
+	if ( ! $update ) {
+		return;
+	}
+
+	// Meta is saved in a separate request in the block editor.
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 
@@ -121,13 +134,12 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
  * @param array $data Associative array of data to save.
  */
 function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
-
 	if ( ! is_array( $data ) ) {
 		$data = [];
 	}
 
 	// If the enable key is not set, it should be turned off.
-	if ( ! isset( $data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] ) ) {
+	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
 		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
 	}
 

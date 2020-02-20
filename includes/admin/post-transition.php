@@ -47,9 +47,6 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 		return;
 	}
 
-	// Ensure Autoshare-related form data is saved before reaching the publish_tweet step.
-	save_tweet_meta( $post->ID );
-
 	/**
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
@@ -58,8 +55,16 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	}
 
 	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-		add_action( sprintf( 'rest_after_insert_%s', $post->post_type ), __NAMESPACE__ . '\publish_tweet' );
+		add_action(
+			sprintf( 'rest_after_insert_%s', $post->post_type ),
+			function( $post ) {
+				publish_tweet( $post->ID );
+			}
+		);
 	} else {
+		// Ensure Autoshare-related form data is saved before reaching the publish_tweet step.
+		// This will already have been done in REST because post data is updated before transition post status.
+		save_tweet_meta( $post->ID );
 		publish_tweet( $post->ID );
 	}
 }
