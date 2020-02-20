@@ -64,12 +64,26 @@ function save_tweet_meta( $post_id, $post = null, $update = true ) {
 		return;
 	}
 
-	$form_data = sanitize_autoshare_for_twitter_meta_data(
-		// Using FILTER_DEFAULT here as data is being passed to sanitize function.
-		filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY )
-	);
+	$form_data = sanitize_autoshare_for_twitter_meta_data( get_autoshare_post_form_data() );
 
 	save_autoshare_for_twitter_meta_data( $post_id, $form_data );
+}
+
+/**
+ * Provides data passed from the post editor form.
+ *
+ * @return array
+ */
+function get_autoshare_post_form_data() {
+	// Using FILTER_DEFAULT here as data is being passed to sanitize function.
+	$data = filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+	/**
+	 * Filters data received from the post form.
+	 *
+	 * @param array $data
+	 */
+	return apply_filters( 'autoshare_post_form_data', $data );
 }
 
 /**
