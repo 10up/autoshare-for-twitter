@@ -12,6 +12,7 @@ use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
 use TenUp\AutoshareForTwitter\Utils as Utils;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
 
 /**
  * Setup function.
@@ -54,8 +55,16 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	}
 
 	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-		add_action( sprintf( 'rest_after_insert_%s', $post->post_type ), __NAMESPACE__ . '\publish_tweet' );
+		add_action(
+			sprintf( 'rest_after_insert_%s', $post->post_type ),
+			function( $post ) {
+				publish_tweet( $post->ID );
+			}
+		);
 	} else {
+		// Ensure Autoshare-related form data is saved before reaching the publish_tweet step.
+		// This will already have been done in REST because post data is updated before transition post status.
+		save_tweet_meta( $post->ID );
 		publish_tweet( $post->ID );
 	}
 }
