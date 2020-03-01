@@ -160,7 +160,7 @@ function register_settings() {
 		[
 			'name'        => 'access_token',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access token here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -327,7 +327,7 @@ function cred_section_cb() {
 			<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
 			<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?></a></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter developer apps page.', 'autoshare-for-twitter' ); ?></a></li>
 				<li><?php echo wp_kses_data( __( 'Fill out the <code>App name</code> and <code>Application description</code> fields.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
@@ -348,7 +348,7 @@ function cred_section_cb() {
 			</ul>
 			<h4><?php esc_html_e( '6. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'Click the <code>Connect to Twitter</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Save Changes</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 		</section>
 	</section>
@@ -364,7 +364,7 @@ function options_page() {
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Autoshare for Twitter', 'autoshare-for-twitter' ); ?></h1>
+		<h1><?php esc_html_e( 'Autoshare for Twitter Settings', 'autoshare-for-twitter' ); ?></h1>
 
 		<div class="autoshare-settings">
 			<form action='options.php' method='post'>
