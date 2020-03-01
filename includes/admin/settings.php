@@ -312,9 +312,9 @@ function general_section_cb() {
  * @return void
  */
 function cred_section_cb() {
-	$wrapper_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
-	<section class="credentials-setup <?php echo esc_attr( $wrapper_class ); ?>">
+	<section class="credentials-setup <?php echo Utils\is_twitter_configured() ? 'connected' : ''; ?>">
+		<?php if ( Utils\is_twitter_configured() ) : ?>
 		<p class="credentials-actions">
 			<a href="JavaScript:void(0);" class="open">
 				<?php echo esc_html__( 'Open connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
@@ -323,6 +323,7 @@ function cred_section_cb() {
 				<?php echo esc_html__( 'Close connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
 			</a>
 		</p>
+		<?php endif; ?>
 		<section class="credentials-instructions">
 			<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
 			<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
