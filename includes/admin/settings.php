@@ -406,21 +406,22 @@ function options_page() {
  * @return array
  */
 function action_links( $links ) {
+	$new_links = [];
 	if ( Utils\is_twitter_configured() ) {
-		$links['settings'] = sprintf(
+		$new_links['settings'] = sprintf(
 			/* translators: %s is the plugin setting page URL */
 			__( '<a href="%s">Settings</a>', 'autoshare-for-twitter' ),
 			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
 		);
 	} else {
-		$links['initial-setup'] = sprintf(
+		$new_links['initial-setup'] = sprintf(
 			/* translators: %s is the plugin setting page URL */
 			__( '<a href="%s">Set up your Twitter account</a>', 'autoshare-for-twitter' ),
 			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
 		);
 	}
 
-	return $links;
+	return array_merge( $new_links, $links );
 }
 
 /**
