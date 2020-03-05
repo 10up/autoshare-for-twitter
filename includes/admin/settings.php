@@ -194,7 +194,7 @@ function register_settings() {
 }
 
 /**
- * Helper for ouputing a text field.
+ * Helper for outputting a text field.
  *
  * @param array $args The field arguments.
  *
@@ -214,7 +214,7 @@ function text_field_cb( $args ) {
 }
 
 /**
- * Helper for ouputing a radio field.
+ * Helper for outputting a radio field.
  *
  * @param array $args The field arguments.
  *
@@ -243,7 +243,7 @@ function radio_field_cb( $args ) {
 }
 
 /**
- * Helper for ouputing a checkbox field.
+ * Helper for outputting a checkbox field.
  *
  * @param array $args The field arguments.
  *
@@ -293,7 +293,7 @@ function checkbox_field_cb( $args ) {
 }
 
 /**
- * Helper for ouputing general section heading and description.
+ * Helper for outputting general section heading and description.
  *
  * @return void
  */
@@ -301,13 +301,13 @@ function general_section_cb() {
 	$cred_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
 	<div class="general-settings <?php echo esc_attr( $cred_class ); ?>">
-		<h2><?php echo esc_html__( 'Twitter Settings', 'autoshare-for-twitter' ); ?>
+		<h2><?php esc_html_e( 'Twitter Settings', 'autoshare-for-twitter' ); ?>
 	</div>
 	<?php
 }
 
 /**
- * Helper for ouputing credentials section.
+ * Helper for outputting credentials section.
  *
  * @return void
  */
@@ -317,21 +317,21 @@ function cred_section_cb() {
 		<?php if ( Utils\is_twitter_configured() ) : ?>
 		<p class="credentials-actions">
 			<a href="JavaScript:void(0);" class="open">
-				<?php echo esc_html__( 'Open connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+				<?php esc_html_e( 'Open connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
 			</a>
 			<a href="JavaScript:void(0);" class="close">
-				<?php echo esc_html__( 'Close connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
+				<?php esc_html_e( 'Close connection settings', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-up-alt2"></span>
 			</a>
 		</p>
 		<?php endif; ?>
 		<section class="credentials-instructions">
-			<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php echo esc_html__( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
+			<h4><a href="https://developer.twitter.com/en/apply/user.html" target="_blank"><?php esc_html_e( '1. Apply for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
 			<h4><?php esc_html_e( '2. Create a Twitter app for your website', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( 'Twitter developer apps page.', 'autoshare-for-twitter' ); ?></a></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Create an app</code> button on the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/apps" title="<?php esc_html_e( 'Twitter develop apps page.', 'autoshare-for-twitter' ); ?>" target="_blank"><?php esc_html_e( 'Twitter developer apps page.', 'autoshare-for-twitter' ); ?></a></li>
 				<li><?php echo wp_kses_data( __( 'Fill out the <code>App name</code> and <code>Application description</code> fields.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field, no other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Fill out the <code>Tell us how this app will be used</code> field. No other fields or URLs are required or necessary.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 			<h4><?php esc_html_e( '3. Configure access to your Twitter app API keys', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
@@ -376,20 +376,20 @@ function options_page() {
 				?>
 			</form>
 			<div class="brand">
-				<a href="https://10up.com" class="logo" title="<?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?>">
-					<img src="<?php echo esc_url( trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/images/10up.svg' ); ?>" alt="<?php echo esc_html__( '10up logo', 'autoshare-for-twitter' ); ?>" />
+				<a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>">
+					<img src="<?php echo esc_url( trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/images/10up.svg' ); ?>" alt="<?php esc_attr_e( '10up logo', 'autoshare-for-twitter' ); ?>" />
 				</a>
 				<p>
 					<strong>
-						<?php echo esc_html__( 'Autoshare for Twitter', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?>"><?php echo esc_html__( '10up', 'autoshare-for-twitter' ); ?></a>
+						<?php echo esc_html__( 'Autoshare for Twitter', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( '10up', 'autoshare-for-twitter' ); ?></a>
 					</strong>
 				</p>
 				<nav>
-					<a href="https://github.com/10up/autoshare-for-twitter#faqs" target="_blank" title="<?php echo esc_attr__( 'FAQs', 'autoshare-for-twitter' ); ?>">
-						<?php echo esc_html__( 'FAQs', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					<a href="https://github.com/10up/autoshare-for-twitter#faqs" target="_blank" title="<?php esc_attr_e( 'FAQs', 'autoshare-for-twitter' ); ?>">
+						<?php esc_html_e( 'FAQs', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
 					</a>
-					<a href="https://github.com/10up/autoshare-for-twitter/issues" target="_blank" title="<?php echo esc_attr__( 'Support', 'autoshare-for-twitter' ); ?>">
-						<?php echo esc_html__( 'Support', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
+					<a href="https://github.com/10up/autoshare-for-twitter/issues" target="_blank" title="<?php esc_attr_e( 'Support', 'autoshare-for-twitter' ); ?>">
+						<?php esc_html_e( 'Support', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-external"></span>
 					</a>
 				</nav>
 			</div>

@@ -55,7 +55,8 @@ function enqueue_shared_assets() {
  */
 function enqueue_settings_assets() {
 	$current_screen = get_current_screen();
-	if ( 'settings_page_autoshare-for-twitter' !== $current_screen->id ) {
+
+	if ( ! $current_screen || 'settings_page_autoshare-for-twitter' !== $current_screen->id ) {
 		return;
 	}
 
