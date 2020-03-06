@@ -9,7 +9,7 @@
 namespace TenUp\AutoshareForTwitter\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\AutoshareForTwitter\Core\set_default_post_type_supports;
+use function TenUp\AutoshareForTwitter\Core\set_post_type_supports;
 
 /**
  * TestCore class.
@@ -22,7 +22,7 @@ class TestCore extends WP_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	public function test_set_default_post_type_supports() {
+	public function test_set_post_type_supports() {
 		global $_wp_post_type_features;
 
 		$saved__wp_post_type_features = $_wp_post_type_features;
@@ -35,7 +35,7 @@ class TestCore extends WP_UnitTestCase {
 
 		// Test that posts and pages support the feature by default, but not other post types.
 		reset_post_type_support();
-		set_default_post_type_supports();
+		set_post_type_supports();
 		$this->assertTrue( post_type_supports( 'post', 'autoshare-for-twitter' ) );
 		$this->assertTrue( post_type_supports( 'page', 'autoshare-for-twitter' ) );
 
@@ -48,7 +48,7 @@ class TestCore extends WP_UnitTestCase {
 		};
 		add_filter( 'autoshare_for_twitter_default_post_types', $filter_post_type_supports );
 
-		set_default_post_type_supports();
+		set_post_type_supports();
 		$this->assertFalse( post_type_supports( 'post', 'autoshare-for-twitter' ) );
 		$this->assertFalse( post_type_supports( 'page', 'autoshare-for-twitter' ) );
 		$this->assertTrue( post_type_supports( $non_default_post_type, 'autoshare-for-twitter' ) );

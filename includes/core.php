@@ -7,6 +7,8 @@
 
 namespace TenUp\AutoshareForTwitter\Core;
 
+use TenUp\AutoshareForTwitter\Utils;
+
 const POST_TYPE_SUPPORT_FEATURE = 'autoshare-for-twitter';
 
 /**
@@ -28,7 +30,9 @@ function setup() {
 	 */
 	do_action( 'autoshare_for_twitter_setup' );
 
-	add_action( 'init', __NAMESPACE__ . '\set_default_post_type_supports' );
+	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports' );
+	add_filter( 'autoshare_for_twitter_enabled_default', __NAMESPACE__ . '\maybe_enable_autoshare_by_default' );
+	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image' );
 }
 
 /**
@@ -43,17 +47,36 @@ add_action( 'autoshare_for_twitter_loaded', __NAMESPACE__ . '\setup' );
  *
  * @since 1.0.0
  */
-function set_default_post_type_supports() {
-
-	/**
-	 * Filters post types supported by default.
-	 *
-	 * @since 1.0.0
-	 * @param array Array of post types.
-	 */
-	$post_types_supported_by_default = apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
-
-	foreach ( (array) $post_types_supported_by_default as $post_type ) {
+function set_post_type_supports() {
+	$post_types = Utils\get_enabled_post_types();
+	foreach ( (array) $post_types as $post_type ) {
 		add_post_type_support( $post_type, POST_TYPE_SUPPORT_FEATURE );
 	}
+}
+
+/**
+ * Enable autoshare by default.
+ *
+ * @since 1.0.0
+ */
+function maybe_enable_autoshare_by_default() {
+	return (bool) Utils\get_autoshare_for_twitter_settings( 'enable_default' );
+}
+
+/**
+ * Maybe disable uploading image to Twitter. We upload attached image to Twitter
+ * by default, so we disable it if needed here.
+ *
+ * @since 1.0.0
+ *
+ * @param null|int $attachment_id ID of attachment being uploaded.
+ *
+ * @return null|int|bool
+ */
+function maybe_disable_upload_image( $attachment_id ) {
+	if ( ! Utils\get_autoshare_for_twitter_settings( 'enable_upload' ) ) {
+		return false;
+	}
+
+	return $attachment_id;
 }
