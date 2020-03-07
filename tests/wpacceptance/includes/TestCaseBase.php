@@ -10,23 +10,14 @@
  */
 class TestCaseBase extends \WPAcceptance\PHPUnit\TestCase {
 	/**
-	 * Activate the plugin.
+	 * Provides a random post title for testing.
 	 *
-	 * @param \WPAcceptance\PHPUnit\Actor $actor The actor.
+	 * @param number $chars The length of the string to return.
+	 * @return string
 	 */
-	protected function activatePlugin( $actor ) {
-		// Activate the plugin.
-		$actor->moveTo( '/wp-admin/plugins.php' );
-		try {
-			$element = $actor->getElement( '[data-slug="autoshare-for-twitter"] .deactivate a' );
-			if ( $element ) {
-				$actor->click( $element );
-				$actor->waitUntilElementVisible( '#message' );
-			}
-		} catch ( \Exception $e ) { // phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedCatch
-			// Do nothing.
-		}
-		$actor->click( '[data-slug="autoshare-for-twitter"] .activate a' );
-		$actor->waitUntilElementVisible( '#message' );
+	public function get_random_post_title( $chars = 140 ) : string {
+		$permitted_chars = str_repeat( ' 0123456789abcdefghijklmnopqrstuvwxyz', 10 );
+
+		return substr( str_shuffle( $permitted_chars ), 0, $chars );
 	}
 }

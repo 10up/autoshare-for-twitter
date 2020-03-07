@@ -1,19 +1,14 @@
 {
     "name": "autoshare-for-twitter",
+    "exclude": [
+        "./node_modules"
+    ],
     "tests": [
-        "tests/wpacceptance/*.php"
+        "tests/wpacceptance/*Test.php"
     ],
+    "snapshot": "9008e582b1e3d8016565488e1baef0f5",
     "enforce_clean_db": true,
-    "snapshot_id": false,
-    "environment_instructions": [
-        [
-            "install wordpress where version is 4.9 and site url is http://wpacceptance.test and home url is http://wpacceptance.test"
-        ],
-        [
-            "install wordpress where version is latest and site url is http://wpacceptance.test and home url is http://wpacceptance.test"
-        ]
-    ],
-    "project_path": "%WP_ROOT%/wp-content/plugins/autoshare-for-twitter",
+    "repository": "10up",
     "bootstrap": "tests/wpacceptance/bootstrap.php",
     "before_scripts": [
         "composer install",
