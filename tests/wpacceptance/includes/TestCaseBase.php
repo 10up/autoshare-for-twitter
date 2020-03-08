@@ -15,8 +15,12 @@ class TestCaseBase extends \WPAcceptance\PHPUnit\TestCase {
 	 * @param number $chars The length of the string to return.
 	 * @return string
 	 */
-	public function get_random_post_title( $chars = 140 ) : string {
-		$permitted_chars = str_repeat( ' 0123456789abcdefghijklmnopqrstuvwxyz', 10 );
+	public function get_random_post_title( $chars = null ) : string {
+		if ( is_null( $chars ) ) {
+			$chars = rand( 25, 50 );
+		}
+
+		$permitted_chars = str_repeat( ' 012 345 678 9ab cde fgh ijk lmn opq rst uvw xyz ', 10 );
 
 		return substr( str_shuffle( $permitted_chars ), 0, $chars );
 	}
