@@ -3,7 +3,7 @@
  * Plugin Name:       Autoshare for Twitter
  * Description:       Automatically tweets the post title or custom message and a link to the post.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 4.7
  * Requires PHP:      7.0
  * Author:            10up
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'AUTOSHARE_FOR_TWITTER', __FILE__ );
-define( 'AUTOSHARE_FOR_TWITTER_VERSION', '1.0.0' );
+define( 'AUTOSHARE_FOR_TWITTER_VERSION', '1.0.2' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
