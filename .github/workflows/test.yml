@@ -42,3 +42,8 @@ jobs:
       run: |
         composer run setup-local-tests
         composer test
+    - name: Run WP Acceptance
+      if: matrix.php-versions == '7.2'
+      run: |
+        if [ -n "${{ secrets.AWS_ACCESS_KEY }}" ]; then ./vendor/bin/wpsnapshots configure 10up --aws_key=${{ AWS_ACCESS_KEY }} --aws_secret=${{ SECRET_ACCESS_KEY }} --user_name=Travis --user_email=travis@10up.com; fi
+        ./vendor/bin/wpacceptance run
