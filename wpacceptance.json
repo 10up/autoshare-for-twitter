@@ -6,14 +6,13 @@
     "tests": [
         "tests/wpacceptance/*Test.php"
     ],
-    "snapshot": "9008e582b1e3d8016565488e1baef0f5",
+    "snapshots": [
+        {
+            "snapshot_name": "wordpress-5.2",
+            "snapshot_id": "8dc702aaf3672d7bb8b8749ffa17f98a"
+        }
+    ],
     "enforce_clean_db": true,
     "repository": "10up",
-    "bootstrap": "tests/wpacceptance/bootstrap.php",
-    "before_scripts": [
-        "composer install",
-        "npm install",
-        "npm run build",
-        "npm run build:externals"
-    ]
+    "bootstrap": "tests/wpacceptance/bootstrap.php"
 }
