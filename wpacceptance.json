@@ -9,7 +9,7 @@
     "snapshots": [
         {
             "snapshot_name": "wordpress-5.2",
-            "snapshot_id": "8dc702aaf3672d7bb8b8749ffa17f98a"
+            "snapshot_id": "a03bce7affe3f090897f73eb74b94cae"
         }
     ],
     "enforce_clean_db": true,
