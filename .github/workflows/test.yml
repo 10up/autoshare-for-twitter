@@ -21,7 +21,6 @@ jobs:
       uses: icrawl/action-eslint@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WP_SNAPSHOTS_DIR: ${{ format('{0}/{1}/', env.GITHUB_WORKSPACE, '.wpsnapshots') }}
 
       with:
         job-name: eslint
@@ -47,5 +46,5 @@ jobs:
     - name: Run WP Acceptance
       if: matrix.php-versions == '7.2'
       run: |
-        ./vendor/bin/wpsnapshots configure --aws_key=${{ secrets.AWS_ACCESS_KEY }} --aws_secret=${{ secrets.SECRET_ACCESS_KEY }} --user_name="wp-acceptance" --user_email=travis@10up.com 10up
+        WP_SNAPSHOTS_DIR=${{ format('{0}/{1}/', env.GITHUB_WORKSPACE, '.wpsnapshots') }} ./vendor/bin/wpsnapshots configure --aws_key=${{ secrets.AWS_ACCESS_KEY }} --aws_secret=${{ secrets.SECRET_ACCESS_KEY }} --user_name="wp-acceptance" --user_email=travis@10up.com 10up
         ./vendor/bin/wpacceptance run
