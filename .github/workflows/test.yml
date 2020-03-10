@@ -49,5 +49,5 @@ jobs:
     - name: Run WP Acceptance
       if: matrix.php-versions == '7.2'
       run: |
-        ./vendor/bin/wpsnapshots configure --aws_key $AWS_ACCESS_KEY --aws_secret $SECRET_ACCESS_KEY --user_name=wp-acceptance --user_email=travis@10up.com 10up
+        ./vendor/bin/wpsnapshots configure --aws_key="$AWS_ACCESS_KEY" --aws_secret="$SECRET_ACCESS_KEY" --user_name="wp-acceptance" --user_email=travis@10up.com 10up
         ./vendor/bin/wpacceptance run
