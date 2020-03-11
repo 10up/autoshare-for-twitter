@@ -68,12 +68,10 @@ class ClassicEditorTest extends \TestCaseBase {
 		$we->seeText( 'Tweet this post' );
 		$we->click( '#autoshare-for-twitter-enable' ); // Uncheck the box.
 
-		usleep( 1000 );
-
 		$we->waitUntilElementEnabled( '#publish' );
 		$we->click( '#publish' );
 
-		usleep( 1000 );
+		$we->waitUntilNavigation();
 
 		// Pageload 3.
 		$we->waitUntilElementVisible( '#wpadminbar' );
@@ -98,12 +96,10 @@ class ClassicEditorTest extends \TestCaseBase {
 		$we->seeText( 'Tweet this post' );
 		$we->click( '#autoshare-for-twitter-enable' ); // Check the box.
 
-		usleep( 1000 );
-
 		$we->waitUntilElementEnabled( '#publish' );
 		$we->click( '#publish' );
 
-		usleep( 1000 );
+		$we->waitUntilNavigation();
 
 		// Pageload 3.
 		$we->waitUntilElementVisible( '#wpadminbar' );
