@@ -14,6 +14,12 @@
 			"role": "Developer"
 		}
 	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url" : "git@github.com:felipeelia/wpacceptance"
+		}
+	],
 	"require": {
 		"php": ">=7.2",
 		"abraham/twitteroauth": "^0.7.4"
@@ -22,7 +28,7 @@
 		"phpunit/phpunit": "^7.5",
 		"wp-coding-standards/wpcs": "^2.2",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-		"10up/wpacceptance": "dev-master"
+		"10up/wpacceptance": "dev-issue-19"
 	},
 	"scripts": {
 		"test": "phpunit",

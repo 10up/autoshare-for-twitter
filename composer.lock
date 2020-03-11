@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "798de7c443a2071fbb0e39716fedc0bb",
+    "content-hash": "c68fcbb04842c7350a97c75b8597794f",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -64,16 +64,16 @@
     "packages-dev": [
         {
             "name": "10up/wpacceptance",
-            "version": "dev-master",
+            "version": "dev-issue-19",
             "source": {
                 "type": "git",
-                "url": "https://github.com/10up/wpacceptance.git",
-                "reference": "38576112c1c64b9216c7f7cb9d7e6ffe87eff036"
+                "url": "https://github.com/felipeelia/wpacceptance.git",
+                "reference": "d1e3fd5be28e85f130a5126913d273b78e90f2e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/38576112c1c64b9216c7f7cb9d7e6ffe87eff036",
-                "reference": "38576112c1c64b9216c7f7cb9d7e6ffe87eff036",
+                "url": "https://api.github.com/repos/felipeelia/wpacceptance/zipball/d1e3fd5be28e85f130a5126913d273b78e90f2e7",
+                "reference": "d1e3fd5be28e85f130a5126913d273b78e90f2e7",
                 "shasum": ""
             },
             "require": {
@@ -101,7 +101,17 @@
                     "WPAcceptance\\": "./src/classes"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "lint": [
+                    "phpcs --runtime-set testVersion 7.2- ."
+                ],
+                "lint-fix": [
+                    "phpcbf --runtime-set testVersion 7.2- ."
+                ],
+                "post-install-cmd": [
+                    "npm install"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -117,7 +127,10 @@
                 "testing",
                 "wordpress"
             ],
-            "time": "2020-01-07T04:37:31+00:00"
+            "support": {
+                "source": "https://github.com/felipeelia/wpacceptance/tree/issue-19"
+            },
+            "time": "2020-01-20T00:03:09+00:00"
         },
         {
             "name": "10up/wpinstructions",
@@ -227,16 +240,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.26",
+            "version": "3.133.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0bccb2841d035fe983a811b964d3b485171c0406"
+                "reference": "bdae58163a527d1d03db9a845fe57795c81e2c49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0bccb2841d035fe983a811b964d3b485171c0406",
-                "reference": "0bccb2841d035fe983a811b964d3b485171c0406",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bdae58163a527d1d03db9a845fe57795c81e2c49",
+                "reference": "bdae58163a527d1d03db9a845fe57795c81e2c49",
                 "shasum": ""
             },
             "require": {
@@ -307,7 +320,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-02-29T00:41:14+00:00"
+            "time": "2020-03-10T18:14:53+00:00"
         },
         {
             "name": "clue/socket-raw",
@@ -2371,12 +2384,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "aa06ba38ed9e5133feb70ea95b42a2e5354f52b8"
+                "reference": "d6b5291650d058fe1162a54fee9d923de19bcda2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/aa06ba38ed9e5133feb70ea95b42a2e5354f52b8",
-                "reference": "aa06ba38ed9e5133feb70ea95b42a2e5354f52b8",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/d6b5291650d058fe1162a54fee9d923de19bcda2",
+                "reference": "d6b5291650d058fe1162a54fee9d923de19bcda2",
                 "shasum": ""
             },
             "require": {
@@ -2409,7 +2422,7 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
-            "time": "2020-03-01T10:45:06+00:00"
+            "time": "2020-03-06T17:11:40+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -2417,12 +2430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9"
+                "reference": "451c3cd1418cf640de218914901e51b064abb093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/451c3cd1418cf640de218914901e51b064abb093",
+                "reference": "451c3cd1418cf640de218914901e51b064abb093",
                 "shasum": ""
             },
             "require": {
@@ -2472,7 +2485,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2020-01-20T15:57:02+00:00"
+            "time": "2020-03-05T15:02:03+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3766,12 +3779,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "daa440f9150bba17353c2ddfbdb7d04b37ae1ed5"
+                "reference": "1dbc333797a43c3e36697c24c66d3c1f8364faa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/daa440f9150bba17353c2ddfbdb7d04b37ae1ed5",
-                "reference": "daa440f9150bba17353c2ddfbdb7d04b37ae1ed5",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1dbc333797a43c3e36697c24c66d3c1f8364faa2",
+                "reference": "1dbc333797a43c3e36697c24c66d3c1f8364faa2",
                 "shasum": ""
             },
             "require": {
@@ -3809,7 +3822,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-02-26T04:58:49+00:00"
+            "time": "2020-03-09T21:32:33+00:00"
         },
         {
             "name": "symfony/console",
