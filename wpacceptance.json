@@ -14,5 +14,9 @@
     ],
     "enforce_clean_db": true,
     "repository": "10up",
-    "bootstrap": "tests/wpacceptance/bootstrap.php"
+    "bootstrap": "tests/wpacceptance/bootstrap.php",
+    "before_scripts": [
+        "npm install",
+        "npm run build"
+    ]
 }
