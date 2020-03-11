@@ -73,6 +73,8 @@ class ClassicEditorTest extends \TestCaseBase {
 		$we->waitUntilElementEnabled( '#publish' );
 		$we->click( '#publish' );
 
+		usleep( 1000 );
+
 		// Pageload 3.
 		$we->waitUntilElementVisible( '#wpadminbar' );
 		$we->seeText( 'This post was not tweeted.', '#autoshare_for_twitter_metabox' );
@@ -100,6 +102,8 @@ class ClassicEditorTest extends \TestCaseBase {
 
 		$we->waitUntilElementEnabled( '#publish' );
 		$we->click( '#publish' );
+
+		usleep( 1000 );
 
 		// Pageload 3.
 		$we->waitUntilElementVisible( '#wpadminbar' );
