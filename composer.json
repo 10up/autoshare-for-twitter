@@ -24,7 +24,7 @@
 	},
 	"scripts": {
 		"test": "phpunit",
-		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root root localhost latest",
+		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest",
 		"lint": "./vendor/bin/phpcs --extensions=php -s .",
 		"lint-fix": "./vendor/bin/phpcbf --extensions=php ."
 	}
