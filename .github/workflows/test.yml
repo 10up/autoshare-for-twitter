@@ -31,7 +31,6 @@ jobs:
         env:
           MYSQL_USER: user
           MYSQL_PASSWORD: password
-          MYSQL_DATABASE: wordpress_test
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
