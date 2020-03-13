@@ -27,10 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mariadb:10.4
+        image: mysql:5.7
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
