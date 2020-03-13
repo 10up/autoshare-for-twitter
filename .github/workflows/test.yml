@@ -27,13 +27,6 @@ jobs:
      
   test_php:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
     strategy:
       matrix:
         php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3']
