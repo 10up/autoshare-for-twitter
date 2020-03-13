@@ -44,7 +44,7 @@ jobs:
         composer run setup-local-tests
         composer test
     - name: Run WP Acceptance
-      if: matrix.php-versions == '7.3' || matrix.php-versions == '7.2'
+      if: matrix.php-versions == '7.3'
       run: |
         WP_SNAPSHOTS_DIR=${{ github.workspace }}/.wpsnapshots/ ./vendor/bin/wpsnapshots configure --aws_key=${{ secrets.AWS_ACCESS_KEY }} --aws_secret=${{ secrets.SECRET_ACCESS_KEY }} --user_name="wp-acceptance" --user_email=travis@10up.com 10up
         ./vendor/bin/wpacceptance run
