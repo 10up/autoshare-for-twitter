@@ -46,7 +46,7 @@ jobs:
     - name: Verify MySQL connection
       run: |
         mysql --version
-        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uuser -ppassword -e "SHOW DATABASES"
+        mysql --host=localhost --port=${{ job.services.mysql.ports['3306'] }} --protocol=tcp -uuser -ppassword -e "SHOW DATABASES"
     - name: Install dependencies
       run: composer install
     - name: Run PHPCS
