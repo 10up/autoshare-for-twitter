@@ -43,6 +43,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Verify MySQL connection
+      run: |
+        mysql --version
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -ppassword -e "SHOW DATABASES"
     - name: Install dependencies
       run: composer install
     - name: Run PHPCS
