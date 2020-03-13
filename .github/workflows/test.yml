@@ -27,6 +27,14 @@ jobs:
      
   test_php:
     runs-on: ubuntu-latest
+    services:
+      mysql: 
+        image: mariadb:10.3 
+        env:    
+          MYSQL_ROOT_PASSWORD: root   
+        ports:  
+          - 3306:3306 
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       matrix:
         php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3']
