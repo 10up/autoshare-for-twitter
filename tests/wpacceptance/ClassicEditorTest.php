@@ -74,7 +74,8 @@ class ClassicEditorTest extends \TestCaseBase {
 		$we->waitUntilNavigation();
 
 		// Pageload 3.
-		$we->waitUntilElementVisible( '#wpadminbar' );
+		$we->waitUntilElementVisible( '#autoshare_for_twitter_metabox' );
+		$we->waitUntilElementContainsText( 'This post was not tweeted.', '#autoshare_for_twitter_metabox' );
 		$we->seeText( 'This post was not tweeted.', '#autoshare_for_twitter_metabox' );
 	}
 
@@ -88,7 +89,7 @@ class ClassicEditorTest extends \TestCaseBase {
 
 		$we->moveTo( 'wp-admin/post-new.php' );
 		$we->seeText( 'Tweet this post' );
-		$we->fillField( '#title', $this->get_random_post_title() );
+		$we->fillField( '#title', 'Draft post' . $this->get_random_post_title() );
 		$we->click( '#save-post' );
 
 		// Pageload 2.
@@ -102,7 +103,8 @@ class ClassicEditorTest extends \TestCaseBase {
 		$we->waitUntilNavigation();
 
 		// Pageload 3.
-		$we->waitUntilElementVisible( '#wpadminbar' );
+		$we->waitUntilElementVisible( '#autoshare_for_twitter_metabox' );
+		$we->waitUntilElementContainsText( 'Tweeted on', '#autoshare_for_twitter_metabox' );
 		$we->seeText( 'Tweeted on', '#autoshare_for_twitter_metabox' );
 	}
 }

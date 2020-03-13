@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c68fcbb04842c7350a97c75b8597794f",
+    "content-hash": "798de7c443a2071fbb0e39716fedc0bb",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -64,16 +64,16 @@
     "packages-dev": [
         {
             "name": "10up/wpacceptance",
-            "version": "dev-issue-19",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/felipeelia/wpacceptance.git",
-                "reference": "d1e3fd5be28e85f130a5126913d273b78e90f2e7"
+                "url": "https://github.com/10up/wpacceptance.git",
+                "reference": "70ac277f0b05f66abbdd8012f3ae8afd8ea5b1c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/felipeelia/wpacceptance/zipball/d1e3fd5be28e85f130a5126913d273b78e90f2e7",
-                "reference": "d1e3fd5be28e85f130a5126913d273b78e90f2e7",
+                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/70ac277f0b05f66abbdd8012f3ae8afd8ea5b1c9",
+                "reference": "70ac277f0b05f66abbdd8012f3ae8afd8ea5b1c9",
                 "shasum": ""
             },
             "require": {
@@ -101,17 +101,7 @@
                     "WPAcceptance\\": "./src/classes"
                 }
             },
-            "scripts": {
-                "lint": [
-                    "phpcs --runtime-set testVersion 7.2- ."
-                ],
-                "lint-fix": [
-                    "phpcbf --runtime-set testVersion 7.2- ."
-                ],
-                "post-install-cmd": [
-                    "npm install"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -127,10 +117,7 @@
                 "testing",
                 "wordpress"
             ],
-            "support": {
-                "source": "https://github.com/felipeelia/wpacceptance/tree/issue-19"
-            },
-            "time": "2020-01-20T00:03:09+00:00"
+            "time": "2020-03-12T18:41:18+00:00"
         },
         {
             "name": "10up/wpinstructions",
@@ -240,16 +227,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.33",
+            "version": "3.133.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "bdae58163a527d1d03db9a845fe57795c81e2c49"
+                "reference": "ab87be32ed4f52a9779d40277e4989af35be7dd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bdae58163a527d1d03db9a845fe57795c81e2c49",
-                "reference": "bdae58163a527d1d03db9a845fe57795c81e2c49",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ab87be32ed4f52a9779d40277e4989af35be7dd5",
+                "reference": "ab87be32ed4f52a9779d40277e4989af35be7dd5",
                 "shasum": ""
             },
             "require": {
@@ -320,7 +307,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-10T18:14:53+00:00"
+            "time": "2020-03-12T19:45:53+00:00"
         },
         {
             "name": "clue/socket-raw",
@@ -1494,12 +1481,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "b2c28789e80a97badd14145fda39b545d83ca3ef"
+                "reference": "a491d65139e2411c75704e871dd02bdddf5a4bdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/b2c28789e80a97badd14145fda39b545d83ca3ef",
-                "reference": "b2c28789e80a97badd14145fda39b545d83ca3ef",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a491d65139e2411c75704e871dd02bdddf5a4bdc",
+                "reference": "a491d65139e2411c75704e871dd02bdddf5a4bdc",
                 "shasum": ""
             },
             "require": {
@@ -1534,7 +1521,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2020-01-17T21:11:47+00:00"
+            "time": "2020-03-12T21:49:07+00:00"
         },
         {
             "name": "nesk/puphpeteer",
@@ -3779,12 +3766,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1dbc333797a43c3e36697c24c66d3c1f8364faa2"
+                "reference": "2914011675cd13f8a7d5eae16ed1d5ee4f0e701d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1dbc333797a43c3e36697c24c66d3c1f8364faa2",
-                "reference": "1dbc333797a43c3e36697c24c66d3c1f8364faa2",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/2914011675cd13f8a7d5eae16ed1d5ee4f0e701d",
+                "reference": "2914011675cd13f8a7d5eae16ed1d5ee4f0e701d",
                 "shasum": ""
             },
             "require": {
@@ -3822,7 +3809,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-03-09T21:32:33+00:00"
+            "time": "2020-03-12T02:09:19+00:00"
         },
         {
             "name": "symfony/console",
@@ -4114,12 +4101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "766ee47e656529b352da69c0ff29da928a9629e7"
+                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/766ee47e656529b352da69c0ff29da928a9629e7",
-                "reference": "766ee47e656529b352da69c0ff29da928a9629e7",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
+                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
                 "shasum": ""
             },
             "require": {
@@ -4165,7 +4152,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
+            "time": "2020-03-09T19:04:49+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -4420,12 +4407,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "0c7023a90e80d7819bb03483c027f3dee963b42a"
+                "reference": "0bd96cb60303445792534fac44eded30f1d3fab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/0c7023a90e80d7819bb03483c027f3dee963b42a",
-                "reference": "0c7023a90e80d7819bb03483c027f3dee963b42a",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0bd96cb60303445792534fac44eded30f1d3fab5",
+                "reference": "0bd96cb60303445792534fac44eded30f1d3fab5",
                 "shasum": ""
             },
             "require": {
@@ -4475,7 +4462,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2020-02-08T14:04:50+00:00"
+            "time": "2020-03-12T17:11:13+00:00"
         },
         {
             "name": "theseer/tokenizer",
