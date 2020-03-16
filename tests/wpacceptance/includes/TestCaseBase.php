@@ -17,7 +17,7 @@ class TestCaseBase extends \WPAcceptance\PHPUnit\TestCase {
 	 */
 	public function get_random_post_title( $chars = null ) : string {
 		if ( is_null( $chars ) ) {
-			$chars = rand( 25, 50 ); // phpcs:disable WordPress.WP.AlternativeFunctions.rand_rand
+			$chars = 25;
 		}
 
 		$permitted_chars = str_repeat( ' 012 345 678 9ab cde fgh ijk lmn opq rst uvw xyz ', 10 );
