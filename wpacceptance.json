@@ -1,0 +1,22 @@
+{
+    "name": "autoshare-for-twitter",
+    "exclude": [
+        "./node_modules"
+    ],
+    "tests": [
+        "tests/wpacceptance/*Test.php"
+    ],
+    "snapshots": [
+        {
+            "snapshot_name": "wordpress-5.2",
+            "snapshot_id": "a03bce7affe3f090897f73eb74b94cae"
+        }
+    ],
+    "enforce_clean_db": true,
+    "repository": "10up",
+    "bootstrap": "tests/wpacceptance/bootstrap.php",
+    "before_scripts": [
+        "npm install",
+        "npm run build"
+    ]
+}

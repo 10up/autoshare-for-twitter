@@ -60,6 +60,7 @@
 
 		$icon.removeClass('pending');
 		$tweetPost.prop('checked', false);
+		$('#submit').attr('disabled', true);
 	}
 
 	/**
@@ -70,6 +71,7 @@
 		var data = {};
 		data[adminAutoshareForTwitter.enableAutoshareKey] = status;
 		data[adminAutoshareForTwitter.tweetBodyKey] = $tweetText.val();
+		$('#submit').attr('disabled', true);
 
 		wp.apiFetch({
 			url: adminAutoshareForTwitter.restUrl,
@@ -95,6 +97,8 @@
 					$icon.toggleClass('disabled');
 					$tweetPost.prop('checked', false);
 				}
+
+				$('#submit').attr('disabled', false);
 			})
 			.catch(onRequestFail);
 	}
