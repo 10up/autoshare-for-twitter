@@ -31,7 +31,10 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 
 		// Update if either of these values has changed in the data store.
 		if ( autoshareEnabled !== this.state.autoshareEnabled || tweetText !== this.state.tweetText ) {
-			this.setState( { autoshareEnabled, tweetText }, this.saveData );
+			this.setState( { autoshareEnabled, tweetText }, () => {
+				this.props.setSaving( true );
+				this.saveData();
+			} );
 		}
 	}
 
@@ -62,6 +65,8 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			setErrorMessage(
 				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autoshare-for-twitter' ),
 			);
+
+			setSaving( false );
 		}
 	}
 
@@ -176,7 +181,15 @@ export default compose(
 		setAutoshareEnabled: dispatch( STORE ).setAutoshareEnabled,
 		setErrorMessage: dispatch( STORE ).setErrorMessage,
 		setOverriding: dispatch( STORE ).setOverriding,
-		setSaving: dispatch( STORE ).setSaving,
+		setSaving: ( saving ) => {
+			dispatch( STORE ).setSaving( saving );
+
+			if ( saving ) {
+				dispatch( 'core/editor' ).lockPostSaving();
+			} else {
+				dispatch( 'core/editor' ).unlockPostSaving();
+			}
+		},
 		setTweetText: dispatch( STORE ).setTweetText,
 	} ) ),
 )( AutoshareForTwitterPrePublishPanel );

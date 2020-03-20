@@ -11,6 +11,8 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
  * Aliases
  */
 use TenUp\AutoshareForTwitter\Utils as Utils;
+
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 
@@ -44,28 +46,57 @@ const TWITTER_STATUS_KEY = 'status';
 function setup() {
 	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
 	add_action( 'autoshare_for_twitter_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
-	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 1 );
+	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 3 );
 }
 
 /**
  * Handles the saving of post_meta to catch the times the ajax save might not run.
  * Like when clicking 'Save Draft' or 'Publish' straight from the tweet body field.
  *
- * @param int $post_id The post id.
+ * @param int     $post_id The post id.
+ * @param WP_Post $post Post object.
+ * @param boolean $update Whether the post already exists.
  *
  * @return void
  */
-function save_tweet_meta( $post_id ) {
-	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
+function save_tweet_meta( $post_id, $post = null, $update = true ) {
+	if ( ! $update ) {
 		return;
 	}
 
-	$form_data = sanitize_autoshare_for_twitter_meta_data(
-		// Using FILTER_DEFAULT here as data is being passed to sanitize function.
-		filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY )
-	);
+	// Meta is saved in a separate request in the block editor.
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	$form_data = sanitize_autoshare_for_twitter_meta_data( get_autoshare_post_form_data() );
 
 	save_autoshare_for_twitter_meta_data( $post_id, $form_data );
+}
+
+/**
+ * Provides data passed from the post editor form.
+ *
+ * @return array
+ */
+function get_autoshare_post_form_data() {
+	// Using FILTER_DEFAULT here as data is being passed to sanitize function.
+	$data = filter_input( INPUT_POST, META_PREFIX, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+	/**
+	 * Filters data received from the post form.
+	 *
+	 * @param array $data
+	 */
+	return apply_filters( 'autoshare_post_form_data', $data );
 }
 
 /**
@@ -103,8 +134,13 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
  * @param array $data Associative array of data to save.
  */
 function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
-	if ( empty( $data ) || ! is_array( $data ) ) {
-		return;
+	if ( ! is_array( $data ) ) {
+		$data = [];
+	}
+
+	// If the enable key is not set, it should be turned off.
+	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
+		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
 	}
 
 	foreach ( $data as $key => $value ) {
@@ -306,7 +342,7 @@ function _safe_markup_default() {
 			id="autoshare-for-twitter-enable"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>"
 			value="1"
-			<?php checked( Utils\get_autoshare_for_twitter_meta( get_the_ID(), ENABLE_AUTOSHARE_FOR_TWITTER_KEY ) ); ?>
+			<?php checked( autoshare_enabled( get_the_ID() ) ); ?>
 		>
 		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>

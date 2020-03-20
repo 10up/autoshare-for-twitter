@@ -11,6 +11,8 @@ namespace TenUp\AutoshareForTwitter\Admin\Assets;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
+
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
@@ -27,6 +29,7 @@ const SCRIPT_HANDLE = 'autoshare_for_twitter';
  */
 function add_hook_callbacks() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_shared_assets' );
+	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_settings_assets' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_classic_editor_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 }
@@ -42,6 +45,34 @@ function enqueue_shared_assets() {
 		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
 		[],
 		AUTOSHARE_FOR_TWITTER_VERSION
+	);
+}
+
+/**
+ * Enqueues assets shared by WP5.0 and classic editors.
+ *
+ * @since 1.0.2
+ */
+function enqueue_settings_assets() {
+	$current_screen = get_current_screen();
+
+	if ( ! $current_screen || 'settings_page_autoshare-for-twitter' !== $current_screen->id ) {
+		return;
+	}
+
+	wp_enqueue_style(
+		'admin_autoshare_for_twitter_settings',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter-settings.css',
+		[],
+		AUTOSHARE_FOR_TWITTER_VERSION
+	);
+
+	wp_enqueue_script(
+		'admin_autoshare_for_twitter_settings',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter-settings.js',
+		[],
+		AUTOSHARE_FOR_TWITTER_VERSION,
+		true
 	);
 }
 
@@ -161,7 +192,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$status_meta = get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
 
 	$localization = [
-		'enabled'            => get_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY ),
+		'enabled'            => autoshare_enabled( $post_id ),
 		'enableAutoshareKey' => ENABLE_AUTOSHARE_FOR_TWITTER_KEY,
 		'errorText'          => __( 'Error', 'autoshare-for-twitter' ),
 		'nonce'              => wp_create_nonce( 'wp_rest' ),

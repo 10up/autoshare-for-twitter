@@ -1,6 +1,6 @@
 {
 	"name": "@10up/autoshare",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",

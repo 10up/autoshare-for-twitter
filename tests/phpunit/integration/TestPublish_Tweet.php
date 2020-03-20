@@ -68,6 +68,8 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
+
+		// phpcs:disable WordPress.DateTime.RestrictedFunctions.date_date
 		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/33772-1536x864.jpg', date( 'Y' ), date( 'm' ) ), $file );
 		$attachment = $this->factory->attachment->create_upload_object( DIR_TESTDATA . '/images/2004-07-22-DSC_0008.jpg' ); // ~109kb image.
 		$file       = $this->publish_tweet->get_largest_acceptable_image(
@@ -76,7 +78,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 		);
 		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/2004-07-22-DSC_0008.jpg', date( 'Y' ), date( 'm' ) ), $file );
 		remove_filter( 'autoshare_for_twitter_max_image_size', $set_150kb_max_filesize );
-
+		// phpcs:enable WordPress.DateTime.RestrictedFunctions.date_date
 		$set_1kb_max_filesize = function() {
 			return 1000;
 		};
