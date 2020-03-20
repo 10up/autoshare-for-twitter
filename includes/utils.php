@@ -101,6 +101,10 @@ function autoshare_enabled( $post_id ) {
  */
 function get_autoshare_for_twitter_settings( $key = '' ) {
 	$defaults = [
+		'enable_for'     => 'selected',
+		'post_types'     => get_post_types_supported_by_default(),
+		'enable_default' => 1,
+		'enable_upload'  => 1,
 		'access_secret'  => '',
 		'access_token'   => '',
 		'api_key'        => '',
@@ -125,6 +129,25 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 	}
 
 	return '';
+}
+
+/**
+ * Helper for checking if Twitter account is configured.
+ *
+ * @return bool
+ */
+function is_twitter_configured() {
+	$defaults = [
+		'access_secret'  => '',
+		'access_token'   => '',
+		'api_key'        => '',
+		'api_secret'     => '',
+		'twitter_handle' => '',
+	];
+
+	$settings    = get_autoshare_for_twitter_settings();
+	$credentials = array_intersect_key( $settings, $defaults );
+	return 5 === count( array_filter( $credentials ) );
 }
 
 /**
@@ -255,4 +278,85 @@ function get_tweet_body( $post_id ) {
  */
 function opted_into_autoshare_for_twitter( $post_id ) {
 	return post_type_supports( get_post_type( (int) $post_id ), POST_TYPE_SUPPORT_FEATURE );
+}
+
+/**
+ * Get all available post types.
+ *
+ * @return array
+ */
+function get_available_post_types() {
+	return array_keys( get_available_post_types_data() );
+}
+
+/**
+ * Get all available post types data.
+ *
+ * @return array
+ */
+function get_available_post_types_data() {
+	$output     = [];
+	$post_types = get_post_types(
+		[
+			'public' => true,
+		],
+		'object'
+	);
+
+	unset( $post_types['attachment'] );
+
+	foreach ( $post_types as $post_type ) {
+		$output[ $post_type->name ] = $post_type->label;
+	}
+
+	return (array) apply_filters( 'autoshare_available_post_types', $output );
+}
+
+/**
+ * Get post types that are supported by default.
+ *
+ * @return array
+ */
+function get_post_types_supported_by_default() {
+	/**
+	 * Filters post types supported by default.
+	 *
+	 * @since 1.0.0
+	 * @param array Array of post types.
+	 */
+	return (array) apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
+}
+
+/**
+ * Get post types that are supported by code.
+ *
+ * @return array
+ */
+function get_hardcoded_supported_post_types() {
+	if ( 'all' === get_autoshare_for_twitter_settings( 'enable_for' ) ) {
+		return [];
+	}
+
+	$available_post_types = get_available_post_types();
+	$enabled_post_types   = get_autoshare_for_twitter_settings( 'post_types' );
+	$remaining            = array_diff( $available_post_types, $enabled_post_types );
+	return array_filter(
+		$remaining,
+		function( $post_type ) {
+			return post_type_supports( $post_type, POST_TYPE_SUPPORT_FEATURE );
+		}
+	);
+}
+
+/**
+ * Get enabled post types.
+ *
+ * @return array
+ */
+function get_enabled_post_types() {
+	$enable_for = get_autoshare_for_twitter_settings( 'enable_for' );
+	if ( 'all' === $enable_for ) {
+		return get_available_post_types();
+	}
+	return get_autoshare_for_twitter_settings( 'post_types' );
 }

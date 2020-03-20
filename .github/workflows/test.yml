@@ -21,18 +21,27 @@ jobs:
       uses: icrawl/action-eslint@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       with:
         job-name: eslint
      
   test_php:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mariadb:10.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     strategy:
       matrix:
         php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3']
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
     - name: Install dependencies
       run: composer install
     - name: Run PHPCS
@@ -42,3 +51,8 @@ jobs:
       run: |
         composer run setup-local-tests
         composer test
+    - name: Run WP Acceptance
+      if: matrix.php-versions == '7.3' || matrix.php-versions == '7.2'
+      run: |
+        WP_SNAPSHOTS_DIR=${{ github.workspace }}/.wpsnapshots/ ./vendor/bin/wpsnapshots configure --aws_key=${{ secrets.AWS_ACCESS_KEY }} --aws_secret=${{ secrets.SECRET_ACCESS_KEY }} --user_name="wp-acceptance" --user_email=travis@10up.com 10up
+        ./vendor/bin/wpacceptance run

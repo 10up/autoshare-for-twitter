@@ -1,5 +1,6 @@
 .DS_Store
 dist
 node_modules
+screenshots
 tests/coverage
 vendor
