@@ -96,7 +96,7 @@ class TestRest extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'enabled'  => true,
-				'message'  => 'Autoshare disabled.',
+				'message'  => 'Autoshare enabled.',
 				'override' => true,
 			],
 			$response->get_data()

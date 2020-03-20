@@ -16,7 +16,7 @@ use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_autoshare_for_twitter_meta_data;
-
+use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 
 /**
  * The namespace for plugin REST endpoints.
@@ -122,15 +122,17 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 	$params = $request->get_params();
 
 	save_autoshare_for_twitter_meta_data( $request['id'], $params );
-	$message = 1 === $params[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] ?
+
+	$enabled = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
+	$message = $enabled ?
 		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
 		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
 
 	return rest_ensure_response(
 		[
-			'enabled'  => $params[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ],
+			'enabled'  => $enabled,
 			'message'  => $message,
-			'override' => ! empty( $params[ TWEET_BODY_KEY ] ),
+			'override' => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
 		]
 	);
 }

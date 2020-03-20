@@ -1,0 +1,79 @@
+.autoshare-settings .brand {
+	display: none;
+}
+
+.autoshare-settings .brand .logo img {
+	width: 120px;
+	max-width: 100%;
+}
+
+.autoshare-settings .brand nav a {
+	display: block;
+	text-decoration: none;
+}
+
+.autoshare-settings .brand nav a span {
+	font-size: inherit;
+	line-height: inherit;
+	vertical-align: unset;
+}
+
+.autoshare-settings .general-settings:not(.connected),
+.autoshare-settings .general-settings:not(.connected) + table {
+	display: none;
+}
+
+.autoshare-settings .enable-for td {
+	padding-bottom: 5px;
+}
+
+.autoshare-settings .post-types td {
+	padding-top: 0;
+	padding-left: 40px;
+}
+
+.autoshare-settings .credentials-setup ul {
+	list-style: disc;
+	padding-left: 25px;
+}
+
+.autoshare-settings .credentials-actions a {
+	text-decoration: none;
+}
+
+.autoshare-settings .credentials-actions span {
+	font-size: inherit;
+	line-height: 1.5;
+}
+
+.autoshare-settings .credentials-setup:not(.connected) .open {
+	display: none;
+}
+
+.autoshare-settings .credentials-setup.connected .close,
+.autoshare-settings .credentials-setup.connected .credentials-instructions,
+.autoshare-settings .credentials-setup.connected + table {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	.autoshare-settings {
+		display: flex;
+	}
+
+	.autoshare-settings form {
+		width: 70%;
+		margin-right: 50px;
+	}
+
+	.autoshare-settings .brand {
+		display: block;
+	}
+}
+
+@media (min-width: 1200px) {
+	.autoshare-settings form {
+		width: 60%;
+		margin-right: 10%;
+	}
+}
