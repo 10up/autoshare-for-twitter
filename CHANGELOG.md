@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.0.2] - 2020-03-12
+## Added
+- WP Acceptance tests (props [@johnwatkins0](https://github.com/johnwatkins0) via [#84](https://github.com/10up/autoshare-for-twitter/pull/84))
+
+## Changed
+- New and improved settings page UX (props [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul/), [@johnwatkins0](https://github.com/johnwatkins0), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#78](https://github.com/10up/autoshare-for-twitter/pull/78))
+
+## Fixed
+- Bug that caused posts to be inadvertently tweeted when switching from draft to publish (props [@johnwatkins0](https://github.com/johnwatkins0), [@rickalee](https://github.com/rickalee) via [#82](https://github.com/10up/autoshare-for-twitter/pull/82))
+- Build script in release process (props [@johnwatkins0](https://github.com/johnwatkins0) via [#77](https://github.com/10up/autoshare-for-twitter/pull/77))
+
 ## [1.0.1] - 2020-02-03
 ### Added
 - `autoshare_for_twitter_enabled_default` filter to allow autoshare to be enabled by default for a post type (props [@johnwatkins0](https://github.com/johnwatkins0), [@rickalee](https://github.com/rickalee), [@dinhtungdu](https://github.com/dinhtungdu) via [#71](https://github.com/10up/autoshare-for-twitter/pull/71))
@@ -35,6 +46,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/))
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/master...develop
+[1.0.2]: https://github.com/10up/autoshare-for-twitter/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/10up/autoshare-for-twitter/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/10up/autoshare-for-twitter/compare/1020035...1.0.0
 [0.1.0]: https://github.com/10up/autoshare-for-twitter/commit/1020035f2d4843221d996bd5f8fe39d9ee850b5d

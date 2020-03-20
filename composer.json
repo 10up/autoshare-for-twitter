@@ -1,7 +1,7 @@
 {
 	"name": "10up/autoshare-for-twitter",
 	"description": "",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"type": "wordpress-plugin",
 	"keywords": [],
 	"homepage": "https://10up.com",
@@ -9,7 +9,7 @@
 	"authors": [
 		{
 			"name": "10up",
-			"email": "scott.lee@10up.com",
+			"email": "opensource@10up.com",
 			"homepage": "https://10up.com",
 			"role": "Developer"
 		}
