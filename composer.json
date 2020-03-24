@@ -15,7 +15,6 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2",
 		"abraham/twitteroauth": "^0.7.4"
 	},
 	"require-dev": {
