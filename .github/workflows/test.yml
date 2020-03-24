@@ -48,7 +48,7 @@ jobs:
       uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v1
       with:
-        php-version: ${{ matrix.php }}
+        php-version: ${{ matrix.php-versions }}
         coverage: none
     - name: PHP version
       run: php --version
