@@ -46,6 +46,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: none
+    - name: PHP version
+      run: php --version
     - name: Install dependencies
       run: composer install
     - name: Run PHPCS
