@@ -53,7 +53,7 @@ jobs:
     - name: PHP version
       run: php --version
     - name: Install dependencies
-      run: composer install --ignore-platform-reqs
+      run: composer install
     - name: Run PHPCS
       if: matrix.php-versions == '7.3'
       run: composer run lint
