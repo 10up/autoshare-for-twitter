@@ -1,5 +1,3 @@
-PHP_VERSION=$1
-
 if [ '5.6' == $PHP_VERSION ]; then
     php -v
     rm composer.lock
