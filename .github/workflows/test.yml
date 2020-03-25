@@ -53,7 +53,7 @@ jobs:
         coverage: none
 
     - name: Test
-      uses: ./bin/test.sh
+      run: ./bin/test.sh
       env:
         PHP_VERSION: ${{ matrix.php-versions }}
     
