@@ -14,7 +14,7 @@ jobs:
     name: eslint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: install node v12
       uses: actions/setup-node@v1
       with:
@@ -41,28 +41,18 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     strategy:
       matrix:
-        php-versions: ['7.1', '7.2', '7.3']
+        php-versions: ['5.6', '7.0', 7.1', '7.2', '7.3']
     
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@v1
+    - name: Set PHP version
+      uses: shivammathur/setup-php@v1
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: none
     - name: PHP version
       run: php --version
-    - name: Install dependencies
-      run: composer install --ignore-platform-reqs
-    - name: Run PHPCS
-      if: matrix.php-versions == '7.3'
-      run: composer run lint
-    - name: Run PHPUnit
-      run: |
-        composer run setup-local-tests
-        composer test
-    - name: Run WP Acceptance
-      if: matrix.php-versions == '7.3' || matrix.php-versions == '7.2'
-      run: |
-        WP_SNAPSHOTS_DIR=${{ github.workspace }}/.wpsnapshots/ ./vendor/bin/wpsnapshots configure --aws_key=${{ secrets.AWS_ACCESS_KEY }} --aws_secret=${{ secrets.SECRET_ACCESS_KEY }} --user_name="wp-acceptance" --user_email=travis@10up.com 10up
-        ./vendor/bin/wpacceptance run
+    - name: Test
+      run: bin/test.sh ${{ matrix.php-versions }}
+    
