@@ -51,6 +51,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: none
+        extensions: mysql
 
     - name: Test
       run: ./bin/test.sh
