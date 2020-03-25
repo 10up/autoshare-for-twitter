@@ -1,4 +1,4 @@
-if [ '5.6' == $PHP_VERSION || '7.0' == $PHP_VERSION || '7.1' == $PHP_VERSION  ]; then
+if [[ '5.6' == $PHP_VERSION || '7.0' == $PHP_VERSION || '7.1' == $PHP_VERSION  ]]; then
     php -v
     rm composer.lock composer.json
     cp bin/composer-5.6.json composer.json
