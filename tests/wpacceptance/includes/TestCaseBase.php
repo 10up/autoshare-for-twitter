@@ -15,7 +15,7 @@ class TestCaseBase extends \WPAcceptance\PHPUnit\TestCase {
 	 * @param number $chars The length of the string to return.
 	 * @return string
 	 */
-	public function get_random_post_title( $chars = null ) : string {
+	public function get_random_post_title( $chars = null ) {
 		if ( is_null( $chars ) ) {
 			$chars = 25;
 		}
