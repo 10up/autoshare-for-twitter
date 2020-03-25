@@ -5,7 +5,6 @@ if [[ '5.6' == $PHP_VERSION || '7.0' == $PHP_VERSION || '7.1' == $PHP_VERSION  ]
     rm composer.lock composer.json
     cp bin/composer-5.6.json composer.json
     composer install
-    composer run lint
     composer run setup-local-tests
     composer run test
 fi;
