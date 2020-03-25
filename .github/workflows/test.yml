@@ -51,9 +51,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: none
-        extensions:
-          - mysql
-          - imagick
+        extensions: mysql, imagick
 
     - name: Test
       run: ./bin/test.sh
