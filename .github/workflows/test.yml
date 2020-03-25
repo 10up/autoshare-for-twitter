@@ -51,8 +51,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: none
-    - name: PHP version
-      run: php --version
+
     - name: Test
-      run: bin/test.sh ${{ matrix.php-versions }}
+      uses: ./bin/test.sh ${{ matrix.php-versions }}
     
