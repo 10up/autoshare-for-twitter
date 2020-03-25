@@ -1,3 +1,5 @@
+set -e
+
 if [[ '5.6' == $PHP_VERSION || '7.0' == $PHP_VERSION || '7.1' == $PHP_VERSION  ]]; then
     php -v
     rm composer.lock composer.json
