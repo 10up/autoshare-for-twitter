@@ -9,7 +9,10 @@
 namespace TenUp\AutoshareForTwitter\Tests;
 
 use \WP_UnitTestCase;
-use function TenUp\AutoshareForTwitter\Utils\{get_autoshare_for_twitter_meta, opted_into_autoshare_for_twitter, update_autoshare_for_twitter_meta, delete_autoshare_for_twitter_meta};
+use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
+use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
 
 /**

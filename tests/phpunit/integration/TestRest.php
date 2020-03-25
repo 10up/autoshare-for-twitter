@@ -10,11 +10,9 @@ namespace TenUp\AutoshareForTwitter\Tests;
 
 use WP_REST_Request;
 use WP_UnitTestCase;
-use function TenUp\AutoshareForTwitter\REST\{
-	post_autoshare_for_twitter_meta_rest_route,
-	update_post_autoshare_for_twitter_meta_permission_check,
-	update_post_autoshare_for_twitter_meta
-};
+use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
+use function TenUp\AutoshareForTwitter\REST\update_post_autoshare_for_twitter_meta_permission_check;
+use function TenUp\AutoshareForTwitter\REST\update_post_autoshare_for_twitter_meta;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 
