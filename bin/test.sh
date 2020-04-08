@@ -9,7 +9,7 @@ if [[ '5.6' == $PHP_VERSION || '7.0' == $PHP_VERSION || '7.1' == $PHP_VERSION  ]
     composer run test
 fi;
 
-if [[ '7.2' == $PHP_VERSION || '7.3' == $PHP_VERSION ]]; then
+if [[ '7.2' == $PHP_VERSION ]]; then
     php -v
     composer install
     composer run lint
