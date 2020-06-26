@@ -140,7 +140,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 
 	// If the enable key is not set, it should be turned off.
 	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
-		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
+		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = autoshare_enabled( $post_id ) ? 1 : 0;
 	}
 
 	foreach ( $data as $key => $value ) {
