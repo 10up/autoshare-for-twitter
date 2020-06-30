@@ -6,14 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.0.3] - TBD
+### Added
+- `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://github.com/rickalee) via [#99](https://github.com/10up/autoshare-for-twitter/pull/99))
+
+### Changed
+- Build, test, and release processes (props [@johnwatkins0](https://github.com/johnwatkins0), [@dinhtungdu](https://github.com/dinhtungdu) via [#96](https://github.com/10up/autoshare-for-twitter/pull/96), [#97](https://github.com/10up/autoshare-for-twitter/pull/97), [#98](https://github.com/10up/autoshare-for-twitter/pull/98), [#101](https://github.com/10up/autoshare-for-twitter/pull/101
+
+### Fixed
+- Enable autoshare meta always set to 0 when saving draft (props [@dinhtungdu](https://github.com/dinhtungdu), [@rickalee](https://github.com/rickalee) via [#103](https://github.com/10up/autoshare-for-twitter/pull/103))
+
 ## [1.0.2] - 2020-03-12
-## Added
+### Added
 - WP Acceptance tests (props [@johnwatkins0](https://github.com/johnwatkins0) via [#84](https://github.com/10up/autoshare-for-twitter/pull/84))
 
-## Changed
+### Changed
 - New and improved settings page UX (props [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul/), [@johnwatkins0](https://github.com/johnwatkins0), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#78](https://github.com/10up/autoshare-for-twitter/pull/78))
 
-## Fixed
+### Fixed
 - Bug that caused posts to be inadvertently tweeted when switching from draft to publish (props [@johnwatkins0](https://github.com/johnwatkins0), [@rickalee](https://github.com/rickalee) via [#82](https://github.com/10up/autoshare-for-twitter/pull/82))
 - Build script in release process (props [@johnwatkins0](https://github.com/johnwatkins0) via [#77](https://github.com/10up/autoshare-for-twitter/pull/77))
 
@@ -45,7 +55,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.1.0] - 2018-05-11
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/))
 
-[Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/master...develop
+[Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.0.3]: https://github.com/10up/autoshare-for-twitter/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/10up/autoshare-for-twitter/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/10up/autoshare-for-twitter/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/10up/autoshare-for-twitter/compare/1020035...1.0.0
