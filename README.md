@@ -36,7 +36,6 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
 ```
 
-
 ## Plugin Compatibility
 
 ### Distributor
@@ -52,8 +51,8 @@ add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 
 ## Requirements
 
--   PHP 7.0+
--   [WordPress](http://wordpress.org) 4.7+
+- PHP 7.0+
+- [WordPress](http://wordpress.org) 4.7+
 
 ## Installation
 
@@ -65,7 +64,7 @@ add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 
 ### Does this plugin work with Gutenberg?
 
-Yes, yes it does! For more details on this, see #44.
+Yes, yes it does! For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 ## Support Level
 
