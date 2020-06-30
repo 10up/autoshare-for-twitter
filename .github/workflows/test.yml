@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - master
+      - trunk
   pull_request:
     branches:
       - develop
@@ -28,7 +28,7 @@ jobs:
 
       with:
         job-name: eslint
-     
+
   test_php:
     runs-on: ubuntu-latest
     services:
@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3']
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
