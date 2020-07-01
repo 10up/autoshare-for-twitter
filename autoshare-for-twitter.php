@@ -3,7 +3,7 @@
  * Plugin Name:       Autoshare for Twitter
  * Description:       Automatically tweets the post title or custom message and a link to the post.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 4.7
  * Requires PHP:      7.0
  * Author:            10up
