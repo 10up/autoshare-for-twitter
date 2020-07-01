@@ -1,309 +1,40 @@
-# Copyright (C) 2020 10up
-# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Autoshare for Twitter 1.0.2\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/autoshare-for-twitter\n"
-"POT-Creation-Date: 2020-03-20 02:06:23+00:00\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"X-Generator: babel-plugin-makepot\n"
 
-#: includes/admin/assets.php:197
-msgid "Error"
-msgstr ""
-
-#: includes/admin/assets.php:202
-msgid "An unknown error occurred"
-msgstr ""
-
-#: includes/admin/post-meta.php:217 includes/admin/post-meta.php:270
-msgid "This post was not tweeted."
-msgstr ""
-
-#: includes/admin/post-meta.php:254
-#. Translators: Placeholder is a date.
-msgid "Tweeted on %s"
-msgstr ""
-
-#: includes/admin/post-meta.php:260
-msgid "Failed to tweet: "
-msgstr ""
-
-#: includes/admin/post-meta.php:294
-msgid "Tweeted on"
-msgstr ""
-
-#: includes/admin/post-meta.php:297
+#: src/js/AutoshareForTwitterPostStatusInfo.js:16
 msgid "View"
 msgstr ""
 
-#: includes/admin/post-meta.php:313
-msgid "Failed to tweet"
+#: src/js/AutoshareForTwitterPrePublishPanel.js:111
+msgid "Tweet this post?"
 msgstr ""
 
-#: includes/admin/post-meta.php:348
-msgid "Tweet this post"
+#: src/js/AutoshareForTwitterPrePublishPanel.js:131
+msgid "Custom message:"
 msgstr ""
 
-#: includes/admin/post-meta.php:349
+#: src/js/AutoshareForTwitterPrePublishPanel.js:146
+msgid "Hide"
+msgstr ""
+
+#: src/js/AutoshareForTwitterPrePublishPanel.js:146
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/post-meta.php:354
-msgid "Custom Message"
+#: src/js/AutoshareForTwitterPrePublishPanel.js:66
+msgid "An error occurred."
 msgstr ""
 
-#: includes/admin/post-transition.php:144
-msgid "Something happened during Twitter update."
+#: src/js/index.js:32
+msgid "Enabled"
 msgstr ""
 
-#: includes/admin/post-transition.php:180
-msgid "This post was not published to Twitter."
+#: src/js/index.js:32
+msgid "Disabled"
 msgstr ""
 
-#: includes/admin/settings.php:33 includes/admin/settings.php:368
-msgid "Autoshare for Twitter Settings"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Autoshare for Twitter"
-msgstr ""
-
-#: includes/admin/settings.php:61
-msgid "Enable Autoshare for"
-msgstr ""
-
-#: includes/admin/settings.php:68
-msgid "All content types"
-msgstr ""
-
-#: includes/admin/settings.php:69
-msgid "Selected content types only"
-msgstr ""
-
-#: includes/admin/settings.php:93
-msgid "Enable by default"
-msgstr ""
-
-#: includes/admin/settings.php:99
-msgid "Enable Autoshare by default when publishing content"
-msgstr ""
-
-#: includes/admin/settings.php:106
-msgid "Image setting"
-msgstr ""
-
-#: includes/admin/settings.php:112
-msgid "Always add the featured image to tweets"
-msgstr ""
-
-#: includes/admin/settings.php:120
-msgid "Twitter connection settings"
-msgstr ""
-
-#: includes/admin/settings.php:128
-msgid "API key"
-msgstr ""
-
-#: includes/admin/settings.php:135
-msgid "paste your API key here"
-msgstr ""
-
-#: includes/admin/settings.php:142
-msgid "API secret"
-msgstr ""
-
-#: includes/admin/settings.php:149
-msgid "paste your API secret key here"
-msgstr ""
-
-#: includes/admin/settings.php:156
-msgid "Access token"
-msgstr ""
-
-#: includes/admin/settings.php:163 includes/admin/settings.php:177
-msgid "paste your Access token secret here"
-msgstr ""
-
-#: includes/admin/settings.php:170
-msgid "Access secret"
-msgstr ""
-
-#: includes/admin/settings.php:184
-msgid "Twitter handle"
-msgstr ""
-
-#: includes/admin/settings.php:190
-msgid "enter your Twitter handle here"
-msgstr ""
-
-#: includes/admin/settings.php:304
-msgid "Twitter Settings"
-msgstr ""
-
-#: includes/admin/settings.php:320
-msgid "Open connection settings"
-msgstr ""
-
-#: includes/admin/settings.php:323
-msgid "Close connection settings"
-msgstr ""
-
-#: includes/admin/settings.php:328
-msgid "1. Apply for a Twitter developer account"
-msgstr ""
-
-#: includes/admin/settings.php:329
-msgid "2. Create a Twitter app for your website"
-msgstr ""
-
-#: includes/admin/settings.php:331
-msgid "Click the <code>Create an app</code> button on the"
-msgstr ""
-
-#: includes/admin/settings.php:331
-msgid "Twitter develop apps page."
-msgstr ""
-
-#: includes/admin/settings.php:331
-msgid "Twitter developer apps page."
-msgstr ""
-
-#: includes/admin/settings.php:332
-msgid ""
-"Fill out the <code>App name</code> and <code>Application description</code> "
-"fields."
-msgstr ""
-
-#: includes/admin/settings.php:333
-msgid ""
-"Set the <code>Website URL</code> and <code>Callback URLs</code> fields to "
-"https://yourdomain.yourdomainextension."
-msgstr ""
-
-#: includes/admin/settings.php:334
-msgid ""
-"Fill out the <code>Tell us how this app will be used</code> field. No other "
-"fields or URLs are required or necessary."
-msgstr ""
-
-#: includes/admin/settings.php:336
-msgid "3. Configure access to your Twitter app API keys"
-msgstr ""
-
-#: includes/admin/settings.php:338
-msgid ""
-"Click on the <code>Keys and tokens</code> tab within your newly created "
-"Twitter developer app."
-msgstr ""
-
-#: includes/admin/settings.php:339
-msgid ""
-"Copy the <code>API key</code> and <code>API secret key</code> values from "
-"your Twitter app <code>Consumer API keys</code> section and paste them "
-"below."
-msgstr ""
-
-#: includes/admin/settings.php:341
-msgid "4. Configure access to your Twitter app access tokens"
-msgstr ""
-
-#: includes/admin/settings.php:343
-msgid ""
-"Click on the <code>Generate</code> button from your Twitter app "
-"<code>Access token & access token secret</code> section."
-msgstr ""
-
-#: includes/admin/settings.php:344
-msgid ""
-"Copy the <code>Access token</code> and <code>Access token secret</code> "
-"values and paste them below."
-msgstr ""
-
-#: includes/admin/settings.php:346
-msgid "5. Confirm Twitter handle"
-msgstr ""
-
-#: includes/admin/settings.php:348
-msgid ""
-"Fill out your Twitter handle that will be used to tweet your posts, pages, "
-"etc."
-msgstr ""
-
-#: includes/admin/settings.php:350
-msgid "6. Connect your Twitter developer app with this site"
-msgstr ""
-
-#: includes/admin/settings.php:352
-msgid "Click the <code>Save Changes</code> button below."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "10up"
-msgstr ""
-
-#: includes/admin/settings.php:380
-msgid "10up logo"
-msgstr ""
-
-#: includes/admin/settings.php:384
-msgid "by"
-msgstr ""
-
-#: includes/admin/settings.php:388 includes/admin/settings.php:389
-msgid "FAQs"
-msgstr ""
-
-#: includes/admin/settings.php:391 includes/admin/settings.php:392
-msgid "Support"
-msgstr ""
-
-#: includes/admin/settings.php:413
-#. translators: %s is the plugin setting page URL
-msgid "<a href=\"%s\">Settings</a>"
-msgstr ""
-
-#: includes/admin/settings.php:419
-#. translators: %s is the plugin setting page URL
-msgid "<a href=\"%s\">Set up your Twitter account</a>"
-msgstr ""
-
-#: includes/rest.php:67
-msgid "Unique identifier for the object."
-msgstr ""
-
-#: includes/rest.php:74
-msgid "Tweet text, if overriding the default"
-msgstr ""
-
-#: includes/rest.php:81
-msgid "Whether autoshare is enabled for the current post"
-msgstr ""
-
-#: includes/rest.php:128
-msgid "Autoshare enabled."
-msgstr ""
-
-#: includes/rest.php:129
-msgid "Autoshare disabled."
-msgstr ""
-
-#: includes/rest.php:157
-msgid "Autoshare status message"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Automatically tweets the post title or custom message and a link to the "
-"post."
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://10up.com"
+#: src/js/index.js:46
+msgid "Autoshare:"
 msgstr ""

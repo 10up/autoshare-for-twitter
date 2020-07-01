@@ -123,6 +123,7 @@ class TestPostMeta extends WP_UnitTestCase {
 	 * @return array
 	 */
 	public function save_autoshare_for_twitter_meta_data_provider() {
+		add_filter( 'autoshare_for_twitter_enabled_default', '__return_false', 20 );
 		return [
 			[
 				// Test autoshare is disabled when no data is passed.
