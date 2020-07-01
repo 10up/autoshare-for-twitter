@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'AUTOSHARE_FOR_TWITTER', __FILE__ );
-define( 'AUTOSHARE_FOR_TWITTER_VERSION', '1.0.2' );
+define( 'AUTOSHARE_FOR_TWITTER_VERSION', '1.0.3' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
