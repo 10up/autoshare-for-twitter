@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://github.com/rickalee) via [#99](https://github.com/10up/autoshare-for-twitter/pull/99))
 
 ### Changed
+- Bumped WordPress version support to 5.4.2 (props [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul/) via [#106](https://github.com/10up/autoshare-for-twitter/pull/106))
 - Build, test, and release processes (props [@johnwatkins0](https://github.com/johnwatkins0), [@dinhtungdu](https://github.com/dinhtungdu) via [#96](https://github.com/10up/autoshare-for-twitter/pull/96), [#97](https://github.com/10up/autoshare-for-twitter/pull/97), [#98](https://github.com/10up/autoshare-for-twitter/pull/98), [#101](https://github.com/10up/autoshare-for-twitter/pull/101))
 
 ### Fixed
