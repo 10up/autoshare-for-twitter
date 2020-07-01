@@ -2,7 +2,7 @@
 
 > Automatically tweets the post title or custom message and a link to the post.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.3%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.4%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
 
 ## Overview
 
@@ -21,7 +21,7 @@ add_action( 'init', 'opt_my_cpt_into_autoshare' );
 
 In addition, adding support while registering custom post types also works. Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
 
-While the autoshare feature can be opted into for post types using the above filter, by default the editor still has to manually enable autoshare during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autoshare to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow. 
+While the autoshare feature can be opted into for post types using the above filter, by default the editor still has to manually enable autoshare during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autoshare to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow.
 
 Example:
 
