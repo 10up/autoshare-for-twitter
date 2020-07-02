@@ -1,14 +1,9 @@
 # Directories
-/.wordpress-org
 /.git
 /.github
-/.babelrc
-/.eslintignore
-/phpcs.xml
-/node_modules
-/tests
+/.wordpress-org
 /bin
-/phpunit.xml
+/tests
 
 # Files
 .babelrc
@@ -18,15 +13,16 @@
 .gitignore
 CHANGELOG.md
 CODE_OF_CONDUCT.md
+composer.json
+composer.lock
 CONTRIBUTING.md
 CREDITS.md
 LICENSE.md
-README.md
-composer.json
-composer.lock
 package-lock.json
 package.json
 phpcs.xml
 phpunit.xml
+README.md
 webpack.config.js
 webpack.gutenberg.config.js
+wpacceptance.json
