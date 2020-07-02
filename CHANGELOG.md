@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [1.0.3] - TBD
+## [1.0.3] - 2020-07-01
 ### Added
 - `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://github.com/rickalee) via [#99](https://github.com/10up/autoshare-for-twitter/pull/99))
 
