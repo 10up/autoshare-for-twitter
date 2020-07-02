@@ -6,7 +6,6 @@
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
 		"build": "webpack -p --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
-		"makepot": "wpi18n makepot --domain-path languages && echo '.pot file updated'",
 		"lint": "eslint ."
 	},
 	"husky": {
@@ -36,7 +35,6 @@
 		"@babel/core": "^7.6.0",
 		"@babel/preset-env": "^7.6.0",
 		"@babel/preset-react": "^7.0.0",
-		"@wordpress/babel-plugin-makepot": "^3.2.0",
 		"@wordpress/eslint-plugin": "^3.0.0",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
