@@ -3,7 +3,9 @@
 /.github
 /.wordpress-org
 /bin
+/node_modules
 /tests
+/vendor
 
 # Files
 .babelrc
@@ -18,8 +20,8 @@ composer.lock
 CONTRIBUTING.md
 CREDITS.md
 LICENSE.md
-package-lock.json
 package.json
+package-lock.json
 phpcs.xml
 phpunit.xml
 README.md
