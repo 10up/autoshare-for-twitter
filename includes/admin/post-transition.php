@@ -41,6 +41,13 @@ function setup() {
  */
 function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/**
+	 * Add filter to return early based on post or status
+	 */
+	if ( apply_filters( 'autoshare_for_twitter_disable_on_transition_post_status', false, $post, $old_status, $new_status ) ) {
+		return;
+	}
+
+	/**
 	 * We're only interested in posts that are transitioning into publish.
 	 */
 	if ( 'publish' !== $new_status || 'publish' === $old_status ) {

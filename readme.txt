@@ -2,9 +2,9 @@
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
 Requires at least: 4.7
-Tested up to:      5.3.2
+Tested up to:      5.4.2
 Requires PHP:      7.0
-Stable tag:        1.0.2
+Stable tag:        1.0.3
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -31,6 +31,12 @@ Automatically tweets the post title or custom message and a link to the post.
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
+
+= 1.0.3 =
+* **Added:** `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://profiles.wordpress.org/rickalee))
+* **Changed:** Bumped WordPress version support to 5.4.2 (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/))
+* **Changed:** Build, test, and release processes (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu))
+* **Fixed:*# Enable autoshare meta always set to 0 when saving draft (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@rickalee](https://profiles.wordpress.org/rickalee))
 
 = 1.0.2 =
 * **Added:** WP Acceptance tests (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))

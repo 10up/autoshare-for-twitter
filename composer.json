@@ -1,11 +1,10 @@
 {
 	"name": "10up/autoshare-for-twitter",
-	"description": "",
-	"version": "1.0.2",
+	"description": "Automatically tweets the post title or custom message and a link to the post.",
 	"type": "wordpress-plugin",
 	"keywords": [],
 	"homepage": "https://10up.com",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "10up",
@@ -15,7 +14,6 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2",
 		"abraham/twitteroauth": "^0.7.4"
 	},
 	"require-dev": {

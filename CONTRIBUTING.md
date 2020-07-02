@@ -24,23 +24,22 @@ For more on how 10up writes and manages code, check out our [10up Engineering Be
 
 ## Workflow
 
-The `develop` branch is the development branch which means it contains the next version to be released. `stable` contains the current latest release and `master` contains the corresponding stable development version. Always work on the `develop` branch and open up PRs against `develop`.
+The `develop` branch is the development branch which means it contains the next version to be released. `stable` contains the current latest release and `trunk` contains the corresponding stable development version. Always work on the `develop` branch and open up PRs against `develop`.
 
 ## Release instructions
 
 1. Branch: Starting from `develop`, cut a release branch named `release/X.Y.Z` for your changes.
-2. Version bump: Bump the version number in `autoshare-for-twitter.php`, `readme.txt`, `composer.json`, `package-lock.json`, and `package.json` if it does not already reflect the version being released.
-3. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`.
-4. Props: update `CREDITS.md` with any new contributors, confirm maintainers are accurate.
-5. Translations: Update the `.pot` file by running `npm run makepot`.
-6. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.distignore`.
-7. Readme updates: Make any other readme changes as necessary. `CHANGELOG.md` and `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content. The two are slightly different.
-8. Merge: Make a non-fast-forward merge from your release branch to `develop` (or merge the pull request), then do the same for `develop` into `master` (`git checkout master && git merge --no-ff develop`). `master` contains the stable development version.
-9. Push: Push your `master` branch to GitHub (e.g. `git push origin master`).
-10. [Wait for build](https://xkcd.com/303/): Head to the [Actions](https://github.com/10up/autoshare-for-twitter/actions) tab in the repo and wait for it to finish if it hasn't already. If it doesn't succeed, figure out why and start over.
-11. Check the build: Check out the `stable` branch and test for functionality locally.
-12. Release: Create a [new release](https://github.com/10up/autoshare-for-twitter/releases/new), naming the tag and the release with the new version number, and targeting the `stable` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the closed issues on the [1.0.1 milestone](https://github.com/10up/autoshare-for-twitter/milestone/3?closed=1).
-13. SVN: Wait for the [GitHub Action](https://github.com/10up/autoshare-for-twitter/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
-14. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/autoshare-for-twitter/. This may take a few minutes.
-15. Close the milestone: Edit the [X.Y.Z milestone](https://github.com/10up/autoshare-for-twitter/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close the milestone.
-16. Punt incomplete items: If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X+1.0.0`, `X.Y+1.0`, `X.Y.Z+1`, or `Future Release`
+1. Version bump: Bump the version number in `autoshare-for-twitter.php`, `readme.txt`, `package-lock.json`, and `package.json` if it does not already reflect the version being released.
+1. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`.
+1. Props: update `CREDITS.md` with any new contributors, confirm maintainers are accurate.
+1. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.distignore`.
+1. Readme updates: Make any other readme changes as necessary.  `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content.  The two are slightly different.
+1. Merge: Make a non-fast-forward merge from your release branch to `develop` (or merge the pull request), then do the same for `develop` into `trunk` (`git checkout trunk && git merge --no-ff develop`). `trunk` contains the stable development version.
+1. Push: Push your `trunk` branch to GitHub (e.g. `git push origin trunk`).
+1. [Wait for build](https://xkcd.com/303/): Head to the [Actions](https://github.com/10up/autoshare-for-twitter/actions) tab in the repo and wait for it to finish if it hasn't already. If it doesn't succeed, figure out why and start over.
+1. Check the build: Check out the `stable` branch and test for functionality locally.
+1. Release: Create a [new release](https://github.com/10up/autoshare-for-twitter/releases/new), naming the tag and the release with the new version number, and targeting the `stable` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the [closed issues on the milestone](https://github.com/10up/autoshare-for-twitter/milestone/3?closed=1).
+1. SVN: Wait for the [GitHub Action](https://github.com/10up/autoshare-for-twitter/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
+1. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/autoshare-for-twitter/. This may take a few minutes.
+1. Close the milestone: Edit the [milestone](https://github.com/10up/autoshare-for-twitter/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close the milestone.
+1. Punt incomplete items: If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X+1.0.0`, `X.Y+1.0`, `X.Y.Z+1`, or `Future Release`
