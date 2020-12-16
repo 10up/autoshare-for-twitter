@@ -69,10 +69,15 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 			}
 		);
 	} else {
-		// Ensure Autoshare-related form data is saved before reaching the publish_tweet step.
-		// This will already have been done in REST because post data is updated before transition post status.
-		save_tweet_meta( $post->ID );
-		publish_tweet( $post->ID );
+		add_action(
+			'save_post',
+			function ( $post_id ) {
+				// Ensure Autoshare-related form data is saved before reaching the publish_tweet step.
+				// This will already have been done in REST because post data is updated before transition post status.
+				save_tweet_meta( $post_id );
+				publish_tweet( $post_id );
+			}
+		);
 	}
 }
 
