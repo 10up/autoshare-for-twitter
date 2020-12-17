@@ -20,7 +20,7 @@ use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
  * @return void
  */
 function setup() {
-	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_publish_tweet', 10, 3 );
+	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_publish_tweet', 19, 3 );
 }
 
 /**
