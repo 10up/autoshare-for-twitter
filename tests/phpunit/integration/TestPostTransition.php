@@ -83,7 +83,7 @@ class TestPostTransition extends WP_UnitTestCase {
 		$expected_should_tweet
 	) {
 		global $wp_filter;
-		$the_post                   = $this->factory->post->create_and_get( $post_args );
+		$the_post = $this->factory->post->create_and_get( $post_args );
 
 		$hooks = count( $wp_filter['save_post']->callbacks[10] );
 		maybe_publish_tweet( $new_status, $old_status, $the_post );
