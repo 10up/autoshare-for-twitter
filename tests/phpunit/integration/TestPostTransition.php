@@ -41,7 +41,6 @@ class TestPostTransition extends WP_UnitTestCase {
 			[
 				// Post transitioning from publish to draft should not tweet.
 				[ 'post_status' => 'publish' ],
-				'1',
 				'draft',
 				'publish',
 				false,
@@ -49,7 +48,6 @@ class TestPostTransition extends WP_UnitTestCase {
 			[
 				// Already-published post should not tweet.
 				[ 'post_status' => 'publish' ],
-				'1',
 				'publish',
 				'publish',
 				false,
@@ -61,18 +59,9 @@ class TestPostTransition extends WP_UnitTestCase {
 					'post_title'  => 'TEST',
 					'post_author' => 1,
 				],
-				'1',
 				'publish',
 				'draft',
 				true,
-			],
-			[
-				// Post transitioning from draft to publish should not tweet if autotweet is not true.
-				[ 'post_status' => 'draft' ],
-				'0',
-				'publish',
-				'draft',
-				false,
 			],
 		];
 	}
@@ -83,45 +72,28 @@ class TestPostTransition extends WP_UnitTestCase {
 	 * @dataProvider maybe_publish_tweet_provider
 	 *
 	 * @param array   $post_args Args to pass to the create post function.
-	 * @param boolean $autoshare_enabled_form_data Updated autoshare enabled meta value.
 	 * @param string  $new_status The new post status.
 	 * @param string  $old_status The old post status.
 	 * @param boolean $expected_should_tweet Whether the post should be tweeted.
 	 */
 	public function test_maybe_publish_tweet(
 		$post_args,
-		$autoshare_enabled_form_data,
 		$new_status,
 		$old_status,
 		$expected_should_tweet
 	) {
+		global $wp_filter;
 		$the_post                   = $this->factory->post->create_and_get( $post_args );
-		$post_was_tweeted           = false;
-		$pre_status_update_callback = function() use ( &$post_was_tweeted ) {
-			$post_was_tweeted = true;
 
-			// Minimum valid response.
-			return (object) [
-				'id'         => 1,
-				'created_at' => time(),
-			];
-		};
-		add_filter( 'autoshare_for_twitter_pre_status_update', $pre_status_update_callback );
-
-		$post_form_data_callback = function() use ( $autoshare_enabled_form_data ) {
-			return [ ENABLE_AUTOSHARE_FOR_TWITTER_KEY => $autoshare_enabled_form_data ];
-		};
-		add_filter( 'autoshare_post_form_data', $post_form_data_callback );
-
+		$hooks = count( $wp_filter['save_post']->callbacks[10] );
 		maybe_publish_tweet( $new_status, $old_status, $the_post );
+		$new_hooks = count( $wp_filter['save_post']->callbacks[10] );
 
 		if ( $expected_should_tweet ) {
-			$this->assertTrue( $post_was_tweeted );
+			$this->assertGreaterThan( $hooks, $new_hooks );
 		} else {
-			$this->assertFalse( $post_was_tweeted );
+			$this->assertEquals( $hooks, $new_hooks );
 		}
 
-		remove_filter( 'autoshare_for_twitter_pre_status_update', $pre_status_update_callback );
-		remove_filter( 'autoshare_post_form_data', $post_form_data_callback );
 	}
 }
