@@ -52,6 +52,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         coverage: none
         extensions: mysql, imagick
+        tools: composer:v1
 
     - name: Test
       run: ./bin/test.sh
