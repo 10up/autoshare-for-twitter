@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3953c2ef2dd2ff5e68c1771568bf9eb",
+    "content-hash": "98377a5007957173cffa3a23e1878f5d",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -64,16 +64,16 @@
     "packages-dev": [
         {
             "name": "10up/wpacceptance",
-            "version": "dev-master",
+            "version": "0.16.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/10up/wpacceptance.git",
-                "reference": "9a7b254cc66c8766dc1b752daf33a9033d910562"
+                "reference": "1997d91d6f51a2758f295cf0d00663dba0179f28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/9a7b254cc66c8766dc1b752daf33a9033d910562",
-                "reference": "9a7b254cc66c8766dc1b752daf33a9033d910562",
+                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/1997d91d6f51a2758f295cf0d00663dba0179f28",
+                "reference": "1997d91d6f51a2758f295cf0d00663dba0179f28",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "testing",
                 "wordpress"
             ],
-            "time": "2021-01-15T17:36:49+00:00"
+            "time": "2020-08-10T15:55:29+00:00"
         },
         {
             "name": "10up/wpinstructions",
@@ -537,6 +537,7 @@
                 "MIT"
             ],
             "description": "A Docker PHP client",
+            "abandoned": true,
             "time": "2019-10-25T18:36:58+00:00"
         },
         {
@@ -4713,9 +4714,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "10up/wpacceptance": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
