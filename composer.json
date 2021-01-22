@@ -20,7 +20,7 @@
 		"phpunit/phpunit": "^7.5",
 		"wp-coding-standards/wpcs": "^2.2",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-		"10up/wpacceptance": "0.16.8"
+		"10up/wpacceptance": "dev-master"
 	},
 	"scripts": {
 		"test": "phpunit",

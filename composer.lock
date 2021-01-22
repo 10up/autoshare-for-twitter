@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98377a5007957173cffa3a23e1878f5d",
+    "content-hash": "a3953c2ef2dd2ff5e68c1771568bf9eb",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -64,16 +64,16 @@
     "packages-dev": [
         {
             "name": "10up/wpacceptance",
-            "version": "0.16.8",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/10up/wpacceptance.git",
-                "reference": "1997d91d6f51a2758f295cf0d00663dba0179f28"
+                "reference": "9a7b254cc66c8766dc1b752daf33a9033d910562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/1997d91d6f51a2758f295cf0d00663dba0179f28",
-                "reference": "1997d91d6f51a2758f295cf0d00663dba0179f28",
+                "url": "https://api.github.com/repos/10up/wpacceptance/zipball/9a7b254cc66c8766dc1b752daf33a9033d910562",
+                "reference": "9a7b254cc66c8766dc1b752daf33a9033d910562",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "testing",
                 "wordpress"
             ],
-            "time": "2020-08-10T15:55:29+00:00"
+            "time": "2021-01-15T17:36:49+00:00"
         },
         {
             "name": "10up/wpinstructions",
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/10up/wpsnapshots.git",
-                "reference": "5237780a22f4459603dbfdda92699fd57f6a56ce"
+                "reference": "4e5a8444cb531e094896ecf1fdcb8e6f3bb5cbc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/10up/wpsnapshots/zipball/5237780a22f4459603dbfdda92699fd57f6a56ce",
-                "reference": "5237780a22f4459603dbfdda92699fd57f6a56ce",
+                "url": "https://api.github.com/repos/10up/wpsnapshots/zipball/4e5a8444cb531e094896ecf1fdcb8e6f3bb5cbc7",
+                "reference": "4e5a8444cb531e094896ecf1fdcb8e6f3bb5cbc7",
                 "shasum": ""
             },
             "require": {
@@ -223,7 +223,7 @@
                 "snapshots",
                 "wordpress"
             ],
-            "time": "2020-08-06T20:32:17+00:00"
+            "time": "2021-01-22T15:49:45+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
@@ -4616,12 +4616,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "9c89b265ccc4092d58e66d72af5d343ee77a41ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/9c89b265ccc4092d58e66d72af5d343ee77a41ae",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9c89b265ccc4092d58e66d72af5d343ee77a41ae",
                 "reference": "9c89b265ccc4092d58e66d72af5d343ee77a41ae",
                 "shasum": ""
             },
@@ -4714,7 +4714,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "10up/wpacceptance": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
