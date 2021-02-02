@@ -102,3 +102,22 @@ span.near-limit {
 span.over-limit {
 	color: red;
 }
+
+/* Styling for post columns */
+.fixed .column-is_tweeted {
+	width: 30px;
+}
+
+.autoshare-for-twitter-status-logo::before {
+	background-image: url('../images/twitter_black.svg');
+	background-repeat: no-repeat;
+	background-size: 25px 25px;
+	content: ' ';
+	display: block;
+	height: 25px;
+	width: 25px;
+}
+
+.autoshare-for-twitter-status-logo:hover::before {
+	background-image: url('../images/twitter_blue.svg');
+}
