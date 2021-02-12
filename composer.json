@@ -14,7 +14,7 @@
 		}
 	],
 	"require": {
-		"abraham/twitteroauth": "^0.7.4"
+		"abraham/twitteroauth": "1.2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7.5",
