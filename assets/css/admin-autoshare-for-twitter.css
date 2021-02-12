@@ -113,6 +113,10 @@ span.over-limit {
 	padding: 0;
 }
 
+.fixed .column-is_tweeted a:focus {
+	box-shadow: unset;
+}
+
 .autoshare-for-twitter-status-logo::before {
 	background-image: url('../images/twitter_black.svg');
 	background-repeat: no-repeat;
