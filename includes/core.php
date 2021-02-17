@@ -135,7 +135,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		printf(
 			'<a href="' . esc_url( $twitter_url ) . '" target="_blank" title="' . esc_attr( $tweet_title ) . '">
 						<span class="autoshare-for-twitter-status-logo allow-hover"></span>
-					</a>',
+					</a>'
 		);
 	}
 }
