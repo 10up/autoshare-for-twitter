@@ -106,7 +106,7 @@ span.over-limit {
 /* Styling for post columns */
 .fixed .column-is_tweeted {
 	width: 50px;
-	padding: 15px 0;
+	vertical-align: middle;
 }
 
 .fixed .column-is_tweeted a {
@@ -127,6 +127,6 @@ span.over-limit {
 	width: 25px;
 }
 
-.autoshare-for-twitter-status-logo.allow-hover:hover::before {
+tbody .autoshare-for-twitter-status-logo:hover::before {
 	background-image: url('../images/twitter_blue.svg');
 }
