@@ -51,7 +51,7 @@ add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 
 ## Requirements
 
-- PHP 7.0+
+- PHP 7.2+
 - [WordPress](http://wordpress.org) 4.7+
 
 ## Installation
