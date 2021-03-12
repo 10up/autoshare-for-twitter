@@ -26,6 +26,12 @@ class TestPostTransition extends WP_UnitTestCase {
 	 * Setup.
 	 */
 	public function setUp() {
+		$this->assertTrue(
+			check_method_exists(
+				'transition_post_status',
+				'TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet'
+			)
+		);
 		wp_set_current_user( 1 );
 
 		parent::setUp();
