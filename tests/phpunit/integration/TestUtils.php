@@ -9,10 +9,14 @@
 namespace TenUp\AutoshareForTwitter\Tests;
 
 use \WP_UnitTestCase;
+use function TenUp\AutoshareForTwitter\Core\set_post_type_supports_with_custom_columns;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
+use function TenUp\AutoshareForTwitter\Utils\get_available_post_types;
+use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_settings;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
 
 /**
@@ -77,5 +81,45 @@ class TestUtils extends WP_UnitTestCase {
 		$other_post = $this->factory->post->create( compact( 'post_type' ) );
 
 		$this->assertFalse( opted_into_autoshare_for_twitter( $other_post ) );
+	}
+
+	/**
+	 * Tests the autoshare_enabled function.
+	 *
+	 * @since 1.1.0
+	 */
+	public function test_autoshare_enabled() {
+		$post = $this->factory->post->create();
+
+		$authoshare_enabled = function( $enabled, $post_type, $id ) use ( $post ) {
+			if ( intval( $post ) === intval( $id ) ) {
+				return true;
+			}
+
+			return true;
+		};
+		add_filter( 'autoshare_for_twitter_enabled_default', $authoshare_enabled, 99, 3 );
+		$this->assertTrue( autoshare_enabled( $post ) );
+		remove_filter( 'autoshare_for_twitter_enabled_default', $authoshare_enabled, 99 );
+
+		$post_type  = register_non_default_post_type();
+		$other_post = $this->factory->post->create( compact( 'post_type' ) );
+		$this->assertFalse( autoshare_enabled( $other_post ) );
+	}
+
+	/**
+	 * Tests the get_autoshare_for_twitter_settings function.
+	 *
+	 * @since 1.1.0
+	 */
+	public function test_get_autoshare_for_twitter_settings() {
+		// Test that posts and pages support the feature by default, but not other post types.
+		reset_post_type_support();
+		set_post_type_supports_with_custom_columns();
+
+		$support_post_types = get_available_post_types();
+		$default_settings = get_autoshare_for_twitter_settings();
+
+		$this->assertTrue( empty( array_diff( $default_settings['post_types'], $support_post_types ) ) );
 	}
 }
