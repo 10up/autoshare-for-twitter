@@ -141,7 +141,8 @@ class TestRest extends WP_UnitTestCase {
 			$this->assertTrue(
 				in_array(
 					'autoshare_for_twitter_status',
-					array_keys( $wp_rest_additional_fields[ $supported_post_type ] )
+					array_keys( $wp_rest_additional_fields[ $supported_post_type ] ),
+					true
 				)
 			);
 		}

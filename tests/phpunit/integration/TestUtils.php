@@ -118,7 +118,7 @@ class TestUtils extends WP_UnitTestCase {
 		set_post_type_supports_with_custom_columns();
 
 		$support_post_types = get_available_post_types();
-		$default_settings = get_autoshare_for_twitter_settings();
+		$default_settings   = get_autoshare_for_twitter_settings();
 
 		$this->assertTrue( empty( array_diff( $default_settings['post_types'], $support_post_types ) ) );
 	}
