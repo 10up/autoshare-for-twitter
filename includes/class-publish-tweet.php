@@ -165,7 +165,6 @@ class Publish_Tweet {
 		return apply_filters( 'autoshare_for_twitter_max_image_size', 5000000 ); // 5MB default.
 	}
 
-
 	/**
 	 * Retrieves the URL of the largest version of an attachment image accepted by the ComputerVision service.
 	 *

@@ -33,3 +33,53 @@ function reset_post_type_support( $feature_to_reset = POST_TYPE_SUPPORT_FEATURE 
 		unset( $post_type[ $feature_to_reset ] );
 	}
 }
+
+/**
+ * Check if added method to a hook exists.
+ *
+ * @param string $hook                 Name of the hook.
+ * @param string $function_method_name Name of method.
+ *
+ * @return bool
+ */
+function check_method_exists( $hook = '', $function_method_name = '' ) {
+	global $wp_filter;
+
+	if ( empty( $hook ) || empty( $function_method_name ) ) {
+		return false;
+	}
+
+	if ( ! isset( $wp_filter[ $hook ]->callbacks ) ) {
+		return false;
+	}
+
+	foreach ( $wp_filter[ $hook ]->callbacks as $key => $callbacks ) {
+		if ( ! is_array( $callbacks ) ) {
+			return false;
+		}
+
+		foreach ( $callbacks as $callback ) {
+			if ( $callback['function'] === $function_method_name ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Get final values of a given filter.
+ *
+ * @param string $hook          Name of the hook.
+ * @param string $default_value Default hook return value.
+ *
+ * @return mixed
+ */
+function get_filter_applied_value( $hook = '', $default_value = '' ) {
+	if ( empty( $hook ) ) {
+		return false;
+	}
+
+	return apply_filters( $hook, $default_value );
+}
