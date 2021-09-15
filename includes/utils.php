@@ -174,6 +174,7 @@ function compose_tweet_body( \WP_Post $post ) {
 	$url               = esc_url( $url );
 	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.
 	$tweet_body        = sanitize_text_field( $tweet_body );
+	$tweet_body        = html_entity_decode( $tweet_body, ENT_QUOTES, get_bloginfo( 'charset' ) );
 	$tweet_body_length = strlen( $tweet_body );
 	$ellipsis          = ''; // Initialize as empty. Will be set if the tweet body is too long.
 

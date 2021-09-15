@@ -2,9 +2,9 @@
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
 Requires at least: 4.7
-Tested up to:      5.4.2
-Requires PHP:      7.0
-Stable tag:        1.0.5
+Tested up to:      5.8
+Requires PHP:      7.2
+Stable tag:        1.0.3
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -15,8 +15,6 @@ Automatically tweets the post title or custom message and a link to the post.
 Automatically tweets the post title or custom message and a link to the post.
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
-
-**Note:** Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
 
 == Manual Installation ==
 
