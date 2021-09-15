@@ -4,13 +4,13 @@ The following acknowledges the Maintainers for this repository, those who have C
 
 The following individuals are responsible for curating the list of issues, responding to pull requests, and ensuring regular releases happen.
 
-[John Watkins (@johnwatkins0)](https://github.com/johnwatkins0), [Adam Silverstein (@adamsilverstein)](https://github.com/adamsilverstein), and [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul).
+[John Watkins (@johnwatkins0)](https://github.com/johnwatkins0), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul).
 
 ## Contributors
 
 Thank you to all the people who have already contributed to this repository via bug reports, code, design, ideas, project management, translation, testing, etc.
 
-[Adam Silverstein (@adamsilverstein)](https://github.com/adamsilverstein), [John Watkins (@johnwatkins0)](https://github.com/johnwatkins0), [Scott Lee (@scottlee)](https://github.com/scottlee), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul), [Stephanie Campbell (@sncampbell)](https://github.com/sncampbell), [Ryan Welcher (@ryanwelcher)](https://github.com/ryanwelcher), [Ricky Lee Whittemore (@rickalee)](https://github.com/rickalee), [Tung Du (@dinhtungdu)](https://github.com/dinhtungdu), [Lina Wiezkowiak (@linawiezkowiak)](https://github.com/linawiezkowiak), [Oszkar Nagy (@oszkarnagy)](https://github.com/oszkarnagy).
+[Adam Silverstein (@adamsilverstein)](https://github.com/adamsilverstein), [John Watkins (@johnwatkins0)](https://github.com/johnwatkins0), [Scott Lee (@scottlee)](https://github.com/scottlee), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul), [Stephanie Campbell (@sncampbell)](https://github.com/sncampbell), [Ryan Welcher (@ryanwelcher)](https://github.com/ryanwelcher), [Ricky Lee Whittemore (@rickalee)](https://github.com/rickalee), [Tung Du (@dinhtungdu)](https://github.com/dinhtungdu), [Lina Wiezkowiak (@linawiezkowiak)](https://github.com/linawiezkowiak), [Oszkar Nagy (@oszkarnagy)](https://github.com/oszkarnagy), [Helen Hou-Sandi (@helen)](https://github.com/helen), [Thrijith Thankachan (@thrijith)](https://github.com/thrijith), [Barney Jeffries (@barneyjeffries)](https://github.com/barneyjeffries).
 
 ## Libraries
 
