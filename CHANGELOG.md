@@ -6,19 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [1.0.5] - TBD
+## [1.0.5] - 2021-09-15
+## Added
+- Tweeted status column to All Posts table list view (props [@thrijith](https://github.com/thrijith), [@dinhtungdu](https://github.com/dinhtungdu), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@jeffpaul](https://github.com/jeffpaul/) via [#121](https://github.com/10up/autoshare-for-twitter/pull/121)).
+
 ## Changed
-- Bump WordPress version "tested up to" 5.6 (props []() via []()).
-- WP Snapshot for auotmated testing to WP 5.6 (props []() via []()).
+- Bump WordPress version "tested up to" 5.8 (props [@thrijith](https://github.com/thrijith), [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul/) via [#126](https://github.com/10up/autoshare-for-twitter/pull/126)).
+- WP Snapshot for auotmated testing to WP 5.6 (props [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul/) via [#107](https://github.com/10up/autoshare-for-twitter/pull/107)).
+- Update dependency `abraham/twitteroauth` from ^0.7.4 to 1.2.0 to ensure PHP 7.4 support and WordPress VIP Go compatability (props [@thrijith](https://github.com/thrijith), [@dinhtungdu](https://github.com/dinhtungdu), [@rickalee](https://github.com/rickalee) via [#122](https://github.com/10up/autoshare-for-twitter/pull/122)).
+- Update PHPUnit test cases to include new functions (props [@thrijith](https://github.com/thrijith) via [#124](https://github.com/10up/autoshare-for-twitter/pull/124)).
 
 ## Fixed
-- Ensure that special characters are properly encoded (props []() via []()).
-- Adjusted priority of `transition_post_status` to ensure tweets properly include featured images (props []() via []()).
+- Ensure that special characters are properly encoded (props [@dinhtungdu](https://github.com/dinhtungdu), [@rickalee](https://github.com/rickalee) via [#116](https://github.com/10up/autoshare-for-twitter/pull/116)).
 
 ## Security
-- Bump `lodash` from 4.17.15 to 4.17.19 (props [@dependabot](https://github.com/apps/dependabot) via [#108](https://github.com/10up/autoshare-for-twitter/pull/108)).
-- Bump `elliptic` from 6.5.1 to 6.5.3 (props [@dependabot](https://github.com/apps/dependabot) via [#109](https://github.com/10up/autoshare-for-twitter/pull/109)).
+- Bump `lodash` from 4.17.15 to 4.17.21 (props [@dependabot](https://github.com/apps/dependabot) via [#108](https://github.com/10up/autoshare-for-twitter/pull/108), [#130](https://github.com/10up/autoshare-for-twitter/pull/130)).
+- Bump `elliptic` from 6.5.1 to 6.5.4 (props [@dependabot](https://github.com/apps/dependabot) via [#109](https://github.com/10up/autoshare-for-twitter/pull/109), [#123](https://github.com/10up/autoshare-for-twitter/pull/123)).
 - Bump `yargs-parser` from 13.1.1 to 13.1.2 (props [@dependabot](https://github.com/apps/dependabot) via [#111](https://github.com/10up/autoshare-for-twitter/pull/111)).
+- Bump `ini` from 1.3.5 to 1.3.7 (props [@dependabot](https://github.com/apps/dependabot) via [#115](https://github.com/10up/autoshare-for-twitter/pull/115)).
+- Bump `y18n` from 4.0.0 to 4.0.1 (props [@dependabot](https://github.com/apps/dependabot) via [#125](https://github.com/10up/autoshare-for-twitter/pull/125)).
+- Bump `ssri` from 6.0.1 to 6.0.2 (props [@dependabot](https://github.com/apps/dependabot) via [#127](https://github.com/10up/autoshare-for-twitter/pull/127)).
+- Bump `rmccue/requests` from 1.7.0 to 1.8.0 (props [@dependabot](https://github.com/apps/dependabot) via [#129](https://github.com/10up/autoshare-for-twitter/pull/129)).
+- Bump `hosted-git-info` from 2.8.4 to 2.8.9 (props [@dependabot](https://github.com/apps/dependabot) via [#131](https://github.com/10up/autoshare-for-twitter/pull/131)).
+- Bump `browserslist` from 4.7.0 to 4.16.6 (props [@dependabot](https://github.com/apps/dependabot) via [#132](https://github.com/10up/autoshare-for-twitter/pull/132)).
+- Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot) via [#134](https://github.com/10up/autoshare-for-twitter/pull/134)).
 
 ## [1.0.4] - 2020-07-02
 - Note: this was a hotfix release to fix an issue with included libraries.
