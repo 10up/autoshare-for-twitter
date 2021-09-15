@@ -12,7 +12,7 @@ Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
 
-Automatically tweets the post title or custom message and a link to the post.
+Automatically tweets the post title or custom message and a link to the post.  Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
 
