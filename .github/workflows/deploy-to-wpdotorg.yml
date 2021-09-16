@@ -14,7 +14,7 @@ jobs:
         npm install
         npm run build
         npm run build:externals
-        composer install -o --no-dev
+        composer install -o --no-dev --ignore-platform-reqs
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
