@@ -4,7 +4,7 @@ Tags:              twitter, tweet, autoshare, auto-share, auto share, share, soc
 Requires at least: 4.7
 Tested up to:      5.8
 Requires PHP:      7.2
-Stable tag:        1.0.3
+Stable tag:        1.0.5
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -12,7 +12,7 @@ Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
 
-Automatically tweets the post title or custom message and a link to the post.
+Automatically tweets the post title or custom message and a link to the post.  Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
 
@@ -29,6 +29,27 @@ Automatically tweets the post title or custom message and a link to the post.
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
+
+= 1.0.5 =
+* **Added:** Tweeted status column to All Posts table list view (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@linawiezkowiak](https://profiles.wordpress.org/linawiezkowiak/), [@oszkarnagy](https://profiles.wordpress.org/oszkarnagy/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
+* **Changed:** Bump WordPress version "tested up to" 5.8 (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@barneyjeffries](https://profiles.wordpress.org/barneyjeffries/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
+* **Changed:** WP Snapshot for auotmated testing to WP 5.6 (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
+* **Changed:** Update dependency `abraham/twitteroauth` from ^0.7.4 to 1.2.0 to ensure PHP 7.4 support and WordPress VIP Go compatability (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@rickalee](https://profiles.wordpress.org/rickalee)).
+* **Changed:** Update PHPUnit test cases to include new functions (props [@thrijith](https://profiles.wordpress.org/thrijith/)).
+* **Fixed:** Ensure that special characters are properly encoded (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@rickalee](https://profiles.wordpress.org/rickalee)).
+* **Security:** Bump `lodash` from 4.17.15 to 4.17.21 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `elliptic` from 6.5.1 to 6.5.4 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `yargs-parser` from 13.1.1 to 13.1.2 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `ini` from 1.3.5 to 1.3.7 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `y18n` from 4.0.0 to 4.0.1 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `ssri` from 6.0.1 to 6.0.2 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `rmccue/requests` from 1.7.0 to 1.8.0 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `hosted-git-info` from 2.8.4 to 2.8.9 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `browserslist` from 4.7.0 to 4.16.6 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot)).
+
+= 1.0.4 =
+* Note: this was a hotfix release to fix an issue with included libraries.
 
 = 1.0.3 =
 * **Added:** `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://profiles.wordpress.org/rickalee))

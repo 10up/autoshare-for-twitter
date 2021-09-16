@@ -20,8 +20,8 @@ composer.lock
 CONTRIBUTING.md
 CREDITS.md
 LICENSE.md
-package.json
 package-lock.json
+package.json
 phpcs.xml
 phpunit.xml
 README.md
