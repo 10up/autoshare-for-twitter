@@ -10,6 +10,10 @@
         {
             "snapshot_name": "wordpress-5.2",
             "snapshot_id": "a03bce7affe3f090897f73eb74b94cae"
+        },
+        {
+            "snapshot_name": "wordpress-5.4.2",
+            "snapshot_id": "52489ef912c6620c4db6ceeb4f56ac14"
         }
     ],
     "enforce_clean_db": true,

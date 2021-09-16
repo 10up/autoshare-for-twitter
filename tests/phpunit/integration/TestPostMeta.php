@@ -15,8 +15,13 @@ use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\markup_error;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\markup_published;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\markup_unknown;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_autoshare_for_twitter_meta_data;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\date_from_twitter;
+use function TenUp\AutoshareForTwitter\Utils\link_from_twitter;
 
 /**
  * TestUtils class.
@@ -26,6 +31,33 @@ use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
  * @group post_meta
  */
 class TestPostMeta extends WP_UnitTestCase {
+
+	/**
+	 * Test all methods and hooks in setup().
+	 */
+	public function test_setup_hooks() {
+		$this->assertTrue(
+			check_method_exists(
+				'post_submitbox_misc_actions',
+				'TenUp\AutoshareForTwitter\Core\Post_Meta\tweet_submitbox_callback'
+			)
+		);
+
+		$this->assertTrue(
+			check_method_exists(
+				'autoshare_for_twitter_metabox',
+				'TenUp\AutoshareForTwitter\Core\Post_Meta\render_tweet_submitbox'
+			)
+		);
+
+		$this->assertTrue(
+			check_method_exists(
+				'save_post',
+				'TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta'
+			)
+		);
+	}
+
 	/**
 	 * Tests the get_tweet_status_message function.
 	 */
@@ -58,6 +90,17 @@ class TestPostMeta extends WP_UnitTestCase {
 			],
 			get_tweet_status_message( $post )
 		);
+		// Make sure the rendered markup is as expected in post metabox.
+		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
+		$this->assertEquals(
+			sprintf(
+				'%s <span>%s</span> (<a href="%s" target="_blank">View</a>)</p>',
+				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
+				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
+				esc_url( link_from_twitter( $twitter_status['twitter_id'] ) )
+			),
+			markup_published( $twitter_status )
+		);
 		remove_filter( 'autoshare_for_twitter_meta', $published_filter );
 
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
@@ -76,6 +119,16 @@ class TestPostMeta extends WP_UnitTestCase {
 				'message' => 'Failed to tweet: There was an error.',
 			],
 			get_tweet_status_message( $post )
+		);
+		// Make sure the rendered markup is as expected in post metabox.
+		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
+		$this->assertEquals(
+			sprintf(
+				'%s<br><pre>%s</pre></p>',
+				esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
+				esc_html( $twitter_status['message'] )
+			),
+			markup_error( $twitter_status )
 		);
 		remove_filter( 'autoshare_for_twitter_meta', $failed_filter );
 
@@ -96,6 +149,9 @@ class TestPostMeta extends WP_UnitTestCase {
 			],
 			get_tweet_status_message( $post )
 		);
+		// Make sure the rendered markup is as expected in post metabox.
+		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
+		$this->assertEquals( $twitter_status['message'], markup_unknown( $twitter_status ) );
 		remove_filter( 'autoshare_for_twitter_meta', $unknown_filter );
 
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
