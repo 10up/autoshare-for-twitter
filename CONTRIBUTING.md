@@ -36,8 +36,6 @@ The `develop` branch is the development branch which means it contains the next 
 1. Readme updates: Make any other readme changes as necessary.  `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content.  The two are slightly different.
 1. Merge: Make a non-fast-forward merge from your release branch to `develop` (or merge the pull request), then do the same for `develop` into `trunk` (`git checkout trunk && git merge --no-ff develop`). `trunk` contains the stable development version.
 1. Push: Push your `trunk` branch to GitHub (e.g. `git push origin trunk`).
-1. [Wait for build](https://xkcd.com/303/): Head to the [Actions](https://github.com/10up/autoshare-for-twitter/actions) tab in the repo and wait for it to finish if it hasn't already. If it doesn't succeed, figure out why and start over.
-1. Check the build: Check out the `stable` branch and test for functionality locally.
 1. Release: Create a [new release](https://github.com/10up/autoshare-for-twitter/releases/new), naming the tag and the release with the new version number, and targeting the `stable` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the [closed issues on the milestone](https://github.com/10up/autoshare-for-twitter/milestone/3?closed=1).
 1. SVN: Wait for the [GitHub Action](https://github.com/10up/autoshare-for-twitter/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
 1. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/autoshare-for-twitter/. This may take a few minutes.
