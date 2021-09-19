@@ -4,7 +4,7 @@ Tags:              twitter, tweet, autoshare, auto-share, auto share, share, soc
 Requires at least: 4.7
 Tested up to:      5.8
 Requires PHP:      7.2
-Stable tag:        1.0.5
+Stable tag:        1.0.6
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -29,6 +29,9 @@ Automatically tweets the post title or custom message and a link to the post.  A
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
+
+= 1.0.6 =
+* Note: this was a hotfix release to fix an issue with deploys to WordPress.org.
 
 = 1.0.5 =
 * **Added:** Tweeted status column to All Posts table list view (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@linawiezkowiak](https://profiles.wordpress.org/linawiezkowiak/), [@oszkarnagy](https://profiles.wordpress.org/oszkarnagy/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).

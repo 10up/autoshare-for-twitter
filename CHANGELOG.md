@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.0.6] - 2020-09-19
+- Note: this was a hotfix release to fix an issue with deploys to WordPress.org.
+
 ## [1.0.5] - 2021-09-15
 ## Added
 - Tweeted status column to All Posts table list view (props [@thrijith](https://github.com/thrijith), [@dinhtungdu](https://github.com/dinhtungdu), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@jeffpaul](https://github.com/jeffpaul/) via [#121](https://github.com/10up/autoshare-for-twitter/pull/121)).
@@ -85,6 +88,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.0.6]: https://github.com/10up/autoshare-for-twitter/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/10up/autoshare-for-twitter/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/10up/autoshare-for-twitter/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/10up/autoshare-for-twitter/compare/1.0.2...1.0.3
