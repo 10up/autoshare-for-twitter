@@ -202,10 +202,10 @@ function register_settings() {
  */
 function text_field_cb( $args ) {
 
-	$options     = get_option( AT_SETTINGS );
+	$options     = get_option( AT_SETTINGS, array() );
 	$key         = $args['name'];
 	$name        = AT_SETTINGS . "[$key]";
-	$value       = $options[ $key ];
+	$value       = isset( $options[ $key ] ) ? $options[ $key ] : '';
 	$class       = isset( $args['class'] ) ? $args['class'] : 'regular-text';
 	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
 	?>
