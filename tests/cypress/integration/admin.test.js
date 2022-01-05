@@ -25,4 +25,14 @@ describe( 'Plugin is not configured', () => {
 	} );
 } );
 
-// Todo: Add Twitter credentials here.
+describe( 'Configure the plugin', () => {
+	it( 'Configure the plugin secrets', () => {
+		cy.visitAdminPage( 'options-general.php?page=autoshare-for-twitter' );
+		cy.get( '.large-text:nth-child(1) .large-text' ).type( Cypress.env('TWITTER_API_KEY') );
+		cy.get( '.large-text:nth-child(1) .large-text' ).type( Cypress.env('TWITTER_API_SECRET') );
+		cy.get( '.large-text:nth-child(1) .large-text' ).type( Cypress.env('TWITTER_ACCESS_TOKEN') );
+		cy.get( '.large-text:nth-child(1) .large-text' ).type( Cypress.env('TWITTER_ACCESS_SECRET') );
+		cy.get( '.regular-text' ).type( 'gh_issue_help' );
+		cy.get( '#submit' ).click();
+	} );
+} );
