@@ -18,8 +18,9 @@ describe( 'Plugin settings page has the necessary fields', () => {
 } );
 
 describe( 'Plugin is not configured', () => {
-	it( 'Can see all the fields on the settings page', () => {
+	it( 'Can autoshare post status div', () => {
 		cy.visitAdminPage( 'post.php?post=1&action=edit' );
+		cy.wait( 10000 );
 		cy.get( 'button[aria-label="Close dialog"' ).click();
 		cy.get( 'div.autoshare-for-twitter-post-status' ).should( 'be.visible' );
 	} );
