@@ -54,14 +54,6 @@ jobs:
         coverage: none
         extensions: mysql, imagick
 
-    - name: Test
-      run: ./bin/test.sh
-      env:
-        PHP_VERSION: ${{ matrix.php-versions }}
-        GITHUB_WORKSPACE: ${{ github.workspace }}
-        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-        SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
-
   cypress:
     runs-on: ubuntu-latest
 
@@ -77,7 +69,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm i
+        run: npm i && npm i -g cypress@9.0.0
 
       - name: Build asset
         run: npm run build
@@ -89,4 +81,4 @@ jobs:
         run: npm run wp-env start
 
       - name: Test
-        run: npm run cypress:run
+        run: cypress run --config-file tests/cypress/config.json --env TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }},TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }},TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }},TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
