@@ -30,10 +30,10 @@ describe( 'Plugin settings page has the necessary fields', () => {
 describe( 'Configure the plugin', () => {
 	it( 'Configure the plugin secrets', () => {
 		cy.visitAdminPage( 'options-general.php?page=autoshare-for-twitter' );
-		cy.get( '.large-text:nth-child(1) .large-text' ).type( 'SQ9G9e' );
-		cy.get( '.large-text:nth-child(2) .large-text' ).type( 'FM9H1hIxVu' );
-		cy.get( '.large-text:nth-child(3) .large-text' ).type( '10819aL371WC' );
-		cy.get( '.large-text:nth-child(4) .large-text' ).type( 'mtKqPjqPhwa5E' );
+		cy.get( '.large-text:nth-child(1) .large-text' ).type( Cypress.env('TWITTER_API_KEY') );
+		cy.get( '.large-text:nth-child(2) .large-text' ).type( Cypress.env('TWITTER_API_SECRET') );
+		cy.get( '.large-text:nth-child(3) .large-text' ).type( Cypress.env('TWITTER_ACCESS_TOKEN') );
+		cy.get( '.large-text:nth-child(4) .large-text' ).type( Cypress.env('TWITTER_ACCESS_SECRET') );
 		cy.get( '.regular-text' ).type( 'gh_issue_help' );
 		cy.get( '#submit' ).click();
 	} );
