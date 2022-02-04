@@ -27,4 +27,3 @@ phpunit.xml
 README.md
 webpack.config.js
 webpack.gutenberg.config.js
-wpacceptance.json

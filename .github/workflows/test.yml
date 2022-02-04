@@ -54,14 +54,6 @@ jobs:
         coverage: none
         extensions: mysql, imagick
 
-    - name: Test
-      run: ./bin/test.sh
-      env:
-        PHP_VERSION: ${{ matrix.php-versions }}
-        GITHUB_WORKSPACE: ${{ github.workspace }}
-        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-        SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
-
   cypress:
     runs-on: ubuntu-latest
 
