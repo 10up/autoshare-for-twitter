@@ -118,7 +118,7 @@ span.over-limit {
 }
 
 .autoshare-for-twitter-status-logo::before {
-	background-image: url('../images/twitter_black.svg');
+	background-image: url('../images/twitter_default.svg');
 	background-repeat: no-repeat;
 	background-size: 25px 25px;
 	content: ' ';
@@ -127,6 +127,18 @@ span.over-limit {
 	width: 25px;
 }
 
-tbody .autoshare-for-twitter-status-logo:hover::before {
-	background-image: url('../images/twitter_blue.svg');
+tbody .autoshare-for-twitter-status-logo--published::before {
+	background-image: url('../images/twitter_tweeted.svg');
+}
+
+tbody .autoshare-for-twitter-status-logo--error::before {
+	background-image: url('../images/twitter_failed.svg');
+}
+
+tbody .autoshare-for-twitter-status-logo--enabled::before {
+	background-image: url('../images/twitter_enabled.svg');
+}
+
+tbody .autoshare-for-twitter-status-logo--disabled::before {
+	background-image: url('../images/twitter_disabled.svg');
 }
