@@ -142,17 +142,11 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		printf(
 			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--error"></span>'
 		);
-	} elseif ( 'future' === $post_status ) {
-		if ( autoshare_enabled( $post_id ) ) {
-			printf(
-				'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--enabled"></span>'
-			);
-		} else {
-			printf(
-				'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
-			);
-		}
-	} elseif ( empty( $tweet_status ) ) {
+	} elseif ( 'future' === $post_status && autoshare_enabled( $post_id ) ) {
+		printf(
+			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--enabled"></span>'
+		);
+	} else {
 		printf(
 			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
 		);
