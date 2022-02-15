@@ -9,6 +9,7 @@ namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
+use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 
 const POST_TYPE_SUPPORT_FEATURE = 'autoshare-for-twitter';
 
@@ -134,8 +135,26 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 
 		printf(
 			'<a href="' . esc_url( $twitter_url ) . '" target="_blank" title="' . esc_attr( $tweet_title ) . '">
-				<span class="autoshare-for-twitter-status-logo"></span>
+				<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--published"></span>
 			</a>'
+		);
+	} elseif ( 'publish' === $post_status && 'error' === $status ) {
+		printf(
+			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--error"></span>'
+		);
+	} elseif ( 'future' === $post_status ) {
+		if ( autoshare_enabled( $post_id ) ) {
+			printf(
+				'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--enabled"></span>'
+			);
+		} else {
+			printf(
+				'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
+			);
+		}
+	} elseif ( empty( $tweet_status ) ) {
+		printf(
+			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
 		);
 	}
 }
