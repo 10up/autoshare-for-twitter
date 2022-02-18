@@ -1,0 +1,31 @@
+name: Linting
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  phpcs:
+    name: phpcs
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+    - name: Set PHP version
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.2'
+        coverage: none
+    - name: composer install
+      run: composer install --ignore-platform-reqs
+    - name: Check PHPCS standard
+      run: composer run-script lint
+    - name: PHPCS check
+      uses: chekalsky/phpcs-action@v1
+      with:
+        phpcs_bin_path: './vendor/bin/phpcs --runtime-set testVersion 7.0- --extensions=php -s .'
