@@ -89,7 +89,7 @@ jobs:
         with:
           name: 'Cypress artifacts'
           retention-days: 2
-            path: |
-              ${{ github.workspace }}/tests/cypress/screenshots/
-              ${{ github.workspace }}/tests/cypress/videos/
-              ${{ github.workspace }}/tests/cypress/logs/
+          path: |
+            ${{ github.workspace }}/tests/cypress/screenshots/
+            ${{ github.workspace }}/tests/cypress/videos/
+            ${{ github.workspace }}/tests/cypress/logs/
