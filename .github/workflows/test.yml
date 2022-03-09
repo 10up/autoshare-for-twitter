@@ -84,10 +84,10 @@ jobs:
         run: cypress run --config-file tests/cypress/config.json --env TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }},TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }},TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }},TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2.3.0
+        uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: 'Cypress artifacts'
+          name: cypress-artifact-autoshare-for-twitter
           retention-days: 2
           path: |
             ${{ github.workspace }}/tests/cypress/screenshots/
