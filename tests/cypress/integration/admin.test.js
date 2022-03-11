@@ -1,6 +1,14 @@
 const slug = 'autoshare-for-twitter';
 const classicSlug = 'classic-editor';
 
+describe( 'Update permalink structure', () => {
+	it( 'Set permalink to day and name', () => {
+		cy.visitAdminPage( 'options-permalink.php' );
+		cy.get( 'input[value="/%postname%/"]' ).click();
+		cy.get('#submit').click();
+	} );
+} );
+
 describe( 'Admin can login and make sure plugin is activated', () => {
 	it( 'Can activate plugin if it is deactivated', () => {
 		cy.visitAdminPage( 'plugins.php' );

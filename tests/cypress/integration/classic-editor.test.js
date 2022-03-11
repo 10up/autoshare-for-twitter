@@ -1,3 +1,5 @@
+import { getRandomText } from "../support/functions";
+
 const slug = 'autoshare-for-twitter';
 
 describe( 'Visit Classic Editor settings page', () => {
@@ -12,7 +14,8 @@ describe( 'Visit Classic Editor settings page', () => {
 describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 	it( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.visitAdminPage( 'post-new.php' );
-		cy.get( '#title' ).type( 'Random Post Title' );
+		let postTitle = getRandomText(6);
+		cy.get( '#title' ).type( 'Random Post Title' + postTitle );
 		cy.get( '#publish' ).click();
 
 		cy.get( '#wpadminbar', { timeout: 10000 } ).should( 'be.visible' );
@@ -27,7 +30,8 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 describe( 'Tests that new post is tweeted when box is checked', () => {
 	it( 'Tests that new post is tweeted when box is checked', () => {
 		cy.visitAdminPage( 'post-new.php' );
-		cy.get( '#title' ).type( 'Random Post Title' );
+		let postTitle = getRandomText(8);
+		cy.get( '#title' ).type( 'Random Post Title' + postTitle );
 		cy.get( '#autoshare-for-twitter-enable' ).click();
 		cy.get( '#publish' ).click();
 
