@@ -1,0 +1,6 @@
+{
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip",
+    "."
+  ]
+}
