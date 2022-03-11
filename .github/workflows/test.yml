@@ -74,6 +74,9 @@ jobs:
       - name: Build asset
         run: npm run build
 
+      - name: Add dependencies
+          run: composer install -o --no-dev --ignore-platform-reqs
+
       - name: Set the core version
         run: ./tests/bin/set-core-version.js ${{ matrix.core.version }}
 
