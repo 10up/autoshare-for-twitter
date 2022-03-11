@@ -19,7 +19,7 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 
 	it( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.visitAdminPage( 'post-new.php' );
-		cy.get( 'button[aria-label="Close dialog"' ).click();
+		// cy.get( 'button[aria-label="Close dialog"' ).click(); check if this works in CI
 		cy.get( 'h1.wp-block-post-title' ).type( 'Text' );
 
 		cy.get( '[aria-disabled="false"].editor-post-publish-panel__toggle', { timeout: 10000 } ).should( 'be.visible' );
