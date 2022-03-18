@@ -21,16 +21,39 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 
 	it( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.visitAdminPage( 'post-new.php' );
-		cy.get( 'button[aria-label="Close dialog"' ).click();
-		let postTitle = getRandomText(5);
-		cy.get( 'h1.wp-block-post-title' ).type( 'Text' + postTitle );
 
-		cy.get( '[aria-disabled="false"].editor-post-publish-panel__toggle', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get("body").then($body => {
+			if ($body.find('button[aria-label="Close dialog"]').length > 0) {
+				cy.get( 'button[aria-label="Close dialog"]' ).click();
+			}
+		});
+
+		cy.get("body").then($body => {
+			if ($body.find('button[aria-label="Disable tips"]').length > 0) {
+				cy.get('button[aria-label="Disable tips"]').click();
+			}
+		});
+
+		let postTitle = getRandomText(5);
+
+		cy.get("body").then($body => {
+			if ($body.find('h1.wp-block-post-title').length > 0) {
+				cy.get( 'h1.wp-block-post-title' ).type( 'Random Post Title' + postTitle );
+			}
+		});
+
+		cy.get("body").then($body => {
+			if ($body.find('#post-title-0').length > 0) {
+				cy.get( '#post-title-0' ).type( 'Random Post Title' + postTitle );
+			}
+		});
+
+		cy.get( '.editor-post-publish-panel__toggle', { timeout: 10000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-panel__toggle' ).click();
 		cy.wait( 5000 );
 
 		// Pre-publish.
-		cy.get( '[aria-disabled="false"].editor-post-publish-button', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get( '.editor-post-publish-button', { timeout: 10000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-button' ).click();
 
 		// Post-publish.
