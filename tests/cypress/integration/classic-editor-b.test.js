@@ -10,7 +10,7 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 
 		// Post-publish.
 		cy.get( '#autoshare_for_twitter_metabox', { timeout: 10000 } ).should( 'be.visible' );
-		cy.get( '#autoshare_for_twitter_metabox' ).contains( 'Tweeted on' );
+		cy.get( '#autoshare_for_twitter_metabox', { timeout: 10000 } ).contains( 'Tweeted on' );
 	} );
 } );
 
