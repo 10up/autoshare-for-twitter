@@ -2029,12 +2029,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/PHPUnit-Polyfills.git",
-                "reference": "5cd00434959285ac65b90071d88345d514c6b06a"
+                "reference": "b0571ffd2d5f0c926de8ec2c64415c89fa3c0262"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/5cd00434959285ac65b90071d88345d514c6b06a",
-                "reference": "5cd00434959285ac65b90071d88345d514c6b06a",
+                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/b0571ffd2d5f0c926de8ec2c64415c89fa3c0262",
+                "reference": "b0571ffd2d5f0c926de8ec2c64415c89fa3c0262",
                 "shasum": ""
             },
             "require": {
@@ -2042,7 +2042,7 @@
                 "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
             },
             "require-dev": {
-                "yoast/yoastcs": "^2.2.0"
+                "yoast/yoastcs": "^2.2.1"
             },
             "default-branch": true,
             "type": "library",
@@ -2083,7 +2083,7 @@
                 "issues": "https://github.com/Yoast/PHPUnit-Polyfills/issues",
                 "source": "https://github.com/Yoast/PHPUnit-Polyfills"
             },
-            "time": "2021-12-25T00:24:50+00:00"
+            "time": "2022-02-23T16:56:11+00:00"
         }
     ],
     "aliases": [],
@@ -2096,5 +2096,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
