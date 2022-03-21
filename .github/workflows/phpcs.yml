@@ -1,4 +1,4 @@
-name: PHP Compatibility
+name: PHPCS
 
 on:
   push:
@@ -10,13 +10,8 @@ on:
       - develop
 
 jobs:
-  php_compatibility:
-    name: PHP ${{ matrix.php-versions }}
+  phpcs:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php-versions: [7.3, 7.4, 8.0, 8.1]
 
     steps:
       - name: Checkout
@@ -25,12 +20,12 @@ jobs:
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: '7.3'
           tools: composer:v2
           coverage: none
 
       - name: Install dependencies
         run: composer install
 
-      - name: Run PHP Compatibility
-        run: vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.0-
+      - name: Run PHPCS
+        run: vendor/bin/phpcs autoshare-for-twitter.php includes/ --extensions=php -s
