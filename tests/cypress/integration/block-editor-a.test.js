@@ -22,12 +22,14 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 	it( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.visitAdminPage( 'post-new.php' );
 
+		cy.wait( 10000 );
 		cy.get("body").then($body => {
 			if ($body.find('button[aria-label="Close dialog"]').length > 0) {
 				cy.get( 'button[aria-label="Close dialog"]' ).click();
 			}
 		});
 
+		// The tips dialog has different attribute in lower core version, add check to handle scenario.
 		cy.get("body").then($body => {
 			if ($body.find('button[aria-label="Disable tips"]').length > 0) {
 				cy.get('button[aria-label="Disable tips"]').click();
