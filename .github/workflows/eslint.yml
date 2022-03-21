@@ -11,7 +11,6 @@ on:
 
 jobs:
   eslint:
-   name: eslint
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,9 +20,5 @@ jobs:
         node-version: 12
     - name: npm install
       run: npm install
-    - name: eslint
-      uses: icrawl/action-eslint@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        job-name: eslint
+    - name: Run eslint
+      run: npm run lint
