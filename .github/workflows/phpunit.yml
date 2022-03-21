@@ -10,7 +10,7 @@ on:
       - develop
 
 jobs:
-  test_php:
+  phpunit:
     runs-on: ubuntu-latest
     services:
       mysql:
