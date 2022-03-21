@@ -6,7 +6,7 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 	it( 'Tests that new post is tweeted when box is checked', () => {
 		cy.visitAdminPage( 'post-new.php' );
 
-		cy.wait( 10000 );
+		cy.wait( 5000 );
 		cy.get("body").then($body => {
 			if ($body.find('button[aria-label="Close dialog"]').length > 0) {
 				cy.get( 'button[aria-label="Close dialog"]' ).click();
@@ -56,12 +56,12 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 
 		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label', { timeout: 10000 } ).should( 'be.visible' );
 		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label' ).click();
-		cy.wait( 10000 );
+		cy.wait( 5000 );
 
 		// Pre-publish.
 		cy.get( '[aria-disabled="false"].editor-post-publish-button', { timeout: 10000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-button' ).click();
-		cy.wait( 10000 );
+		cy.wait( 5000 );
 
 		// Post-publish.
 		cy.get( '.autoshare-for-twitter-post-status', { timeout: 10000 } ).should( 'be.visible' );

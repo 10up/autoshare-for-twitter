@@ -22,7 +22,7 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 	it( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.visitAdminPage( 'post-new.php' );
 
-		cy.wait( 10000 );
+		cy.wait( 5000 );
 		cy.get("body").then($body => {
 			if ($body.find('button[aria-label="Close dialog"]').length > 0) {
 				cy.get( 'button[aria-label="Close dialog"]' ).click();
