@@ -18,7 +18,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 	/**
 	 * Setup method.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->publish_tweet = new Publish_Tweet();
@@ -27,7 +27,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 	/**
 	 * Tear down method.
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		$this->remove_added_uploads();
 	}
