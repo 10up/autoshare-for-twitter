@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: [7.3, 7.4, 8.0, 8.1]
+        php-versions: [7.2, 7.3, 7.4, 8.0, 8.1]
 
     steps:
       - name: Checkout
@@ -28,6 +28,9 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           tools: composer:v2
           coverage: none
+
+      - name: Remove non-production dependencies
+        run: rm composer.lock && composer remove --dev phpunit/phpunit yoast/phpunit-polyfills
 
       - name: Install dependencies
         run: composer install
