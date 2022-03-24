@@ -83,7 +83,7 @@ jobs:
         run: ./tests/bin/set-core-version.js ${{ matrix.core.version }}
 
       - name: Set up WP environment
-        run: npm run wp-env start
+        run: npm run env:start
 
       - name: Test
         run: cypress run --config-file tests/cypress/config.json --env TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }},TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }},TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }},TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
