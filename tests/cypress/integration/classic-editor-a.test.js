@@ -18,11 +18,11 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 		cy.get( '#title' ).type( 'Random Post Title' + postTitle );
 		cy.get( '#publish' ).click();
 
-		cy.get( '#wpadminbar', { timeout: 10000 } ).should( 'be.visible' );
-		cy.wait( 5000 );
+		cy.get( '#wpadminbar', { timeout: 5000 } ).should( 'be.visible' );
+		cy.wait( 3000 );
 
 		// Post-publish.
-		cy.get( '#autoshare_for_twitter_metabox', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get( '#autoshare_for_twitter_metabox', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '#autoshare_for_twitter_metabox' ).contains( 'This post was not tweeted' );
 	} );
 } );

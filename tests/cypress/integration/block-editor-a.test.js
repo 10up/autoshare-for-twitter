@@ -50,16 +50,16 @@ describe( 'Tests that new post is not tweeted when box is unchecked', () => {
 			}
 		});
 
-		cy.get( '.editor-post-publish-panel__toggle', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get( '.editor-post-publish-panel__toggle', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-panel__toggle' ).click();
-		cy.wait( 5000 );
+		cy.wait( 3000 );
 
 		// Pre-publish.
-		cy.get( '.editor-post-publish-button', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get( '.editor-post-publish-button', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-button' ).click();
 
 		// Post-publish.
-		cy.get( '.autoshare-for-twitter-post-status', { timeout: 10000 } ).should( 'be.visible' );
+		cy.get( '.autoshare-for-twitter-post-status', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.autoshare-for-twitter-post-status' ).contains( 'This post was not tweeted.' );
 	} );
 } );
