@@ -146,7 +146,11 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 	foreach ( $data as $key => $value ) {
 		switch ( $key ) {
 			case ENABLE_AUTOSHARE_FOR_TWITTER_KEY:
-				update_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $value );
+				if ( ! empty( $value ) ) {
+					update_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $value );
+				} else {
+					delete_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+				}
 				break;
 
 			case TWEET_BODY_KEY:
