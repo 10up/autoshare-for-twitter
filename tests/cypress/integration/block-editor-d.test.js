@@ -1,7 +1,7 @@
 import { getRandomText } from "../support/functions";
 
-describe( 'Tests that new post is tweeted when box is checked', () => {
-	it( 'Tests that new post is tweeted when box is checked', () => {
+describe( 'Tests that new post is tweeted when tweet trigger is changed multiple times', () => {
+	it( 'Tests that new post is tweeted when tweet trigger is changed multiple times', () => {
 		cy.visitAdminPage( 'post-new.php' );
 
 		cy.wait( 3000 );
@@ -32,6 +32,10 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 			}
 		});
 
+		cy.get( '.editor-post-save-draft' ).should( 'be.visible' );
+		cy.get( '.editor-post-save-draft' ).click();
+		cy.wait( 3000 );
+
 		cy.get( '.editor-post-publish-panel__toggle', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-panel__toggle' ).click();
 		cy.wait( 3000 );
@@ -54,7 +58,6 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 
 		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label' ).click();
-		cy.wait( 3000 );
 
 		// Pre-publish.
 		cy.get( '[aria-disabled="false"].editor-post-publish-button', { timeout: 5000 } ).should( 'be.visible' );

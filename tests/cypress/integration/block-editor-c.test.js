@@ -1,7 +1,7 @@
 import { getRandomText } from "../support/functions";
 
-describe( 'Tests that new post is tweeted when box is checked', () => {
-	it( 'Tests that new post is tweeted when box is checked', () => {
+describe( 'Tests that new post is not tweeted when tweet trigger is changed multiple times', () => {
+	it( 'Tests that new post is not tweeted when tweet trigger is changed multiple times', () => {
 		cy.visitAdminPage( 'post-new.php' );
 
 		cy.wait( 3000 );
@@ -56,13 +56,56 @@ describe( 'Tests that new post is tweeted when box is checked', () => {
 		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label' ).click();
 		cy.wait( 3000 );
 
+		cy.get("body").then($body => {
+			if ($body.find(".editor-post-publish-panel__header-cancel-button button").length > 0) {
+				cy.get( '.editor-post-publish-panel__header-cancel-button button' ).should( 'be.visible' );
+				cy.get( '.editor-post-publish-panel__header-cancel-button button' ).click();
+				cy.wait( 3000 );
+			}
+		} )
+
+		cy.get("body").then($body => {
+			if ($body.find('button[aria-label="Close panel"]').length > 0) {
+				cy.get( 'button[aria-label="Close panel"]' ).should( 'be.visible' );
+				cy.get( 'button[aria-label="Close panel"]' ).click();
+				cy.wait( 3000 );
+			}
+		} )
+
+		cy.get( '.editor-post-save-draft' ).should( 'be.visible' );
+		cy.get( '.editor-post-save-draft' ).click();
+		cy.wait( 3000 );
+
+		cy.get( '.editor-post-publish-panel__toggle', { timeout: 5000 } ).should( 'be.visible' );
+		cy.get( '.editor-post-publish-panel__toggle' ).click();
+		cy.wait( 3000 );
+
+		// The auto share metabox is at different position in 5.2.11, so add extra step for it.
+		cy.get("body").then($body => {
+			if ($body.find(".components-panel__body:nth-child(6) .editor-post-publish-panel__link").length > 0) {
+				cy.get('.components-panel__body:nth-child(6) .editor-post-publish-panel__link').click();
+			}
+		});
+
+		cy.get("body").then($body => {
+			if ($body.find(".components-panel__body:nth-child(7) .editor-post-publish-panel__link").length > 0) {
+				// If on newer version revert back the click done to fix issue with focus.
+				cy.get('.components-panel__body:nth-child(6) .editor-post-publish-panel__link').click();
+
+				cy.get('.components-panel__body:nth-child(7) .editor-post-publish-panel__link').click();
+			}
+		});
+
+		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label', { timeout: 5000 } ).should( 'be.visible' );
+		cy.get( '.autoshare-for-twitter-prepublish__checkbox-label' ).click();
+
 		// Pre-publish.
 		cy.get( '[aria-disabled="false"].editor-post-publish-button', { timeout: 5000 } ).should( 'be.visible' );
 		cy.get( '.editor-post-publish-button' ).click();
-		cy.wait( 3000 );
+		cy.wait( 2000 );
 
 		// Post-publish.
 		cy.get( '.autoshare-for-twitter-post-status', { timeout: 5000 } ).should( 'be.visible' );
-		cy.get( '.autoshare-for-twitter-post-status' ).contains( 'Tweeted on' );
+		cy.get( '.autoshare-for-twitter-post-status' ).contains( 'This post was not tweeted.' );
 	} );
 } );
