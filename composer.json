@@ -13,22 +13,28 @@
 			"role": "Developer"
 		}
 	],
-	"require": {
-		"abraham/twitteroauth": "1.2.0"
-	},
 	"require-dev": {
-		"phpunit/phpunit": "^7.5",
 		"wp-coding-standards/wpcs": "^2.2",
-		"10up/wpacceptance": "dev-master",
 		"dealerdirect/phpcodesniffer-composer-installer": "dev-master",
-		"yoast/phpunit-polyfills": "^1.0.3"
+		"10up/phpcs-composer": "dev-master",
+		"phpunit/phpunit": "9.5.x-dev",
+		"yoast/phpunit-polyfills": "1.x-dev"
 	},
 	"scripts": {
 		"test": "phpunit",
 		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest",
 		"test:acceptance": "wpacceptance run",
-		"lint": "./vendor/bin/phpcs --extensions=php -s .",
+		"phpcs": "vendor/bin/phpcs autoshare-for-twitter.php includes/ --extensions=php -s",
+		"phpcs:compat": "vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.0-",
 		"lint-fix": "./vendor/bin/phpcbf --extensions=php ."
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "dev",
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"require": {
+		"abraham/twitteroauth": "2.0.0"
+	}
 }

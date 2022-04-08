@@ -1,4 +1,4 @@
-name: Test
+name: PHPUnit
 
 on:
   push:
@@ -10,26 +10,7 @@ on:
       - develop
 
 jobs:
-  eslint:
-    name: eslint
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: install node v12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: npm install
-      run: npm install
-    - name: eslint
-      uses: icrawl/action-eslint@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      with:
-        job-name: eslint
-
-  test_php:
+  phpunit:
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -40,8 +21,9 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     strategy:
+      fail-fast: false
       matrix:
-        php-versions: ['7.2', '7.3']
+        php-versions: ['7.3', '8.0']
 
     steps:
     - name: Checkout
@@ -53,5 +35,5 @@ jobs:
         coverage: none
         extensions: mysql, imagick
 
-    - name: Test
+    - name: Run PHPUnit
       run: ./bin/test.sh
