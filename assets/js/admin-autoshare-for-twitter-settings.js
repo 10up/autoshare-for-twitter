@@ -7,23 +7,27 @@
 			postTypesWrap = document.querySelector( '.post-types' ),
 			postTypesCheckboxes = document.getElementsByName( 'autoshare-for-twitter[enable_for]' );
 
-		openCredSettingsBtn.addEventListener( 'click', function() {
-			credSetup.classList.remove( 'connected' );
-		} );
-
-		closeCredSettingsBtn.addEventListener( 'click', function() {
-			credSetup.classList.add( 'connected' );
-		} );
-
-		postTypesCheckboxes.forEach( function( item ) {
-			item.addEventListener( 'change', function( event) {
-				if ( event.target.value === 'all' )
-					return postTypesWrap.classList.add( 'hidden' );
-				return postTypesWrap.classList.remove( 'hidden' );
+		if ( openCredSettingsBtn ) {
+			openCredSettingsBtn.addEventListener( 'click', function() {
+				credSetup.classList.remove( 'connected' );
 			} );
-		} );
+		}
 
+		if ( closeCredSettingsBtn ) {
+			closeCredSettingsBtn.addEventListener( 'click', function() {
+				credSetup.classList.add( 'connected' );
+			} );
+		}
 
+		if ( postTypesCheckboxes ) {
+			postTypesCheckboxes.forEach( function( item ) {
+				item.addEventListener( 'change', function( event) {
+					if ( event.target.value === 'all' )
+						return postTypesWrap.classList.add( 'hidden' );
+					return postTypesWrap.classList.remove( 'hidden' );
+				} );
+			} );
+		}
 	} );
 
 	jQuery( document ).ready(function() {

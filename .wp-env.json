@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip",
+    "."
+  ],
+  "env": {
+    "tests": {
+      "mappings": {
+        "wp-cli.yml": "./tests/bin/wp-cli.yml"
+      }
+    }
+  }
+}

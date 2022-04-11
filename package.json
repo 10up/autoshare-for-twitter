@@ -6,6 +6,12 @@
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
 		"build": "webpack -p --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
+		"env": "wp-env",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"postenv:start": "./tests/bin/initialize.sh",
+		"cypress:open": "cypress open --config-file tests/cypress/config.json",
+		"cypress:run": "cypress run --config-file tests/cypress/config.json",
 		"lint": "eslint ."
 	},
 	"husky": {
@@ -31,13 +37,17 @@
 	},
 	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
+		"@10up/cypress-wp-utils": "github:10up/cypress-wp-utils#build",
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",
 		"@babel/preset-env": "^7.6.0",
 		"@babel/preset-react": "^7.0.0",
+		"@wordpress/env": "^4.1.3",
 		"@wordpress/eslint-plugin": "^3.0.0",
+		"@wordpress/prettier-config": "^1.1.1",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
+		"cypress": "^9.0.0",
 		"eslint": "^6.3.0",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
@@ -47,5 +57,6 @@
 	},
 	"dependencies": {
 		"@wordpress/api-fetch": "^3.5.0"
-	}
+	},
+	"prettier": "@wordpress/prettier-config"
 }
