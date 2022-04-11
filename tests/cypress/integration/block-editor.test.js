@@ -1,0 +1,121 @@
+describe('Visit Classic Editor settings page', () => {
+	it('Update settings to keep the default editor as classic editor', () => {
+		cy.visitAdminPage('options-writing.php#classic-editor-options');
+		cy.get('#classic-editor-block').click();
+		cy.get('#classic-editor-allow').click();
+		cy.get('#submit').click();
+	});
+});
+
+describe('Tests that new post is not tweeted when box is unchecked', () => {
+	it('Autoshare disable default', () => {
+		cy.visitAdminPage('options-general.php?page=autoshare-for-twitter');
+		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').should('exist');
+		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
+		cy.get('#submit').click();
+	});
+
+	it('Tests that new post is not tweeted when box is unchecked', () => {
+		// Start create new post by enter post title
+		cy.startCreatePost();
+		
+		cy.get('.editor-post-publish-panel__toggle').should('be.visible');
+		cy.get('.editor-post-publish-panel__toggle').click();
+
+		// Publish
+		cy.get('.editor-post-publish-button').should('be.visible');
+		cy.get('.editor-post-publish-button').click();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+	});
+});
+
+
+describe('Tests that new post is tweeted when box is checked', () => {
+	it('Tests that new post is tweeted when box is checked', () => {
+		// Start create new post by enter post title
+		cy.startCreatePost();
+
+		// Open pre-publish Panel.
+		cy.get('.editor-post-publish-panel__toggle').should('be.visible');
+		cy.get('.editor-post-publish-panel__toggle').click();
+		cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
+		cy.get('.components-panel__body:contains("Autoshare:")').click();
+
+		// Check enable checkbox for auto-share.
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').check();
+
+		// Publish.
+		cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+		cy.get('.editor-post-publish-button').click();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+	});
+});
+
+
+describe('Tests that Draft post is not tweeted when box is unchecked', () => {
+	it('Tests that Draft post is not tweeted when box is unchecked', () => {
+		// Start create new post by enter post title
+		cy.startCreatePost();
+
+		// Save Draft
+		cy.get('.editor-post-save-draft').should('be.visible');
+		cy.get('.editor-post-save-draft').click();
+		cy.get('.editor-post-saved-state').should('have.text', 'Saved');
+
+		// Open pre-publish Panel.
+		cy.get('.editor-post-publish-panel__toggle').should('be.visible');
+		cy.get('.editor-post-publish-panel__toggle').click();
+		cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
+		cy.get('.components-panel__body:contains("Autoshare:")').click();
+
+		// Uncheck enable checkbox for auto-share.
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').uncheck();
+
+		// Publish.
+		cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+		cy.get('.editor-post-publish-button').click();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+	});
+});
+
+
+describe('Tests that Draft post is tweeted when box is checked', () => {
+	it('Tests that Draft post is tweeted when box is checked', () => {
+		// Start create new post by enter post title
+		cy.startCreatePost();
+
+		// Save Draft
+		cy.get('.editor-post-save-draft').should('be.visible');
+		cy.get('.editor-post-save-draft').click();
+		cy.get('.editor-post-saved-state').should('have.text', 'Saved');
+		
+		// Open pre-publish Panel.
+		cy.get('.editor-post-publish-panel__toggle').should('be.visible');
+		cy.get('.editor-post-publish-panel__toggle').click();
+		cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
+		cy.get('.components-panel__body:contains("Autoshare:")').click();
+
+		// Check enable checkbox for auto-share.
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
+		cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').check();
+
+		// Publish.
+		cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+		cy.get('.editor-post-publish-button').click();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+	});
+});

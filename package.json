@@ -23,10 +23,6 @@
 		"*.js": [
 			"eslint"
 		],
-		"tests/**/*.js": [
-			"./node_modules/.bin/wp-scripts format",
-			"git add"
-		],
 		"*.php": [
 			"./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
 		]
