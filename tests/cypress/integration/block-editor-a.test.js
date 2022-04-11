@@ -12,8 +12,8 @@ describe('Visit Classic Editor settings page', () => {
 describe('Tests that new post is not tweeted when box is unchecked', () => {
 	it('Autoshare disable default', () => {
 		cy.visitAdminPage('options-general.php?page=autoshare-for-twitter');
-		cy.get('input[name="autoshare-for-twitter[enable_default]"]').should('exist');
-		cy.get('input[name="autoshare-for-twitter[enable_default]"]').eq( 1 ).click();
+		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').should('exist');
+		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
 		cy.get('#submit').click();
 	});
 
