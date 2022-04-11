@@ -1,4 +1,13 @@
 describe('Test Autoshare for Twitter with Block Editor.', () => {
+	before(()=>{
+		// Ignore WP 5.2 Synchronous XHR error.
+		Cypress.on('uncaught:exception', (err, runnable) => {
+			if (err.message.includes("Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'http://localhost:8889/wp-admin/admin-ajax.php': Synchronous XHR in page dismissal") ){
+				return false;
+			}
+		});
+	});
+
 	it('Update settings to keep the default editor as block editor', () => {
 		cy.visitAdminPage('options-writing.php#classic-editor-options');
 		cy.get('#classic-editor-block').click();
