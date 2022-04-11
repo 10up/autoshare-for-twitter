@@ -1,65 +1,41 @@
 import { getRandomText } from "../support/functions";
 
-const slug = 'autoshare-for-twitter';
+describe('Visit Classic Editor settings page', () => {
+	it('Update settings to keep the default editor as classic editor', () => {
+		cy.visitAdminPage('options-writing.php#classic-editor-options');
+		cy.get('#classic-editor-block').click();
+		cy.get('#classic-editor-allow').click();
+		cy.get('#submit').click();
+	});
+});
 
-describe( 'Visit Classic Editor settings page', () => {
-	it( 'Update settings to keep the default editor as classic editor', () => {
-		cy.visitAdminPage( 'options-writing.php#classic-editor-options' );
-		cy.get( '#classic-editor-block' ).click();
-		cy.get( '#classic-editor-allow' ).click();
-		cy.get( '#submit' ).click();
-	} );
-} );
+describe('Tests that new post is not tweeted when box is unchecked', () => {
+	it('Autoshare disable default', () => {
+		cy.visitAdminPage('options-general.php?page=autoshare-for-twitter');
+		cy.get('input[name="autoshare-for-twitter[enable_default]"]').should('exist');
+		cy.get('input[name="autoshare-for-twitter[enable_default]"]').eq( 1 ).click();
+		cy.get('#submit').click();
+	});
 
-describe( 'Tests that new post is not tweeted when box is unchecked', () => {
-	it( 'Autoshare disable default', () => {
-		cy.visitAdminPage( 'options-general.php?page=autoshare-for-twitter' );
-		cy.wait( 5000 );
-		cy.get( 'input[name="autoshare-for-twitter[enable_default]"]' ).eq( 1 ).click();
-		cy.get( '#submit' ).click();
-	} );
+	it('Tests that new post is not tweeted when box is unchecked', () => {
+		cy.visitAdminPage('post-new.php');
+		const titleInput = 'h1.editor-post-title__input, #post-title-0';
 
-	it( 'Tests that new post is not tweeted when box is unchecked', () => {
-		cy.visitAdminPage( 'post-new.php' );
+		// Make sure editor loaded properly.
+		cy.get(titleInput).should('exist');
 
-		cy.wait( 5000 );
-		cy.get("body").then($body => {
-			if ($body.find('button[aria-label="Close dialog"]').length > 0) {
-				cy.get( 'button[aria-label="Close dialog"]' ).click();
-			}
-		});
-
-		// The tips dialog has different attribute in lower core version, add check to handle scenario.
-		cy.get("body").then($body => {
-			if ($body.find('button[aria-label="Disable tips"]').length > 0) {
-				cy.get('button[aria-label="Disable tips"]').click();
-			}
-		});
-
-		let postTitle = getRandomText(5);
-
-		cy.get("body").then($body => {
-			if ($body.find('h1.wp-block-post-title').length > 0) {
-				cy.get( 'h1.wp-block-post-title' ).type( 'Random Post Title' + postTitle );
-			}
-		});
-
-		cy.get("body").then($body => {
-			if ($body.find('#post-title-0').length > 0) {
-				cy.get( '#post-title-0' ).type( 'Random Post Title' + postTitle );
-			}
-		});
-
-		cy.get( '.editor-post-publish-panel__toggle', { timeout: 5000 } ).should( 'be.visible' );
-		cy.get( '.editor-post-publish-panel__toggle' ).click();
-		cy.wait( 3000 );
+		cy.closeWelcomeGuide();
+		cy.get(titleInput).clear().type(`Random Post Title ${getRandomText(5)}`);
+		
+		cy.get('.editor-post-publish-panel__toggle').should('be.visible');
+		cy.get('.editor-post-publish-panel__toggle').click();
 
 		// Pre-publish.
-		cy.get( '.editor-post-publish-button', { timeout: 5000 } ).should( 'be.visible' );
-		cy.get( '.editor-post-publish-button' ).click();
+		cy.get('.editor-post-publish-button').should('be.visible');
+		cy.get('.editor-post-publish-button').click();
 
 		// Post-publish.
-		cy.get( '.autoshare-for-twitter-post-status', { timeout: 5000 } ).should( 'be.visible' );
-		cy.get( '.autoshare-for-twitter-post-status' ).contains( 'This post was not tweeted.' );
-	} );
-} );
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+	});
+});
