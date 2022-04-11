@@ -1,13 +1,12 @@
-describe('Visit Classic Editor settings page', () => {
+describe('Test Autoshare for Twitter with Block Editor.', () => {
 	it('Update settings to keep the default editor as Classic editor', () => {
 		cy.visitAdminPage('options-writing.php#classic-editor-options');
 		cy.get('#classic-editor-classic').click();
 		cy.get('#classic-editor-allow').click();
 		cy.get('#submit').click();
 	});
-});
 
-describe('Tests that new post is not tweeted when box is unchecked', () => {
+
 	it('Tests that new post is not tweeted when box is unchecked', () => {
 		// Start create post.
 		cy.classicStartCreatePost();
@@ -20,9 +19,8 @@ describe('Tests that new post is not tweeted when box is unchecked', () => {
 		cy.get('#autoshare_for_twitter_metabox').should('be.visible');
 		cy.get('#autoshare_for_twitter_metabox').contains('This post was not tweeted');
 	});
-});
 
-describe('Tests that new post is tweeted when box is checked', () => {
+
 	it('Tests that new post is tweeted when box is checked', () => {
 		// Start create post.
 		cy.classicStartCreatePost();	
@@ -36,9 +34,8 @@ describe('Tests that new post is tweeted when box is checked', () => {
 		cy.get('#autoshare_for_twitter_metabox',).should('be.visible');
 		cy.get('#autoshare_for_twitter_metabox',).contains('Tweeted on');
 	});
-});
 
-describe('Tests that draft post is not tweeted when box is unchecked', () => {
+
 	it('Tests that draft post is not tweeted when box is unchecked', () => {
 		// Start create post.
 		cy.classicStartCreatePost();
@@ -55,10 +52,8 @@ describe('Tests that draft post is not tweeted when box is unchecked', () => {
 		cy.get('#autoshare_for_twitter_metabox').should('be.visible');
 		cy.get('#autoshare_for_twitter_metabox').contains('This post was not tweeted');
 	});
-});
 
 
-describe('Tests that draft post is not tweeted when box is unchecked', () => {
 	it('Tests that draft post is not tweeted when box is unchecked', () => {
 		// Start create post.
 		cy.classicStartCreatePost();
@@ -76,5 +71,3 @@ describe('Tests that draft post is not tweeted when box is unchecked', () => {
 		cy.get('#autoshare_for_twitter_metabox').contains('Tweeted on');
 	});
 });
-
-
