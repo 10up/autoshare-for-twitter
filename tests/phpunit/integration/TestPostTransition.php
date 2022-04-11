@@ -25,7 +25,7 @@ class TestPostTransition extends WP_UnitTestCase {
 	/**
 	 * Setup.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		$this->assertTrue(
 			check_method_exists(
 				'transition_post_status',
