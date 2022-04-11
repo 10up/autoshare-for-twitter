@@ -23,7 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import '@10up/cypress-wp-utils';
 import { getRandomText } from "../support/functions";
 
 Cypress.Commands.add( 'startCreatePost', () => {

@@ -1,5 +1,5 @@
-describe('Test Autoshare for Twitter with Block Editor.', () => {
-	beforeEach(() => {
+describe('Test Autoshare for Twitter with Classic Editor.', () => {
+	before(() => {
 		cy.login();
 	});
 
