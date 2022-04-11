@@ -49,3 +49,8 @@ Cypress.Commands.add( 'startCreatePost', () => {
 });
 
 
+Cypress.Commands.add( 'classicStartCreatePost', () => {
+	cy.visitAdminPage('post-new.php');
+	let postTitle = getRandomText(8);
+	cy.get('input[name="post_title"]').type('Random Post Title' + postTitle );
+});
