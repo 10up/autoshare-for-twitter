@@ -41,6 +41,7 @@
 	},
 	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
+		"@10up/cypress-wp-utils": "github:10up/cypress-wp-utils#build",
 		"@10up/eslint-config": "^1.0.9",
 		"@babel/core": "^7.6.0",
 		"@babel/preset-env": "^7.6.0",
