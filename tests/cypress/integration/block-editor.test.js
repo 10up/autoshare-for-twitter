@@ -8,8 +8,12 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 		});
 	});
 
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Update settings to keep the default editor as block editor', () => {
-		cy.visitAdminPage('options-writing.php#classic-editor-options');
+		cy.visit('/wp-admin/options-writing.php#classic-editor-options');
 		cy.get('#classic-editor-block').click();
 		cy.get('#classic-editor-allow').click();
 		cy.get('#submit').click();
@@ -17,7 +21,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 
 
 	it('Can disable default Autoshare', () => {
-		cy.visitAdminPage('options-general.php?page=autoshare-for-twitter');
+		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').should('exist');
 		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
 		cy.get('#submit').click();

@@ -1,11 +1,14 @@
 describe('Test Autoshare for Twitter with Block Editor.', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Update settings to keep the default editor as Classic editor', () => {
-		cy.visitAdminPage('options-writing.php#classic-editor-options');
+		cy.visit('/wp-admin/options-writing.php#classic-editor-options');
 		cy.get('#classic-editor-classic').click();
 		cy.get('#classic-editor-allow').click();
 		cy.get('#submit').click();
 	});
-
 
 	it('Tests that new post is not tweeted when box is unchecked', () => {
 		// Start create post.

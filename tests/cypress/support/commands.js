@@ -26,18 +26,8 @@
 import '@10up/cypress-wp-utils';
 import { getRandomText } from "../support/functions";
 
-Cypress.Commands.add( 'visitAdminPage', ( page = 'index.php' ) => {
-	cy.login();
-	if ( page.includes( 'http' ) ) {
-		cy.visit( page );
-	} else {
-		cy.visit( `/wp-admin/${ page.replace( /^\/|\/$/g, '' ) }` );
-	}
-});
-
-
 Cypress.Commands.add( 'startCreatePost', () => {
-	cy.visitAdminPage('post-new.php');
+	cy.visit('/wp-admin/post-new.php');
 	const titleInput = 'h1.editor-post-title__input, #post-title-0';
 
 	// Make sure editor loaded properly.
@@ -49,7 +39,7 @@ Cypress.Commands.add( 'startCreatePost', () => {
 
 
 Cypress.Commands.add( 'classicStartCreatePost', () => {
-	cy.visitAdminPage('post-new.php');
+	cy.visit('/wp-admin/post-new.php');
 	let postTitle = getRandomText(8);
 	cy.get('input[name="post_title"]').type('Random Post Title' + postTitle );
 });
