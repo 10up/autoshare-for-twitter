@@ -1,19 +1,19 @@
-describe('Visit Classic Editor settings page', () => {
-	it('Update settings to keep the default editor as classic editor', () => {
+describe('Test Autoshare for Twitter with Block Editor.', () => {
+	it('Update settings to keep the default editor as block editor', () => {
 		cy.visitAdminPage('options-writing.php#classic-editor-options');
 		cy.get('#classic-editor-block').click();
 		cy.get('#classic-editor-allow').click();
 		cy.get('#submit').click();
 	});
-});
 
-describe('Tests that new post is not tweeted when box is unchecked', () => {
-	it('Autoshare disable default', () => {
+
+	it('Can disable default Autoshare', () => {
 		cy.visitAdminPage('options-general.php?page=autoshare-for-twitter');
 		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').should('exist');
 		cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
 		cy.get('#submit').click();
 	});
+
 
 	it('Tests that new post is not tweeted when box is unchecked', () => {
 		// Start create new post by enter post title
@@ -30,10 +30,8 @@ describe('Tests that new post is not tweeted when box is unchecked', () => {
 		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 		cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 	});
-});
 
 
-describe('Tests that new post is tweeted when box is checked', () => {
 	it('Tests that new post is tweeted when box is checked', () => {
 		// Start create new post by enter post title
 		cy.startCreatePost();
@@ -56,10 +54,8 @@ describe('Tests that new post is tweeted when box is checked', () => {
 		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 		cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
 	});
-});
 
 
-describe('Tests that Draft post is not tweeted when box is unchecked', () => {
 	it('Tests that Draft post is not tweeted when box is unchecked', () => {
 		// Start create new post by enter post title
 		cy.startCreatePost();
@@ -87,10 +83,8 @@ describe('Tests that Draft post is not tweeted when box is unchecked', () => {
 		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 		cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 	});
-});
 
-
-describe('Tests that Draft post is tweeted when box is checked', () => {
+	
 	it('Tests that Draft post is tweeted when box is checked', () => {
 		// Start create new post by enter post title
 		cy.startCreatePost();
