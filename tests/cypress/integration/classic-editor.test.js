@@ -57,7 +57,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	});
 
 
-	it('Tests that draft post is not tweeted when box is unchecked', () => {
+	it('Tests that draft post is tweeted when box is checked', () => {
 		// Start create post.
 		cy.classicStartCreatePost();
 
