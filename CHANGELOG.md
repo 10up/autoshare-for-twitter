@@ -6,23 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.1.0] - 2022-04-13
+### Added
+- Colored icons to represent autoshare status (props [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@Sidsector9](https://github.com/Sidsector9), [@dinhtungdu](https://github.com/dinhtungdu)) via [#142](https://github.com/10up/autoshare-for-twitter/pull/142).
+- Sample copy for example responses (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul)) via [#149](https://github.com/10up/autoshare-for-twitter/pull/149).
+- PHP 8 compatibility (props [@Sidsector9](https://github.com/Sidsector9), [@faisal-alvi](https://github.com/faisal-alvi)) via [#144](https://github.com/10up/autoshare-for-twitter/pull/144).
+- E2E Tests with Cypress (props [@thrijith](https://github.com/thrijith), [@iamdharmesh](https://github.com/iamdharmesh), [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul)) via [#145](https://github.com/10up/autoshare-for-twitter/pull/145).
+
+### Changed
+- Update dependency `abraham/twitteroauth` from 1.2.0 to 2.0.0 to ensure PHP 8.0 support (props [@Sidsector9](https://github.com/Sidsector9), [@faisal-alvi](https://github.com/faisal-alvi)) via [#144](https://github.com/10up/autoshare-for-twitter/pull/144).
+- App setup instructions for getting API keys and tokens (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul)) via [#149](https://github.com/10up/autoshare-for-twitter/pull/149).
+- Bump WordPress version "tested up to" 5.9 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@sudip-10up](https://github.com/sudip-10up)) via [#151](https://github.com/10up/autoshare-for-twitter/pull/151).
+
+### Fixed
+- Warning thrown on activating plugin for the first time (props [@Sidsector9](https://github.com/Sidsector9), [@dinhtungdu](https://github.com/dinhtungdu)) via [#138](https://github.com/10up/autoshare-for-twitter/pull/138).
+- CI pipeline failures (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9)) via [#147](https://github.com/10up/autoshare-for-twitter/pull/147).
+### Security
+- Bump ajv from 6.10.2 to 6.12.6 (props [@dependabot](https://github.com/apps/dependabot)) via [#141](https://github.com/10up/autoshare-for-twitter/pull/141).
+- Bump tar from 4.4.8 to 4.4.19 (props [@dependabot](https://github.com/apps/dependabot)) via [#143](https://github.com/10up/autoshare-for-twitter/pull/143).
+- Bump ini from 1.3.5 to 1.3.8 (props [@dependabot](https://github.com/apps/dependabot)) via [#152](https://github.com/10up/autoshare-for-twitter/pull/152).
+
 ## [1.0.6] - 2020-09-19
 - Note: this was a hotfix release to fix an issue with deploys to WordPress.org.
 
 ## [1.0.5] - 2021-09-15
-## Added
+### Added
 - Tweeted status column to All Posts table list view (props [@thrijith](https://github.com/thrijith), [@dinhtungdu](https://github.com/dinhtungdu), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@jeffpaul](https://github.com/jeffpaul/) via [#121](https://github.com/10up/autoshare-for-twitter/pull/121)).
 
-## Changed
+### Changed
 - Bump WordPress version "tested up to" 5.8 (props [@thrijith](https://github.com/thrijith), [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul/) via [#126](https://github.com/10up/autoshare-for-twitter/pull/126)).
 - WP Snapshot for auotmated testing to WP 5.6 (props [@dinhtungdu](https://github.com/dinhtungdu), [@jeffpaul](https://github.com/jeffpaul/) via [#107](https://github.com/10up/autoshare-for-twitter/pull/107)).
 - Update dependency `abraham/twitteroauth` from ^0.7.4 to 1.2.0 to ensure PHP 7.4 support and WordPress VIP Go compatability (props [@thrijith](https://github.com/thrijith), [@dinhtungdu](https://github.com/dinhtungdu), [@rickalee](https://github.com/rickalee) via [#122](https://github.com/10up/autoshare-for-twitter/pull/122)).
 - Update PHPUnit test cases to include new functions (props [@thrijith](https://github.com/thrijith) via [#124](https://github.com/10up/autoshare-for-twitter/pull/124)).
 
-## Fixed
+### Fixed
 - Ensure that special characters are properly encoded (props [@dinhtungdu](https://github.com/dinhtungdu), [@rickalee](https://github.com/rickalee) via [#116](https://github.com/10up/autoshare-for-twitter/pull/116)).
 
-## Security
+### Security
 - Bump `lodash` from 4.17.15 to 4.17.21 (props [@dependabot](https://github.com/apps/dependabot) via [#108](https://github.com/10up/autoshare-for-twitter/pull/108), [#130](https://github.com/10up/autoshare-for-twitter/pull/130)).
 - Bump `elliptic` from 6.5.1 to 6.5.4 (props [@dependabot](https://github.com/apps/dependabot) via [#109](https://github.com/10up/autoshare-for-twitter/pull/109), [#123](https://github.com/10up/autoshare-for-twitter/pull/123)).
 - Bump `yargs-parser` from 13.1.1 to 13.1.2 (props [@dependabot](https://github.com/apps/dependabot) via [#111](https://github.com/10up/autoshare-for-twitter/pull/111)).
@@ -88,6 +108,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.1.0]: https://github.com/10up/autoshare-for-twitter/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/10up/autoshare-for-twitter/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/10up/autoshare-for-twitter/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/10up/autoshare-for-twitter/compare/1.0.3...1.0.4
