@@ -4,7 +4,7 @@ Tags:              twitter, tweet, autoshare, auto-share, auto share, share, soc
 Requires at least: 4.9
 Tested up to:      5.9
 Requires PHP:      7.2
-Stable tag:        1.0.6
+Stable tag:        1.1.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
