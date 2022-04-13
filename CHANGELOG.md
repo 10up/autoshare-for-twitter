@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.1.1] - 2022-04-13
+### Fixed
+- If Autoshare is enabled by default, it does not consider the post-level "Tweet this post" checkbox and always tweets (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#155](https://github.com/10up/autoshare-for-twitter/pull/155)).
+
 ## [1.1.0] - 2022-04-13
 ### Added
 - Colored icons to represent autoshare status (props [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@Sidsector9](https://github.com/Sidsector9), [@dinhtungdu](https://github.com/dinhtungdu) via [#142](https://github.com/10up/autoshare-for-twitter/pull/142)).
@@ -108,6 +112,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.1.1]: https://github.com/10up/autoshare-for-twitter/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/10up/autoshare-for-twitter/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/10up/autoshare-for-twitter/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/10up/autoshare-for-twitter/compare/1.0.4...1.0.5
