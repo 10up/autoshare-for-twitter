@@ -3,10 +3,11 @@
 > Automatically tweets the post title or custom message and a link to the post.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/autoshare-for-twitter?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
-![ESLint](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml/badge.svg)
-![PHPCompatibility](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml/badge.svg)
-![PHPCS](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml/badge.svg)
-![PHPUnit](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpunit.yml/badge.svg)
+[![ESLint](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml)
+[![PHPCompatibility](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml)
+[![PHPCS](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml)
+[![PHPUnit](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpunit.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpunit.yml)
+[![E2E Tests](https://github.com/10up/autoshare-for-twitter/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/cypress.yml)
 
 ## Overview
 
