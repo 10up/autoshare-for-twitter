@@ -4,7 +4,7 @@ Tags:              twitter, tweet, autoshare, auto-share, auto share, share, soc
 Requires at least: 4.9
 Tested up to:      5.9
 Requires PHP:      7.2
-Stable tag:        1.1.0
+Stable tag:        1.1.1
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -29,6 +29,9 @@ Automatically tweets the post title or custom message and a link to the post.  A
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
+
+= 1.1.1 =
+* **Fixed:** If Autoshare is enabled by default, it does not consider the post-level "Tweet this post" checkbox and always tweets (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9)).
 
 = 1.1.0 =
 * **Added:** Colored icons to represent autoshare status (props [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@Sidsector9](https://github.com/Sidsector9), [@dinhtungdu](https://github.com/dinhtungdu)).
