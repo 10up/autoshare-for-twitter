@@ -1,0 +1,39 @@
+name: PHPUnit
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mariadb:10.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['7.3', '8.0']
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set PHP version
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php-versions }}
+        coverage: none
+        extensions: mysql, imagick
+
+    - name: Run PHPUnit
+      run: ./bin/test.sh

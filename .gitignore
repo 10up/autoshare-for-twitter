@@ -4,3 +4,7 @@ node_modules
 screenshots
 tests/coverage
 vendor
+
+tests/cypress/downloads
+tests/cypress/screenshots
+tests/cypress/videos

@@ -56,6 +56,31 @@
 	display: none;
 }
 
+.autoshare-settings p.copy-container {
+    position: relative;
+    border: 2px #ccc solid;
+    padding: 10px;
+    padding-right: 36px;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.autoshare-settings p.copy-container a {
+	position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    background: #ccc;
+    padding: 8px;
+    font-weight: 100;
+	text-decoration: none;
+	color: inherit;
+}
+
+.autoshare-settings p.copy-container a:hover {
+	background: #bbb;
+}
+
 @media (min-width: 1024px) {
 	.autoshare-settings {
 		display: flex;
