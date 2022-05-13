@@ -8,6 +8,7 @@
 namespace TenUp\AutoshareForTwitter\Core\Post_Transition;
 
 use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
+use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
 use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
 use TenUp\AutoshareForTwitter\Utils as Utils;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
@@ -61,6 +62,13 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 		return;
 	}
 
+	/**
+	 * Don't publish tweets from staging/testing sites.
+	 */
+	if ( AST_Staging::is_duplicate_site() ) {
+		return;
+	}
+
 	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 		add_action(
 			sprintf( 'rest_after_insert_%s', $post->post_type ),
@@ -90,6 +98,13 @@ function publish_tweet( $post_id ) {
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
+		return;
+	}
+
+	/**
+	 * Don't publish tweets from staging/testing sites.
+	 */
+	if ( AST_Staging::is_duplicate_site() ) {
 		return;
 	}
 
