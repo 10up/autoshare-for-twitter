@@ -72,7 +72,7 @@ class AST_Staging {
 						'</strong>',
 						'<a href="' . esc_url( self::get_site_url_from_source( 'autoshare' ) ) . '" target="_blank">',
 						'</a>',
-						esc_url( self::get_site_url_from_source( 'autoshare' ) ),
+						esc_url( self::get_site_url_from_source( 'autoshare' ) )
 					)
 					?>
 				</p>
@@ -168,7 +168,7 @@ class AST_Staging {
 	 */
 	public static function get_autoshare_site_url_lock_key() {
 		$site_url = self::get_site_url_from_source( 'current_wp_site' );
-		$scheme   = parse_url( $site_url, PHP_URL_SCHEME ) . '://';
+		$scheme   = wp_parse_url( $site_url, PHP_URL_SCHEME ) . '://';
 		$site_url = str_replace( $scheme, '', $site_url );
 
 		return $scheme . substr_replace( $site_url, '_[autoshare_siteurl]_', strlen( $site_url ) / 2, 0 );
