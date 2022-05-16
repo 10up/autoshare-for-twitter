@@ -204,8 +204,6 @@ class AST_Staging {
 	public static function get_site_url_from_source( $source = 'current_wp_site' ) {
 		if ( 'autoshare' === $source ) {
 			$site_url = self::get_authoshare_live_site_url();
-		} elseif ( ! is_multisite() && defined( 'WP_SITEURL' ) ) {
-			$site_url = WP_SITEURL;
 		} else {
 			$site_url = get_site_url();
 		}
