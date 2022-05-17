@@ -65,7 +65,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/**
 	 * Don't publish tweets from staging/testing sites.
 	 */
-	if ( AST_Staging::is_duplicate_site() ) {
+	if ( ! AST_Staging::is_production_site() ) {
 		return;
 	}
 
@@ -104,7 +104,7 @@ function publish_tweet( $post_id ) {
 	/**
 	 * Don't publish tweets from staging/testing sites.
 	 */
-	if ( AST_Staging::is_duplicate_site() ) {
+	if ( ! AST_Staging::is_production_site() ) {
 		return;
 	}
 

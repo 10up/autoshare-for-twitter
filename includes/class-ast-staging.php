@@ -19,7 +19,7 @@ class AST_Staging {
 	 * Add actions
 	 */
 	public static function init() {
-		add_action( 'init', array( __CLASS__, 'maybe_add_autoshare_site_url' ) );
+		add_action( 'init', array( __CLASS__, 'maybe_add_autoshare_live_url' ) );
 		add_action( 'admin_init', array( __CLASS__, 'handle_site_change_notice_actions' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'handle_site_change_notice' ) );
 	}
@@ -30,7 +30,7 @@ class AST_Staging {
 	 * @since 1.2.0
 	 */
 	public static function handle_site_change_notice_actions() {
-		if ( self::is_duplicate_site() && current_user_can( 'manage_options' ) ) {
+		if ( ! self::is_production_site() && current_user_can( 'manage_options' ) ) {
 
 			if (
 				! empty( $_GET['_astnonce'] ) &&
@@ -39,9 +39,9 @@ class AST_Staging {
 			) {
 				$duplicate_site = sanitize_text_field( wp_unslash( $_GET['autoshare_duplicate_site'] ) );
 				if ( 'update' === $duplicate_site ) {
-					self::set_autoshare_site_url_lock();
+					self::set_autoshare_live_url_lock();
 				} elseif ( 'ignore' === $duplicate_site ) {
-					update_option( 'autoshare_ignore_duplicate_siteurl_notice', self::get_autoshare_site_url_lock_key() );
+					update_option( 'autoshare_ignore_duplicate_site_notice', self::get_autoshare_live_url_lock_key() );
 				}
 				wp_safe_redirect( remove_query_arg( array( 'autoshare_duplicate_site', '_astnonce' ) ) );
 			}
@@ -55,9 +55,9 @@ class AST_Staging {
 	 */
 	public static function handle_site_change_notice() {
 		if (
-			self::is_duplicate_site() &&
+			! self::is_production_site() &&
 			current_user_can( 'manage_options' ) &&
-			self::get_autoshare_site_url_lock_key() !== get_option( 'autoshare_ignore_duplicate_siteurl_notice' )
+			self::get_autoshare_live_url_lock_key() !== get_option( 'autoshare_ignore_duplicate_site_notice' )
 		) {
 			$ignore_url = wp_nonce_url( add_query_arg( 'autoshare_duplicate_site', 'ignore' ), 'ast_duplicate_site', '_astnonce' );
 			$update_url = wp_nonce_url( add_query_arg( 'autoshare_duplicate_site', 'update' ), 'ast_duplicate_site', '_astnonce' );
@@ -70,9 +70,9 @@ class AST_Staging {
 						esc_html__( 'It looks like this site has moved or is a duplicate site. %1$sAutoshare for Twitter%2$s has disabled publish tweets on this site to prevent tweets from a staging or test environment. %1$sAutoshare for Twitter%2$s considers %3$s%5$s%4$s to be the site\'s URL. ', 'autoshare-for-twitter' ),
 						'<strong>',
 						'</strong>',
-						'<a href="' . esc_url( self::get_site_url_from_source( 'autoshare' ) ) . '" target="_blank">',
+						'<a href="' . esc_url( self::get_url_from_source( 'autoshare' ) ) . '" target="_blank">',
 						'</a>',
-						esc_url( self::get_site_url_from_source( 'autoshare' ) )
+						esc_url( self::get_url_from_source( 'autoshare' ) )
 					)
 					?>
 				</p>
@@ -90,26 +90,26 @@ class AST_Staging {
 	}
 
 	/**
-	 * Determines if this is a testing/staging site.
+	 * Determines if this is a production site.
 	 *
 	 * Checks if the WordPress site URL is the same as the URL Autoshare considers the live URL.
 	 *
 	 * @since 1.2.0
-	 * @return bool Whether the site is a staging URL or not.
+	 * @return bool Whether the site is a production URL or not.
 	 */
-	public static function is_duplicate_site() {
-		$wp_site_url_parts  = wp_parse_url( self::get_site_url_from_source( 'current_wp_site' ) );
-		$ast_site_url_parts = wp_parse_url( self::get_site_url_from_source( 'autoshare' ) );
+	public static function is_production_site() {
+		$wp_url_parts  = wp_parse_url( self::get_url_from_source( 'current_wp_site' ) );
+		$ast_url_parts = wp_parse_url( self::get_url_from_source( 'autoshare' ) );
 
-		if ( ! isset( $wp_site_url_parts['path'] ) && ! isset( $ast_site_url_parts['path'] ) ) {
+		if ( ! isset( $wp_url_parts['path'] ) && ! isset( $ast_url_parts['path'] ) ) {
 			$paths_match = true;
-		} elseif ( isset( $wp_site_url_parts['path'] ) && isset( $ast_site_url_parts['path'] ) && $wp_site_url_parts['path'] === $ast_site_url_parts['path'] ) {
+		} elseif ( isset( $wp_url_parts['path'] ) && isset( $ast_url_parts['path'] ) && $wp_url_parts['path'] === $ast_url_parts['path'] ) {
 			$paths_match = true;
 		} else {
 			$paths_match = false;
 		}
 
-		if ( isset( $wp_site_url_parts['host'] ) && isset( $ast_site_url_parts['host'] ) && $wp_site_url_parts['host'] === $ast_site_url_parts['host'] ) {
+		if ( isset( $wp_url_parts['host'] ) && isset( $ast_url_parts['host'] ) && $wp_url_parts['host'] === $ast_url_parts['host'] ) {
 			$hosts_match = true;
 		} else {
 			$hosts_match = false;
@@ -117,18 +117,18 @@ class AST_Staging {
 
 		// Check the host and path, do not check the protocol/scheme to avoid issues.
 		if ( $paths_match && $hosts_match ) {
-			$is_duplicate = false;
+			$is_production = true;
 		} else {
-			$is_duplicate = true;
+			$is_production = false;
 		}
 
 		/**
-		 * Filters value of "Is staging site?".
+		 * Filters value of "Is production site?".
 		 *
 		 * @since 1.2.0
-		 * @param boolean $is_duplicate Is staging site?.
+		 * @param boolean $is_production Whether the site is a production URL or not.
 		 */
-		return apply_filters( 'autoshare_for_twitter_is_duplicate_site', $is_duplicate );
+		return apply_filters( 'autoshare_for_twitter_is_production_site', $is_production );
 	}
 
 	/**
@@ -136,12 +136,12 @@ class AST_Staging {
 	 *
 	 * @since 1.2.0
 	 */
-	public static function maybe_add_autoshare_site_url() {
-		$autoshare_site_url = get_option( 'autoshare_siteurl', false );
+	public static function maybe_add_autoshare_live_url() {
+		$autoshare_liveurl = get_option( 'autoshare_liveurl', false );
 
-		// Check if autoshare site url is stored in options, save option if not stored.
-		if ( false === $autoshare_site_url ) {
-			self::set_autoshare_site_url_lock();
+		// Check if autoshare live url is stored in options, save option if not stored.
+		if ( false === $autoshare_liveurl ) {
+			self::set_autoshare_live_url_lock();
 		}
 	}
 	/**
@@ -151,8 +151,8 @@ class AST_Staging {
 	 *
 	 * @since 1.2.0
 	 */
-	public static function set_autoshare_site_url_lock() {
-		update_option( 'autoshare_siteurl', self::get_autoshare_site_url_lock_key() );
+	public static function set_autoshare_live_url_lock() {
+		update_option( 'autoshare_liveurl', self::get_autoshare_live_url_lock_key() );
 	}
 
 
@@ -161,31 +161,31 @@ class AST_Staging {
 	 *
 	 * The key can not simply be the site URL, e.g. http://example.com, because some hosts replaces all
 	 * instances of the site URL in the database when creating a staging site. As a result, we obfuscate
-	 * the URL by inserting '_[autoshare_siteurl]_' into the middle of it.
+	 * the URL by inserting '_[autoshare_liveurl]_' into the middle of it.
 	 *
 	 * @since 1.2.0
 	 * @return string The autoshare site URL lock key.
 	 */
-	public static function get_autoshare_site_url_lock_key() {
-		$site_url = self::get_site_url_from_source( 'current_wp_site' );
-		$scheme   = wp_parse_url( $site_url, PHP_URL_SCHEME ) . '://';
-		$site_url = str_replace( $scheme, '', $site_url );
+	public static function get_autoshare_live_url_lock_key() {
+		$url    = self::get_url_from_source( 'current_wp_site' );
+		$scheme = wp_parse_url( $url, PHP_URL_SCHEME ) . '://';
+		$url    = str_replace( $scheme, '', $url );
 
-		return $scheme . substr_replace( $site_url, '_[autoshare_siteurl]_', strlen( $site_url ) / 2, 0 );
+		return $scheme . substr_replace( $url, '_[autoshare_liveurl]_', strlen( $url ) / 2, 0 );
 	}
 
 	/**
 	 * Gets the URL Autoshare considers as the live site URL.
 	 *
-	 * This URL is set by `self::set_autoshare_site_url_lock()`. This function removes the obfuscation to get a raw URL.
+	 * This URL is set by `self::set_autoshare_live_url_lock()`. This function removes the obfuscation to get a raw URL.
 	 *
 	 * @since 1.2.0
 	 */
-	public static function get_authoshare_live_site_url() {
-		$url = get_option( 'autoshare_siteurl', '' );
+	public static function get_authoshare_live_url() {
+		$url = get_option( 'autoshare_liveurl', '' );
 
 		// Remove the prefix used to prevent the site URL being updated by search & replace.
-		$url = str_replace( '_[autoshare_siteurl]_', '', $url );
+		$url = str_replace( '_[autoshare_liveurl]_', '', $url );
 
 		return $url;
 	}
@@ -201,13 +201,13 @@ class AST_Staging {
 	 * @param string $source The URL source to get. Optional. Takes values 'current_wp_site' or 'autoshare'. Default is 'current_wp_site'.
 	 * @return string The URL.
 	 */
-	public static function get_site_url_from_source( $source = 'current_wp_site' ) {
+	public static function get_url_from_source( $source = 'current_wp_site' ) {
 		if ( 'autoshare' === $source ) {
-			$site_url = self::get_authoshare_live_site_url();
+			$url = self::get_authoshare_live_url();
 		} else {
-			$site_url = get_site_url();
+			$url = get_home_url();
 		}
 
-		return $site_url;
+		return $url;
 	}
 }
