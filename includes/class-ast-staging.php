@@ -92,7 +92,7 @@ class AST_Staging {
 	/**
 	 * Determines if this is a production site.
 	 *
-	 * Checks if the WordPress site URL is the same as the URL Autoshare considers the live URL.
+	 * Checks if the current WordPress URL is the same as the URL Autoshare considers the live URL.
 	 *
 	 * @since 1.2.0
 	 * @return bool Whether the site is a production URL or not.
@@ -164,7 +164,7 @@ class AST_Staging {
 	 * the URL by inserting '_[autoshare_liveurl]_' into the middle of it.
 	 *
 	 * @since 1.2.0
-	 * @return string The autoshare site URL lock key.
+	 * @return string The autoshare live URL lock key.
 	 */
 	public static function get_autoshare_live_url_lock_key() {
 		$url    = self::get_url_from_source( 'current_wp_site' );
@@ -175,7 +175,7 @@ class AST_Staging {
 	}
 
 	/**
-	 * Gets the URL Autoshare considers as the live site URL.
+	 * Gets the URL Autoshare considers as the live URL.
 	 *
 	 * This URL is set by `self::set_autoshare_live_url_lock()`. This function removes the obfuscation to get a raw URL.
 	 *
