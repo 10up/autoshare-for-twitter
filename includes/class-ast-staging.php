@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Core\AST_Staging;
  * Autoshare For Twitter staging mode handler.
  *
  * @package TenUp\AutoshareForTwitter\Core
+ *
  * @since   1.2.0
  */
 class AST_Staging {
@@ -95,6 +96,7 @@ class AST_Staging {
 	 * Checks if the current WordPress URL is the same as the URL Autoshare considers the live URL.
 	 *
 	 * @since 1.2.0
+	 *
 	 * @return bool Whether the site is a production URL or not.
 	 */
 	public static function is_production_site() {
@@ -126,6 +128,7 @@ class AST_Staging {
 		 * Filters value of "Is production site?".
 		 *
 		 * @since 1.2.0
+		 *
 		 * @param boolean $is_production Whether the site is a production URL or not.
 		 */
 		return apply_filters( 'autoshare_for_twitter_is_production_site', $is_production );
@@ -144,6 +147,7 @@ class AST_Staging {
 			self::set_autoshare_live_url_lock();
 		}
 	}
+
 	/**
 	 * Sets the autoshare site lock key to record the site's "live" url.
 	 *
@@ -155,7 +159,6 @@ class AST_Staging {
 		update_option( 'autoshare_liveurl', self::get_autoshare_live_url_lock_key() );
 	}
 
-
 	/**
 	 * Generates a unique key based on the sites URL used to determine duplicate/staging sites.
 	 *
@@ -164,6 +167,7 @@ class AST_Staging {
 	 * the URL by inserting '_[autoshare_liveurl]_' into the middle of it.
 	 *
 	 * @since 1.2.0
+	 *
 	 * @return string The autoshare live URL lock key.
 	 */
 	public static function get_autoshare_live_url_lock_key() {

@@ -41,30 +41,28 @@ function setup() {
  * @return object
  */
 function maybe_publish_tweet( $new_status, $old_status, $post ) {
-	/**
+	/*
 	 * Add filter to return early based on post or status
 	 */
 	if ( apply_filters( 'autoshare_for_twitter_disable_on_transition_post_status', false, $post, $old_status, $new_status ) ) {
 		return;
 	}
 
-	/**
+	/*
 	 * We're only interested in posts that are transitioning into publish.
 	 */
 	if ( 'publish' !== $new_status || 'publish' === $old_status ) {
 		return;
 	}
 
-	/**
+	/*
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
 	}
 
-	/**
-	 * Don't publish tweets from staging/testing sites.
-	 */
+	// Don't publish tweets from staging/testing sites.
 	if ( ! AST_Staging::is_production_site() ) {
 		return;
 	}
@@ -94,16 +92,14 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 function publish_tweet( $post_id ) {
 	$post = get_post( $post_id );
 
-	/**
+	/*
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
 		return;
 	}
 
-	/**
-	 * Don't publish tweets from staging/testing sites.
-	 */
+	// Don't publish tweets from staging/testing sites.
 	if ( ! AST_Staging::is_production_site() ) {
 		return;
 	}
@@ -113,7 +109,7 @@ function publish_tweet( $post_id ) {
 		return;
 	}
 
-	/**
+	/*
 	 * One final check: was the "auto tweet" checkbox selected?
 	 */
 	if ( Utils\autoshare_enabled( $post->ID ) ) {
