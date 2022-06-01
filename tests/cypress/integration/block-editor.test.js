@@ -37,26 +37,13 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.startCreatePost();
 
 			// Open pre-publish Panel.
-			cy.get('.editor-post-publish-panel__toggle').should('be.visible');
-			cy.get('.editor-post-publish-panel__toggle').click();
-
+			cy.openPrePublishPanel();
+			
 			// Check enable checkbox for auto-share.
-			cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
-			cy.get('.components-panel__body:contains("Autoshare:")').click();
-
-			const checkboxSelector =
-				'.autoshare-for-twitter-prepublish__checkbox input:checkbox';
-			cy.get(checkboxSelector).should('be.visible');
-			if (true === defaultBehavior) {
-				cy.get(checkboxSelector).should('be.checked');
-				cy.get(checkboxSelector).uncheck();
-				cy.get(checkboxSelector).should('not.be.checked');
-			} else {
-				cy.get(checkboxSelector).should('not.be.checked');
-			}
+			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, false);
 
 			// Publish
-			cy.get('.editor-post-publish-button').should('be.visible');
+			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
 			cy.get('.editor-post-publish-button').click();
 
 			// Post-publish.
@@ -64,19 +51,15 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 		});
 
-		it.skip('Tests that new post is tweeted when box is checked', () => {
+		it('Tests that new post is tweeted when box is checked', () => {
 			// Start create new post by enter post title
 			cy.startCreatePost();
 
 			// Open pre-publish Panel.
-			cy.get('.editor-post-publish-panel__toggle').should('be.visible');
-			cy.get('.editor-post-publish-panel__toggle').click();
-			cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
-			cy.get('.components-panel__body:contains("Autoshare:")').click();
+			cy.openPrePublishPanel();
 
 			// Check enable checkbox for auto-share.
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').check();
+			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, true);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
@@ -87,7 +70,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
 		});
 
-		it.skip('Tests that Draft post is not tweeted when box is unchecked', () => {
+		it('Tests that Draft post is not tweeted when box is unchecked', () => {
 			// Start create new post by enter post title
 			cy.startCreatePost();
 
@@ -97,14 +80,10 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.editor-post-saved-state').should('have.text', 'Saved');
 
 			// Open pre-publish Panel.
-			cy.get('.editor-post-publish-panel__toggle').should('be.visible');
-			cy.get('.editor-post-publish-panel__toggle').click();
-			cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
-			cy.get('.components-panel__body:contains("Autoshare:")').click();
+			cy.openPrePublishPanel();
 
 			// Uncheck enable checkbox for auto-share.
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').uncheck();
+			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, false);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
@@ -115,7 +94,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 		});
 
-		it.skip('Tests that Draft post is tweeted when box is checked', () => {
+		it('Tests that Draft post is tweeted when box is checked', () => {
 			// Start create new post by enter post title
 			cy.startCreatePost();
 
@@ -125,14 +104,10 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.editor-post-saved-state').should('have.text', 'Saved');
 
 			// Open pre-publish Panel.
-			cy.get('.editor-post-publish-panel__toggle').should('be.visible');
-			cy.get('.editor-post-publish-panel__toggle').click();
-			cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
-			cy.get('.components-panel__body:contains("Autoshare:")').click();
+			cy.openPrePublishPanel();
 
 			// Check enable checkbox for auto-share.
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').should('be.visible');
-			cy.get('.autoshare-for-twitter-prepublish__checkbox input:checkbox').check();
+			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, true);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
