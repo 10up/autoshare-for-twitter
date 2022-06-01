@@ -11,13 +11,13 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	});
 
 	// Run test cases with default Autoshare enabled and disabled both.
-	const defaultBehaviors = [true, false];
+	const defaultBehaviors = [false, true];
 	defaultBehaviors.forEach( (defaultBehavior) => {	
 		it(`Can ${(defaultBehavior ? 'Enable': 'Disable')} default Autoshare`, () => {
 			cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 			cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').should('exist');
 			if (true === defaultBehavior) {
-				cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
+				cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').check();
 			} else {
 				cy.get('input:checkbox[name="autoshare-for-twitter[enable_default]"]').uncheck();
 			}
@@ -27,6 +27,12 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 		it('Tests that new post is not tweeted when box is unchecked', () => {
 			// Start create post.
 			cy.classicStartCreatePost();
+
+			// Checkbox
+			const isChecked = defaultBehavior ? 'be.checked' : 'not.be.checked';
+			cy.get('#autoshare-for-twitter-enable').should('exist');
+			cy.get('#autoshare-for-twitter-enable').should(isChecked);
+			cy.get('#autoshare-for-twitter-enable').uncheck();
 
 			// publish
 			cy.get('#publish').click();
@@ -43,8 +49,8 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			cy.classicStartCreatePost();	
 
 			// Checkbox
-			cy.get('#autoshare-for-twitter-enable').should('exist');
-			cy.get('#autoshare-for-twitter-enable').check();
+			const isChecked = defaultBehavior ? 'be.checked' : 'not.be.checked';
+			cy.get('#autoshare-for-twitter-enable').should('exist').should(isChecked).check();
 			cy.get('#publish').click();
 
 			// Post-publish.
@@ -61,7 +67,9 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			cy.get('#save-post').click();
 
 			// Uncheck the checkbox and publish
+			const isChecked = defaultBehavior ? 'be.checked' : 'not.be.checked';
 			cy.get('#autoshare-for-twitter-enable').should('exist');
+			cy.get('#autoshare-for-twitter-enable').should(isChecked);
 			cy.get('#autoshare-for-twitter-enable').uncheck();
 			cy.get('#publish').click();
 
@@ -78,8 +86,10 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			// Save Draft
 			cy.get('#save-post').click();
 			
-			// Check the checkbox and publish
+			// Uncheck the checkbox and publish
+			const isChecked = defaultBehavior ? 'be.checked' : 'not.be.checked';
 			cy.get('#autoshare-for-twitter-enable').should('exist');
+			cy.get('#autoshare-for-twitter-enable').should(isChecked);
 			cy.get('#autoshare-for-twitter-enable').check();
 			cy.get('#publish').click();
 
