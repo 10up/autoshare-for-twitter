@@ -62,15 +62,19 @@ Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, che
 	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as('enableCheckbox');
 	if (true === check) {
 		cy.get(checkboxSelector).check();
-		cy.wait('@enableCheckbox').then(response => {
-			expect(response.response?.body?.enabled).to.equal(check);
-		});
+		if(defaultBehavior !== check){
+			cy.wait('@enableCheckbox').then(response => {
+				expect(response.response?.body?.enabled).to.equal(check);
+			});
+		}
 		cy.get(checkboxSelector).should('be.checked');
 	} else {
 		cy.get(checkboxSelector).uncheck();
-		cy.wait('@enableCheckbox').then(response => {
-			expect(response.response?.body?.enabled).to.equal(check);
-		});
+		if(defaultBehavior !== check){
+			cy.wait('@enableCheckbox').then(response => {
+				expect(response.response?.body?.enabled).to.equal(check);
+			});
+		}
 		cy.get(checkboxSelector).should('not.be.checked');
 	}
 });

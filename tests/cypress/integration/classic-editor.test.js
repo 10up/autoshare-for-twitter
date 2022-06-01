@@ -24,7 +24,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			cy.get('#submit').click();
 		});
 
-		it.skip('Tests that new post is not tweeted when box is unchecked', () => {
+		it('Tests that new post is not tweeted when box is unchecked', () => {
 			// Start create post.
 			cy.classicStartCreatePost();
 
@@ -41,7 +41,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 		});
 
 
-		it.skip('Tests that new post is tweeted when box is checked', () => {
+		it('Tests that new post is tweeted when box is checked', () => {
 			// Start create post.
 			cy.classicStartCreatePost();	
 
