@@ -140,7 +140,13 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 
 	// If the enable key is not set, set it to the default setting value.
 	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
-		$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = autoshare_enabled( $post_id ) ? 1 : 0;
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['classic-editor'] ) ) {
+			// Handle unchecked "Tweet this post" checkbox for classic editor.
+			$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
+		} else {
+			$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = autoshare_enabled( $post_id ) ? 1 : 0;
+		}
 	}
 
 	foreach ( $data as $key => $value ) {
