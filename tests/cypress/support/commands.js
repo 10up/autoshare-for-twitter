@@ -47,6 +47,7 @@ Cypress.Commands.add( 'openPrePublishPanel', () => {
 	// Open pre-publish Panel.
 	cy.get('.editor-post-publish-panel__toggle').should('be.visible');
 	cy.get('.editor-post-publish-panel__toggle').click();
+	cy.wait(500); // prevent clicking on category assign suggestion panel. ToDo: find more proper way to handle this.
 	cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
 	cy.get('.components-panel__body:contains("Autoshare:")').click();	
 });
