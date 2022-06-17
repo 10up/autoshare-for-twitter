@@ -1,5 +1,5 @@
 === Autoshare for Twitter ===
-Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu
+Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
 Requires at least: 4.9
 Tested up to:      6.0
