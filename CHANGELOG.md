@@ -8,16 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.1.2] - 2022-06-21
 ### Added
-- Some addtional E2E tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#167](https://github.com/10up/autoshare-for-twitter/pull/167))
-- Handle publish tweets from staging/testing/local environments to prevent publishing accidental tweets. (props [@dinhtungdu](https://github.com/dinhtungdu), [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#161](https://github.com/10up/autoshare-for-twitter/pull/161))
-- Dependency security scanning. (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#160](https://github.com/10up/autoshare-for-twitter/pull/160))
+- Cypress E2E tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#167](https://github.com/10up/autoshare-for-twitter/pull/167)).
+- Handle tweeting from staging/testing/local environments to prevent accidental tweets (props [@dinhtungdu](https://github.com/dinhtungdu), [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#161](https://github.com/10up/autoshare-for-twitter/pull/161)).
+- Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#160](https://github.com/10up/autoshare-for-twitter/pull/160)).
 
 ### Changed
-- Bump tested up to WordPress 6.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@vikrampm1](https://github.com/vikrampm1), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#162](https://github.com/10up/autoshare-for-twitter/pull/162))
-### Fixed
-- Incorrect `Tweet this post` checkbox behavior in the classic editor. (props [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic) via [#169](https://github.com/10up/autoshare-for-twitter/pull/169))
-- "Plugin asset/readme update" GH action failure. (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#166](https://github.com/10up/autoshare-for-twitter/pull/166) and [#165](https://github.com/10up/autoshare-for-twitter/pull/165))
+- Bump WordPress "tested up to" version 6.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@vikrampm1](https://github.com/vikrampm1), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#162](https://github.com/10up/autoshare-for-twitter/pull/162)).
 
+### Fixed
+- Incorrect `Tweet this post` checkbox behavior in the Classic Editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic) via [#169](https://github.com/10up/autoshare-for-twitter/pull/169)).
+- "Plugin asset/readme update" GitHub Action failure (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#166](https://github.com/10up/autoshare-for-twitter/pull/166) and [#165](https://github.com/10up/autoshare-for-twitter/pull/165)).
 
 ## [1.1.1] - 2022-04-13
 ### Fixed
