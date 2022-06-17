@@ -29,7 +29,7 @@
 	},
 	"minimum-stability": "dev",
 	"config": {
-		"autoloader-suffix": "10upAutoshareForTwitterV111",
+		"autoloader-suffix": "10upAutoshareForTwitterV112",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
