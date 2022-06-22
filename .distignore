@@ -5,6 +5,7 @@
 /bin
 /node_modules
 /tests
+/src
 # DO NOT EXCLUDE /vendor
 
 # Files
