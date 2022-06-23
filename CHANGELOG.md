@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.1.2] - 2022-06-24
+### Added
+- Cypress E2E tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#167](https://github.com/10up/autoshare-for-twitter/pull/167)).
+- Handle tweeting from staging/testing/local environments to prevent accidental tweets (props [@dinhtungdu](https://github.com/dinhtungdu), [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#161](https://github.com/10up/autoshare-for-twitter/pull/161)).
+- Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#160](https://github.com/10up/autoshare-for-twitter/pull/160)).
+
+### Changed
+- Bump WordPress "tested up to" version 6.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@vikrampm1](https://github.com/vikrampm1), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#162](https://github.com/10up/autoshare-for-twitter/pull/162)).
+
+### Fixed
+- Incorrect `Tweet this post` checkbox behavior in the Classic Editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic) via [#169](https://github.com/10up/autoshare-for-twitter/pull/169)).
+- "Plugin asset/readme update" GitHub Action failure (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#166](https://github.com/10up/autoshare-for-twitter/pull/166) and [#165](https://github.com/10up/autoshare-for-twitter/pull/165)).
+
 ## [1.1.1] - 2022-04-13
 ### Fixed
 - If Autoshare is enabled by default, it does not consider the post-level "Tweet this post" checkbox and always tweets (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#155](https://github.com/10up/autoshare-for-twitter/pull/155)).
@@ -112,6 +125,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.1.2]: https://github.com/10up/autoshare-for-twitter/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/10up/autoshare-for-twitter/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/10up/autoshare-for-twitter/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/10up/autoshare-for-twitter/compare/1.0.5...1.0.6
