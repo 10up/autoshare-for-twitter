@@ -1,6 +1,6 @@
 import { Component } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginPrePublishPanel, PluginPostPublishPanel, PluginPostStatusInfo, PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { PluginPrePublishPanel, PluginPostPublishPanel, PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { dispatch, select, subscribe } from '@wordpress/data';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -61,14 +61,6 @@ class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 		);
 	}
 }
-
-const AutoshareForTwitterPostStatusInfoPlugin = () => {
-	return (
-		<PluginPostStatusInfo className="my-plugin-post-status-info">
-			<AutoshareForTwitterPostStatusInfo />
-		</PluginPostStatusInfo>
-	);
-};
 
 const AutoshareForTwitterPostPublishPanelPlugin = () => {
 	return (
@@ -163,5 +155,4 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 
 registerPlugin( 'autoshare-for-twitter-editor-panel', { render: AutoshareForTwitterEditorPanelPlugin } );
 registerPlugin( 'autoshare-for-twitter-pre-publish-panel', { render: AutoshareForTwitterPrePublishPanelPlugin } );
-registerPlugin( 'autoshare-for-twitter-post-status-info', { render: AutoshareForTwitterPostStatusInfoPlugin } );
 registerPlugin( 'autoshare-for-twitter-post-publish-panel', { render: AutoshareForTwitterPostPublishPanelPlugin } );
