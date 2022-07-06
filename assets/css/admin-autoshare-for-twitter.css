@@ -126,6 +126,7 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	background-image: url('../images/twitter_disabled.svg');
 }
 
+.autoshare-for-twitter-pre-publish-panel svg.components-panel__icon,
 .autoshare-for-twitter-editor-panel svg.components-panel__icon{
 	width: 24px;
 	height: 24px;

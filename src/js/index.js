@@ -36,25 +36,30 @@ class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 	maybeSetEnabledText() {
 		try {
 			const enabled = select( STORE ).getAutoshareEnabled();
-			const enabledText = enabled ? __( 'Enabled', 'autoshare-for-twitter' ) : __( 'Disabled', 'autoshare-for-twitter' );
+			const enabledText = enabled ? __( 'This post will be Tweeted', 'autoshare-for-twitter' ) : __( 'Will not be Tweeted', 'autoshare-for-twitter' );
 
 			if ( enabledText !== this.state.enabledText ) {
-				this.setState( { enabledText } );
+				this.setState( { enabled, enabledText } );
 			}
 		} catch ( e ) {}
 	}
 
 	render() {
-		const { enabledText } = this.state;
+		const { enabled, enabledText } = this.state;
+		const PluginIcon = enabled ? EnabledIcon : DisabledIcon;
+		const AutoTweetIcon = (
+			<Icon
+				className="autoshare-for-twitter-icon components-panel__icon"
+				icon={ <PluginIcon /> }
+				size={ 24 }
+			/>
+		);
 
 		return (
 			<PluginPrePublishPanel
-				title={ [
-					__( 'Autoshare:', 'autoshare-for-twitter' ),
-					<span className="editor-post-publish-panel__link" key="label">
-						{ enabledText }
-					</span>,
-				] }
+				title={ enabledText }
+				icon={ AutoTweetIcon }
+				className="autoshare-for-twitter-pre-publish-panel"
 			>
 				<AutoshareForTwitterPrePublishPanel />
 			</PluginPrePublishPanel>
@@ -105,7 +110,7 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 			if ( tweetStatus && tweetStatus.status ) {
 				if ( tweetStatus.status === 'published' ) {
 					StatusIcon = TweetedIcon;
-				} else if ( tweetStatus.status === 'failed' ) {
+				} else if ( tweetStatus.status === 'error' ) {
 					StatusIcon = FailedIcon;
 				} else {
 					StatusIcon = DefaultIcon;
