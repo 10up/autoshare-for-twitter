@@ -54,7 +54,7 @@ Cypress.Commands.add( 'openPrePublishPanel', () => {
 
 Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, check = true ) => {
 	// Check/Uncheck enable checkbox for auto-share.
-	cy.get(checkboxSelector).should('be.visible');
+	cy.get(checkboxSelector).should('exist');
 	if (true === defaultBehavior) {
 		cy.get(checkboxSelector).should('be.checked');
 	} else {
