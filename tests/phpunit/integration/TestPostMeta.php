@@ -87,6 +87,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
 				'url'     => 'https://twitter.com//status/444',
+				'status'  => 'published',
 			],
 			get_tweet_status_message( $post )
 		);
@@ -117,6 +118,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => 'Failed to tweet: There was an error.',
+				'status'  => 'error',
 			],
 			get_tweet_status_message( $post )
 		);
@@ -146,6 +148,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => 'There was an error.',
+				'status'  => 'unknown',
 			],
 			get_tweet_status_message( $post )
 		);
@@ -167,6 +170,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => 'This post was not tweeted.',
+				'status'  => 'other',
 			],
 			get_tweet_status_message( $post )
 		);
