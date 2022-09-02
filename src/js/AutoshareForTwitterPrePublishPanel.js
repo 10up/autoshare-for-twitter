@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Button, CheckboxControl, Dashicon, TextareaControl } from '@wordpress/components';
+import { Button, TextareaControl, ToggleControl } from '@wordpress/components';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
@@ -76,17 +76,11 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			errorMessage,
 			overriding,
 			permalinkLength,
-			saving,
 			setAutoshareEnabled,
 			setOverriding,
 			setTweetText,
 			tweetText,
 		} = this.props;
-
-		const twitterIconClass = () => {
-			const iconClass = autoshareEnabled ? 'enabled' : 'disabled';
-			return `${ iconClass } ${ saving ? 'pending' : '' }`;
-		};
 
 		const overrideLengthClass = () => {
 			if ( 280 <= permalinkLength + tweetText.length ) {
@@ -102,21 +96,15 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 
 		return (
 			<>
-				<div className="autoshare-for-twitter-prepublish__checkbox-row">
-					<CheckboxControl
-						className="autoshare-for-twitter-prepublish__checkbox"
-						label={
-							<span className="autoshare-for-twitter-prepublish__checkbox-label">
-								<Dashicon icon="twitter" className={ twitterIconClass() } />
-								{ __( 'Tweet this post?', 'autoshare-for-twitter' ) }
-							</span>
-						}
-						checked={ autoshareEnabled }
-						onChange={ ( checked ) => {
-							setAutoshareEnabled( checked );
-						} }
-					/>
-				</div>
+				<ToggleControl
+					label={ autoshareEnabled ? __( 'Tweet when published', 'autoshare-for-twitter' ) : __( 'Don\'t Tweet', 'autoshare-for-twitter' )
+					}
+					checked={ autoshareEnabled }
+					onChange={ ( checked ) => {
+						setAutoshareEnabled( checked );
+					} }
+					className="autoshare-for-twitter-toggle-control"
+				/>
 
 				{ autoshareEnabled && (
 					<div className="autoshare-for-twitter-prepublish__override-row">

@@ -48,13 +48,13 @@ Cypress.Commands.add( 'openPrePublishPanel', () => {
 	cy.get('.editor-post-publish-panel__toggle').should('be.visible');
 	cy.get('.editor-post-publish-panel__toggle').click();
 	cy.wait(500); // prevent clicking on category assign suggestion panel. ToDo: find more proper way to handle this.
-	cy.get('.components-panel__body:contains("Autoshare:")').should('exist');
-	cy.get('.components-panel__body:contains("Autoshare:")').click();	
+	cy.get('.autoshare-for-twitter-pre-publish-panel').should('exist');
+	cy.get('.autoshare-for-twitter-pre-publish-panel').click();	
 });
 
 Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, check = true ) => {
 	// Check/Uncheck enable checkbox for auto-share.
-	cy.get(checkboxSelector).should('be.visible');
+	cy.get(checkboxSelector).should('exist');
 	if (true === defaultBehavior) {
 		cy.get(checkboxSelector).should('be.checked');
 	} else {

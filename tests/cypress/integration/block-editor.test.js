@@ -40,7 +40,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.openPrePublishPanel();
 			
 			// Check enable checkbox for auto-share.
-			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, false);
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
@@ -59,7 +59,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.openPrePublishPanel();
 
 			// Check enable checkbox for auto-share.
-			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, true);
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
@@ -83,7 +83,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.openPrePublishPanel();
 
 			// Uncheck enable checkbox for auto-share.
-			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, false);
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
@@ -107,7 +107,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.openPrePublishPanel();
 
 			// Check enable checkbox for auto-share.
-			cy.enableCheckbox('.autoshare-for-twitter-prepublish__checkbox input:checkbox', defaultBehavior, true);
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');

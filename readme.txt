@@ -1,7 +1,7 @@
 === Autoshare for Twitter ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
-Requires at least: 4.9
+Requires at least: 5.3
 Tested up to:      6.0
 Requires PHP:      7.2
 Stable tag:        1.1.2

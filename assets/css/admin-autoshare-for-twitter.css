@@ -12,26 +12,8 @@
 	white-space: normal;
 }
 
-.autoshare-for-twitter-prepublish__checkbox .components-base-control__field, .autoshare-for-twitter-prepublish__checkbox-label {
-	display: flex;
-	align-items: center;
-}
-
-.autoshare-for-twitter-prepublish__checkbox .components-base-control__field {
+.autoshare-for-twitter-toggle-control {
 	margin-top: 0.5rem;
-}
-
-.autoshare-for-twitter-prepublish__checkbox-label svg {
-	margin-right: 0.5rem;
-}
-
-.autoshare-for-twitter-prepublish__message-label {
-	display: flex;
-	justify-content: space-between;
-}
-
-.autoshare-for-twitter-prepublish__checkbox-row input[type=checkbox].components-checkbox-control__input {
-	margin-right: 0.5rem;
 }
 
 .autoshare-for-twitter-prepublish__override-row {
@@ -39,7 +21,7 @@
 }
 
 .autoshare-for-twitter-prepublish__override-row .components-button {
-	margin-bottom: 1rem;
+	margin-top: 0.5rem;
 }
 
 .autoshare-for-twitter-post-status {
@@ -141,4 +123,10 @@ tbody .autoshare-for-twitter-status-logo--enabled::before {
 
 tbody .autoshare-for-twitter-status-logo--disabled::before {
 	background-image: url('../images/twitter_disabled.svg');
+}
+
+.autoshare-for-twitter-pre-publish-panel svg.components-panel__icon,
+.autoshare-for-twitter-editor-panel svg.components-panel__icon{
+	width: 24px;
+	height: 24px;
 }
