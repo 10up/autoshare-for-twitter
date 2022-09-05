@@ -15,7 +15,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 
 		// Although these values are delivered as props, we copy them into state so that we can check for changes
 		// and save data when they update.
-		this.state = { autoshareEnabled: null, tweetText: null };
+		this.state = { autoshareEnabled: null, tweetText: null, featuredImageUrl: null };
 
 		this.saveData = debounce( this.saveData.bind( this ), 250 );
 	}
@@ -27,11 +27,11 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 	}
 
 	componentDidUpdate() {
-		const { autoshareEnabled, tweetText } = this.props;
+		const { autoshareEnabled, tweetText, featuredImageUrl } = this.props;
 
 		// Update if either of these values has changed in the data store.
 		if ( autoshareEnabled !== this.state.autoshareEnabled || tweetText !== this.state.tweetText ) {
-			this.setState( { autoshareEnabled, tweetText }, () => {
+			this.setState( { autoshareEnabled, tweetText, featuredImageUrl }, () => {
 				this.props.setSaving( true );
 				this.saveData();
 			} );
@@ -80,6 +80,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			setOverriding,
 			setTweetText,
 			tweetText,
+			featuredImageUrl,
 		} = this.props;
 
 		const overrideLengthClass = () => {
@@ -135,7 +136,16 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 						</Button>
 					</div>
 				) }
-
+				{ featuredImageUrl && (
+					<>
+						<img src={ featuredImageUrl } alt="" />
+						<Button
+							isLink
+						>
+							{ __( 'Remove image of Tweet', 'autoshare-for-twitter' ) }
+						</Button>
+					</>
+				) }
 				<div>{ errorMessage }</div>
 			</>
 		);
@@ -156,6 +166,13 @@ const permalinkLength = ( select ) => {
 	return siteUrl.length;
 };
 
+const featuredImageUrl = ( select ) => {
+	const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
+	const imageUrl = select( 'core' ).getMedia( imageId );
+
+	return imageUrl ? imageUrl.source_url : false;
+};
+
 export default compose(
 	withSelect( ( select ) => ( {
 		autoshareEnabled: select( STORE ).getAutoshareEnabled(),
@@ -164,6 +181,7 @@ export default compose(
 		permalinkLength: permalinkLength( select ),
 		saving: select( STORE ).getSaving(),
 		tweetText: select( STORE ).getTweetText(),
+		featuredImageUrl: featuredImageUrl( select ),
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
 		setAutoshareEnabled: dispatch( STORE ).setAutoshareEnabled,
