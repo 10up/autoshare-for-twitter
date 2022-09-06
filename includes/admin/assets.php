@@ -16,6 +16,7 @@ use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
  * The handle used in registering plugin assets.
@@ -201,6 +202,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
+		'tweetImageUrl'      => TWEET_ALLOW_IMAGE,
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );

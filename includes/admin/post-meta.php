@@ -38,6 +38,8 @@ const TWEET_BODY_KEY = 'tweet-body';
  */
 const TWITTER_STATUS_KEY = 'status';
 
+const TWEET_ALLOW_IMAGE = 'tweet-allow-image';
+
 /**
  * The setup function
  *
