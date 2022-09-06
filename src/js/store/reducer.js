@@ -7,6 +7,7 @@ import {
 	SET_SAVING,
 	SET_LOADED,
 	SET_OVERRIDING,
+	SET_ALLOW_TWEET_IMAGE,
 } from './constants';
 
 export const DEFAULT_STATE = {
@@ -16,6 +17,7 @@ export const DEFAULT_STATE = {
 	overriding: false,
 	overrideLength: 0,
 	tweetText: '',
+	allowTweetImage: false,
 };
 
 export default function reducer( state = DEFAULT_STATE, action ) {
@@ -57,6 +59,13 @@ export default function reducer( state = DEFAULT_STATE, action ) {
 			return {
 				...state,
 				tweetText: action.tweetText,
+			};
+		}
+
+		case SET_ALLOW_TWEET_IMAGE: {
+			return {
+				...state,
+				allowTweetImage: action.allowTweetImage,
 			};
 		}
 	}

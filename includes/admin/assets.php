@@ -202,7 +202,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
-		'tweetImageUrl'      => TWEET_ALLOW_IMAGE,
+		'allowTweetImageKey' => TWEET_ALLOW_IMAGE,
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );

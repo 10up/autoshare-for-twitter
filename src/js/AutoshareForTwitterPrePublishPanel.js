@@ -4,7 +4,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey } from 'admin-autoshare-for-twitter';
+import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey, allowTweetImageKey } from 'admin-autoshare-for-twitter';
 import { __ } from '@wordpress/i18n';
 
 import { STORE } from './store';
@@ -15,23 +15,27 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 
 		// Although these values are delivered as props, we copy them into state so that we can check for changes
 		// and save data when they update.
-		this.state = { autoshareEnabled: null, tweetText: null, featuredImageUrl: null };
+		this.state = { autoshareEnabled: null, tweetText: null, featuredImageUrl: null, allowTweetImage: true };
 
 		this.saveData = debounce( this.saveData.bind( this ), 250 );
 	}
 
 	componentDidMount() {
-		const { autoshareEnabled, tweetText } = this.props;
+		const { autoshareEnabled, tweetText, allowTweetImage } = this.props;
 
-		this.setState( { autoshareEnabled, tweetText } );
+		this.setState( { autoshareEnabled, tweetText, allowTweetImage } );
 	}
 
 	componentDidUpdate() {
-		const { autoshareEnabled, tweetText, featuredImageUrl } = this.props;
+		const { autoshareEnabled, tweetText, featuredImageUrl, allowTweetImage } = this.props;
 
 		// Update if either of these values has changed in the data store.
-		if ( autoshareEnabled !== this.state.autoshareEnabled || tweetText !== this.state.tweetText ) {
-			this.setState( { autoshareEnabled, tweetText, featuredImageUrl }, () => {
+		if (
+			autoshareEnabled !== this.state.autoshareEnabled ||
+			tweetText !== this.state.tweetText ||
+			allowTweetImage !== this.state.allowTweetImage
+		) {
+			this.setState( { autoshareEnabled, tweetText, featuredImageUrl, allowTweetImage }, () => {
 				this.props.setSaving( true );
 				this.saveData();
 			} );
@@ -39,11 +43,12 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 	}
 
 	async saveData() {
-		const { autoshareEnabled, setErrorMessage, setSaving, tweetText } = this.props;
+		const { autoshareEnabled, setErrorMessage, setSaving, tweetText, allowTweetImage } = this.props;
 
 		const body = {};
 		body[ enableAutoshareKey ] = autoshareEnabled;
 		body[ tweetBodyKey ] = tweetText;
+		body[ allowTweetImageKey ] = allowTweetImage;
 
 		try {
 			const response = await apiFetch( {
@@ -76,9 +81,11 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			errorMessage,
 			overriding,
 			permalinkLength,
+			allowTweetImage,
 			setAutoshareEnabled,
 			setOverriding,
 			setTweetText,
+			setAllowTweetImage,
 			tweetText,
 			featuredImageUrl,
 		} = this.props;
@@ -141,6 +148,9 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 						<img src={ featuredImageUrl } alt="" />
 						<Button
 							isLink
+							onClick={ () => {
+								setAllowTweetImage( ! allowTweetImage );
+							} }
 						>
 							{ __( 'Remove image of Tweet', 'autoshare-for-twitter' ) }
 						</Button>
@@ -182,6 +192,7 @@ export default compose(
 		saving: select( STORE ).getSaving(),
 		tweetText: select( STORE ).getTweetText(),
 		featuredImageUrl: featuredImageUrl( select ),
+		allowTweetImage: select( STORE ).getAllowTweetImage(),
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
 		setAutoshareEnabled: dispatch( STORE ).setAutoshareEnabled,
@@ -197,5 +208,6 @@ export default compose(
 			}
 		},
 		setTweetText: dispatch( STORE ).setTweetText,
+		setAllowTweetImage: dispatch( STORE ).setAllowTweetImage,
 	} ) ),
 )( AutoshareForTwitterPrePublishPanel );
