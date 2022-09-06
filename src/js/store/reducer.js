@@ -17,7 +17,7 @@ export const DEFAULT_STATE = {
 	overriding: false,
 	overrideLength: 0,
 	tweetText: '',
-	allowTweetImage: false,
+	allowTweetImage: true,
 };
 
 export default function reducer( state = DEFAULT_STATE, action ) {

@@ -163,6 +163,15 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 				} else {
 					delete_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY );
 				}
+
+				break;
+
+			case TWEET_ALLOW_IMAGE:
+				update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, $value ? 'yes' : 'no' );
+				break;
+
+			default:
+				break;
 		}
 	}
 }

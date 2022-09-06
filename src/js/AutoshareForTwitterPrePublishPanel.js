@@ -145,14 +145,14 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 				) }
 				{ featuredImageUrl && (
 					<>
-						<img src={ featuredImageUrl } alt="" />
+						<img style={ { opacity: allowTweetImage ? 1 : 0.1 } } src={ featuredImageUrl } alt="" />
 						<Button
 							isLink
 							onClick={ () => {
 								setAllowTweetImage( ! allowTweetImage );
 							} }
 						>
-							{ __( 'Remove image of Tweet', 'autoshare-for-twitter' ) }
+							{ allowTweetImage ? __( 'Remove image from Tweet', 'autoshare-for-twitter' ) : __( 'Add image to Tweet', 'autoshare-for-twitter' ) }
 						</Button>
 					</>
 				) }
