@@ -15,7 +15,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 
 		// Although these values are delivered as props, we copy them into state so that we can check for changes
 		// and save data when they update.
-		this.state = { autoshareEnabled: null, tweetText: null, featuredImageUrl: null, allowTweetImage: true };
+		this.state = { autoshareEnabled: null, tweetText: null, hasFeaturedImage: null, allowTweetImage: true };
 
 		this.saveData = debounce( this.saveData.bind( this ), 250 );
 	}
@@ -27,7 +27,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 	}
 
 	componentDidUpdate() {
-		const { autoshareEnabled, tweetText, featuredImageUrl, allowTweetImage } = this.props;
+		const { autoshareEnabled, tweetText, hasFeaturedImage, allowTweetImage } = this.props;
 
 		// Update if either of these values has changed in the data store.
 		if (
@@ -35,7 +35,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			tweetText !== this.state.tweetText ||
 			allowTweetImage !== this.state.allowTweetImage
 		) {
-			this.setState( { autoshareEnabled, tweetText, featuredImageUrl, allowTweetImage }, () => {
+			this.setState( { autoshareEnabled, tweetText, hasFeaturedImage, allowTweetImage }, () => {
 				this.props.setSaving( true );
 				this.saveData();
 			} );
@@ -87,7 +87,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			setTweetText,
 			setAllowTweetImage,
 			tweetText,
-			featuredImageUrl,
+			hasFeaturedImage,
 		} = this.props;
 
 		const overrideLengthClass = () => {
@@ -113,6 +113,17 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 					} }
 					className="autoshare-for-twitter-toggle-control"
 				/>
+
+				{ hasFeaturedImage && (
+					<ToggleControl
+						label={ __( 'Use featured image in Tweet', 'autoshare-for-twitter' ) }
+						checked={ allowTweetImage }
+						onChange={ () => {
+							setAllowTweetImage( ! allowTweetImage );
+						} }
+						className="autoshare-for-twitter-toggle-control"
+					/>
+				) }
 
 				{ autoshareEnabled && (
 					<div className="autoshare-for-twitter-prepublish__override-row">
@@ -143,19 +154,6 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 						</Button>
 					</div>
 				) }
-				{ featuredImageUrl && (
-					<>
-						<img style={ { opacity: allowTweetImage ? 1 : 0.1 } } src={ featuredImageUrl } alt="" />
-						<Button
-							isLink
-							onClick={ () => {
-								setAllowTweetImage( ! allowTweetImage );
-							} }
-						>
-							{ allowTweetImage ? __( 'Remove image from Tweet', 'autoshare-for-twitter' ) : __( 'Add image to Tweet', 'autoshare-for-twitter' ) }
-						</Button>
-					</>
-				) }
 				<div>{ errorMessage }</div>
 			</>
 		);
@@ -176,11 +174,15 @@ const permalinkLength = ( select ) => {
 	return siteUrl.length;
 };
 
-const featuredImageUrl = ( select ) => {
+/**
+ * Returns true if the post has a featured image, false otherwise.
+ * @param {Function} select Data store selector function.
+ * @returns {boolean}
+ */
+const hasFeaturedImage = ( select ) => {
 	const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
-	const imageUrl = select( 'core' ).getMedia( imageId );
 
-	return imageUrl ? imageUrl.source_url : false;
+	return imageId > 0;
 };
 
 export default compose(
@@ -191,7 +193,7 @@ export default compose(
 		permalinkLength: permalinkLength( select ),
 		saving: select( STORE ).getSaving(),
 		tweetText: select( STORE ).getTweetText(),
-		featuredImageUrl: featuredImageUrl( select ),
+		hasFeaturedImage: hasFeaturedImage( select ),
 		allowTweetImage: select( STORE ).getAllowTweetImage(),
 	} ) ),
 	withDispatch( ( dispatch ) => ( {

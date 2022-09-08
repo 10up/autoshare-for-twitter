@@ -85,7 +85,7 @@ function register_post_autoshare_for_twitter_meta_rest_route() {
 					'type'              => 'boolean',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
-				TWEET_ALLOW_IMAGE                 => [
+				TWEET_ALLOW_IMAGE                => [
 					'description'       => __( 'Whether the tweet has an image.', 'autoshare-for-twitter' ),
 					'required'          => true,
 					'type'              => 'boolean',
