@@ -1,8 +1,8 @@
 import { TextareaControl } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { siteUrl } from 'admin-autoshare-for-twitter';
 import { __ } from '@wordpress/i18n';
-import { STORE } from '../store';
+import { useTweetText } from '../hooks';
 
 export function TweetTextField() {
 	const getPermalinkLength = ( select ) => {
@@ -33,14 +33,13 @@ export function TweetTextField() {
 		return null;
 	};
 
-	const { permalinkLength, tweetText } = useSelect( ( select ) => {
+	const { permalinkLength } = useSelect( ( select ) => {
 		return {
 			permalinkLength: getPermalinkLength( select ),
-			tweetText: select( STORE ).getTweetText(),
 		};
 	} );
 
-	const { setTweetText } = useDispatch( STORE );
+	const [ tweetText, setTweetText ] = useTweetText();
 
 	return (
 		<TextareaControl

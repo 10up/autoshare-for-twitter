@@ -1,9 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { Dashicon } from '@wordpress/components';
+import { withSelect, useSelect } from '@wordpress/data';
+import { Dashicon, Button } from '@wordpress/components';
+import { TweetTextField } from './components/TweetTextField';
 
-export function AutoshareForTwitterPostStatusInfo( { statusMessage, allowRetweet } ) {
+export function AutoshareForTwitterPostStatusInfo() {
+	const { statusMessage } = useSelect( ( select ) => {
+		return {
+			statusMessage: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' ),
+		};
+	} );
+
 	return (
 		statusMessage.message && (
 			<div className="autoshare-for-twitter-post-status">
@@ -18,9 +25,13 @@ export function AutoshareForTwitterPostStatusInfo( { statusMessage, allowRetweet
 						{ ')' }
 					</>
 				) }
-				{ allowRetweet && (
-					<div>Hello, you</div>
-				) }
+				<div>
+					<Button
+						variant="link"
+						text={ __( 'Tweet now', 'autoshare-for-twitter' ) }
+					/>
+					<TweetTextField />
+				</div>
 			</div>
 		)
 	);
