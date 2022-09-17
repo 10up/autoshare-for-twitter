@@ -3,7 +3,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { Dashicon } from '@wordpress/components';
 
-export function AutoshareForTwitterPostStatusInfo( { statusMessage } ) {
+export function AutoshareForTwitterPostStatusInfo( { statusMessage, allowRetweet } ) {
 	return (
 		statusMessage.message && (
 			<div className="autoshare-for-twitter-post-status">
@@ -17,6 +17,9 @@ export function AutoshareForTwitterPostStatusInfo( { statusMessage } ) {
 						</a>
 						{ ')' }
 					</>
+				) }
+				{ allowRetweet && (
+					<div>Hello, you</div>
 				) }
 			</div>
 		)

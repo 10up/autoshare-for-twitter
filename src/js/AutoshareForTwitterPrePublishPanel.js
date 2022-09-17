@@ -1,12 +1,13 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Button, TextareaControl, ToggleControl } from '@wordpress/components';
+import { Button, ToggleControl } from '@wordpress/components';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Component } from '@wordpress/element';
 import { debounce } from 'lodash';
-import { enableAutoshareKey, errorText, restUrl, siteUrl, tweetBodyKey, allowTweetImageKey } from 'admin-autoshare-for-twitter';
+import { enableAutoshareKey, errorText, restUrl, tweetBodyKey, allowTweetImageKey } from 'admin-autoshare-for-twitter';
 import { __ } from '@wordpress/i18n';
 
+import { TweetTextField } from './components/TweetTextField';
 import { STORE } from './store';
 
 class AutoshareForTwitterPrePublishPanel extends Component {
@@ -80,27 +81,12 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 			autoshareEnabled,
 			errorMessage,
 			overriding,
-			permalinkLength,
 			allowTweetImage,
 			setAutoshareEnabled,
 			setOverriding,
-			setTweetText,
 			setAllowTweetImage,
-			tweetText,
 			hasFeaturedImage,
 		} = this.props;
-
-		const overrideLengthClass = () => {
-			if ( 280 <= permalinkLength + tweetText.length ) {
-				return 'over-limit';
-			}
-
-			if ( 240 <= permalinkLength + tweetText.length ) {
-				return 'near-limit';
-			}
-
-			return null;
-		};
 
 		return (
 			<>
@@ -128,20 +114,7 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 				{ autoshareEnabled && (
 					<div className="autoshare-for-twitter-prepublish__override-row">
 						{ overriding && (
-							<TextareaControl
-								value={ tweetText }
-								onChange={ ( value ) => {
-									setTweetText( value );
-								} }
-								label={
-									<span className="autoshare-for-twitter-prepublish__message-label">
-										<span>{ __( 'Custom message:', 'autoshare-for-twitter' ) }&nbsp;</span>
-										<span id="autoshare-for-twitter-counter-wrap" className={ overrideLengthClass() }>
-											{ tweetText.length }
-										</span>
-									</span>
-								}
-							/>
+							<TweetTextField />
 						) }
 
 						<Button
@@ -160,24 +133,11 @@ class AutoshareForTwitterPrePublishPanel extends Component {
 	}
 }
 
-const permalinkLength = ( select ) => {
-	const permalink = select( 'core/editor' ).getPermalink();
-	if ( permalink ) {
-		return permalink.length;
-	}
-
-	const title = select( 'core/editor' ).getEditedPostAttribute( 'title' );
-	if ( title && 'rendered' in title ) {
-		return ( siteUrl + title.rendered ).length;
-	}
-
-	return siteUrl.length;
-};
-
 /**
  * Returns true if the post has a featured image, false otherwise.
+ *
  * @param {Function} select Data store selector function.
- * @returns {boolean}
+ * @return {boolean} Returns true if post has featured image.
  */
 const hasFeaturedImage = ( select ) => {
 	const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
@@ -190,7 +150,6 @@ export default compose(
 		autoshareEnabled: select( STORE ).getAutoshareEnabled(),
 		errorMessage: select( STORE ).getErrorMessage(),
 		overriding: select( STORE ).getOverriding(),
-		permalinkLength: permalinkLength( select ),
 		saving: select( STORE ).getSaving(),
 		tweetText: select( STORE ).getTweetText(),
 		hasFeaturedImage: hasFeaturedImage( select ),
@@ -209,7 +168,6 @@ export default compose(
 				dispatch( 'core/editor' ).unlockPostSaving();
 			}
 		},
-		setTweetText: dispatch( STORE ).setTweetText,
 		setAllowTweetImage: dispatch( STORE ).setAllowTweetImage,
 	} ) ),
 )( AutoshareForTwitterPrePublishPanel );
