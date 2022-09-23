@@ -30,7 +30,16 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Changelog ==
 
-= 1.1.2 =
+= 1.2.0 - 2022-09-26 =
+**Note that this release bumps the WordPress minimum from 4.9 to 5.3.**
+
+* **Added:** Add AutoTweet panel in editor sidebar and pre-publish panel to manage enabling/disabling tweet on publish (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@cadic](https://github.com/cadic) via [#177](https://github.com/10up/autoshare-for-twitter/pull/177)).
+* **Changed** Bump minimum required WordPress version to 5.3 (props [@iamdharmesh](https://github.com/iamdharmesh) via [#177](https://github.com/10up/autoshare-for-twitter/pull/177)).
+* **Changed** Updates in CONTRIBUTING.md file (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#172](https://github.com/10up/autoshare-for-twitter/pull/172)).
+* **Changed** Update plugin icons (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#174](https://github.com/10up/autoshare-for-twitter/pull/174)).
+* **Security:** Bump `terser` from 4.3.1 to 4.8.1 (props [@dependabot](https://github.com/apps/dependabot) via [#184](https://github.com/10up/autoshare-for-twitter/pull/184)).
+
+= 1.1.2 - 2022-06-24 =
 * **Added:** Cypress E2E tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9)).
 * **Added:** Handle tweeting from staging/testing/local environments to prevent accidental tweets (props [@dinhtungdu](https://github.com/dinhtungdu), [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul)).
 * **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh)).
@@ -38,10 +47,10 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * **Fixed:** Incorrect `Tweet this post` checkbox behavior in the Classic Editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic)).
 * **Fixed:** "Plugin asset/readme update" GitHub Action failure (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul)).
 
-= 1.1.1 =
+= 1.1.1 - 2022-04-13 =
 * **Fixed:** If Autoshare is enabled by default, it does not consider the post-level "Tweet this post" checkbox and always tweets (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9)).
 
-= 1.1.0 =
+= 1.1.0 - 2022-04-13 =
 * **Added:** Colored icons to represent autoshare status (props [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@Sidsector9](https://github.com/Sidsector9), [@dinhtungdu](https://github.com/dinhtungdu)).
 * **Added:** Sample copy for example responses (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul)).
 * **Added:** PHP 8 compatibility (props [@Sidsector9](https://github.com/Sidsector9), [@faisal-alvi](https://github.com/faisal-alvi)).
@@ -55,10 +64,10 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * **Security:** Bump tar from 4.4.8 to 4.4.19 (props [@dependabot](https://github.com/apps/dependabot)).
 * **Security:** Bump ini from 1.3.5 to 1.3.8 (props [@dependabot](https://github.com/apps/dependabot)).
 
-= 1.0.6 =
+= 1.0.6 - 2020-09-19 =
 * Note: this was a hotfix release to fix an issue with deploys to WordPress.org.
 
-= 1.0.5 =
+= 1.0.5 - 2021-09-15 =
 * **Added:** Tweeted status column to All Posts table list view (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@linawiezkowiak](https://profiles.wordpress.org/linawiezkowiak/), [@oszkarnagy](https://profiles.wordpress.org/oszkarnagy/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
 * **Changed:** Bump WordPress version "tested up to" 5.8 (props [@thrijith](https://profiles.wordpress.org/thrijith/), [@barneyjeffries](https://profiles.wordpress.org/barneyjeffries/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
 * **Changed:** WP Snapshot for auotmated testing to WP 5.6 (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/)).
@@ -76,27 +85,27 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * **Security:** Bump `browserslist` from 4.7.0 to 4.16.6 (props [@dependabot](https://github.com/apps/dependabot)).
 * **Security:** Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot)).
 
-= 1.0.4 =
+= 1.0.4 - 2020-07-02 =
 * Note: this was a hotfix release to fix an issue with included libraries.
 
-= 1.0.3 =
+= 1.0.3 - 2020-07-01 =
 * **Added:** `autoshare_for_twitter_disable_on_transition_post_status` filter to disable tweeting based on post status change (props [@rickalee](https://profiles.wordpress.org/rickalee))
 * **Changed:** Bumped WordPress version support to 5.4.2 (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/))
 * **Changed:** Build, test, and release processes (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu))
 * **Fixed:*# Enable autoshare meta always set to 0 when saving draft (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu), [@rickalee](https://profiles.wordpress.org/rickalee))
 
-= 1.0.2 =
+= 1.0.2 - 2020-03-12 =
 * **Added:** WP Acceptance tests (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))
 * **Changed:** New and improved settings page UX (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/), [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@linawiezkowiak](https://profiles.wordpress.org/linawiezkowiak/), [@oszkarnagy](https://profiles.wordpress.org/oszkarnagy/))
 * **Fixed:** Bug that caused posts to be inadvertently tweeted when switching from draft to publish (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@rickalee](https://profiles.wordpress.org/rickalee/))
 * **Fixed:** Build script in release process (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))
 
-= 1.0.1 =
+= 1.0.1 - 2020-02-03 =
 * **Added:** `autoshare_for_twitter_enabled_default` filter to allow autoshare to be enabled by default for a post type (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@rickalee](https://profiles.wordpress.org/rickalee/), [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu/))
 * **Changed:** bypass character texturization when the post title is tweeted (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@rickalee](https://profiles.wordpress.org/rickalee/))
 * **Removed:** second instance of the `autoshare_for_twitter_tweet` filter (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))
 
-= 1.0.0 =
+= 1.0.0 - 2019-12-17 =
 * **Added:** Initial public release! 🎉
 * **Added:** Plugin renamed to "Autoshare for Twitter"
 * **Added:** Support Post and Page post types by default, provide Custom Post Type (props [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/))
@@ -107,7 +116,7 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * **Changed:** Refactor v0.1.0 significantly (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein/), [@johnwatkins0](https://profiles.wordpress.org/johnwatkins0/), [@jeffpaul](https://profiles.wordpress.org/jeffpaul/))
 * **Security:** XSS prevention - switch from .innerHTML to text (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein/))
 
-= 0.1.0 =
+= 0.1.0 - 2018-05-11 =
 * Initial private release (props [@scottlee](https://profiles.wordpress.org/scottlee/))
 
 == Upgrade Notice ==
