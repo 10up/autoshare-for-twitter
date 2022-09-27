@@ -86,6 +86,18 @@ export function useTwitterAutoshareErrorMessage() {
 	return [ errorMessage, setErrorMessage ];
 }
 
+export function useHasFeaturedImage() {
+	const { imageId } = useSelect( ( select ) => {
+		return {
+			imageId: select( 'core/editor' ).getEditedPostAttribute( 'featured_media' ),
+		};
+	} );
+
+	const hasFeaturedImage = imageId > 0;
+
+	return hasFeaturedImage;
+}
+
 export function useSaveTwitterData() {
 	const [ autoshareEnabled ] = useTwitterAutoshareEnabled();
 	const [ allowTweetImage ] = useAllowTweetImage();

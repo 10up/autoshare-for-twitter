@@ -11,9 +11,12 @@ use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
 use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
 use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
 use TenUp\AutoshareForTwitter\Utils as Utils;
+
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
+use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 
 /**
  * Setup function.
@@ -22,6 +25,7 @@ use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
  */
 function setup() {
 	add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_publish_tweet', 10, 3 );
+	add_action( 'wp_ajax_tenup_autoshare_retweet', __NAMESPACE__ . '\retweet', 10, 3 );
 }
 
 /**
@@ -128,6 +132,8 @@ function publish_tweet( $post_id ) {
 			 */
 			do_action( 'autoshare_for_twitter_success' );
 
+			return true;
+
 		} else {
 			// something here about it failing so do not allow republishing just in case.
 			update_autoshare_for_twitter_meta_from_response( $post->ID, $response );
@@ -136,7 +142,30 @@ function publish_tweet( $post_id ) {
 			 * Fires if the response back from Twitter was an error.
 			 */
 			do_action( 'autoshare_for_twitter_failed' );
+
+			return false;
 		}
+	}
+
+	return false;
+}
+
+/**
+ * Handles Re-tweeting.
+ */
+function retweet() {
+	if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wp_rest' ) ) {
+		wp_send_json_error( __( 'Nonce verification failed.', 'autoshare-for-twitter' ) );
+	}
+
+	$post_id      = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+	$is_retweeted = publish_tweet( $post_id );
+
+	if ( $is_retweeted ) {
+		$message = get_tweet_status_message( $post_id );
+		wp_send_json_success( $message );
+	} else {
+		wp_send_json_error();
 	}
 }
 
@@ -204,11 +233,29 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 	 */
 	$response = apply_filters( 'autoshare_for_twitter_post_status_meta', $response );
 
+	$tweet_meta = get_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY );
+
+	if ( '' === $tweet_meta ) {
+		$tweet_meta = array();
+	}
+
+	/**
+	 * Handles meta for multiple tweets.
+	 */
+	if ( isset( $tweet_meta['twitter_id'] ) ) {
+		$tweet_meta = array(
+			$tweet_meta,
+			$response,
+		);
+	} else {
+		$tweet_meta[] = $response;
+	}
+
 	/**
 	 * Update the post meta entry that stores the response
 	 * and remove the "Autoshare this post" value as a double-check.
 	 */
-	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $response );
+	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $tweet_meta );
 	delete_autoshare_for_twitter_meta( $post_id, Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
 
 	/**

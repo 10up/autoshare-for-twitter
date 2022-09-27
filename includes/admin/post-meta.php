@@ -253,47 +253,67 @@ function render_tweet_submitbox( $post ) {
  * @return array Associative array containing a message and a URL if the post was tweeted.
  */
 function get_tweet_status_message( $post ) {
-	$post        = get_post( $post );
-	$post_status = get_post_status( $post );
+	$post           = get_post( $post );
+	$post_status    = get_post_status( $post );
+	$response_array = array();
 
 	if ( 'publish' === $post_status ) {
 
-		$twitter_status = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
-		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
+		$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
 
-		switch ( $status ) {
-			case 'published':
-				$date        = Utils\date_from_twitter( $twitter_status['created_at'] );
-				$twitter_url = Utils\link_from_twitter( $twitter_status['twitter_id'] );
+		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
+			$tweet_metas = array(
+				array(
+					'status'     => $tweet_metas['status'],
+					'created_at' => $tweet_metas['created_at'],
+					'twitter_id' => $tweet_metas['twitter_id'],
+				),
+			);
+		}
 
-				return [
-					// Translators: Placeholder is a date.
-					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
-					'url'     => $twitter_url,
-					'status'  => $status,
-				];
+		foreach ( $tweet_metas as $tweet_meta ) {
+			$status = $tweet_meta['status'];
 
-			case 'error':
-				return [
-					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $twitter_status['message'],
-					'status'  => $status,
-				];
+			switch ( $status ) {
+				case 'published':
+					$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
+					$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
 
-			case 'unknown':
-				return [
-					'message' => $twitter_status['message'],
-					'status'  => $status,
-				];
+					$response_array[] = [
+						// Translators: Placeholder is a date.
+						'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
+						'url'     => $twitter_url,
+						'status'  => $status,
+					];
 
-			default:
-				return [
-					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
-					'status'  => $status,
-				];
+					break;
+
+				case 'error':
+					$response_array[] = [
+						'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
+						'status'  => $status,
+					];
+
+					break;
+
+				case 'unknown':
+					$response_array[] = [
+						'message' => $tweet_meta['message'],
+						'status'  => $status,
+					];
+
+					break;
+
+				default:
+					$response_array[] = [
+						'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
+						'status'  => $status,
+					];
+			}
 		}
 	}
 
-	return [ 'message' => '' ];
+	return [ 'message' => $response_array ];
 
 }
 

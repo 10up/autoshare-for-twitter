@@ -1,6 +1,5 @@
 import { Button, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
 import { TweetTextField } from './components/TweetTextField';
 import {
 	useTwitterAutoshareEnabled,
@@ -8,6 +7,7 @@ import {
 	useAllowTweetImage,
 	useTwitterAutoshareErrorMessage,
 	useSaveTwitterData,
+	useHasFeaturedImage,
 } from './hooks';
 
 export default function AutoshareForTwitterPrePublishPanel() {
@@ -15,16 +15,9 @@ export default function AutoshareForTwitterPrePublishPanel() {
 	const [ overriding, setOverriding ] = useTwitterTextOverriding();
 	const [ allowTweetImage, setAllowTweetImage ] = useAllowTweetImage();
 	const [ errorMessage ] = useTwitterAutoshareErrorMessage();
+	const hasFeaturedImage = useHasFeaturedImage();
 
 	useSaveTwitterData();
-
-	const { hasFeaturedImage } = useSelect( ( select ) => {
-		const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
-
-		return {
-			hasFeaturedImage: imageId > 0,
-		};
-	} );
 
 	return (
 		<>

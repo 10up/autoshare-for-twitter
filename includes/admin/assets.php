@@ -203,6 +203,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
 		'allowTweetImageKey' => TWEET_ALLOW_IMAGE,
+		'retweetAction'      => 'tenup_autoshare_retweet',
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );
