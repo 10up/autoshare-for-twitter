@@ -121,5 +121,8 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Upgrade Notice ==
 
+= 1.2.0 =
+This release bumps the WordPress minimum from 4.9 to 5.3.
+
 = 0.1.0 =
 First Release
