@@ -60,7 +60,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 					<div className="autoshare-for-twitter-log" key={ index }>
 						{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : statusMessage.message }
 					</div>
-				)
+				);
 			} ) }
 			<CardDivider />
 			<Button
@@ -84,7 +84,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 					) }
 					<TweetTextField />
 					<Button
-						variant='primary'
+						variant="primary"
 						text={ reTweet ? __( 'Tweeting...', 'autoshare-for-twitter' ) : __( 'Tweet again', 'autoshare-for-twitter' ) }
 						onClick={ () => {
 							reTweetHandler();
