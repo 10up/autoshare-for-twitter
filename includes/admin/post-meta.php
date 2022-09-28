@@ -332,7 +332,7 @@ function markup_published( $status_meta ) {
 
 	return sprintf(
 		'%s <span>%s</span> (<a href="%s" target="_blank">%s</a>)</p>',
-		esc_html__( 'Tweetedd on', 'autoshare-for-twitter' ),
+		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
 		esc_html__( 'View', 'autoshare-for-twitter' )

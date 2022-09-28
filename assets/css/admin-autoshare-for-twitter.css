@@ -130,3 +130,14 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	width: 24px;
 	height: 24px;
 }
+
+.autoshare-for-twitter-log {
+	display: flex;
+    align-items: flex-start;
+	margin-bottom: 4px;
+}
+
+.autoshare-for-twitter-log svg {
+	max-width: 20px;
+	height: auto;
+}

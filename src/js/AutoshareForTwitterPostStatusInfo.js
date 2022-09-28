@@ -2,14 +2,17 @@ import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
 import { withSelect, useSelect } from '@wordpress/data';
-import { Button, ToggleControl } from '@wordpress/components';
+import { Button, ToggleControl, CardDivider, Icon, ExternalLink } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
 import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData } from './hooks';
+
+import { getIconByStatus } from './utils';
 
 export function AutoshareForTwitterPostStatusInfo() {
 	const hasFeaturedImage = useHasFeaturedImage();
 	const [ allowTweetImage, setAllowTweetImage ] = useAllowTweetImage();
 	const [ reTweet, setReTweet ] = useState( false );
+	const [ tweetNow, setTweetNow ] = useState( false );
 	const { messages } = useSelect( ( select ) => {
 		return {
 			messages: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' ),
@@ -20,10 +23,10 @@ export function AutoshareForTwitterPostStatusInfo() {
 
 	useSaveTwitterData();
 
-	const tweetNow = async () => {
+	const reTweetHandler = async () => {
 		setReTweet( true );
 
-		const postId = await wp.data.select("core/editor").getCurrentPostId();
+		const postId = await wp.data.select( 'core/editor' ).getCurrentPostId();
 		const body = new FormData();
 
 		body.append( 'action', adminAutoshareForTwitter.retweetAction );
@@ -35,12 +38,9 @@ export function AutoshareForTwitterPostStatusInfo() {
 			body,
 		} );
 
-		const { success, data } = await apiResponse.json();
+		const { data } = await apiResponse.json();
 
-		if ( success ) {
-			setStatusMessages( data );
-		}
-
+		setStatusMessages( data );
 		setReTweet( false );
 	};
 
@@ -48,48 +48,50 @@ export function AutoshareForTwitterPostStatusInfo() {
 		return null;
 	}
 
+	const chevronUp = <Icon icon={ <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg> } />;
+	const chevronDown = <Icon icon={ <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg> } />;
+
 	return (
 		<div className="autoshare-for-twitter-post-status">
 			{ statusMessages.message.map( ( statusMessage, index ) => {
+				const TweetIcon = getIconByStatus( statusMessage.status );
+
 				return (
-					<div key={ index }>
-						{ statusMessage.message }
-						{ statusMessage.url && (
-							<>
-								{ ' (' }
-								<a target="_blank" rel="noopener noreferrer" href={ statusMessage.url }>
-									{ __( 'View', 'autoshare-for-twitter' ) }
-								</a>
-								{ ')' }
-							</>
-						) }
+					<div className="autoshare-for-twitter-log" key={ index }>
+						{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : statusMessage.message }
 					</div>
 				)
 			} ) }
-			<div>
-				<Button
-					variant="link"
-					text={ __( 'Tweet now', 'autoshare-for-twitter' ) }
-				/>
-				{ hasFeaturedImage && (
-					<ToggleControl
-						label={ __( 'Use featured image in Tweet', 'autoshare-for-twitter' ) }
-						checked={ allowTweetImage }
-						onChange={ () => {
-							setAllowTweetImage( ! allowTweetImage );
+			<CardDivider />
+			<Button
+				variant="link"
+				text={ __( 'Tweet now', 'autoshare-for-twitter' ) }
+				onClick={ () => setTweetNow( ! tweetNow ) }
+				iconPosition="right"
+				icon={ tweetNow ? chevronUp : chevronDown }
+			/>
+			{ tweetNow && (
+				<>
+					{ hasFeaturedImage && (
+						<ToggleControl
+							label={ __( 'Use featured image in Tweet', 'autoshare-for-twitter' ) }
+							checked={ allowTweetImage }
+							onChange={ () => {
+								setAllowTweetImage( ! allowTweetImage );
+							} }
+							className="autoshare-for-twitter-toggle-control"
+						/>
+					) }
+					<TweetTextField />
+					<Button
+						variant='primary'
+						text={ reTweet ? __( 'Tweeting...', 'autoshare-for-twitter' ) : __( 'Tweet again', 'autoshare-for-twitter' ) }
+						onClick={ () => {
+							reTweetHandler();
 						} }
-						className="autoshare-for-twitter-toggle-control"
 					/>
-				) }
-				<TweetTextField />
-				<Button
-					variant='primary'
-					text={ reTweet ? __( 'Tweeting...', 'autoshare-for-twitter' ) : __( 'Tweet again', 'autoshare-for-twitter' ) }
-					onClick={ () => {
-						tweetNow();
-					} }
-				/>
-			</div>
+				</>
+			) }
 		</div>
 	);
 }

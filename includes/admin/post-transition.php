@@ -160,12 +160,12 @@ function retweet() {
 
 	$post_id      = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 	$is_retweeted = publish_tweet( $post_id );
+	$message      = get_tweet_status_message( $post_id );
 
 	if ( $is_retweeted ) {
-		$message = get_tweet_status_message( $post_id );
 		wp_send_json_success( $message );
 	} else {
-		wp_send_json_error();
+		wp_send_json_error( $message );
 	}
 }
 

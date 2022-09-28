@@ -48,7 +48,7 @@ export function TweetTextField() {
 				setTweetText( value );
 			} }
 			label={
-				<span className="autoshare-for-twitter-prepublish__message-label">
+				<span style={ { marginTop: '0.5rem', display: 'block' } } className="autoshare-for-twitter-prepublish__message-label">
 					<span>{ __( 'Custom message:', 'autoshare-for-twitter' ) }&nbsp;</span>
 					<span id="autoshare-for-twitter-counter-wrap" className={ overrideLengthClass() }>
 						{ tweetText.length }
