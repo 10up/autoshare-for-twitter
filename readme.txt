@@ -30,7 +30,7 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Changelog ==
 
-= 1.2.0 - 2022-09-26 =
+= 1.2.0 - 2022-09-28 =
 **Note that this release bumps the WordPress minimum from 4.9 to 5.3.**
 
 * **Added:** Add AutoTweet panel in editor sidebar and pre-publish panel to manage enabling/disabling tweet on publish (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy), [@cadic](https://github.com/cadic) via [#177](https://github.com/10up/autoshare-for-twitter/pull/177)).

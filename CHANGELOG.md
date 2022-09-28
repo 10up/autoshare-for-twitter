@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [1.2.0] - 2022-09-26
+## [1.2.0] - 2022-09-28
 **Note that this release bumps the WordPress minimum from 4.9 to 5.3.**
 
 ### Added
