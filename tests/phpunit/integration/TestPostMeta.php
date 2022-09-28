@@ -64,7 +64,7 @@ class TestPostMeta extends WP_UnitTestCase {
 	public function test_get_tweet_status_message() {
 		$this->assertEquals(
 			[
-				'message' => '',
+				'message' => array(),
 			],
 			get_tweet_status_message( -1 )
 		);
