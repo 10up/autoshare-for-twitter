@@ -259,21 +259,25 @@ function get_tweet_status_message( $post ) {
 					// Translators: Placeholder is a date.
 					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
+					'status'  => $status,
 				];
 
 			case 'error':
 				return [
 					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $twitter_status['message'],
+					'status'  => $status,
 				];
 
 			case 'unknown':
 				return [
 					'message' => $twitter_status['message'],
+					'status'  => $status,
 				];
 
 			default:
 				return [
 					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
+					'status'  => $status,
 				];
 		}
 	}

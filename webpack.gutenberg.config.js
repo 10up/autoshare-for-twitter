@@ -13,6 +13,12 @@ module.exports = {
 					loader: 'babel-loader',
 				},
 			},
+			{
+				test: /\.svg$/,
+				use: [ {
+					loader: 'svg-react-loader',
+				} ],
+			},
 		],
 	},
 	output: {
@@ -30,5 +36,6 @@ module.exports = {
 		'@wordpress/i18n': 'wp.i18n',
 		'@wordpress/plugins': 'wp.plugins',
 		lodash: 'lodash',
+		react: 'React',
 	},
 };

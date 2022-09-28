@@ -1,6 +1,6 @@
 {
 	"name": "@10up/autoshare-for-twitter",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -wd --config webpack.gutenberg.config.js",
@@ -52,6 +52,7 @@
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
 		"node-wp-i18n": "^1.2.3",
+		"svg-react-loader": "^0.4.6",
 		"webpack": "^4.40.2",
 		"webpack-cli": "^3.3.8"
 	},
