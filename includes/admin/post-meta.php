@@ -269,6 +269,10 @@ function get_tweet_status_message( $post ) {
 					'twitter_id' => $tweet_metas['twitter_id'],
 				),
 			);
+		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
+			$tweet_metas = array(
+				$tweet_metas,
+			);
 		}
 
 		foreach ( $tweet_metas as $tweet_meta ) {

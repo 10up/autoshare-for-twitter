@@ -86,9 +86,11 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => [
-					'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
-					'url'     => 'https://twitter.com//status/444',
-					'status'  => 'published',
+					[
+						'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
+						'url'     => 'https://twitter.com//status/444',
+						'status'  => 'published',
+					],
 				],
 			],
 			get_tweet_status_message( $post )
@@ -117,11 +119,15 @@ class TestPostMeta extends WP_UnitTestCase {
 			return $data;
 		};
 		add_filter( 'autoshare_for_twitter_meta', $failed_filter, 10, 3 );
+
+		$noo = get_tweet_status_message( $post );
 		$this->assertEquals(
 			[
 				'message' => [
-					'message' => 'Failed to tweet: There was an error.',
-					'status'  => 'error',
+					[
+						'message' => 'Failed to tweet: There was an error.',
+						'status'  => 'error',
+					],
 				],
 			],
 			get_tweet_status_message( $post )
@@ -152,8 +158,10 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => [
-					'message' => 'There was an error.',
-					'status'  => 'unknown',
+					[
+						'message' => 'There was an error.',
+						'status'  => 'unknown',
+					],
 				],
 			],
 			get_tweet_status_message( $post )
@@ -176,8 +184,10 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'message' => [
-					'message' => 'This post was not tweeted.',
-					'status'  => 'other',
+					[
+						'message' => 'This post was not tweeted.',
+						'status'  => 'other',
+					],
 				],
 			],
 			get_tweet_status_message( $post )
