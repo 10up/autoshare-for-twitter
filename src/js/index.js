@@ -103,7 +103,11 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 	render() {
 		const postStatus = select( 'core/editor' ).getCurrentPostAttribute( 'status' );
 		if ( 'publish' === postStatus ) {
-			const tweetStatus = select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' );
+			const tweetMeta = select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' );
+			let tweetStatus = '';
+			if ( tweetMeta && tweetMeta.message && tweetMeta.message.length ) {
+				tweetStatus = tweetMeta.message[ tweetMeta.message.length - 1 ].status || '';
+			}
 
 			return (
 				<PluginDocumentSettingPanel
