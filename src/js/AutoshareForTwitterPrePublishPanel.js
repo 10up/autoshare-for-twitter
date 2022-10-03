@@ -31,7 +31,7 @@ export default function AutoshareForTwitterPrePublishPanel() {
 				className="autoshare-for-twitter-toggle-control"
 			/>
 
-			{ hasFeaturedImage && (
+			{ autoshareEnabled && hasFeaturedImage && (
 				<ToggleControl
 					label={ __( 'Use featured image in Tweet', 'autoshare-for-twitter' ) }
 					checked={ allowTweetImage }
