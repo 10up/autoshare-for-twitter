@@ -14,6 +14,7 @@ use TenUp\AutoshareForTwitter\Utils as Utils;
 
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 
 /**
@@ -151,6 +152,16 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 		}
 	}
 
+	if ( ! array_key_exists( TWEET_ALLOW_IMAGE, $data ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['classic-editor'] ) ) {
+			// Handle unchecked "Tweet this post" checkbox for classic editor.
+			$data[ TWEET_ALLOW_IMAGE ] = 0;
+		} else {
+			$data[ TWEET_ALLOW_IMAGE ] = autoshare_enabled( $post_id ) ? 1 : 0;
+		}
+	}
+
 	foreach ( $data as $key => $value ) {
 		switch ( $key ) {
 			case ENABLE_AUTOSHARE_FOR_TWITTER_KEY:
@@ -213,29 +224,32 @@ function render_tweet_submitbox( $post ) {
 	// If the post is already published the output varies slightly.
 	if ( 'publish' === $post_status ) {
 
-		$twitter_status = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWITTER_STATUS_KEY );
-		$status         = isset( $twitter_status['status'] ) ? $twitter_status['status'] : '';
+		$twitter_metas = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWITTER_STATUS_KEY );
 
-		switch ( $status ) {
+		foreach ( $twitter_metas as $twitter_meta ) {
+			$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
 
-			case 'published':
-				$output = markup_published( $twitter_status );
-				break;
+			switch ( $status ) {
 
-			case 'error':
-				$output = markup_error( $twitter_status );
-				break;
+				case 'published':
+					$output = markup_published( $twitter_meta );
+					break;
 
-			case 'unknown':
-				$output = markup_unknown( $twitter_status );
-				break;
+				case 'error':
+					$output = markup_error( $twitter_meta );
+					break;
 
-			default:
-				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
-				break;
+				case 'unknown':
+					$output = markup_unknown( $twitter_meta );
+					break;
+
+				default:
+					$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
+					break;
+			}
+
+			echo wp_kses_post( "<p class='dashicons-before dashicons-twitter howto'>$output</p>" );
 		}
-
-		echo wp_kses_post( "<p class='dashicons-before dashicons-twitter howto'>$output</p>" );
 
 		// Default output.
 	} else {
@@ -393,6 +407,19 @@ function _safe_markup_default() {
 		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
 		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
 	</label>
+
+	<p>
+		<label for="autoshare-for-twitter-tweet-allow-image">
+			<input
+				type="checkbox"
+				id="autoshare-for-twitter-tweet-allow-image"
+				name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_ALLOW_IMAGE ) ); ?>"
+				value="1"
+				<?php checked( tweet_image_allowed( get_the_ID() ) ); ?>
+			>
+			<?php esc_html_e( 'Use featured image in Tweet', 'autoshare-for-twitter' ); ?>
+		</label>
+	</p>
 
 	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
