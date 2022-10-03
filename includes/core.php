@@ -125,9 +125,17 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		return;
 	}
 
-	$post_status  = get_post_status( $post_id );
-	$tweet_status = Utils\get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
-	$status       = isset( $tweet_status['status'] ) ? $tweet_status['status'] : '';
+	$post_status = get_post_status( $post_id );
+	$tweet_meta  = Utils\get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
+
+	$tweet_status = array();
+	if ( isset( $tweet_meta['status'] ) ) {
+		$tweet_status = $tweet_meta;
+	} elseif ( ! empty( $tweet_meta ) ) {
+		$tweet_status = end( $tweet_meta );
+	}
+
+	$status = isset( $tweet_status['status'] ) ? $tweet_status['status'] : '';
 
 	if ( 'publish' === $post_status && 'published' === $status ) {
 		$date        = Utils\date_from_twitter( $tweet_status['created_at'] );
