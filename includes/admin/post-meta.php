@@ -226,6 +226,20 @@ function render_tweet_submitbox( $post ) {
 
 		$twitter_metas = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWITTER_STATUS_KEY );
 
+		if ( empty( $twitter_metas ) || isset( $twitter_metas['twitter_id'] ) ) {
+			$twitter_metas = array(
+				array(
+					'status'     => $twitter_metas['status'],
+					'created_at' => $twitter_metas['created_at'],
+					'twitter_id' => $twitter_metas['twitter_id'],
+				),
+			);
+		} elseif ( isset( $twitter_metas['status'] ) && ( 'error' === $twitter_metas['status'] || 'unknown' === $twitter_metas['status'] || 'other' === $twitter_metas['status'] ) ) {
+			$twitter_metas = array(
+				$twitter_metas,
+			);
+		}
+
 		foreach ( $twitter_metas as $twitter_meta ) {
 			$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
 
