@@ -242,7 +242,7 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 	/**
 	 * Handles meta for multiple tweets.
 	 */
-	if ( isset( $tweet_meta['twitter_id'] ) ) {
+	if ( isset( $tweet_meta['twitter_id'] ) || isset( $tweet_meta['status'] ) ) {
 		$tweet_meta = array(
 			$tweet_meta,
 			$response,
