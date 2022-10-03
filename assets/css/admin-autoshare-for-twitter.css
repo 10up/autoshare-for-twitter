@@ -29,7 +29,6 @@
 }
 
 .autoshare-for-twitter-post-status svg {
-	transform: translate3d(0, 3px, 0);
     margin-right: 5px;
 }
 
@@ -133,8 +132,8 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 
 .autoshare-for-twitter-log {
 	display: flex;
-    align-items: flex-start;
-	margin-bottom: 4px;
+	align-items: flex-start;
+	margin-bottom: 5px;
 }
 
 .autoshare-for-twitter-log svg {
