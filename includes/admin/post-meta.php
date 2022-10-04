@@ -290,7 +290,7 @@ function render_tweet_submitbox( $post ) {
 					break;
 			}
 
-			echo wp_kses_post( "<p class='dashicons-before dashicons-twitter howto'>$output</p>" );
+			echo wp_kses_post( "<div class='autoshare-for-twitter-status-wrap'><span class='autoshare-for-twitter-status-icon autoshare-for-twitter-status-icon--$status'></span>$output</div>" );
 		}
 
 		// Default output.
@@ -391,7 +391,7 @@ function markup_published( $status_meta ) {
 	$twitter_url = Utils\link_from_twitter( $status_meta['twitter_id'] );
 
 	return sprintf(
-		'%s <span>%s</span> (<a href="%s" target="_blank">%s</a>)</p>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)</div>',
 		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
@@ -410,7 +410,7 @@ function markup_published( $status_meta ) {
 function markup_error( $status_meta ) {
 
 	return sprintf(
-		'%s<br><pre>%s</pre></p>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
 		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
 		esc_html( $status_meta['message'] )
 	);
@@ -425,7 +425,10 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
-	return $status_meta['message'];
+	return sprintf(
+		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
+		esc_html( $status_meta['message'] )
+	);
 }
 
 /**

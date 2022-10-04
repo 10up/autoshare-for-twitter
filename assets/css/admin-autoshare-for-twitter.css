@@ -140,3 +140,41 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	max-width: 20px;
 	height: auto;
 }
+
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon::before {
+	background-image: url('../images/twitter_default.svg');
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	content: ' ';
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	vertical-align: top;
+    margin-right: 5px;
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--published::before {
+	background-image: url('../images/twitter_tweeted.svg');
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--error::before {
+	background-image: url('../images/twitter_failed.svg');
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--enabled::before {
+	background-image: url('../images/twitter_enabled.svg');
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--disabled::before {
+	background-image: url('../images/twitter_disabled.svg');
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-log-data {
+    display: inline-block;
+	max-width: 85%;
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-status-wrap {
+    margin-bottom: 8px;
+}
