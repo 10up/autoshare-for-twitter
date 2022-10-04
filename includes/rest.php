@@ -130,16 +130,18 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 
 	save_autoshare_for_twitter_meta_data( $request['id'], $params );
 
-	$enabled = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
+	$enabled           = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
+	$tweet_allow_image = (bool) ( 'yes' === get_autoshare_for_twitter_meta( $request['id'], TWEET_ALLOW_IMAGE, true ) );
 	$message = $enabled ?
 		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
 		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
 
 	return rest_ensure_response(
 		[
-			'enabled'  => $enabled,
-			'message'  => $message,
-			'override' => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
+			'enabled'    => $enabled,
+			'message'    => $message,
+			'override'   => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
+			'allowImage' => $tweet_allow_image,
 		]
 	);
 }

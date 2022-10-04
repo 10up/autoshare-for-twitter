@@ -257,6 +257,7 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 	 */
 	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $tweet_meta );
 	delete_autoshare_for_twitter_meta( $post_id, Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+	delete_autoshare_for_twitter_meta( $post_id, Meta\TWEET_ALLOW_IMAGE );
 
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.

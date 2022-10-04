@@ -47,8 +47,8 @@ const TWEET_ALLOW_IMAGE = 'tweet-allow-image';
  * @return void
  */
 function setup() {
-	add_action( 'post_submitbox_misc_actions', __NAMESPACE__ . '\tweet_submitbox_callback', 15 );
-	add_action( 'autoshare_for_twitter_metabox', __NAMESPACE__ . '\render_tweet_submitbox', 10, 1 );
+	// Add Autoshare for twitter meta box to classic editor.
+	add_action( 'add_meta_boxes', __NAMESPACE__ . '\autoshare_for_twitter_metabox', 10, 2 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 3 );
 }
 
@@ -117,6 +117,7 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
 	$filtered_data = [];
 	foreach ( $data as $key => $value ) {
 		switch ( $key ) {
+			case TWEET_ALLOW_IMAGE:
 			case ENABLE_AUTOSHARE_FOR_TWITTER_KEY:
 				$filtered_data[ $key ] = boolval( $value );
 				break;
@@ -158,7 +159,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 			// Handle unchecked "Tweet this post" checkbox for classic editor.
 			$data[ TWEET_ALLOW_IMAGE ] = 0;
 		} else {
-			$data[ TWEET_ALLOW_IMAGE ] = autoshare_enabled( $post_id ) ? 1 : 0;
+			$data[ TWEET_ALLOW_IMAGE ] = tweet_image_allowed( $post_id ) ? 1 : 0;
 		}
 	}
 
@@ -185,6 +186,33 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 				break;
 		}
 	}
+}
+
+/**
+ * Add Autoshare for twitter metabox on post/post types.
+ *
+ * @param string  $post_type Post Type.
+ * @param WP_Post $post      WP_Post object.
+ *
+ * @since 1.3.0
+ */
+function autoshare_for_twitter_metabox( $post_type, $post ) {
+	/**
+	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing.
+	 */
+	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
+		return;
+	}
+
+	add_meta_box(
+		'autoshare_for_twitter_metabox',
+		__( 'Autoshare for Twitter ', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\render_tweet_submitbox',
+		null,
+		'side',
+		'default',
+		array( '__back_compat_meta_box' => true )
+	);
 }
 
 /**
@@ -422,18 +450,20 @@ function _safe_markup_default() {
 		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
 	</label>
 
-	<p>
-		<label for="autoshare-for-twitter-tweet-allow-image">
-			<input
-				type="checkbox"
-				id="autoshare-for-twitter-tweet-allow-image"
-				name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_ALLOW_IMAGE ) ); ?>"
-				value="1"
-				<?php checked( tweet_image_allowed( get_the_ID() ) ); ?>
-			>
-			<?php esc_html_e( 'Use featured image in Tweet', 'autoshare-for-twitter' ); ?>
-		</label>
-	</p>
+	<div class="autoshare-for-twitter-tweet-allow-image-wrap" style="display: none;">
+		<p>
+			<label for="autoshare-for-twitter-tweet-allow-image">
+				<input
+					type="checkbox"
+					id="autoshare-for-twitter-tweet-allow-image"
+					name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_ALLOW_IMAGE ) ); ?>"
+					value="1"
+					<?php checked( tweet_image_allowed( get_the_ID() ) ); ?>
+				>
+				<?php esc_html_e( 'Use featured image in Tweet', 'autoshare-for-twitter' ); ?>
+			</label>
+		</p>
+	</div>
 
 	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">

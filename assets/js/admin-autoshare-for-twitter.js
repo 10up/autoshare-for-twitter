@@ -12,8 +12,10 @@
 		$editLink = $('#autoshare-for-twitter-edit'),
 		$editBody = $('#autoshare-for-twitter-override-body'),
 		$hideLink = $('.cancel-tweet-text'),
+		$allowTweetImage = $('#autoshare-for-twitter-tweet-allow-image'),		
 		errorMessageContainer = document.getElementById('autoshare-for-twitter-error-message'),
 		counterWrap = document.getElementById('autoshare-for-twitter-counter-wrap'),
+		allowTweetImageWrap = $('.autoshare-for-twitter-tweet-allow-image-wrap'),
 		limit = 280;
 
 	// Add enabled class if checked
@@ -24,6 +26,8 @@
 	// Event handlers.
 	$tweetPost.on('click', handleRequest);
 	$tweetText.change(handleRequest);
+	$tweetPost.change(toggleAllowImageVisibility);
+	$allowTweetImage.change(handleRequest);
 	$editLink.on('click', function() {
 		$editBody.slideToggle();
 		updateRemainingField();
@@ -71,6 +75,7 @@
 		var data = {};
 		data[adminAutoshareForTwitter.enableAutoshareKey] = status;
 		data[adminAutoshareForTwitter.tweetBodyKey] = $tweetText.val();
+		data[adminAutoshareForTwitter.allowTweetImageKey] = $allowTweetImage.prop('checked');
 		$('#submit').attr('disabled', true);
 
 		wp.apiFetch({
@@ -91,11 +96,19 @@
 
 				$icon.removeClass('pending');
 				if (data.enabled) {
-					$icon.toggleClass('enabled');
+					$icon.removeClass('disabled');
+					$icon.addClass('enabled');
 					$tweetPost.prop('checked', true);
 				} else {
-					$icon.toggleClass('disabled');
+					$icon.removeClass('enabled');
+					$icon.addClass('disabled');
 					$tweetPost.prop('checked', false);
+				}
+
+				if (data.allowImage) {
+					$allowTweetImage.prop('checked', true);
+				} else {
+					$allowTweetImage.prop('checked', false);
 				}
 
 				$('#submit').attr('disabled', false);
@@ -126,5 +139,31 @@
 		$icon.toggleClass('pending');
 		$icon.removeClass('enabled');
 		$icon.removeClass('disabled');
+	}
+
+	// Show/Hide "Use featured image in Tweet" checkbox.
+	if ( allowTweetImageWrap && wp.media.featuredImage ) {
+		toggleAllowImageVisibility();
+		// Listen event for add/remove featured image.
+		wp.media.featuredImage.frame().on( 'select', toggleAllowImageVisibility );
+		$('#postimagediv').on( 'click', '#remove-post-thumbnail', toggleAllowImageVisibility );
+	}
+
+	/**
+	 * Show/Hide "Use featured image in Tweet" checkbox.
+	 */
+	function toggleAllowImageVisibility( event ) {
+		let hasMedia = wp.media.featuredImage.get();
+		// Handle remove post thumbnail click
+		if( event && event.target && 'remove-post-thumbnail' === event.target.id && 'click' === event.type ) {
+			hasMedia = -1;
+		}
+		const autoshareEnabled = $tweetPost.prop('checked');
+		// Autoshare is enabled and post has featured image.
+		if ( hasMedia > 0 && autoshareEnabled ) {
+			allowTweetImageWrap.show();
+		} else {
+			allowTweetImageWrap.hide();
+		}
 	}
 })(jQuery);

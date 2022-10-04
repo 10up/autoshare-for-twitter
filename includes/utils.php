@@ -101,13 +101,13 @@ function autoshare_enabled( $post_id ) {
  */
 function tweet_image_allowed( $post_id ) {
 	if ( has_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE ) ) {
-		return get_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE );
+		return ( 'yes' === get_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE ) );
 	}
 
 	/**
 	 * Filters whether autoshare is enabled by default on a post type or post.
 	 *
-	 * @param bool   Whether autoshare is enabled by default. False by default.
+	 * @param bool   Whether autoshare is enabled by default. True by default.
 	 * @param string Post type.
 	 * @param int    The current post ID.
 	 */
