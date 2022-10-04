@@ -105,11 +105,11 @@ class Publish_Tweet {
 		);
 
 		$is_image_allowed = Utils\get_autoshare_for_twitter_meta( $post->ID, TWEET_ALLOW_IMAGE );
-
-		$media_id = $this->get_upload_data_media_id( $post );
-
-		if ( $media_id && 'no' !== $is_image_allowed ) {
-			$update_data['media_ids'] = [ $media_id ];
+		if ( 'no' !== $is_image_allowed ) {
+			$media_id = $this->get_upload_data_media_id( $post );
+			if ( $media_id ) {
+				$update_data['media_ids'] = [ $media_id ];
+			}
 		}
 
 		/**
