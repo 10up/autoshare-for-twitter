@@ -38,15 +38,8 @@ class TestPostMeta extends WP_UnitTestCase {
 	public function test_setup_hooks() {
 		$this->assertTrue(
 			check_method_exists(
-				'post_submitbox_misc_actions',
-				'TenUp\AutoshareForTwitter\Core\Post_Meta\tweet_submitbox_callback'
-			)
-		);
-
-		$this->assertTrue(
-			check_method_exists(
-				'autoshare_for_twitter_metabox',
-				'TenUp\AutoshareForTwitter\Core\Post_Meta\render_tweet_submitbox'
+				'add_meta_boxes',
+				'TenUp\AutoshareForTwitter\Core\Post_Meta\autoshare_for_twitter_metabox'
 			)
 		);
 
@@ -99,13 +92,14 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'%s <span>%s</span> (<a href="%s" target="_blank">View</a>)</p>',
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong> <span>%s</span> (<a href="%s" target="_blank">View</a>)</div>',
 				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
 				esc_url( link_from_twitter( $twitter_status['twitter_id'] ) )
 			),
 			markup_published( $twitter_status )
 		);
+
 		remove_filter( 'autoshare_for_twitter_meta', $published_filter );
 
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
