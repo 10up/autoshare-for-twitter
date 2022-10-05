@@ -171,29 +171,29 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-log-data {
-    display: inline-block;
+	display: inline-block;
 	max-width: 85%;
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-wrap {
-    margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 #autoshare_for_twitter_metabox .tweet-now-button{
 	text-decoration: none;
 	padding: 5px 12px 5px 0px;
-    font-weight: bold;
+	font-weight: bold;
 	box-shadow: none;
-    outline: 0px;
-    background-color: #fff;
+	outline: 0px;
+	background-color: #fff;
 }
 
-#autoshare_for_twitter_metabox .tweet-now-button span.dashicons{
+#autoshare_for_twitter_metabox .tweet-now-button span.dashicons {
 	vertical-align: bottom;
 	font-size: 16px;
 }
 
-#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper label.autoshare-for-twitter-enable-wrap{
+#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper label.autoshare-for-twitter-enable-wrap {
 	display: none;
 }
 
@@ -202,9 +202,9 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 }
 
 #autoshare_for_twitter_metabox p#autoshare-for-twitter-error-message {
-    color: red;
+	color: red;
 }
 
-#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper span.spinner{
+#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper span.spinner {
 	float: none;
 }
