@@ -132,7 +132,7 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 
 	$enabled           = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
 	$tweet_allow_image = (bool) ( 'yes' === get_autoshare_for_twitter_meta( $request['id'], TWEET_ALLOW_IMAGE, true ) );
-	$message = $enabled ?
+	$message           = $enabled ?
 		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
 		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
 

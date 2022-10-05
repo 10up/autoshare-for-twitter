@@ -92,7 +92,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong> <span>%s</span> (<a href="%s" target="_blank">View</a>)</div>',
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">View</a>)</div>',
 				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
 				esc_url( link_from_twitter( $twitter_status['twitter_id'] ) )
