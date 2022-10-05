@@ -251,48 +251,23 @@ function render_tweet_submitbox( $post ) {
 
 	// If the post is already published the output varies slightly.
 	if ( 'publish' === $post_status ) {
-
-		$twitter_metas = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWITTER_STATUS_KEY );
-
-		if ( empty( $twitter_metas ) || isset( $twitter_metas['twitter_id'] ) ) {
-			$twitter_metas = array(
-				array(
-					'status'     => $twitter_metas['status'],
-					'created_at' => $twitter_metas['created_at'],
-					'twitter_id' => $twitter_metas['twitter_id'],
-				),
-			);
-		} elseif ( isset( $twitter_metas['status'] ) && ( 'error' === $twitter_metas['status'] || 'unknown' === $twitter_metas['status'] || 'other' === $twitter_metas['status'] ) ) {
-			$twitter_metas = array(
-				$twitter_metas,
-			);
-		}
-
-		foreach ( $twitter_metas as $twitter_meta ) {
-			$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
-
-			switch ( $status ) {
-
-				case 'published':
-					$output = markup_published( $twitter_meta );
-					break;
-
-				case 'error':
-					$output = markup_error( $twitter_meta );
-					break;
-
-				case 'unknown':
-					$output = markup_unknown( $twitter_meta );
-					break;
-
-				default:
-					$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
-					break;
-			}
-
-			echo wp_kses_post( "<div class='autoshare-for-twitter-status-wrap'><span class='autoshare-for-twitter-status-icon autoshare-for-twitter-status-icon--$status'></span>$output</div>" );
-		}
-
+		// Display tweet status logs.
+		?>
+		<div class="autoshare-for-twitter-status-logs-wrapper">
+			<?php echo wp_kses_post( get_tweet_status_logs( $post ) ); ?>
+		</div>
+		<hr/>
+		<button class="button button-link tweet-now-button">
+		<?php esc_attr_e( 'Tweet Now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+		</button>		
+		<div class="autoshare-for-twitter-tweet-now-wrapper" style="display: none;">
+			<?php
+			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
+			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Tweet again', 'autoshare-for-twitter' ); ?>">
+			<span class="spinner"></span>
+		</div>
+		<?php
 		// Default output.
 	} else {
 		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -378,6 +353,64 @@ function get_tweet_status_message( $post ) {
 }
 
 /**
+ * Gets info on the post's Tweet status to display in classic editor metabox.
+ *
+ * @since 1.3.0
+ *
+ * @param int|WP_Post $post The post we are rendering on.
+ * @return string markup containing the tweet status logs if the post was tweeted.
+ */
+function get_tweet_status_logs( $post ) {
+	$post        = get_post( $post );
+	$post_status = get_post_status( $post );
+	$status_logs = '';
+
+	if ( 'publish' === $post_status ) {
+		$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
+
+		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
+			$tweet_metas = array(
+				array(
+					'status'     => $tweet_metas['status'],
+					'created_at' => $tweet_metas['created_at'],
+					'twitter_id' => $tweet_metas['twitter_id'],
+				),
+			);
+		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
+			$tweet_metas = array(
+				$tweet_metas,
+			);
+		}
+
+		foreach ( $tweet_metas as $twitter_meta ) {
+			$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
+
+			switch ( $status ) {
+
+				case 'published':
+					$output = markup_published( $twitter_meta );
+					break;
+
+				case 'error':
+					$output = markup_error( $twitter_meta );
+					break;
+
+				case 'unknown':
+					$output = markup_unknown( $twitter_meta );
+					break;
+
+				default:
+					$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
+					break;
+			}
+
+			$status_logs .= "<div class='autoshare-for-twitter-status-wrap'><span class='autoshare-for-twitter-status-icon autoshare-for-twitter-status-icon--$status'></span>$output</div>";
+		}
+	}
+	return wp_kses_post( $status_logs );
+}
+
+/**
  * Outputs the markup and language to be used when a post has been successfully
  * sent to Twitter
  *
@@ -440,7 +473,7 @@ function _safe_markup_default() {
 
 	ob_start();
 	?>
-	<label for="autoshare-for-twitter-enable">
+	<label class="autoshare-for-twitter-enable-wrap" for="autoshare-for-twitter-enable">
 		<input
 			type="checkbox"
 			id="autoshare-for-twitter-enable"

@@ -158,12 +158,64 @@
 		if( event && event.target && 'remove-post-thumbnail' === event.target.id && 'click' === event.type ) {
 			hasMedia = -1;
 		}
+
+		const tweetNow = $('#tweet_now').length;
 		const autoshareEnabled = $tweetPost.prop('checked');
 		// Autoshare is enabled and post has featured image.
-		if ( hasMedia > 0 && autoshareEnabled ) {
+		if ( hasMedia > 0 && ( autoshareEnabled || tweetNow ) ) {
 			allowTweetImageWrap.show();
 		} else {
 			allowTweetImageWrap.hide();
 		}
 	}
+
+	// Tweet Now functionality.
+	$('#tweet_now').on('click', function() {
+		$("#autoshare-for-twitter-error-message").html('');
+		$(this).addClass("disabled");
+		$(".autoshare-for-twitter-tweet-now-wrapper span.spinner").addClass("is-active");
+
+		const postId = $("#post_ID").val();
+		const body = new FormData();
+		body.append( 'action', adminAutoshareForTwitter.retweetAction );
+		body.append( 'nonce', adminAutoshareForTwitter.nonce );
+		body.append( 'post_id', postId );
+		body.append( 'is_classic', 1 );
+
+		// Send request to Tweet now.
+		fetch( ajaxurl, {
+			method: 'POST',
+			body,
+		} )
+		.then((response) => response.json())
+		.then((response) => {
+			if (
+				response && response.data &&
+				( ( response.success && response.data.message ) || ( false === response.success && false === response.data.is_retweeted) )
+			) {
+				$('.autoshare-for-twitter-status-logs-wrapper').html(response.data.message);
+			} else {
+				$("#autoshare-for-twitter-error-message").html(adminAutoshareForTwitter.unknownErrorText);
+			}
+		})
+		.catch((error) => {
+			if(error.message){
+				$("#autoshare-for-twitter-error-message").html(error.message);
+			} else {
+				$("#autoshare-for-twitter-error-message").html(adminAutoshareForTwitter.unknownErrorText);
+			}
+		})
+		.finally(() => {
+			$(this).removeClass("disabled");
+			$(".autoshare-for-twitter-tweet-now-wrapper span.spinner").removeClass("is-active");
+		});
+	});
+
+	// Toggle Tweet Now panel
+	jQuery("#autoshare_for_twitter_metabox .tweet-now-button").on("click", function(e){
+		e.preventDefault();
+		$editBody.show();
+		jQuery(this).find('span').toggleClass('dashicons-arrow-up-alt2');
+		jQuery(".autoshare-for-twitter-tweet-now-wrapper").slideToggle();
+	});	
 })(jQuery);

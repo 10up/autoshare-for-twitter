@@ -17,6 +17,7 @@ use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
+use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_logs;
 
 /**
  * Setup function.
@@ -154,13 +155,20 @@ function publish_tweet( $post_id ) {
  * Handles Re-tweeting.
  */
 function retweet() {
-	if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wp_rest' ) ) {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wp_rest' ) ) {
 		wp_send_json_error( __( 'Nonce verification failed.', 'autoshare-for-twitter' ) );
 	}
 
 	$post_id      = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 	$is_retweeted = publish_tweet( $post_id );
-	$message      = get_tweet_status_message( $post_id );
+
+	// Send status logs markup for classic editor.
+	if ( isset( $_POST['is_classic'] ) && ! empty( $_POST['is_classic'] ) ) {
+		$message = [ 'message' => get_tweet_status_logs( $post_id ) ];
+	} else {
+		$message = get_tweet_status_message( $post_id );
+	}
+	$message['is_retweeted'] = $is_retweeted;
 
 	if ( $is_retweeted ) {
 		wp_send_json_success( $message );

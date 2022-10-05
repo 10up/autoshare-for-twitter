@@ -178,3 +178,33 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-wrap {
     margin-bottom: 8px;
 }
+
+#autoshare_for_twitter_metabox .tweet-now-button{
+	text-decoration: none;
+	padding: 5px 12px 5px 0px;
+    font-weight: bold;
+	box-shadow: none;
+    outline: 0px;
+    background-color: #fff;
+}
+
+#autoshare_for_twitter_metabox .tweet-now-button span.dashicons{
+	vertical-align: bottom;
+	font-size: 16px;
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper label.autoshare-for-twitter-enable-wrap{
+	display: none;
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper a.cancel-tweet-text {
+	display: none;
+}
+
+#autoshare_for_twitter_metabox p#autoshare-for-twitter-error-message {
+    color: red;
+}
+
+#autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper span.spinner{
+	float: none;
+}
