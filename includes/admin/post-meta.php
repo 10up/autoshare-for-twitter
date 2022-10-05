@@ -216,29 +216,6 @@ function autoshare_for_twitter_metabox( $post_type, $post ) {
 }
 
 /**
- * Callback for the Auto Tweet box in the Submit meta box.
- *
- * @param \WP_Post $post The post being submitted.
- *
- * @return void
- */
-function tweet_submitbox_callback( $post ) {
-
-	/**
-	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing.
-	 */
-	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
-		return;
-	}
-
-	?>
-	<div id="autoshare_for_twitter_metabox" class="misc-pub-section">
-		<?php do_action( 'autoshare_for_twitter_metabox', $post ); ?>
-	</div>
-	<?php
-}
-
-/**
  * Determines which markup should be used inside the metabox.
  *
  * @param \WP_Post $post The post we are rendering on.
