@@ -2,7 +2,7 @@
 
 > Automatically tweets the post title or custom message and a link to the post.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/autoshare-for-twitter?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/autoshare-for-twitter?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
 [![ESLint](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml)
 [![PHPCompatibility](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml)
 [![PHPCS](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml)
@@ -73,7 +73,7 @@ Yes, yes it does! For more details on this, see [#44](https://github.com/10up/au
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress. Bug reports, feature requests, questions, and pull requests are welcome.
+**Stable:** 10up is not planning to develop any new features for this, but will still respond to bug reports and security concerns. We welcome PRs, but any that include new features should be small and easy to integrate and should not include breaking changes. We otherwise intend to keep this tested up to the most recent version of WordPress.
 
 ## Changelog
 
