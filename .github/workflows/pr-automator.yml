@@ -1,4 +1,4 @@
-name: 'PR Helper'
+name: 'PR Automator'
 on:
   pull_request:
     types:
@@ -13,7 +13,7 @@ jobs:
   Validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: 10up/action-pr-helper@develop
+      - uses: 10up/action-pr-automator@trunk
         with:
           fail-label: needs:feedback
           pass-label: needs:code-review
