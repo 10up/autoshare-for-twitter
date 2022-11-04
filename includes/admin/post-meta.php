@@ -272,9 +272,9 @@ function get_tweet_status_message( $post ) {
 		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
 			$tweet_metas = array(
 				array(
-					'status'     => $tweet_metas['status'],
-					'created_at' => $tweet_metas['created_at'],
-					'twitter_id' => $tweet_metas['twitter_id'],
+					'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
+					'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
+					'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
 				),
 			);
 		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -348,9 +348,9 @@ function get_tweet_status_logs( $post ) {
 		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
 			$tweet_metas = array(
 				array(
-					'status'     => $tweet_metas['status'],
-					'created_at' => $tweet_metas['created_at'],
-					'twitter_id' => $tweet_metas['twitter_id'],
+					'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
+					'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
+					'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
 				),
 			);
 		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
