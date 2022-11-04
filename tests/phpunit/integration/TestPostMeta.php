@@ -130,7 +130,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'%s<br><pre>%s</pre></p>',
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
 				esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
 				esc_html( $twitter_status['message'] )
 			),
@@ -162,7 +162,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		);
 		// Make sure the rendered markup is as expected in post metabox.
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
-		$this->assertEquals( $twitter_status['message'], markup_unknown( $twitter_status ) );
+		$this->assertEquals( '<div class="autoshare-for-twitter-status-log-data">' . $twitter_status['message'] . '</div>', markup_unknown( $twitter_status ) );
 		remove_filter( 'autoshare_for_twitter_meta', $unknown_filter );
 
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
