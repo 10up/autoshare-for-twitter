@@ -1,9 +1,9 @@
 === Autoshare for Twitter ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
-Requires at least: 5.3
+Requires at least: 5.7
 Tested up to:      6.0
-Requires PHP:      7.2
+Requires PHP:      7.4
 Stable tag:        1.2.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
