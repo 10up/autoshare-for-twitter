@@ -4,8 +4,8 @@
  * Description:       Automatically tweets the post title or custom message and a link to the post.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
  * Version:           1.2.0
- * Requires at least: 5.3
- * Requires PHP:      7.2
+ * Requires at least: 5.7
+ * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
  * License:           GPL-2.0-or-later
