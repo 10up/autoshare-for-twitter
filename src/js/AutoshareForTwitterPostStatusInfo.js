@@ -64,6 +64,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 			} ) }
 			<CardDivider />
 			<Button
+				className="autoshare-for-twitter-tweet-now"
 				variant="link"
 				text={ __( 'Tweet now', 'autoshare-for-twitter' ) }
 				onClick={ () => setTweetNow( ! tweetNow ) }
@@ -85,6 +86,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 					<TweetTextField />
 					<Button
 						variant="primary"
+						className="autoshare-for-twitter-re-tweet"
 						text={ reTweet ? __( 'Tweeting...', 'autoshare-for-twitter' ) : __( 'Tweet again', 'autoshare-for-twitter' ) }
 						onClick={ () => {
 							reTweetHandler();

@@ -47,6 +47,7 @@ export function TweetTextField() {
 			onChange={ ( value ) => {
 				setTweetText( value );
 			} }
+			className="autoshare-for-twitter-tweet-text"
 			label={
 				<span style={ { marginTop: '0.5rem', display: 'block' } } className="autoshare-for-twitter-prepublish__message-label">
 					<span>{ __( 'Custom message:', 'autoshare-for-twitter' ) }&nbsp;</span>
