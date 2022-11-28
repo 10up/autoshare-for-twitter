@@ -90,11 +90,12 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 /**
  * Primary handler for the process of publishing to Twitter.
  *
- * @param int $post_id The current post ID.
+ * @param int  $post_id The current post ID.
+ * @param bool $force   Publish tweet regardless of autoshare enabled or disabled on post.
  *
  * @return object
  */
-function publish_tweet( $post_id ) {
+function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );
 
 	/*
@@ -117,7 +118,7 @@ function publish_tweet( $post_id ) {
 	/*
 	 * One final check: was the "auto tweet" checkbox selected?
 	 */
-	if ( Utils\autoshare_enabled( $post->ID ) ) {
+	if ( Utils\autoshare_enabled( $post->ID ) || $force ) {
 		$tweet = Utils\compose_tweet_body( $post );
 
 		$publish          = new Publish_Tweet();
@@ -160,7 +161,7 @@ function retweet() {
 	}
 
 	$post_id      = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
-	$is_retweeted = publish_tweet( $post_id );
+	$is_retweeted = publish_tweet( $post_id, true );
 
 	// Send status logs markup for classic editor.
 	if ( isset( $_POST['is_classic'] ) && ! empty( $_POST['is_classic'] ) ) {
