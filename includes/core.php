@@ -40,7 +40,7 @@ function setup() {
 	// Setup hooks to add post type support and tweet status columns for supported / enabled post types.
 	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports_with_custom_columns' );
 	add_filter( 'autoshare_for_twitter_enabled_default', __NAMESPACE__ . '\maybe_enable_autoshare_by_default' );
-	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image' );
+	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image', 10, 2 );
 }
 
 /**
@@ -81,11 +81,12 @@ function maybe_enable_autoshare_by_default() {
  * @since 1.0.0
  *
  * @param null|int $attachment_id ID of attachment being uploaded.
+ * @param \WP_Post $post          Post being tweeted.
  *
  * @return null|int|bool
  */
-function maybe_disable_upload_image( $attachment_id ) {
-	if ( ! Utils\get_autoshare_for_twitter_settings( 'enable_upload' ) ) {
+function maybe_disable_upload_image( $attachment_id, $post ) {
+	if ( ! Utils\tweet_image_allowed( $post->ID ) ) {
 		return false;
 	}
 

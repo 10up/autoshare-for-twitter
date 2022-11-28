@@ -104,6 +104,8 @@ function tweet_image_allowed( $post_id ) {
 		return ( 'yes' === get_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE ) );
 	}
 
+	$is_allowed = (bool) get_autoshare_for_twitter_settings( 'enable_upload' );
+
 	/**
 	 * Filters whether autoshare is enabled by default on a post type or post.
 	 *
@@ -111,7 +113,7 @@ function tweet_image_allowed( $post_id ) {
 	 * @param string Post type.
 	 * @param int    The current post ID.
 	 */
-	return apply_filters( 'autoshare_for_twitter_tweet_image_allowed', true, get_post_type( $post_id ), $post_id );
+	return apply_filters( 'autoshare_for_twitter_tweet_image_allowed', $is_allowed, get_post_type( $post_id ), $post_id );
 }
 
 /**
