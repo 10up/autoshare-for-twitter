@@ -3,8 +3,8 @@
 	"version": "1.2.0",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
-		"watch": "webpack -wd --config webpack.gutenberg.config.js",
-		"build": "webpack -p --config webpack.gutenberg.config.js",
+		"watch": "webpack -w --devtool eval-cheap-module-source-map --output-pathinfo --mode development --config webpack.gutenberg.config.js",
+		"build": "webpack --optimization-minimize --mode production --config webpack.gutenberg.config.js",
 		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
 		"env": "wp-env",
 		"env:start": "wp-env start",
@@ -53,8 +53,8 @@
 		"lint-staged": "^9.2.5",
 		"node-wp-i18n": "^1.2.3",
 		"svg-react-loader": "^0.4.6",
-		"webpack": "^4.40.2",
-		"webpack-cli": "^3.3.8"
+		"webpack": "^5.74.0",
+		"webpack-cli": "^4.10.0"
 	},
 	"dependencies": {
 		"@wordpress/api-fetch": "^3.5.0"
