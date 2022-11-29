@@ -13,7 +13,6 @@ use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
 use TenUp\AutoshareForTwitter\Utils as Utils;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
-use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
@@ -261,12 +260,9 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 	}
 
 	/**
-	 * Update the post meta entry that stores the response
-	 * and remove the "Autoshare this post" value as a double-check.
+	 * Update the post meta entry that stores the response.
 	 */
 	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $tweet_meta );
-	delete_autoshare_for_twitter_meta( $post_id, Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
-	delete_autoshare_for_twitter_meta( $post_id, Meta\TWEET_ALLOW_IMAGE );
 
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
