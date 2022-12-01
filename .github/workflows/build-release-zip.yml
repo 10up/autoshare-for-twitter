@@ -54,14 +54,4 @@ jobs:
           npm run build:externals
 
       - name: Generate ZIP file
-        run: bash bin/build-zip.sh
-
-      - name: Unzip the file (prevents double zip problem)
-        run: unzip ${{ github.event.repository.name }}.zip -d zipfile
-
-      - name: Upload the ZIP file as an artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ github.event.repository.name }}
-          path: zipfile
-          retention-days: 5
+        uses: 10up/action-wordpress-plugin-build-zip@stable
