@@ -1,0 +1,14 @@
+name: PHPUnit
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths-ignore:
+      - '**.php'
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No PHPUnit check required"'
