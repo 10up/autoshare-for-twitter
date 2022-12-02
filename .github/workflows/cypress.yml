@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
+    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@try/release-e2e # TODO: Update this to develop branch.
 
   cypress:
     needs: build
