@@ -10,5 +10,9 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['7.4', '8.0']
     steps:
       - run: 'echo "No PHPUnit check required"'
