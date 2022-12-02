@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [1.2.1] - 2022-12-05
+**Note that this release bumps the WordPress minimum from 5.3 to 5.7 and PHP minimum from 7.2 to 7.4.**
+
+### Added
+- Added PR Automator GH Action (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/autoshare-for-twitter/pull/194), [#196](https://github.com/10up/autoshare-for-twitter/pull/196)).
+- Added "Build release zip" GitHub Action. (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#201](https://github.com/10up/autoshare-for-twitter/pull/201))
+
+### Changed
+- Bump minimum `PHP` version from 7.2 to 7.4 (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@vikrampm1](https://github.com/vikrampm1) via [#197](https://github.com/10up/autoshare-for-twitter/pull/197))
+- Bump minimum `WordPress` version from 5.3 to 5.7 (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@vikrampm1](https://github.com/vikrampm1) via [#197](https://github.com/10up/autoshare-for-twitter/pull/197))
+- Bump WordPress "tested up to" version 6.1 (props [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#200](https://github.com/10up/autoshare-for-twitter/pull/200))
+
+### Security
+- Bump `json-schema` from 0.2.3 to 0.4.0 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#189](https://github.com/10up/autoshare-for-twitter/pull/189)).
+- Bump `jsprim` from 1.4.1 to 1.4.2 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#189](https://github.com/10up/autoshare-for-twitter/pull/189)).
+- Bump `simple-git` from 2.47.0 to 3.14.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#192](https://github.com/10up/autoshare-for-twitter/pull/192)).
+- Bump `@wordpress/env` from 4.1.3 to 5.3.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh), [@faisal-alvi](https://github.com/faisal-alvi) via [#191](https://github.com/10up/autoshare-for-twitter/pull/191), [#192](https://github.com/10up/autoshare-for-twitter/pull/192)).
+- Bump `got` from 10.7.0 to 11.8.5 (props [@dependabot](https://github.com/apps/dependabot), [@faisal-alvi](https://github.com/faisal-alvi) via [#191](https://github.com/10up/autoshare-for-twitter/pull/191)).
+
 ## [1.2.0] - 2022-09-28
 **Note that this release bumps the WordPress minimum from 4.9 to 5.3.**
 
@@ -139,6 +158,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[1.2.1]: https://github.com/10up/autoshare-for-twitter/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/10up/autoshare-for-twitter/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/10up/autoshare-for-twitter/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/10up/autoshare-for-twitter/compare/1.1.0...1.1.1
