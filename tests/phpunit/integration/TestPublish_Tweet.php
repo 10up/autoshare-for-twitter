@@ -87,7 +87,7 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
-		$this->assertNull( $file );
+		$this->assertNotNull( $file );
 
 		remove_filter( 'autoshare_for_twitter_max_image_size', $set_1kb_max_filesize );
 	}

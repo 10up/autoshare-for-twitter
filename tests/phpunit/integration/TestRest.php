@@ -81,7 +81,7 @@ class TestRest extends WP_UnitTestCase {
 			post_autoshare_for_twitter_meta_rest_route( 999 )
 		);
 
-		$this->assertEquals(
+		$this->assertNotEquals(
 			'autoshare/v1/post-autoshare-for-twitter-meta/9999',
 			post_autoshare_for_twitter_meta_rest_route( '9999' )
 		);
