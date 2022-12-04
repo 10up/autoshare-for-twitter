@@ -1,7 +1,7 @@
-import { __ } from '@wordpress/i18n';
-import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { Dashicon } from '@wordpress/components';
+import {__ } from '@wordpress/i18n';
+import {compose } from '@wordpress/compose';
+import {withSelect } from '@wordpress/data';
+import {Dashicon } from '@wordpress/components';
 
 export function AutoshareForTwitterPostStatusInfo( { statusMessage } ) {
 	return (

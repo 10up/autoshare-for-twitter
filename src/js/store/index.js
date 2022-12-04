@@ -8,5 +8,8 @@ export const STORE = '10up/autoshare';
 
 export function createAutoshareStore() {
 	const store = registerStore( STORE, { reducer, actions, selectors } );
-	return store;
+
+
+
+return store;
 }

@@ -50,8 +50,8 @@ class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 		const AutoTweetIcon = (
 			<Icon
 				className="autoshare-for-twitter-icon components-panel__icon"
-				icon={ <PluginIcon /> }
-				size={ 24 }
+				icon={<PluginIcon />}
+				size={24}
 			/>
 		);
 
