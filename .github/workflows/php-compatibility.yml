@@ -11,7 +11,7 @@ on:
 
 jobs:
   php_compatibility:
-    name: PHP minimum 7.2
+    name: PHP minimum 7.4
     runs-on: ubuntu-latest
 
     steps:
@@ -21,15 +21,12 @@ jobs:
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 7.4
           tools: composer:v2
           coverage: none
-
-      - name: Remove non-production dependencies
-        run: rm composer.lock && composer remove --dev phpunit/phpunit yoast/phpunit-polyfills
 
       - name: Install dependencies
         run: composer install
 
       - name: Run PHP Compatibility
-        run: vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.2-
+        run: vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.4-
