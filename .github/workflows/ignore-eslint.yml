@@ -1,0 +1,14 @@
+name: ESLint
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths-ignore:
+      - '**.js'
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No ESLint check required"'

@@ -8,6 +8,10 @@ on:
   pull_request:
     branches:
       - develop
+    paths:
+      - '**.js'
+      - '**.php'
+      - '**.css'
 
 jobs:
   build:
