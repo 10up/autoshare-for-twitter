@@ -8,6 +8,8 @@ on:
   pull_request:
     branches:
       - develop
+    paths: # Note: Update paths here will also require updating paths in ignore.eslint.yml.
+      - '**.js'
 
 jobs:
   eslint:
