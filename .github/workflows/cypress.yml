@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@try/develop
+    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
 
   cypress:
     needs: build
