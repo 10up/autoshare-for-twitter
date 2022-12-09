@@ -1,0 +1,14 @@
+name: PHPCS
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths-ignore:
+      - '**.php'
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No PHPCS check required"'
