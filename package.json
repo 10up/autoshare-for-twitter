@@ -1,11 +1,11 @@
 {
 	"name": "@10up/autoshare-for-twitter",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Automatically tweets a post title, URL, and optional description.",
 	"scripts": {
 		"watch": "webpack -w --devtool eval-cheap-module-source-map --output-pathinfo --mode development --config webpack.gutenberg.config.js",
 		"build": "webpack --optimization-minimize --mode production --config webpack.gutenberg.config.js",
-		"build:externals": "webpack src/js/externals/api-fetch.js -o dist/api-fetch.js -p --module-bind js=babel-loader",
+		"build:externals": "webpack ./src/js/externals/api-fetch.js  --output-path dist/ --output-filename api-fetch.js --mode production",
 		"env": "wp-env",
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
