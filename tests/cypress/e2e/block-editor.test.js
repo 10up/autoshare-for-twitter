@@ -1,3 +1,5 @@
+import { getRandomText } from "../support/functions";
+
 describe('Test Autoshare for Twitter with Block Editor.', () => {
 	before(() => {
 		cy.login();
@@ -116,6 +118,32 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+		});
+
+		it('Tweet Now should work fine', () => {
+			// Start create new post by enter post title
+			cy.startCreatePost();
+	
+			// Open pre-publish Panel.
+			cy.openPrePublishPanel();
+	
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
+	
+			// Publish
+			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+			cy.get('.editor-post-publish-button').click();
+	
+			// Post-publish.
+			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+	
+			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
+			cy.openDocumentSettingsPanel('Autotweet');
+			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-tweet-now').click();
+			cy.get('.autoshare-for-twitter-post-status .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`);
+			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-re-tweet').click();
+			cy.get('.autoshare-for-twitter-log a').contains('Tweeted on');
 		});
 	});
 });
