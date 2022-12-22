@@ -29,7 +29,7 @@ Automatically tweets the post title or custom message and a link to the post.  A
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
 == Changelog ==
-= 1.2.1 - 2022-12-05 =
+= 1.2.1 - 2022-12-07 =
 **Note that this release bumps the WordPress minimum from 5.3 to 5.7 and PHP minimum from 7.2 to 7.4.**
 
 * **Added:** "PR Automator" GitHub Action (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/autoshare-for-twitter/pull/194), [#196](https://github.com/10up/autoshare-for-twitter/pull/196)).
