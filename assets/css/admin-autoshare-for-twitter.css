@@ -25,7 +25,7 @@
 	margin-top: 0.5rem;
 }
 
-.autoshare-for-twitter-post-status {
+.autoshare-for-twitter-post-status .autoshare-for-twitter-log{
 	font-style: italic;
 }
 
@@ -73,7 +73,6 @@ textarea#autoshare-for-twitter-text {
 	width: 100%
 }
 span#autoshare-for-twitter-counter-wrap {
-	background: rgba(0, 0, 0, 0.07);
 	font-family: Consolas, Monaco, monospace;
 }
 
@@ -208,4 +207,8 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-tweet-now-wrapper span.spinner {
 	float: none;
+}
+
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text label {
+	width: 100%;
 }
