@@ -209,6 +209,10 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	float: none;
 }
 
+#autoshare_for_twitter_metabox span#autoshare-for-twitter-counter-wrap {
+	font-size: 12px;
+}
+
 .autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text label {
 	width: 100%;
 }
