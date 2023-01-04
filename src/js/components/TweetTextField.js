@@ -32,11 +32,11 @@ export function TweetTextField() {
 		// +5 because of the space between body and URL and the ellipsis.
 		const length = permalinkLength + tweetText.length + 5;
 		if ( 280 <=  length ) {
-			return { tweetLength: sprintf( __( '%d - Too Long!' ), length ), overrideLengthClass: 'over-limit' };
+			return { tweetLength: sprintf( __( '%d - Too Long!', 'autoshare-for-twitter' ), length ), overrideLengthClass: 'over-limit' };
 		}
 
 		if ( 240 <= length ) {
-			return { tweetLength: sprintf( __( '%d - Getting Long!' ), length ), overrideLengthClass: 'near-limit' };
+			return { tweetLength: sprintf( __( '%d - Getting Long!', 'autoshare-for-twitter' ), length ), overrideLengthClass: 'near-limit' };
 		}
 
 		return { tweetLength: `${ length }`, overrideLengthClass: '' };
