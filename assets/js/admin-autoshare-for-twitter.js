@@ -151,7 +151,7 @@
 
 	// Update the counter when the permalink is changed.
 	$( '#titlediv' ).on( 'focus', '.edit-slug', function() {
-        updateRemainingField();
+		updateRemainingField();
 	});
 
 	/**
