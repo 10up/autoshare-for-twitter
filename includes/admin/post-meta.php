@@ -275,6 +275,10 @@ function get_tweet_status_message( $post ) {
 	$post_status    = get_post_status( $post );
 	$response_array = array();
 
+	if ( empty( $post ) ) {
+		return [ 'message' => $response_array ];
+	}
+
 	$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
 
 	if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
