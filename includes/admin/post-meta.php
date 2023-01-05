@@ -247,6 +247,16 @@ function render_tweet_submitbox( $post ) {
 		<?php
 		// Default output.
 	} else {
+		$status_logs = get_tweet_status_logs( $post );
+		if ( ! empty( $status_logs ) ) {
+			// Display tweet status logs.
+			?>
+			<div class="autoshare-for-twitter-status-logs-wrapper">
+				<?php echo wp_kses_post( $status_logs ); ?>
+			</div>
+			<hr/>
+			<?php
+		}
 		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
@@ -265,63 +275,63 @@ function get_tweet_status_message( $post ) {
 	$post_status    = get_post_status( $post );
 	$response_array = array();
 
-	if ( 'publish' === $post_status ) {
+	$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
 
-		$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
+	if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
+		$tweet_metas = array(
+			array(
+				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
+				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
+				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+			),
+		);
+	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
+		$tweet_metas = array(
+			$tweet_metas,
+		);
+	}
 
-		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
-			$tweet_metas = array(
-				array(
-					'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
-					'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
-					'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
-				),
-			);
-		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
-			$tweet_metas = array(
-				$tweet_metas,
-			);
+	foreach ( $tweet_metas as $tweet_meta ) {
+		$status = $tweet_meta['status'];
+		if ( 'publish' !== $post_status && empty( $status ) ) {
+			continue;
 		}
 
-		foreach ( $tweet_metas as $tweet_meta ) {
-			$status = $tweet_meta['status'];
+		switch ( $status ) {
+			case 'published':
+				$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
+				$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
 
-			switch ( $status ) {
-				case 'published':
-					$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
-					$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
+				$response_array[] = [
+					// Translators: Placeholder is a date.
+					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
+					'url'     => $twitter_url,
+					'status'  => $status,
+				];
 
-					$response_array[] = [
-						// Translators: Placeholder is a date.
-						'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
-						'url'     => $twitter_url,
-						'status'  => $status,
-					];
+				break;
 
-					break;
+			case 'error':
+				$response_array[] = [
+					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
+					'status'  => $status,
+				];
 
-				case 'error':
-					$response_array[] = [
-						'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
-						'status'  => $status,
-					];
+				break;
 
-					break;
+			case 'unknown':
+				$response_array[] = [
+					'message' => $tweet_meta['message'],
+					'status'  => $status,
+				];
 
-				case 'unknown':
-					$response_array[] = [
-						'message' => $tweet_meta['message'],
-						'status'  => $status,
-					];
+				break;
 
-					break;
-
-				default:
-					$response_array[] = [
-						'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
-						'status'  => $status,
-					];
-			}
+			default:
+				$response_array[] = [
+					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
+					'status'  => $status,
+				];
 		}
 	}
 
@@ -342,48 +352,50 @@ function get_tweet_status_logs( $post ) {
 	$post_status = get_post_status( $post );
 	$status_logs = '';
 
-	if ( 'publish' === $post_status ) {
-		$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
+	$tweet_metas = Utils\get_autoshare_for_twitter_meta( $post->ID, TWITTER_STATUS_KEY );
 
-		if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
-			$tweet_metas = array(
-				array(
-					'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
-					'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
-					'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
-				),
-			);
-		} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
-			$tweet_metas = array(
-				$tweet_metas,
-			);
-		}
-
-		foreach ( $tweet_metas as $twitter_meta ) {
-			$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
-
-			switch ( $status ) {
-
-				case 'published':
-					$output = markup_published( $twitter_meta );
-					break;
-
-				case 'error':
-					$output = markup_error( $twitter_meta );
-					break;
-
-				case 'unknown':
-					$output = markup_unknown( $twitter_meta );
-					break;
-
-				default:
-					$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
-					break;
-			}
-
-			$status_logs .= "<div class='autoshare-for-twitter-status-wrap'><span class='autoshare-for-twitter-status-icon autoshare-for-twitter-status-icon--$status'></span>$output</div>";
-		}
+	if ( empty( $tweet_metas ) || isset( $tweet_metas['twitter_id'] ) ) {
+		$tweet_metas = array(
+			array(
+				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
+				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
+				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+			),
+		);
+	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
+		$tweet_metas = array(
+			$tweet_metas,
+		);
 	}
+
+	foreach ( $tweet_metas as $twitter_meta ) {
+		$status = isset( $twitter_meta['status'] ) ? $twitter_meta['status'] : '';
+		if ( 'publish' !== $post_status && empty( $status ) ) {
+			continue;
+		}
+
+		switch ( $status ) {
+
+			case 'published':
+				$output = markup_published( $twitter_meta );
+				break;
+
+			case 'error':
+				$output = markup_error( $twitter_meta );
+				break;
+
+			case 'unknown':
+				$output = markup_unknown( $twitter_meta );
+				break;
+
+			default:
+				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
+				break;
+		}
+
+		$status_logs .= "<div class='autoshare-for-twitter-status-wrap'><span class='autoshare-for-twitter-status-icon autoshare-for-twitter-status-icon--$status'></span>$output</div>";
+	}
+
 	return wp_kses_post( $status_logs );
 }
 
