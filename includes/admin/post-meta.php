@@ -463,7 +463,8 @@ function markup_unknown( $status_meta ) {
  * @return string
  */
 function _safe_markup_default() {
-
+	$count      = ( strlen( get_permalink( get_the_ID() ) ) + 5 );
+	$max_length = 280 - $count;
 	ob_start();
 	?>
 	<label class="autoshare-for-twitter-enable-wrap" for="autoshare-for-twitter-enable">
@@ -498,14 +499,16 @@ function _safe_markup_default() {
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
 			<?php esc_html_e( 'Custom Message', 'autoshare-for-twitter' ); ?>:
 		</label>
-		<span id="autoshare-for-twitter-counter-wrap" class="alignright">0</span>
+		<span id="autoshare-for-twitter-counter-wrap" class="alignright"><?php echo esc_attr( $count ); ?></span>
 		<textarea
 			id="autoshare-for-twitter-text"
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
 			rows="3"
+			maxlength="<?php echo esc_attr( $max_length ); ?>"
 		><?php echo esc_textarea( Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
+		<p class="howto" id="autoshare-for-twitter-text-desc"><?php esc_html_e( 'Character count is inclusive of the post permalink which will be included in the final tweet.', 'autoshare-for-twitter' ); ?></p>
 
-		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
+		<p><a href="#" class="hide-if-no-js cancel-tweet-text"><?php esc_html_e( 'Hide', 'autoshare-for-twitter' ); ?></a></p>
 	</div>
 
 	<p id="autoshare-for-twitter-error-message"></p>
