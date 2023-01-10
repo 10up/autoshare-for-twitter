@@ -58,8 +58,8 @@ add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 | --------------- |
 |[![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png)|
 
-| Create post screen with Autoshare for Twitter options | Published post screen with Autoshare for Twitter options.
-| -------------- | ----------------
+| Create post screen with Autoshare for Twitter options | Published post screen with Autoshare for Twitter options. |
+| -------------- | ---------------- |
 | [![Create post screen with Autoshare for Twitter options](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) | [![Published post screen with Autoshare for Twitter options.](.wordpress-org/screenshot-3.png)](.wordpress-org/screenshot-3.png) |
 
 ## Requirements
