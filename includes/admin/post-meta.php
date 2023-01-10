@@ -508,7 +508,7 @@ function _safe_markup_default() {
 		><?php echo esc_textarea( Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
 		<p class="howto" id="autoshare-for-twitter-text-desc"><?php esc_html_e( 'Character count is inclusive of the post permalink which will be included in the final tweet.', 'autoshare-for-twitter' ); ?></p>
 
-		<p><a href="#" class="hide-if-no-js cancel-tweet-text">Hide</a></p>
+		<p><a href="#" class="hide-if-no-js cancel-tweet-text"><?php esc_html_e( 'Hide', 'autoshare-for-twitter' ); ?></a></p>
 	</div>
 
 	<p id="autoshare-for-twitter-error-message"></p>

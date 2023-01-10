@@ -138,10 +138,12 @@
 		if (limit <= count) {
 			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.add('over-limit');
+			/* translators: %d is tweet message character count */
 			$(counterWrap).text( sprintf( __( '%d - Too Long!', 'autoshare-for-twitter' ), count ) );
 		} else if (240 <= count) {
 			counterWrap.classList.remove('over-limit');
 			counterWrap.classList.add('near-limit');
+			/* translators: %d is tweet message character count */
 			$(counterWrap).text( sprintf( __( '%d - Getting Long!', 'autoshare-for-twitter' ), count ) );
 		} else {
 			counterWrap.classList.remove('near-limit');
