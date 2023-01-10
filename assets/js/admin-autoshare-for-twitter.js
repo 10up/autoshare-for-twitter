@@ -17,6 +17,7 @@
 		counterWrap = document.getElementById('autoshare-for-twitter-counter-wrap'),
 		allowTweetImageWrap = $('.autoshare-for-twitter-tweet-allow-image-wrap'),
 		limit = 280;
+	const { __, sprintf } = wp.i18n;
 
 	// Add enabled class if checked
 	if ($tweetPost.prop('checked')) {
@@ -47,6 +48,7 @@
 		if ('' === adminAutoshareForTwitter.currentStatus) {
 			handleRequest(event, true);
 		}
+		updateRemainingField();
 	};
 
 	/**
@@ -120,17 +122,39 @@
 	 * Updates the counter
 	 */
 	function updateRemainingField() {
-		var count = $tweetText.val().length;
+		let permalinkLength = 0;
+		if ( $('#sample-permalink').length ) {
+			permalinkLength = $('#sample-permalink').text().length
+		}
+		// +5 because of the space between body and URL and the ellipsis.
+		permalinkLength += 5;
+
+		var count = $tweetText.val().length + permalinkLength;
+		$tweetText.attr('maxlength', limit - permalinkLength);
 
 		$(counterWrap).text(count);
 
 		// Toggle the .over-limit class.
-		if (limit < count) {
+		if (limit <= count) {
+			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.add('over-limit');
-		} else if (counterWrap.classList.contains('over-limit')) {
+			/* translators: %d is tweet message character count */
+			$(counterWrap).text( sprintf( __( '%d - Too Long!', 'autoshare-for-twitter' ), count ) );
+		} else if (240 <= count) {
+			counterWrap.classList.remove('over-limit');
+			counterWrap.classList.add('near-limit');
+			/* translators: %d is tweet message character count */
+			$(counterWrap).text( sprintf( __( '%d - Getting Long!', 'autoshare-for-twitter' ), count ) );
+		} else {
+			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.remove('over-limit');
 		}
 	}
+
+	// Update the counter when the permalink is changed.
+	$( '#titlediv' ).on( 'focus', '.edit-slug', function() {
+		updateRemainingField();
+	});
 
 	/**
 	 * Helper for toggling classes to indicate something is happening.
