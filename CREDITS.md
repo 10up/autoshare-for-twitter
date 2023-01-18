@@ -4,7 +4,7 @@ The following acknowledges the Maintainers for this repository, those who have C
 
 The following individuals are responsible for curating the list of issues, responding to pull requests, and ensuring regular releases happen.
 
-[Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul), [Dharmesh Patel (@iamdharmesh)](https://github.com/iamdharmesh).
+[Dharmesh Patel (@iamdharmesh)](https://github.com/iamdharmesh), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul).
 
 ## Contributors
 
