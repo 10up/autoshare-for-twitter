@@ -12,21 +12,56 @@ Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
 
-Automatically tweets the post title or custom message and a link to the post.  Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
+Automatically tweets the post title or custom message and a link to the post.
+
+**Note:** Posts and pages are supported by default. Developers can use the `autoshare_for_twitter_default_post_types` filter to change the default supported post types
+
+Custom post types can now be opted into autoshare features like so:
+
+`
+function opt_my_cpt_into_autoshare() {
+	add_post_type_support( 'my-cpt', 'autoshare-for-twitter' );
+}
+add_action( 'init', 'opt_my_cpt_into_autoshare' );
+`
+
+In addition, adding support while registering custom post types also works. Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
+
+While the autoshare feature can be opted into for post types using the above filter, by default the editor still has to manually enable autoshare during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autoshare to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow.
+
+Example:
+
+`
+function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) {
+	if ( 'post' === $post_type ) {
+		return true;
+	}
+
+	return $enabled;
+}
+add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
+`
+
+Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
 
-== Manual Installation ==
-
-1. Upload the entire `/autoshare-for-twitter` directory to the `/wp-content/plugins/` directory.
-2. Activate the plugin
-3. Register post type support for types that should be allowed to autoshare: `add_post_type_support( 'post', 'autoshare-for-twitter' );`
+== Installation ==
+1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
+2. Activate the plugin.
+3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Frequently Asked Questions ==
 
 = Does this plugin work with Gutenberg? =
 
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
+
+== Screenshots ==
+
+1. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
+2. Create post screen with Autoshare for Twitter options.
+3. Published post screen with Autoshare for Twitter options.
 
 == Changelog ==
 = 1.2.1 - 2022-12-07 =
