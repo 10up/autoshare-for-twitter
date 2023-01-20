@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [1.3.0] - 2023-01-19
+## [1.3.0] - 2023-01-20
 ### Added
 - "Tweet now" functionality (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
 - Toggle for adding/removing featured image from the tweet (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
