@@ -8,9 +8,17 @@ on:
   pull_request:
     branches:
       - develop
+    paths:
+      - '**.js'
+      - '**.php'
+      - '**.css'
 
 jobs:
+  build:
+    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
+
   cypress:
+    needs: build
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,26 +30,47 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Download build zip
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ github.event.repository.name }}
+          path: ${{ github.event.repository.name }}
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            node_modules
+            ~/.cache
+            ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
-        run: npm i && npm i -g cypress@9.0.0
+        run: npm install
 
-      - name: Build asset
-        run: npm run build
-
-      - name: Add dependencies
-        run: composer install -o --no-dev --ignore-platform-reqs
-
-      - name: Set the core version
-        run: ./tests/bin/set-core-version.js ${{ matrix.core.version }}
+      - name: Set the core version and plugins config 
+        run: ./tests/bin/set-wp-config.js --core=${{ matrix.core.version }} --plugins=./${{ github.event.repository.name }},https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip
 
       - name: Set up WP environment
         run: npm run env:start
 
       - name: Test
-        run: cypress run --config-file tests/cypress/config.json --env TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }},TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }},TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }},TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
-
+        run: npm run cypress:run
+        env:
+          CYPRESS_TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          CYPRESS_TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          CYPRESS_TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          CYPRESS_TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         if: failure()

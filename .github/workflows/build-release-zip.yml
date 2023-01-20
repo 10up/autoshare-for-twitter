@@ -2,6 +2,7 @@ name: Build release zip
 
 on:
   workflow_dispatch:
+  workflow_call:
   push:
    branches:
     - trunk
@@ -31,7 +32,10 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: node_modules
+          path: |
+            node_modules
+            ~/.cache
+            ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Setup node version and npm cache

@@ -38,15 +38,8 @@ class TestPostMeta extends WP_UnitTestCase {
 	public function test_setup_hooks() {
 		$this->assertTrue(
 			check_method_exists(
-				'post_submitbox_misc_actions',
-				'TenUp\AutoshareForTwitter\Core\Post_Meta\tweet_submitbox_callback'
-			)
-		);
-
-		$this->assertTrue(
-			check_method_exists(
-				'autoshare_for_twitter_metabox',
-				'TenUp\AutoshareForTwitter\Core\Post_Meta\render_tweet_submitbox'
+				'add_meta_boxes',
+				'TenUp\AutoshareForTwitter\Core\Post_Meta\autoshare_for_twitter_metabox'
 			)
 		);
 
@@ -64,7 +57,7 @@ class TestPostMeta extends WP_UnitTestCase {
 	public function test_get_tweet_status_message() {
 		$this->assertEquals(
 			[
-				'message' => '',
+				'message' => array(),
 			],
 			get_tweet_status_message( -1 )
 		);
@@ -85,9 +78,13 @@ class TestPostMeta extends WP_UnitTestCase {
 		add_filter( 'autoshare_for_twitter_meta', $published_filter, 10, 3 );
 		$this->assertEquals(
 			[
-				'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
-				'url'     => 'https://twitter.com//status/444',
-				'status'  => 'published',
+				'message' => [
+					[
+						'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
+						'url'     => 'https://twitter.com//status/444',
+						'status'  => 'published',
+					],
+				],
 			],
 			get_tweet_status_message( $post )
 		);
@@ -95,13 +92,14 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'%s <span>%s</span> (<a href="%s" target="_blank">View</a>)</p>',
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">View</a>)</div>',
 				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
 				esc_url( link_from_twitter( $twitter_status['twitter_id'] ) )
 			),
 			markup_published( $twitter_status )
 		);
+
 		remove_filter( 'autoshare_for_twitter_meta', $published_filter );
 
 		$failed_filter = function( $data, $id, $key ) use ( $post ) {
@@ -115,10 +113,16 @@ class TestPostMeta extends WP_UnitTestCase {
 			return $data;
 		};
 		add_filter( 'autoshare_for_twitter_meta', $failed_filter, 10, 3 );
+
+		$noo = get_tweet_status_message( $post );
 		$this->assertEquals(
 			[
-				'message' => 'Failed to tweet: There was an error.',
-				'status'  => 'error',
+				'message' => [
+					[
+						'message' => 'Failed to tweet: There was an error.',
+						'status'  => 'error',
+					],
+				],
 			],
 			get_tweet_status_message( $post )
 		);
@@ -126,7 +130,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'%s<br><pre>%s</pre></p>',
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
 				esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
 				esc_html( $twitter_status['message'] )
 			),
@@ -147,14 +151,18 @@ class TestPostMeta extends WP_UnitTestCase {
 		add_filter( 'autoshare_for_twitter_meta', $unknown_filter, 10, 3 );
 		$this->assertEquals(
 			[
-				'message' => 'There was an error.',
-				'status'  => 'unknown',
+				'message' => [
+					[
+						'message' => 'There was an error.',
+						'status'  => 'unknown',
+					],
+				],
 			],
 			get_tweet_status_message( $post )
 		);
 		// Make sure the rendered markup is as expected in post metabox.
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
-		$this->assertEquals( $twitter_status['message'], markup_unknown( $twitter_status ) );
+		$this->assertEquals( '<div class="autoshare-for-twitter-status-log-data">' . $twitter_status['message'] . '</div>', markup_unknown( $twitter_status ) );
 		remove_filter( 'autoshare_for_twitter_meta', $unknown_filter );
 
 		$other_filter = function( $data, $id, $key ) use ( $post ) {
@@ -169,8 +177,12 @@ class TestPostMeta extends WP_UnitTestCase {
 		add_filter( 'autoshare_for_twitter_meta', $other_filter, 10, 3 );
 		$this->assertEquals(
 			[
-				'message' => 'This post was not tweeted.',
-				'status'  => 'other',
+				'message' => [
+					[
+						'message' => 'This post was not tweeted.',
+						'status'  => 'other',
+					],
+				],
 			],
 			get_tweet_status_message( $post )
 		);

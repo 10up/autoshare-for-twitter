@@ -12,9 +12,12 @@
 		$editLink = $('#autoshare-for-twitter-edit'),
 		$editBody = $('#autoshare-for-twitter-override-body'),
 		$hideLink = $('.cancel-tweet-text'),
+		$allowTweetImage = $('#autoshare-for-twitter-tweet-allow-image'),		
 		errorMessageContainer = document.getElementById('autoshare-for-twitter-error-message'),
 		counterWrap = document.getElementById('autoshare-for-twitter-counter-wrap'),
+		allowTweetImageWrap = $('.autoshare-for-twitter-tweet-allow-image-wrap'),
 		limit = 280;
+	const { __, sprintf } = wp.i18n;
 
 	// Add enabled class if checked
 	if ($tweetPost.prop('checked')) {
@@ -24,6 +27,8 @@
 	// Event handlers.
 	$tweetPost.on('click', handleRequest);
 	$tweetText.change(handleRequest);
+	$tweetPost.change(toggleAllowImageVisibility);
+	$allowTweetImage.change(handleRequest);
 	$editLink.on('click', function() {
 		$editBody.slideToggle();
 		updateRemainingField();
@@ -43,6 +48,7 @@
 		if ('' === adminAutoshareForTwitter.currentStatus) {
 			handleRequest(event, true);
 		}
+		updateRemainingField();
 	};
 
 	/**
@@ -71,6 +77,7 @@
 		var data = {};
 		data[adminAutoshareForTwitter.enableAutoshareKey] = status;
 		data[adminAutoshareForTwitter.tweetBodyKey] = $tweetText.val();
+		data[adminAutoshareForTwitter.allowTweetImageKey] = $allowTweetImage.prop('checked');
 		$('#submit').attr('disabled', true);
 
 		wp.apiFetch({
@@ -91,11 +98,19 @@
 
 				$icon.removeClass('pending');
 				if (data.enabled) {
-					$icon.toggleClass('enabled');
+					$icon.removeClass('disabled');
+					$icon.addClass('enabled');
 					$tweetPost.prop('checked', true);
 				} else {
-					$icon.toggleClass('disabled');
+					$icon.removeClass('enabled');
+					$icon.addClass('disabled');
 					$tweetPost.prop('checked', false);
+				}
+
+				if (data.allowImage) {
+					$allowTweetImage.prop('checked', true);
+				} else {
+					$allowTweetImage.prop('checked', false);
 				}
 
 				$('#submit').attr('disabled', false);
@@ -107,17 +122,39 @@
 	 * Updates the counter
 	 */
 	function updateRemainingField() {
-		var count = $tweetText.val().length;
+		let permalinkLength = 0;
+		if ( $('#sample-permalink').length ) {
+			permalinkLength = $('#sample-permalink').text().length
+		}
+		// +5 because of the space between body and URL and the ellipsis.
+		permalinkLength += 5;
+
+		var count = $tweetText.val().length + permalinkLength;
+		$tweetText.attr('maxlength', limit - permalinkLength);
 
 		$(counterWrap).text(count);
 
 		// Toggle the .over-limit class.
-		if (limit < count) {
+		if (limit <= count) {
+			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.add('over-limit');
-		} else if (counterWrap.classList.contains('over-limit')) {
+			/* translators: %d is tweet message character count */
+			$(counterWrap).text( sprintf( __( '%d - Too Long!', 'autoshare-for-twitter' ), count ) );
+		} else if (240 <= count) {
+			counterWrap.classList.remove('over-limit');
+			counterWrap.classList.add('near-limit');
+			/* translators: %d is tweet message character count */
+			$(counterWrap).text( sprintf( __( '%d - Getting Long!', 'autoshare-for-twitter' ), count ) );
+		} else {
+			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.remove('over-limit');
 		}
 	}
+
+	// Update the counter when the permalink is changed.
+	$( '#titlediv' ).on( 'focus', '.edit-slug', function() {
+		updateRemainingField();
+	});
 
 	/**
 	 * Helper for toggling classes to indicate something is happening.
@@ -127,4 +164,82 @@
 		$icon.removeClass('enabled');
 		$icon.removeClass('disabled');
 	}
+
+	// Show/Hide "Use featured image in Tweet" checkbox.
+	if ( allowTweetImageWrap && wp.media.featuredImage ) {
+		toggleAllowImageVisibility();
+		// Listen event for add/remove featured image.
+		wp.media.featuredImage.frame().on( 'select', toggleAllowImageVisibility );
+		$('#postimagediv').on( 'click', '#remove-post-thumbnail', toggleAllowImageVisibility );
+	}
+
+	/**
+	 * Show/Hide "Use featured image in Tweet" checkbox.
+	 */
+	function toggleAllowImageVisibility( event ) {
+		let hasMedia = wp.media.featuredImage.get();
+		// Handle remove post thumbnail click
+		if( event && event.target && 'remove-post-thumbnail' === event.target.id && 'click' === event.type ) {
+			hasMedia = -1;
+		}
+
+		const tweetNow = $('#tweet_now').length;
+		const autoshareEnabled = $tweetPost.prop('checked');
+		// Autoshare is enabled and post has featured image.
+		if ( hasMedia > 0 && ( autoshareEnabled || tweetNow ) ) {
+			allowTweetImageWrap.show();
+		} else {
+			allowTweetImageWrap.hide();
+		}
+	}
+
+	// Tweet Now functionality.
+	$('#tweet_now').on('click', function() {
+		$("#autoshare-for-twitter-error-message").html('');
+		$(this).addClass("disabled");
+		$(".autoshare-for-twitter-tweet-now-wrapper span.spinner").addClass("is-active");
+
+		const postId = $("#post_ID").val();
+		const body = new FormData();
+		body.append( 'action', adminAutoshareForTwitter.retweetAction );
+		body.append( 'nonce', adminAutoshareForTwitter.nonce );
+		body.append( 'post_id', postId );
+		body.append( 'is_classic', 1 );
+
+		// Send request to Tweet now.
+		fetch( ajaxurl, {
+			method: 'POST',
+			body,
+		} )
+		.then((response) => response.json())
+		.then((response) => {
+			if (
+				response && response.data &&
+				( ( response.success && response.data.message ) || ( false === response.success && false === response.data.is_retweeted) )
+			) {
+				$('.autoshare-for-twitter-status-logs-wrapper').html(response.data.message);
+			} else {
+				$("#autoshare-for-twitter-error-message").html(adminAutoshareForTwitter.unknownErrorText);
+			}
+		})
+		.catch((error) => {
+			if(error.message){
+				$("#autoshare-for-twitter-error-message").html(error.message);
+			} else {
+				$("#autoshare-for-twitter-error-message").html(adminAutoshareForTwitter.unknownErrorText);
+			}
+		})
+		.finally(() => {
+			$(this).removeClass("disabled");
+			$(".autoshare-for-twitter-tweet-now-wrapper span.spinner").removeClass("is-active");
+		});
+	});
+
+	// Toggle Tweet Now panel
+	jQuery("#autoshare_for_twitter_metabox .tweet-now-button").on("click", function(e){
+		e.preventDefault();
+		$editBody.show();
+		jQuery(this).find('span').toggleClass('dashicons-arrow-up-alt2');
+		jQuery(".autoshare-for-twitter-tweet-now-wrapper").slideToggle();
+	});	
 })(jQuery);
