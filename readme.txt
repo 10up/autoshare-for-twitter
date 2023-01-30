@@ -64,7 +64,7 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 3. Published post screen with Autoshare for Twitter options.
 
 == Changelog ==
-= 1.3.0 - 2023-01-19 =
+= 1.3.0 - 2023-01-20 =
 * **Added:** "Tweet now" functionality (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
 * **Added:** Toggle for adding/removing featured image from the tweet (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
 * **Added:** Show Twitter status logs for the draft post if the post has been switched back to Draft from Published, and has already been Tweeted (props [@iamdharmesh](https://github.com/iamdharmesh), [@faisal-alvi](https://github.com/faisal-alvi), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#215](https://github.com/10up/autoshare-for-twitter/pull/215)).
