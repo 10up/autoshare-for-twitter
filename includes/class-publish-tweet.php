@@ -101,14 +101,16 @@ class Publish_Tweet {
 		}
 
 		$update_data = array(
-			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
+			'text' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
 
 		$is_image_allowed = Utils\get_autoshare_for_twitter_meta( $post->ID, TWEET_ALLOW_IMAGE );
 		if ( 'no' !== $is_image_allowed ) {
 			$media_id = $this->get_upload_data_media_id( $post );
 			if ( $media_id ) {
-				$update_data['media_ids'] = [ $media_id ];
+				$update_data['media'] = array(
+					'media_ids' => [ (string) $media_id ],
+				);
 			}
 		}
 
@@ -137,10 +139,15 @@ class Publish_Tweet {
 		}
 
 		$this->client->setTimeouts( 10, 30 );
+		$this->client->setApiVersion( '2' );
 		$response = $this->client->post(
-			'statuses/update',
-			$update_data
+			'tweets',
+			$update_data,
+			true
 		);
+
+		// Twitter API V2 wraps response in data.
+		$response = $response->data;
 
 		/**
 		 * Fires after the request to the Twitter endpoint had been made.
@@ -286,6 +293,7 @@ class Publish_Tweet {
 		}
 
 		$this->client->setTimeouts( 10, 60 );
+		$this->client->setApiVersion( '1.1' );
 		$response = $this->client->upload( 'media/upload', array( 'media' => $image ) );
 
 		if ( ! is_object( $response ) || ! isset( $response->media_id ) ) {

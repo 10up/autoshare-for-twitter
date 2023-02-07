@@ -190,7 +190,7 @@ function validate_response( $response ) {
 	if ( ! empty( $response->id ) ) {
 		$validated_response = array(
 			'id'         => $response->id,
-			'created_at' => $response->created_at,
+			'created_at' => gmdate( 'c' ), // Use current time as Twitter API v2 doesn't return this.
 		);
 
 	} else {

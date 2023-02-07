@@ -35,6 +35,6 @@
 		}
 	},
 	"require": {
-		"abraham/twitteroauth": "2.0.0"
+		"abraham/twitteroauth": "4.0.1"
 	}
 }
