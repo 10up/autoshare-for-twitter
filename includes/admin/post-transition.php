@@ -188,16 +188,26 @@ function validate_response( $response ) {
 
 	// Update considered successful.
 	if ( ! empty( $response->id ) ) {
+		$use_v2_api         = (bool) Utils\get_autoshare_for_twitter_settings( 'use_api_v2' );
 		$validated_response = array(
 			'id'         => $response->id,
-			'created_at' => gmdate( 'c' ), // Use current time as Twitter API v2 doesn't return this.
+			'created_at' => $use_v2_api ? gmdate( 'c' ) : $response->created_at, // Twitter API v2 doesn't return created_at.
 		);
 
 	} else {
+		$errors = $response->errors;
+		if ( empty( $response->errors ) && ! empty( $response->detail ) ) {
+			$errors = array(
+				(object) array(
+					'code'    => $response->status,
+					'message' => $response->detail,
+				),
+			);
+		}
 		$validated_response = new \WP_Error(
 			'autoshare_for_twitter_failed',
 			__( 'Something happened during Twitter update.', 'autoshare-for-twitter' ),
-			$response->errors
+			$errors
 		);
 	}
 

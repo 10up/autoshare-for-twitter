@@ -52,6 +52,13 @@ class Publish_Tweet {
 	protected $twitter_handle;
 
 	/**
+	 * Use API v2
+	 *
+	 * @var boolean Whether or not use Twitter API v2?.
+	 */
+	protected $use_api_v2;
+
+	/**
 	 * The TwitterOAuth client.
 	 *
 	 * @var object The TwitterOAuth client.
@@ -70,6 +77,7 @@ class Publish_Tweet {
 		$this->access_token        = $at_settings['access_token'];
 		$this->access_token_secret = $at_settings['access_secret'];
 		$this->twitter_handle      = $at_settings['twitter_handle'];
+		$this->use_api_v2          = (bool) $at_settings['use_api_v2'];
 
 		// @todo add empty check error handler here
 		$this->client = new TwitterOAuth(
@@ -101,16 +109,26 @@ class Publish_Tweet {
 		}
 
 		$update_data = array(
-			'text' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
+			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
+
+		if ( $this->use_api_v2 ) {
+			$update_data = array(
+				'text' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
+			);
+		}
 
 		$is_image_allowed = Utils\get_autoshare_for_twitter_meta( $post->ID, TWEET_ALLOW_IMAGE );
 		if ( 'no' !== $is_image_allowed ) {
 			$media_id = $this->get_upload_data_media_id( $post );
 			if ( $media_id ) {
-				$update_data['media'] = array(
-					'media_ids' => [ (string) $media_id ],
-				);
+				if ( $this->use_api_v2 ) {
+					$update_data['media'] = array(
+						'media_ids' => [ (string) $media_id ],
+					);
+				} else {
+					$update_data['media_ids'] = [ $media_id ];
+				}
 			}
 		}
 
@@ -139,15 +157,24 @@ class Publish_Tweet {
 		}
 
 		$this->client->setTimeouts( 10, 30 );
-		$this->client->setApiVersion( '2' );
-		$response = $this->client->post(
-			'tweets',
-			$update_data,
-			true
-		);
+		if ( $this->use_api_v2 ) {
+			$this->client->setApiVersion( '2' );
+			$response = $this->client->post(
+				'tweets',
+				$update_data,
+				true
+			);
 
-		// Twitter API V2 wraps response in data.
-		$response = $response->data;
+			// Twitter API V2 wraps response in data.
+			if ( isset( $response->data ) ) {
+				$response = $response->data;
+			}
+		} else {
+			$response = $this->client->post(
+				'statuses/update',
+				$update_data
+			);
+		}
 
 		/**
 		 * Fires after the request to the Twitter endpoint had been made.
