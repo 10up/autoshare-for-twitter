@@ -12,6 +12,7 @@ use WP_REST_Response;
 use WP_REST_Server;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
@@ -84,6 +85,12 @@ function register_post_autoshare_for_twitter_meta_rest_route() {
 					'type'              => 'boolean',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
+				TWEET_ALLOW_IMAGE                => [
+					'description'       => __( 'Whether the tweet has an image.', 'autoshare-for-twitter' ),
+					'required'          => true,
+					'type'              => 'boolean',
+					'validate_callback' => 'rest_validate_request_arg',
+				],
 			],
 		]
 	);
@@ -123,16 +130,18 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 
 	save_autoshare_for_twitter_meta_data( $request['id'], $params );
 
-	$enabled = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
-	$message = $enabled ?
+	$enabled           = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
+	$tweet_allow_image = (bool) ( 'yes' === get_autoshare_for_twitter_meta( $request['id'], TWEET_ALLOW_IMAGE, true ) );
+	$message           = $enabled ?
 		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
 		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
 
 	return rest_ensure_response(
 		[
-			'enabled'  => $enabled,
-			'message'  => $message,
-			'override' => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
+			'enabled'    => $enabled,
+			'message'    => $message,
+			'override'   => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
+			'allowImage' => $tweet_allow_image,
 		]
 	);
 }

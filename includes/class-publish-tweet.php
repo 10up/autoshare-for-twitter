@@ -9,6 +9,7 @@ namespace TenUp\AutoshareForTwitter\Core\Publish_Tweet;
 
 use TenUp\AutoshareForTwitter\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
+use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
  * Publish tweets to twitter.
@@ -98,13 +99,17 @@ class Publish_Tweet {
 		if ( empty( $body ) ) {
 			return;
 		}
+
 		$update_data = array(
 			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
 
-		$media_id = $this->get_upload_data_media_id( $post );
-		if ( $media_id ) {
-			$update_data['media_ids'] = [ $media_id ];
+		$is_image_allowed = Utils\get_autoshare_for_twitter_meta( $post->ID, TWEET_ALLOW_IMAGE );
+		if ( 'no' !== $is_image_allowed ) {
+			$media_id = $this->get_upload_data_media_id( $post );
+			if ( $media_id ) {
+				$update_data['media_ids'] = [ $media_id ];
+			}
 		}
 
 		/**
