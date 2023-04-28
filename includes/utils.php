@@ -134,7 +134,6 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 		'api_key'        => '',
 		'api_secret'     => '',
 		'twitter_handle' => '',
-		'use_api_v2'     => 0,
 	];
 
 	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );

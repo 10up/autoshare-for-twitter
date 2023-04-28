@@ -190,21 +190,6 @@ function register_settings() {
 			'placeholder' => __( 'enter your Twitter handle here', 'autoshare-for-twitter' ),
 		]
 	);
-
-	add_settings_field(
-		'autoshare-use_api_v2',
-		__( 'Twitter API v2', 'autoshare-for-twitter' ),
-		__NAMESPACE__ . '\checkbox_field_cb',
-		'autoshare-for-twitter',
-		'autoshare-cred_section',
-		[
-			'name'        => 'use_api_v2',
-			'choices'     => __( 'Use the Twitter API v2 to post tweets.', 'autoshare-for-twitter' ),
-			'default'     => true,
-			'description' => __( 'Note: Apps created before November 15th, 2021 must be attached to a project and use the credentials from that app.', 'autoshare-for-twitter' ),
-		]
-	);
-
 }
 
 /**
@@ -282,10 +267,6 @@ function checkbox_field_cb( $args ) {
 			checked( $value, 1, false ),
 			esc_html( $args['choices'] )
 		);
-
-		if ( ! empty( $args['description'] ) ) {
-			printf( '<p class="description">%s</p>', esc_html( $args['description'] ) );
-		}
 
 		return;
 	}

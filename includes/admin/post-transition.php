@@ -188,10 +188,9 @@ function validate_response( $response ) {
 
 	// Update considered successful.
 	if ( ! empty( $response->id ) ) {
-		$use_v2_api         = (bool) Utils\get_autoshare_for_twitter_settings( 'use_api_v2' );
 		$validated_response = array(
 			'id'         => $response->id,
-			'created_at' => $use_v2_api ? gmdate( 'c' ) : $response->created_at, // Twitter API v2 doesn't return created_at.
+			'created_at' => gmdate( 'c' ), // Twitter API v2 doesn't return created_at.
 		);
 
 	} else {
