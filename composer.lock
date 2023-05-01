@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< Updated upstream
-    "content-hash": "b8b5d021a78167d09e7788f92f65301c",
-=======
     "content-hash": "2719cd1bdaf69805da0fb228993843dd",
->>>>>>> Stashed changes
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2473,11 +2469,8 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-<<<<<<< Updated upstream
-=======
     "platform-overrides": {
         "php": "7.4"
     },
->>>>>>> Stashed changes
     "plugin-api-version": "2.3.0"
 }
