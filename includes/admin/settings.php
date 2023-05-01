@@ -370,9 +370,17 @@ function cred_section_cb() {
 				<li><?php esc_html_e( 'Click on "Next" button.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php esc_html_e( 'Click on "App settings" button.', 'autoshare-for-twitter' ); ?></li>
-				<li><?php esc_html_e( 'Switch to "Keys and tokens" page.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click on "Set up" button" in the <code>User authentication settings</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Choose "Read and write" in the <code>App permissions</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Choose "Web App, Automated App, or Bot" in the <code>Type of App</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Fill website url in "Callback URI / Redirect URL" and  "Website URL" in the <code>App info</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php esc_html_e( 'Click on "Save" button.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php esc_html_e( 'Click on "Done" button.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php esc_html_e( 'Click on "Yes, I saved it" button.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php esc_html_e( 'Switch to "Keys and tokens" tab.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>Access Token and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Copy the <code>Access token</code> and <code>Access token secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php esc_html_e( 'Click on "Yes, I saved them" button.', 'autoshare-for-twitter' ); ?></li>
 			</ul>
 
 			<h4><?php esc_html_e( '3. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
