@@ -15,10 +15,10 @@
 	],
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^2.2",
-		"dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
 		"10up/phpcs-composer": "dev-master",
-		"phpunit/phpunit": "9.5.x-dev",
-		"yoast/phpunit-polyfills": "1.x-dev"
+		"phpunit/phpunit": "9.6.x-dev",
+		"yoast/phpunit-polyfills": "2.x-dev"
 	},
 	"scripts": {
 		"test": "phpunit",
@@ -29,6 +29,9 @@
 	},
 	"minimum-stability": "dev",
 	"config": {
+		"platform": {
+			"php": "7.4"
+		},
 		"autoloader-suffix": "10upAutoshareForTwitterV130",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
