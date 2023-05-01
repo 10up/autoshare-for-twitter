@@ -88,8 +88,8 @@ class Publish_Tweet {
 	/**
 	 * POST a status update.
 	 *
-	 * @param string  $body The tweet body.
-	 * @param WP_Post $post The post object.
+	 * @param string   $body The tweet body.
+	 * @param \WP_Post $post The post object.
 	 *
 	 * @return object
 	 */
@@ -121,7 +121,7 @@ class Publish_Tweet {
 		 * @see https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-statuses-update
 		 *
 		 * @param array   Data sent to the Twitter endpoint.
-		 * @param WP_Post The post associated with the tweet.
+		 * @param \WP_Post The post associated with the tweet.
 		 */
 		$update_data = apply_filters( 'autoshare_for_twitter_tweet', $update_data, $post );
 
@@ -130,7 +130,7 @@ class Publish_Tweet {
 		 *
 		 * @param null|mixed Any non-null value will suppress the request to the Twitter endpoint.
 		 * @param array      Data to send to the Twitter endpoint.
-		 * @param WP_Post    The post associated with the tweet.
+		 * @param \WP_Post    The post associated with the tweet.
 		 */
 		$response = apply_filters( 'autoshare_for_twitter_pre_status_update', null, $update_data, $post );
 
@@ -156,7 +156,7 @@ class Publish_Tweet {
 		 *
 		 * @param array|object The response from the Twitter endpoint.
 		 * @param array        Data to send to the Twitter endpoint.
-		 * @param WP_Post      The post associated with the tweet.
+		 * @param \WP_Post      The post associated with the tweet.
 		 */
 		do_action( 'autoshare_for_twitter_after_status_update', $response, $update_data, $post );
 
@@ -228,7 +228,7 @@ class Publish_Tweet {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param WP_Post $post The post associated with the tweet.
+	 * @param \WP_Post $post The post associated with the tweet.
 	 * @return null|int The Twitter media ID or null if no image is to be sent.
 	 */
 	public function get_upload_data_media_id( $post ) {
@@ -239,7 +239,7 @@ class Publish_Tweet {
 		 * @since 1.0.0
 		 *
 		 * @param null|int An attachment ID, null to fall back to the featured image, or false to send no image.
-		 * @param WP_Post  The post associated with the tweet.
+		 * @param \WP_Post  The post associated with the tweet.
 		 */
 		$attachment_id = apply_filters( 'autoshare_for_twitter_attached_image', null, $post );
 
