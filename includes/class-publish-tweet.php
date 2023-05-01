@@ -54,7 +54,7 @@ class Publish_Tweet {
 	/**
 	 * The TwitterOAuth client.
 	 *
-	 * @var object The TwitterOAuth client.
+	 * @var TwitterOAuth The TwitterOAuth client.
 	 */
 	protected $client;
 
