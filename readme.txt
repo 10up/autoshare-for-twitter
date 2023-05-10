@@ -59,9 +59,9 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Screenshots ==
 
-1. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
-2. Create post screen with Autoshare for Twitter options.
-3. Published post screen with Autoshare for Twitter options.
+1. Create post screen with Autoshare for Twitter options.
+2. Published post screen with Autoshare for Twitter options.
+3. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Changelog ==
 = 1.3.0 - 2023-01-20 =
