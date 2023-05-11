@@ -8,11 +8,6 @@ on:
   pull_request:
     branches:
       - develop
-    paths:
-      - '**.js'
-      - '**.php'
-      - '**.css'
-
 jobs:
   build:
     uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
