@@ -125,56 +125,56 @@ function register_settings() {
 	// API Key.
 	add_settings_field(
 		'autoshare-api_key',
-		__( 'API key', 'autoshare-for-twitter' ),
+		__( 'API Key', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'api_key',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your API key here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your API Key here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// API Secret.
 	add_settings_field(
 		'autoshare-api_secret',
-		__( 'API secret', 'autoshare-for-twitter' ),
+		__( 'API Key Secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'api_secret',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your API secret key here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your API Key Secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// Access Token.
 	add_settings_field(
 		'autoshare-access_token',
-		__( 'Access token', 'autoshare-for-twitter' ),
+		__( 'Access Token', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'access_token',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your Access Token here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// Access Secret.
 	add_settings_field(
 		'autoshare-access_secret',
-		__( 'Access secret', 'autoshare-for-twitter' ),
+		__( 'Access Token Secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'access_secret',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your Access Token Secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -357,9 +357,9 @@ function cred_section_cb() {
 				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension and click <code>Save</code>.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php esc_html_e( 'Switch from the "Settings" tab to the "Keys and tokens" tab.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>API Key and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Key Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>Access Token and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Copy the <code>Access token</code> and <code>Access token secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>Access Token</code> and <code>Access Token Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
 			<h4><?php esc_html_e( '3. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
