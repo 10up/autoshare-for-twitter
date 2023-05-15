@@ -25,11 +25,11 @@ With Autoshare for Twitter, developers can further customize nearly everything a
 * Becomes part of the pre-publish checklist step that’s part of the new block editor.
 * Posts a high-quality featured image with your tweet.
 * Counts characters to keep you under the tweet limit.
-* Adds a link to the tweet in the block editor Status & Visibility panel.
+* Adds a link to the tweet in the block editor sidebar.
 
-| Autoshare For Twitter Status And Visibility Panel | Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`. | 
+| Autoshare For Twitter block editor sidebar panel | Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`. | 
 | --------------- | --------------- |
-|[![Autoshare For Twitter Status And Visibility Panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
+|[![Autoshare For Twitter block editor sidebar panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
 
 **Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
 
