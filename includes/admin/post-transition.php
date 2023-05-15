@@ -231,10 +231,13 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 
 		// Twitter sent back an error. Most likely a duplicate message.
 	} elseif ( is_wp_error( $data ) ) {
-		$error_message = $data->error_data['autoshare_for_twitter_failed'][0];
+		$error_message   = $data->error_data['autoshare_for_twitter_failed'][0];
+		// translators: %d is the error code.
+		$error_code_text = $error_message->code ? sprintf( __( 'Error: %d. ', 'autoshare-for-twitter' ), $error_message->code ) : '';
+
 		$response      = array(
 			'status'  => 'error',
-			'message' => sanitize_text_field( 'Error: ' . $error_message->code . '. ' . $error_message->message ),
+			'message' => sanitize_text_field( $error_code_text . $error_message->message ),
 		);
 
 		// The default fallback message.

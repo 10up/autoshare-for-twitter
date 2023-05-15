@@ -8,6 +8,17 @@ import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData } from './h
 
 import { getIconByStatus } from './utils';
 
+// Error message component.
+const ErrorMessage = ( { errorMessage } ) => {
+	return (
+		<span>
+			{ errorMessage }
+			{ ' ' }
+			{ ( errorMessage === 'Failed to tweet; When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' ) && <ExternalLink href={ 'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate' }>{ __( 'Learn more here.' ) }</ExternalLink> }
+		</span>
+	);
+};
+
 export function AutoshareForTwitterPostStatusInfo() {
 	const hasFeaturedImage = useHasFeaturedImage();
 	const [ allowTweetImage, setAllowTweetImage ] = useAllowTweetImage();
@@ -58,7 +69,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 
 				return (
 					<div className="autoshare-for-twitter-log" key={ index }>
-						{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : statusMessage.message }
+						{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : <ErrorMessage errorMessage={ statusMessage.message } /> }						
 					</div>
 				);
 			} ) }
