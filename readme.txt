@@ -37,12 +37,12 @@ With Autoshare for Twitter, developers can further customize nearly everything a
 
 When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
 
-```php
+`
 add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
 	$blacklisted_metas[] = 'autoshare_for_twitter_status';
 	return $blacklisted_metas;
 } )
-```
+`
 
 == Developers ==
 
