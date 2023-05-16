@@ -14,7 +14,7 @@ const ErrorMessage = ( { errorMessage } ) => {
 		<span>
 			{ errorMessage }
 			{ ' ' }
-			{ ( errorMessage === 'Failed to tweet; When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' ) && <ExternalLink href={ 'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate' }>{ __( 'Learn more here.' ) }</ExternalLink> }
+			{ ( errorMessage?.includes( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' ) ) && <ExternalLink href={ 'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate' }>{ __( 'Learn more here.' ) }</ExternalLink> }
 		</span>
 	);
 };
