@@ -219,6 +219,8 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * Initial private release (props [@scottlee](https://profiles.wordpress.org/scottlee/))
 
 == Upgrade Notice ==
+= 2.0.0 =
+Autoshare for Twitter 2.0.0 utilizes the [Twitter v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).
 
 = 1.2.1 =
 This release bumps the WordPress minimum from 5.3 to 5.7 and PHP minimum from 7.2 to 7.4.
