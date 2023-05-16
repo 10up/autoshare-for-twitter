@@ -1,10 +1,10 @@
 === Autoshare for Twitter ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
-Tags:              twitter, tweet, autoshare, auto-share, auto share, share, social media
+Tags:              twitter, tweet, autoshare, auto-share, auto share, share, sharing, social media, posse
 Requires at least: 5.7
-Tested up to:      6.1
+Tested up to:      6.2
 Requires PHP:      7.4
-Stable tag:        1.3.0
+Stable tag:        2.0.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -12,7 +12,39 @@ Automatically tweets the post title or custom message and a link to the post.
 
 == Description ==
 
-Automatically tweets the post title or custom message and a link to the post.
+Autoshare for Twitter automatically tweets your posts as soon as they’re published.  Once you hit the Publish button, the plugin sends your post’s title, featured image, and link to Twitter, along with a custom message.
+
+Unlike a myriad of other social media, multitool solutions, Autoshare for Twitter is built solely for Twitter.  It focuses on doing one thing and does it well, with the code and interface craftsmanship we apply to every project.
+
+With Autoshare for Twitter, developers can further customize nearly everything about the tweets, including the image, author, and link, using an extensive set of hooks built into the code. Among its other features, the WordPress plugin:
+
+* Works in both the classic and new block editors.
+* Becomes part of the pre-publish checklist step that’s part of the new block editor.
+* Posts a high-quality featured image with your tweet.
+* Counts characters to keep you under the tweet limit.
+* Adds a link to the tweet in the block editor sidebar.
+
+**Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
+
+== Installation ==
+1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
+2. Activate the plugin.
+3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
+
+== Plugin Compatibility ==
+
+= Distributor =
+
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
+
+```php
+add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
+	$blacklisted_metas[] = 'autoshare_for_twitter_status';
+	return $blacklisted_metas;
+} )
+```
+
+== Developers ==
 
 **Note:** Posts and pages are supported by default. Developers can use the `autoshare_for_twitter_default_post_types` filter to change the default supported post types
 
@@ -44,13 +76,6 @@ add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_defaul
 
 Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
 
-**Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
-
-== Installation ==
-1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
-2. Activate the plugin.
-3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
-
 == Frequently Asked Questions ==
 
 = Does this plugin work with Gutenberg? =
@@ -59,12 +84,25 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 
 == Screenshots ==
 
-1. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
-2. Create post screen with Autoshare for Twitter options.
-3. Published post screen with Autoshare for Twitter options.
+1. Create post screen with Autoshare for Twitter options.
+2. Published post screen with Autoshare for Twitter options.
+3. Autoshare For Twitter sidebar panel.
+4. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Changelog ==
-= 1.3.0 - 2023-01-19 =
+= 2.0.0 - 2023-05-16 =
+**Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).**
+
+* **Added:** Migrated to Twitter API v2 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@ravinderk](https://github.com/ravinderk), [@Sidsector9](https://github.com/Sidsector9) via [#229](https://github.com/10up/autoshare-for-twitter/pull/229)).
+* **Changed:** Bump WordPress "tested up to" version 6.2 (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh) via [#228](https://github.com/10up/autoshare-for-twitter/pull/228)).
+* **Changed:** Update plugin settings and guidelines to set up a Twitter app (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@ravinderk](https://github.com/ravinderk) [@Sidsector9](https://github.com/Sidsector9) via [#229](https://github.com/10up/autoshare-for-twitter/pull/229)).
+* **Changed:** Updated documentation (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh), via [#231](https://github.com/10up/autoshare-for-twitter/pull/231)).
+* **Security:** Bump `simple-git` from 3.15.1 to 3.16.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#221](https://github.com/10up/autoshare-for-twitter/pull/221)).
+* **Security:** Bump `http-cache-semantics` from 4.1.0 to 4.1.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#222](https://github.com/10up/autoshare-for-twitter/pull/222)).
+* **Security:** Bump `@sideway/formula` from 3.0.0 to 3.0.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#223](https://github.com/10up/autoshare-for-twitter/pull/223)).
+* **Security:** Bump `webpack` from 5.74.0 to 5.76.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#224](https://github.com/10up/autoshare-for-twitter/pull/224)).
+
+= 1.3.0 - 2023-01-20 =
 * **Added:** "Tweet now" functionality (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
 * **Added:** Toggle for adding/removing featured image from the tweet (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
 * **Added:** Show Twitter status logs for the draft post if the post has been switched back to Draft from Published, and has already been Tweeted (props [@iamdharmesh](https://github.com/iamdharmesh), [@faisal-alvi](https://github.com/faisal-alvi), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#215](https://github.com/10up/autoshare-for-twitter/pull/215)).
@@ -183,6 +221,8 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 * Initial private release (props [@scottlee](https://profiles.wordpress.org/scottlee/))
 
 == Upgrade Notice ==
+= 2.0.0 =
+Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).
 
 = 1.2.1 =
 This release bumps the WordPress minimum from 5.3 to 5.7 and PHP minimum from 7.2 to 7.4.

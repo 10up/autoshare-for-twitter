@@ -11,7 +11,53 @@
 
 ## Overview
 
+Autoshare for Twitter automatically tweets your posts as soon as they’re published.  Once you hit the Publish button, the plugin sends your post’s title, featured image, and link to Twitter, along with a custom message.
+
+| Create post screen with Autoshare for Twitter options | Published post screen with Autoshare for Twitter options. |
+| -------------- | ---------------- |
+| [![Create post screen with Autoshare for Twitter options](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png) | [![Published post screen with Autoshare for Twitter options.](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) |
+
+Unlike a myriad of other social media, multitool solutions, Autoshare for Twitter is built solely for Twitter.  It focuses on doing one thing and does it well, with the code and interface craftsmanship we apply to every project.
+
+With Autoshare for Twitter, developers can further customize nearly everything about the tweets, including the image, author, and link, using an extensive set of hooks built into the code. Among its other features, the WordPress plugin:
+
+* Works in both the classic and new block editors.
+* Becomes part of the pre-publish checklist step that’s part of the new block editor.
+* Posts a high-quality featured image with your tweet.
+* Counts characters to keep you under the tweet limit.
+* Adds a link to the tweet in the block editor sidebar.
+
+| Autoshare For Twitter block editor sidebar panel | Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`. | 
+| --------------- | --------------- |
+|[![Autoshare For Twitter block editor sidebar panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
+
 **Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
+
+## Requirements
+
+- PHP 7.4+
+- [WordPress](http://wordpress.org) 5.7+
+
+## Installation
+
+1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
+2. Activate the plugin.
+3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
+
+## Plugin Compatibility
+
+### Distributor
+
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
+
+```php
+add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
+	$blacklisted_metas[] = 'autoshare_for_twitter_status';
+	return $blacklisted_metas;
+} )
+```
+
+## Developers
 
 **Note:** Posts and pages are supported by default. Developers can use the `autoshare_for_twitter_default_post_types` filter to change the default supported post types (for more, see #25). The plugin namespace changed to just 'autoshare' as of version 1.0.0.
 
@@ -40,38 +86,6 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 }
 add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
 ```
-
-## Plugin Compatibility
-
-### Distributor
-
-When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
-
-```php
-add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
-	$blacklisted_metas[] = 'autoshare_for_twitter_status';
-	return $blacklisted_metas;
-} )
-```
-
-| Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`. | 
-| --------------- |
-|[![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png)|
-
-| Create post screen with Autoshare for Twitter options | Published post screen with Autoshare for Twitter options. |
-| -------------- | ---------------- |
-| [![Create post screen with Autoshare for Twitter options](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) | [![Published post screen with Autoshare for Twitter options.](.wordpress-org/screenshot-3.png)](.wordpress-org/screenshot-3.png) |
-
-## Requirements
-
-- PHP 7.4+
-- [WordPress](http://wordpress.org) 5.7+
-
-## Installation
-
-1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
-2. Activate the plugin.
-3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
 
 ## FAQs
 

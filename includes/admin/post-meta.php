@@ -317,7 +317,7 @@ function get_tweet_status_message( $post ) {
 
 			case 'error':
 				$response_array[] = [
-					'message' => __( 'Failed to tweet: ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
+					'message' => __( 'Failed to tweet; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
 					'status'  => $status,
 				];
 
@@ -434,11 +434,19 @@ function markup_published( $status_meta ) {
  * @return string
  */
 function markup_error( $status_meta ) {
+	$learn_more = '';
+	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
+		$learn_more = sprintf(
+			' <a href="%s" target="_blank" rel="external noreferrer noopener">%s</a>',
+			esc_url( 'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate' ),
+			esc_html__( 'Learn more here.', 'autoshare-for-twitter' )
+		);
+	}
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
 		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
-		esc_html( $status_meta['message'] )
+		esc_html( $status_meta['message'] ) . $learn_more
 	);
 }
 

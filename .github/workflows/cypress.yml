@@ -66,10 +66,10 @@ jobs:
       - name: Test
         run: npm run cypress:run
         env:
-          CYPRESS_TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-          CYPRESS_TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
-          CYPRESS_TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          CYPRESS_TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          CYPRESS_TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY_V2 }}
+          CYPRESS_TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET_V2 }}
+          CYPRESS_TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN_V2 }}
+          CYPRESS_TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET_V2 }}
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
