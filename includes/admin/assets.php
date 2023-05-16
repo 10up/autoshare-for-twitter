@@ -48,6 +48,14 @@ function enqueue_shared_assets() {
 		[],
 		AUTOSHARE_FOR_TWITTER_VERSION
 	);
+
+	wp_enqueue_script(
+		'admin_autoshare_for_twitter',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter.js',
+		[ 'jquery' ],
+		AUTOSHARE_FOR_TWITTER_VERSION,
+		true
+	);
 }
 
 /**
@@ -127,20 +135,13 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		);
 	}
 
-	$handle = 'admin_autoshare_for_twitter';
+	$handle = 'admin_autoshare_for_twitter_classic_editor';
 	wp_enqueue_script(
 		$handle,
-		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter.js',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter-classic-editor.js',
 		[ 'jquery', 'wp-api-fetch' ],
 		AUTOSHARE_FOR_TWITTER_VERSION,
 		true
-	);
-
-	wp_enqueue_style(
-		$handle,
-		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
-		[],
-		AUTOSHARE_FOR_TWITTER_VERSION
 	);
 
 	localize_data( $handle );

@@ -119,7 +119,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'Failed to tweet: There was an error.',
+						'message' => 'Failed to tweet; There was an error.',
 						'status'  => 'error',
 					],
 				],

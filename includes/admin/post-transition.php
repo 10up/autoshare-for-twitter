@@ -190,14 +190,23 @@ function validate_response( $response ) {
 	if ( ! empty( $response->id ) ) {
 		$validated_response = array(
 			'id'         => $response->id,
-			'created_at' => $response->created_at,
+			'created_at' => gmdate( 'c' ), // Twitter API v2 doesn't return created_at.
 		);
 
 	} else {
+		$errors = $response->errors;
+		if ( empty( $response->errors ) && ! empty( $response->detail ) ) {
+			$errors = array(
+				(object) array(
+					'code'    => $response->status,
+					'message' => $response->detail,
+				),
+			);
+		}
 		$validated_response = new \WP_Error(
 			'autoshare_for_twitter_failed',
 			__( 'Something happened during Twitter update.', 'autoshare-for-twitter' ),
-			$response->errors
+			$errors
 		);
 	}
 
@@ -223,9 +232,12 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 		// Twitter sent back an error. Most likely a duplicate message.
 	} elseif ( is_wp_error( $data ) ) {
 		$error_message = $data->error_data['autoshare_for_twitter_failed'][0];
-		$response      = array(
+		// translators: %d is the error code.
+		$error_code_text = $error_message->code ? sprintf( __( 'Error: %d. ', 'autoshare-for-twitter' ), $error_message->code ) : '';
+
+		$response = array(
 			'status'  => 'error',
-			'message' => sanitize_text_field( 'Error: ' . $error_message->code . '. ' . $error_message->message ),
+			'message' => sanitize_text_field( $error_code_text . $error_message->message ),
 		);
 
 		// The default fallback message.

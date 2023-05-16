@@ -41,3 +41,14 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/utils.php';
  * Play nice with others.
  */
 do_action( 'autoshare_for_twitter_loaded' );
+
+/**
+ * Register an activation hook that we can hook into.
+ */
+register_activation_hook(
+	__FILE__,
+	function () {
+		// Don't need to show migration notice to new users.
+		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
+	}
+);
