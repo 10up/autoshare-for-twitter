@@ -175,7 +175,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
  * @since 2.0.0
  */
 function migrate_to_twitter_v2_api() {
-	$show_notice = get_option( 'migrate_to_twitter_v2_api_notice_dismissed', false );
+	$show_notice = get_option( 'autoshare_migrate_to_v2_api_notice_dismissed', false );
 	if ( $show_notice ) {
 		return;
 	}
@@ -211,6 +211,6 @@ function handle_notice_dismiss() {
 		wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_ast_dismiss_nonce'] ) ), 'ast_dismiss_migrate_notice' ) &&
 		isset( $_GET['autoshare_dismiss_notice'] )
 	) {
-		update_option( 'migrate_to_twitter_v2_api_notice_dismissed', true );
+		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
 	}
 }

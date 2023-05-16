@@ -49,6 +49,6 @@ register_activation_hook(
 	__FILE__,
 	function () {
 		// Don't need to show migration notice to new users.
-		update_option( 'migrate_to_twitter_v2_api_notice_dismissed', true );
+		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
 	}
 );
