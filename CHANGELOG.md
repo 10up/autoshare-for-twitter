@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased] - TBD
 
 ## [2.0.0] - 2023-05-16
-**Note that this version updates to utilize Twitter's v2 API, so any site using an older API version will need to update their access in order to maintain plugin functionality.**
+**Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).**
 
 ### Added
 - Migrated to Twitter API v2 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@ravinderk](https://github.com/ravinderk), [@Sidsector9](https://github.com/Sidsector9) via [#229](https://github.com/10up/autoshare-for-twitter/pull/229)).
