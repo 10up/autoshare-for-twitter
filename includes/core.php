@@ -25,6 +25,8 @@ function setup() {
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-ast-staging.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-publish-tweet.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/rest.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts-list-table.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-auth.php';
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
