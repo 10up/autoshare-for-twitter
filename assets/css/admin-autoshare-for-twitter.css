@@ -216,3 +216,10 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 .autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text label {
 	width: 100%;
 }
+
+.autoshare-settings .twitter-account-profile-image {
+	float:left;
+	margin-right: 10px;
+	border-radius: 50%;
+	max-width: 48px;
+}

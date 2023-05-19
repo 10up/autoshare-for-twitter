@@ -86,7 +86,7 @@
 		display: flex;
 	}
 
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 70%;
 		margin-right: 50px;
 	}
@@ -97,7 +97,7 @@
 }
 
 @media (min-width: 1200px) {
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 60%;
 		margin-right: 10%;
 	}

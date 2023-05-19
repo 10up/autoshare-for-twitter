@@ -8,6 +8,7 @@
 namespace TenUp\AutoshareForTwitter\Core\Admin;
 
 use TenUp\AutoshareForTwitter\Utils;
+use TenUp\AutoshareForTwitter\List_Table\Twitter_Accounts_List_Table as Twitter_Accounts_List_Table;
 
 const AT_GROUP    = 'autoshare-for-twitter';
 const AT_SETTINGS = 'autoshare-for-twitter';
@@ -388,13 +389,20 @@ function options_page() {
 		<h1><?php esc_html_e( 'Autoshare for Twitter Settings', 'autoshare-for-twitter' ); ?></h1>
 
 		<div class="autoshare-settings">
-			<form action='options.php' method='post'>
+			<div class="settings-wrapper">
+				<form action='options.php' method='post'>
+					<?php
+					settings_fields( AT_GROUP );
+					do_settings_sections( 'autoshare-for-twitter' );
+					submit_button();
+					?>
+				</form>
 				<?php
-				settings_fields( AT_GROUP );
-				do_settings_sections( 'autoshare-for-twitter' );
-				submit_button();
+				$list_table = new Twitter_Accounts_List_Table();
+				$list_table->prepare_items();
+				$list_table->display();
 				?>
-			</form>
+			</div>
 			<div class="brand">
 				<a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>">
 					<img src="<?php echo esc_url( trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/images/10up.svg' ); ?>" alt="<?php esc_attr_e( '10up logo', 'autoshare-for-twitter' ); ?>" />
