@@ -7,7 +7,7 @@
 
 namespace TenUp\AutoshareForTwitter\List_Table;
 
-use TenUp\AutoshareForTwitter\Utils as Utils;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
 
 if ( ! class_exists( '\\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -57,7 +57,8 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 		$sortable              = array();
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
-		$this->items = Utils\get_twitter_accounts();
+		$accounts    = new Twitter_Accounts();
+		$this->items = $accounts->get_twitter_accounts();
 	}
 
 	/**

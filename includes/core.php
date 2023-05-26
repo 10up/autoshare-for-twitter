@@ -9,6 +9,7 @@ namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils;
 use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 
@@ -26,13 +27,18 @@ function setup() {
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-publish-tweet.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/rest.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts-list-table.php';
-	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-auth.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-api.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts.php';
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
 
 	// Initiate staging class.
 	AST_Staging::init();
+
+	// Initialize the Twitter Account class.
+	$twitter_accounts = new Twitter_Accounts();
+	$twitter_accounts->init();
 
 	/**
 	 * Allow others to hook into the core setup action

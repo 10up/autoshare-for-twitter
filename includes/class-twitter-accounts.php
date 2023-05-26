@@ -1,55 +1,47 @@
 <?php
 /**
- * Class to handle Tweeter account authorization.
+ * Class to handle Tweeter accounts connections.
  *
  * @package TenUp\AutoshareForTwitter\Core
  */
 
-namespace TenUp\AutoshareForTwitter\Core\Twitter_Auth;
+namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils as Utils;
-use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
+use TenUp\AutoshareForTwitter\Core\Twitter_API as Twitter_API;
 
 /**
- * Authorization for twitter.
+ * Twitter_Accounts Class
+ *
+ * @since 2.1.0
  */
-class Twitter_Auth {
+class Twitter_Accounts {
 
 	/**
-	 * The consumer key.
+	 * Twitter API.
 	 *
-	 * @var string The consumer key.
+	 * @var Twitter_API The Twitter API Class Instance.
 	 */
-	protected $consumer_key;
+	private $twitter_api;
 
 	/**
-	 * The consumer secret.
+	 * Option key to save Twitter accounts in options table.
 	 *
-	 * @var string The consumer secret.
+	 * @var string
 	 */
-	protected $consumer_secret;
-
-	/**
-	 * The TwitterOAuth client.
-	 *
-	 * @var TwitterOAuth The TwitterOAuth client.
-	 */
-	protected $client;
+	private $twitter_accounts_key = 'autoshare_for_twitter_accounts';
 
 	/**
 	 * Construct the PublishTweet class.
 	 */
 	public function __construct() {
-		$at_settings = Utils\get_autoshare_for_twitter_settings();
+		$this->twitter_api = new Twitter_API();
+	}
 
-		$this->consumer_key    = $at_settings['api_key'];
-		$this->consumer_secret = $at_settings['api_secret'];
-
-		$this->client = new TwitterOAuth(
-			$this->consumer_key,
-			$this->consumer_secret
-		);
-
+	/**
+	 * Inintialize the class and register the actions needed.
+	 */
+	public function init() {
 		add_action( 'admin_notices', array( $this, 'twitter_connection_notices' ) );
 		add_action( 'admin_post_autoshare_twitter_authorize_action', array( $this, 'twitter_authorize' ) );
 		add_action( 'admin_post_autoshare_twitter_disconnect_action', array( $this, 'twitter_disconnect' ) );
@@ -74,14 +66,14 @@ class Twitter_Auth {
 		$callback_url = admin_url( 'admin-post.php?action=authoshare_authorize_callback' );
 
 		try {
-			$request_token = $this->client->oauth( 'oauth/request_token', array( 'oauth_callback' => $callback_url ) );
+			$request_token = $this->twitter_api->request_token( $callback_url );
 
 			// Save temporary credentials to cookies for later use.
 			setcookie( 'autoshare_oauth_token', $request_token['oauth_token'], time() + 3600, '/' );
 			setcookie( 'autoshare_oauth_token_secret', $request_token['oauth_token_secret'], time() + 3600, '/' );
 
 			// Initiate authorization.
-			$url = $this->client->url( 'oauth/authorize', array( 'oauth_token' => $request_token['oauth_token'] ) );
+			$url = $this->twitter_api->get_authorize_url( $request_token['oauth_token'] );
 			if ( ! empty( $url ) ) {
 				wp_redirect( $url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				exit();
@@ -137,16 +129,9 @@ class Twitter_Auth {
 				wp_die( 'Something went wrong. Please try again.' );
 			}
 
-			$connection = new TwitterOAuth(
-				$this->consumer_key,
-				$this->consumer_secret,
-				$oauth_token,
-				$oauth_token_secret
-			);
-
 			// Get the access token.
 			$oauth_verifier = isset( $_REQUEST['oauth_verifier'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['oauth_verifier'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$access_token   = $connection->oauth( 'oauth/access_token', array( 'oauth_verifier' => $oauth_verifier ) );
+			$access_token   = $this->twitter_api->get_access_token( $oauth_token, $oauth_token_secret, $oauth_verifier );
 
 			if ( ! $access_token || ! isset( $access_token['oauth_token'] ) || ! isset( $access_token['oauth_token_secret'] ) ) {
 				throw new \Exception( 'autoshare_twitter_authorize_error', __( 'Something went wrong during getting access token. Please try again', 'autoshare-for-twitter' ) );
@@ -156,34 +141,12 @@ class Twitter_Auth {
 			setcookie( 'autoshare_oauth_token', '', time() - 3600, '/' );
 			setcookie( 'autoshare_oauth_token_secret', '', time() - 3600, '/' );
 
-			$connection = new TwitterOAuth(
-				$this->consumer_key,
-				$this->consumer_secret,
-				$access_token['oauth_token'],
-				$access_token['oauth_token_secret']
-			);
+			// Get Twitter account details by access token.
+			$account = $this->twitter_api->get_twitter_account_by_token( $access_token['oauth_token'], $access_token['oauth_token_secret'] );
 
-			$connection->setApiVersion( '2' );
-			$user = $connection->get(
-				'users/me',
-				array(
-					'user.fields' => 'id,name,username,profile_image_url',
-				)
-			);
-
-			if ( ! $user || ! isset( $user->data ) || ! isset( $user->data->id ) ) {
-				throw new \Exception( 'autoshare_twitter_authorize_error', __( 'Something went wrong during getting user details. Please try again', 'autoshare-for-twitter' ) );
+			if ( is_wp_error( $account ) ) {
+				throw new \Exception( $account->get_error_message() );
 			}
-
-			$user_data = $user->data;
-			$account   = array(
-				'id'                 => $user_data->id,
-				'name'               => $user_data->name,
-				'username'           => $user_data->username,
-				'profile_image_url'  => $user_data->profile_image_url,
-				'oauth_token'        => $access_token['oauth_token'],
-				'oauth_token_secret' => $access_token['oauth_token_secret'],
-			);
 
 			// Save account details.
 			Utils\save_twitter_account( $account );
@@ -247,6 +210,58 @@ class Twitter_Auth {
 
 		return $notices;
 	}
-}
 
-new Twitter_Auth();
+	/**
+	 * Save connected Twitter account details.
+	 *
+	 * @param array $account Twitter Account Data.
+	 * @return void
+	 */
+	public function save_twitter_account( $account ) {
+		$accounts = get_option( $this->twitter_accounts_key, array() );
+
+		$accounts[ $account['id'] ] = $account;
+		update_option( $this->twitter_accounts_key, $accounts );
+	}
+
+	/**
+	 * Gets the list of Twitter accounts.
+	 *
+	 * @return array
+	 */
+	public function get_twitter_accounts() {
+		$accounts = get_option( $this->twitter_accounts_key, array() );
+
+		// Backwards compatibility.
+		if ( empty( $accounts ) ) {
+			$at_settings = Utils\get_autoshare_for_twitter_settings();
+
+			if ( ! empty( $at_settings['access_token'] ) && ! empty( $at_settings['access_secret'] ) ) {
+				$account = $this->twitter_api->get_twitter_account_by_token( $at_settings['access_token'], $at_settings['access_secret'] );
+				if ( ! empty( $account ) && ! is_wp_error( $account ) ) {
+					$this->save_twitter_account( $account );
+					$accounts[ $account['id'] ] = $account;
+				}
+			}
+		}
+
+		return $accounts;
+	}
+
+	/**
+	 * Get connected Twitter account details.
+	 *
+	 * @param string $id Twitter Account ID.
+	 * @return array
+	 */
+	public function get_twitter_account( $id ) {
+		$accounts = $this->get_twitter_accounts();
+
+		if ( isset( $accounts[ $id ] ) ) {
+			return $accounts[ $id ];
+		}
+
+		return array();
+	}
+
+}
