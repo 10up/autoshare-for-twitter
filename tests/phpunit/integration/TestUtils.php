@@ -15,9 +15,11 @@ use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\delete_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
+use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 use function TenUp\AutoshareForTwitter\Utils\get_available_post_types;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_settings;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
+use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
  * TestUtils class.
@@ -105,6 +107,29 @@ class TestUtils extends WP_UnitTestCase {
 		$post_type  = register_non_default_post_type();
 		$other_post = $this->factory->post->create( compact( 'post_type' ) );
 		$this->assertFalse( autoshare_enabled( $other_post ) );
+	}
+
+	/**
+	 * Tests the tweet_image_allowed function.
+	 *
+	 * @since 1.3.0
+	 */
+	public function test_tweet_image_allowed() {
+		$post_id = $this->factory->post->create();
+
+		update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, 'yes' );
+		$this->assertTrue( tweet_image_allowed( $post_id ) );
+
+		update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, 'no' );
+		$this->assertFalse( tweet_image_allowed( $post_id ) );
+
+		delete_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE );
+		$is_allowed = (bool) get_autoshare_for_twitter_settings( 'enable_upload' );
+		$this->assertSame( $is_allowed, tweet_image_allowed( $post_id ) );
+
+		add_filter( 'autoshare_for_twitter_tweet_image_allowed', '__return_false' );
+		$this->assertFalse( tweet_image_allowed( $post_id ) );
+		remove_filter( 'autoshare_for_twitter_tweet_image_allowed', '__return_false' );
 	}
 
 	/**

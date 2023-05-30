@@ -7,3 +7,5 @@ export const getOverriding = ( state ) => state.overriding;
 export const getSaving = ( state ) => state.saving;
 
 export const getTweetText = ( state ) => state.tweetText;
+
+export const getAllowTweetImage = ( state ) => state.allowTweetImage;

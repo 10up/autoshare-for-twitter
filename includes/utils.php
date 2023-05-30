@@ -13,6 +13,7 @@ use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
  * Helper/Wrapper function for returning the meta entries for autosharing.
@@ -90,6 +91,29 @@ function autoshare_enabled( $post_id ) {
 	 * @param int    The current post ID.
 	 */
 	return apply_filters( 'autoshare_for_twitter_enabled_default', false, get_post_type( $post_id ), $post_id );
+}
+
+/**
+ * Returns whether image is allowed in a tweet.
+ *
+ * @param int $post_id A post ID.
+ * @return boolean
+ */
+function tweet_image_allowed( $post_id ) {
+	if ( has_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE ) ) {
+		return ( 'yes' === get_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE ) );
+	}
+
+	$is_allowed = (bool) get_autoshare_for_twitter_settings( 'enable_upload' );
+
+	/**
+	 * Filters whether autoshare is enabled by default on a post type or post.
+	 *
+	 * @param bool   Whether autoshare is enabled by default. True by default.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_tweet_image_allowed', $is_allowed, get_post_type( $post_id ), $post_id );
 }
 
 /**

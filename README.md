@@ -2,7 +2,7 @@
 
 > Automatically tweets the post title or custom message and a link to the post.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/autoshare-for-twitter?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/autoshare-for-twitter?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/autoshare-for-twitter.svg)](https://github.com/10up/autoshare-for-twitter/blob/develop/LICENSE.md)
 [![ESLint](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/eslint.yml)
 [![PHPCompatibility](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/php-compatibility.yml)
 [![PHPCS](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml/badge.svg)](https://github.com/10up/autoshare-for-twitter/actions/workflows/phpcs.yml)
@@ -11,7 +11,53 @@
 
 ## Overview
 
+Autoshare for Twitter automatically tweets your posts as soon as they’re published.  Once you hit the Publish button, the plugin sends your post’s title, featured image, and link to Twitter, along with a custom message.
+
+| Create post screen with Autoshare for Twitter options | Published post screen with Autoshare for Twitter options. |
+| -------------- | ---------------- |
+| [![Create post screen with Autoshare for Twitter options](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png) | [![Published post screen with Autoshare for Twitter options.](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) |
+
+Unlike a myriad of other social media, multitool solutions, Autoshare for Twitter is built solely for Twitter.  It focuses on doing one thing and does it well, with the code and interface craftsmanship we apply to every project.
+
+With Autoshare for Twitter, developers can further customize nearly everything about the tweets, including the image, author, and link, using an extensive set of hooks built into the code. Among its other features, the WordPress plugin:
+
+* Works in both the classic and new block editors.
+* Becomes part of the pre-publish checklist step that’s part of the new block editor.
+* Posts a high-quality featured image with your tweet.
+* Counts characters to keep you under the tweet limit.
+* Adds a link to the tweet in the block editor sidebar.
+
+| Autoshare For Twitter block editor sidebar panel | Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`. | 
+| --------------- | --------------- |
+|[![Autoshare For Twitter block editor sidebar panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
+
 **Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
+
+## Requirements
+
+- PHP 7.4+
+- [WordPress](http://wordpress.org) 5.7+
+
+## Installation
+
+1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
+2. Activate the plugin.
+3. Save Twitter connection settings, found under `Settings` > `Autoshare for Twitter`.
+
+## Plugin Compatibility
+
+### Distributor
+
+When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
+
+```php
+add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
+	$blacklisted_metas[] = 'autoshare_for_twitter_status';
+	return $blacklisted_metas;
+} )
+```
+
+## Developers
 
 **Note:** Posts and pages are supported by default. Developers can use the `autoshare_for_twitter_default_post_types` filter to change the default supported post types (for more, see #25). The plugin namespace changed to just 'autoshare' as of version 1.0.0.
 
@@ -41,30 +87,6 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
 ```
 
-## Plugin Compatibility
-
-### Distributor
-
-When using with 10up's [Distributor plugin](https://github.com/10up/distributor), posts that are distributed will not be autoshared if they are already tweeted from the origin site. Autoshare for Twitter tracks posts that have been tweeted in post meta to avoid "double tweeting". To avoid this behavior, use the `dt_blacklisted_meta` filter to exclude the 'autoshare_for_twitter_status' meta value from being distributed :
-
-```php
-add_filter( 'dt_blacklisted_meta', function( $blacklisted_metas ) {
-	$blacklisted_metas[] = 'autoshare_for_twitter_status';
-	return $blacklisted_metas;
-} )
-```
-
-## Requirements
-
-- PHP 7.2+
-- [WordPress](http://wordpress.org) 5.3+
-
-## Installation
-
-1. Upload the entire `/autoshare-for-twitter` directory to the `/wp-content/plugins/` directory.
-2. Activate the plugin
-3. Register post type support for types that should be allowed to autoshare. `add_post_type_support( 'post', 'autoshare-for-twitter' );`
-
 ## FAQs
 
 ### Does this plugin work with Gutenberg?
@@ -73,7 +95,7 @@ Yes, yes it does! For more details on this, see [#44](https://github.com/10up/au
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress. Bug reports, feature requests, questions, and pull requests are welcome.
+**Stable:** 10up is not planning to develop any new features for this, but will still respond to bug reports and security concerns. We welcome PRs, but any that include new features should be small and easy to integrate and should not include breaking changes. We otherwise intend to keep this tested up to the most recent version of WordPress.
 
 ## Changelog
 

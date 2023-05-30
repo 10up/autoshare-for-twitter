@@ -1,3 +1,5 @@
+import { getRandomText } from "../support/functions";
+
 describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	before(() => {
 		cy.login();
@@ -86,6 +88,29 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
 			cy.get('#autoshare_for_twitter_metabox').contains('Tweeted on');
+		});
+
+		it('Tweet Now should work fine', () => {
+			// Start create post.
+			cy.classicStartCreatePost();
+				
+			// Save Draft
+			cy.get('#save-post').click();
+	
+			// Uncheck the checkbox and publish
+			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, false);
+			cy.get('#publish').click();
+	
+			// Post-publish.
+			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post was not tweeted');
+	
+			cy.get('#autoshare_for_twitter_metabox button.tweet-now-button').contains('Tweet Now').click();
+			cy.get('#autoshare-for-twitter-override-body textarea').should('be.visible')
+				.clear()
+				.type(`Random Tweet ${getRandomText(6)}`);
+			cy.get('.autoshare-for-twitter-tweet-now-wrapper #tweet_now').should('be.visible').click();
+			cy.get('.autoshare-for-twitter-status-log-data').contains('Tweeted on');
 		});
 	});
 });

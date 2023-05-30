@@ -6,14 +6,12 @@ import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { createAutoshareStore, STORE } from './store';
+import { getIconByStatus } from './utils';
 import AutoshareForTwitterPrePublishPanel from './AutoshareForTwitterPrePublishPanel';
 import AutoshareForTwitterPostStatusInfo from './AutoshareForTwitterPostStatusInfo';
 
 import EnabledIcon from '../../assets/images/twitter_enabled.svg';
 import DisabledIcon from '../../assets/images/twitter_disabled.svg';
-import FailedIcon from '../../assets/images/twitter_failed.svg';
-import TweetedIcon from '../../assets/images/twitter_tweeted.svg';
-import DefaultIcon from '../../assets/images/twitter_default.svg';
 
 createAutoshareStore();
 
@@ -105,30 +103,16 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 	render() {
 		const postStatus = select( 'core/editor' ).getCurrentPostAttribute( 'status' );
 		if ( 'publish' === postStatus ) {
-			const tweetStatus = select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' );
-			let StatusIcon = DefaultIcon;
-			if ( tweetStatus && tweetStatus.status ) {
-				if ( tweetStatus.status === 'published' ) {
-					StatusIcon = TweetedIcon;
-				} else if ( tweetStatus.status === 'error' ) {
-					StatusIcon = FailedIcon;
-				} else {
-					StatusIcon = DefaultIcon;
-				}
+			const tweetMeta = select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' );
+			let tweetStatus = '';
+			if ( tweetMeta && tweetMeta.message && tweetMeta.message.length ) {
+				tweetStatus = tweetMeta.message[ tweetMeta.message.length - 1 ].status || '';
 			}
-
-			const TweetStatusIcon = (
-				<Icon
-					className="autoshare-for-twitter-icon"
-					icon={ <StatusIcon /> }
-					size={ 24 }
-				/>
-			);
 
 			return (
 				<PluginDocumentSettingPanel
 					title={ __( 'Autotweet', 'autoshare-for-twitter' ) }
-					icon={ TweetStatusIcon }
+					icon={ getIconByStatus( tweetStatus ) }
 					className="autoshare-for-twitter-editor-panel"
 				>
 					<AutoshareForTwitterPostStatusInfo />

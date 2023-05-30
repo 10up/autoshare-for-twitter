@@ -8,6 +8,8 @@ on:
   pull_request:
     branches:
       - develop
+    paths: # Note: Update paths here will also require updating paths in ignore.eslint.yml.
+      - '**.js'
 
 jobs:
   eslint:
@@ -17,7 +19,7 @@ jobs:
     - name: install node v16
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version-file: '.nvmrc'
     - name: npm install
       run: npm install
     - name: Run eslint

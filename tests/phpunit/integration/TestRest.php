@@ -116,9 +116,10 @@ class TestRest extends WP_UnitTestCase {
 		$response = update_post_autoshare_for_twitter_meta( $this->get_valid_request() );
 		$this->assertEquals(
 			[
-				'enabled'  => true,
-				'message'  => 'Autoshare enabled.',
-				'override' => true,
+				'enabled'    => true,
+				'message'    => 'Autoshare enabled.',
+				'override'   => true,
+				'allowImage' => true,
 			],
 			$response->get_data()
 		);

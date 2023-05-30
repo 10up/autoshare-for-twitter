@@ -125,56 +125,56 @@ function register_settings() {
 	// API Key.
 	add_settings_field(
 		'autoshare-api_key',
-		__( 'API key', 'autoshare-for-twitter' ),
+		__( 'API Key', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'api_key',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your API key here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your API Key here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// API Secret.
 	add_settings_field(
 		'autoshare-api_secret',
-		__( 'API secret', 'autoshare-for-twitter' ),
+		__( 'API Key Secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'api_secret',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your API secret key here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your API Key Secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// Access Token.
 	add_settings_field(
 		'autoshare-access_token',
-		__( 'Access token', 'autoshare-for-twitter' ),
+		__( 'Access Token', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'access_token',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your Access Token here', 'autoshare-for-twitter' ),
 		]
 	);
 
 	// Access Secret.
 	add_settings_field(
 		'autoshare-access_secret',
-		__( 'Access secret', 'autoshare-for-twitter' ),
+		__( 'Access Token Secret', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\text_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-cred_section',
 		[
 			'name'        => 'access_secret',
 			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access token secret here', 'autoshare-for-twitter' ),
+			'placeholder' => __( 'paste your Access Token Secret here', 'autoshare-for-twitter' ),
 		]
 	);
 
@@ -190,7 +190,6 @@ function register_settings() {
 			'placeholder' => __( 'enter your Twitter handle here', 'autoshare-for-twitter' ),
 		]
 	);
-
 }
 
 /**
@@ -326,17 +325,20 @@ function cred_section_cb() {
 		<?php endif; ?>
 		<section class="credentials-instructions">
 			<h4><a href="https://developer.twitter.com/en/portal/petition/essential/basic-info" target="_blank"><?php esc_html_e( '1. Sign up for a Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
-			<p><?php echo wp_kses_data( 'Once you complete the sign-up onboarding process, you will get your API keys. Copy the <code>API key</code> and <code>API secret key</code> values and paste them below. In case you skipped the onboarding process, you can create a project and an app by following Step 2. Otherwise, please skip Step 2.', 'autoshare-for-twitter' ); ?></p>
-
-			<h4><?php esc_html_e( '2. Create a project and create an app for your website.', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'Click the <code>+ New Project</code> button in the', 'autoshare-for-twitter' ) ); ?> <a href="https://developer.twitter.com/en/portal/dashboard" title="<?php esc_html_e( 'Twitter developer portal', 'autoshare-for-twitter' ); ?>" target="_blank"><?php esc_html_e( 'Twitter developer portal.', 'autoshare-for-twitter' ); ?></a></li>
-				<li><?php echo wp_kses_data( __( 'Fill out the project name, select the appropriate use-case, and provide a project description to create the project.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Next, you can either create a new App or connect an existing App. Click <code>create a new App instead</code> in order to create a new App.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Fill out the App name. Once you click "complete", you will get your API keys. Copy the <code>API key</code> and <code>API secret key</code> values and paste them below. you can Regenerate these keys any time from the Twitter developer portal.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php esc_html_e( 'Click on "Sign up for Free Account" button to proceed with free access.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php echo wp_kses_data( __( "Fill out the <code>Describe all of your use cases of Twitter's data and API</code> field. You can find an example response below.", 'autoshare-for-twitter' ) ); ?>
+				</li>
+				<div class="copy-container-wrap">
+					<p class="copy-container">
+						<span class="copy-content"><?php esc_html_e( 'I am planning to add an auto-tweet feature on my WordPress website with the help of the Autoshare for Twitter, WordPress plugin. Whenever a new post will be published on the website, Autoshare for Twitter plugin will use the post data to curate and trigger a Tweet.', 'autoshare-for-twitter' ); ?></span>
+						<a href="#" class="astCopyToClipCard"><span class="dashicons dashicons-clipboard"></span></a>
+					</p>
+				</div>
+				<li><?php esc_html_e( 'Click on "Submit" button, it will redirect you to Developer portal.', 'autoshare-for-twitter' ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '3. Configure access to your Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '2. Configure access to your Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
 				<li>
 					<?php
@@ -351,57 +353,21 @@ function cred_section_cb() {
 				<li><?php esc_html_e( 'Click on Projects & Apps on the left navigation menu.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php esc_html_e( 'Find the App and click it to show the Settings page for the App.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php esc_html_e( 'Click "Setup" under User authentication settings to setup Authentication.', 'autoshare-for-twitter' ); ?></li>
-				<li><?php echo wp_kses_data( 'Enable <code>OAuth 1.0a</code> and Set App permissions to <strong>Read and write</strong>.', 'autoshare-for-twitter' ); ?></li>
-				<li><?php echo wp_kses_data( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension and click <code>Save</code>.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Enable <code>OAuth 1.0a</code> and Set App permissions to <strong>Read and write</strong>.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension and click <code>Save</code>.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php esc_html_e( 'Switch from the "Settings" tab to the "Keys and tokens" tab.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>API Key and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Key Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>Access Token and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Copy the <code>Access token</code> and <code>Access token secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Copy the <code>Access Token</code> and <code>Access Token Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '4. Apply for Elevated access.', 'autoshare-for-twitter' ); ?></h4>
-			<p><?php esc_html_e( 'Twitter has introduced new access levels with Twitter API v2 release which provides quick onboarding to the Essential access level. Optionally, you can apply for additional access levels such as Elevated, Elevated+ and Academic Research access. This plugin, however, requires a minimum accesss level of the Elevated level to work.', 'autoshare-for-twitter' ); ?>
-			<a href="https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api#Access" target="_blank"><?php esc_html_e( 'More information.', 'autoshare-for-twitter' ); ?></a></p>
-			<p><?php esc_html_e( 'To apply for the Elevated access level, you have to perform the following steps:', 'autoshare-for-twitter' ); ?></p>
-			<ul>
-				<li>
-					<?php
-					printf(
-						/* translators: Placeholders %1$s - opening HTML <a> link tag, closing HTML </a> link tag */
-						esc_html__( 'Go to Project Page, click on the %1$sApply for Elevated%2$s button.', 'autoshare-for-twitter' ),
-						'<a href="https://developer.twitter.com/en/portal/petition/standard/basic-info" target="_blank">',
-						'</a>'
-					);
-					?>
-				</li>
-				<li><?php echo wp_kses_data( __( 'Fill out the Basic info and click <code>Next</code>', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Fill out the <code>In your words</code> field within the <code>How will you use the Twitter API or Twitter Data?</code> section. You can find an example response below.', 'autoshare-for-twitter' ) ); ?>
-				</li>
-				<div class="copy-container-wrap">
-					<p class="copy-container">
-						<span class="copy-content"><?php esc_html_e( 'I am planning to add an auto-tweet feature on my WordPress website with the help of the Autoshare for Twitter, WordPress plugin. Whenever a new post will be published on the website, this plugin will use the post data to curate and trigger a Tweet.', 'autoshare-for-twitter' ); ?></span>
-						<a href="#" class="astCopyToClipCard"><span class="dashicons dashicons-clipboard"></span></a>
-					</p>
-				</div>				
-				<li><?php echo wp_kses_data( __( 'Choose <strong>No</strong> for <code>Are you planning to analyze Twitter data?</code>', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Choose <strong>Yes</strong> for <code>Will your App use Tweet, Retweet, Like, Follow, or Direct Message functionality?</code> and fill out the <code>Please describe your planned use of these features.</code> field. You can find the example response below.', 'autoshare-for-twitter' ) ); ?></li>
-				<div class="copy-container-wrap">
-					<p class="copy-container">
-						<span class="copy-content"><?php esc_html_e( 'Yes, The app will use Tweet functionality to Publish a tweet on Twitter whenever I publish a new post or article on my website.', 'autoshare-for-twitter' ); ?></span>
-						<a href="#" class="astCopyToClipCard"><span class="dashicons dashicons-clipboard"></span></a>
-					</p>
-				</div>
-				<li><?php echo wp_kses_data( __( 'Choose <strong>No</strong> for <code>Do you plan to display Tweets or aggregate data about Twitter content outside Twitter?</code>', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Choose <strong>No</strong> for <code>Will your product, service, or analysis make Twitter content or derived information available to a government entity?</code>', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php esc_html_e( 'Review and accept the developer agreement and submit.' ); ?></li>
-				<li><?php esc_html_e( 'You will be notified with updates about your application on your email address.' ); ?></li>
-			</ul>
-
-			<h4><?php esc_html_e( '5. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '3. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
 				<li><?php esc_html_e( 'Fill out your Twitter handle that will be used to tweet your posts, pages, etc.', 'autoshare-for-twitter' ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '6. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '4. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
 				<li><?php echo wp_kses_data( __( 'Click the <code>Save Changes</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>

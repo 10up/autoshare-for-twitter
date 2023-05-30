@@ -12,10 +12,12 @@ use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
+use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
  * The handle used in registering plugin assets.
@@ -45,6 +47,14 @@ function enqueue_shared_assets() {
 		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
 		[],
 		AUTOSHARE_FOR_TWITTER_VERSION
+	);
+
+	wp_enqueue_script(
+		'admin_autoshare_for_twitter',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter.js',
+		[ 'jquery' ],
+		AUTOSHARE_FOR_TWITTER_VERSION,
+		true
 	);
 }
 
@@ -125,20 +135,13 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		);
 	}
 
-	$handle = 'admin_autoshare_for_twitter';
+	$handle = 'admin_autoshare_for_twitter_classic_editor';
 	wp_enqueue_script(
 		$handle,
-		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter.js',
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/js/admin-autoshare-for-twitter-classic-editor.js',
 		[ 'jquery', 'wp-api-fetch' ],
 		AUTOSHARE_FOR_TWITTER_VERSION,
 		true
-	);
-
-	wp_enqueue_style(
-		$handle,
-		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/css/admin-autoshare-for-twitter.css',
-		[],
-		AUTOSHARE_FOR_TWITTER_VERSION
 	);
 
 	localize_data( $handle );
@@ -201,6 +204,9 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
+		'allowTweetImage'    => tweet_image_allowed( $post_id ),
+		'allowTweetImageKey' => TWEET_ALLOW_IMAGE,
+		'retweetAction'      => 'tenup_autoshare_retweet',
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );

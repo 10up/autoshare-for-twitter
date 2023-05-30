@@ -5,6 +5,7 @@ import {
 	SET_SAVING,
 	SET_LOADED,
 	SET_OVERRIDING,
+	SET_ALLOW_TWEET_IMAGE,
 } from './constants';
 
 export const setAutoshareEnabled = ( autoshareEnabled ) => ( {
@@ -34,4 +35,9 @@ export const setSaving = ( saving ) => ( {
 export const setTweetText = ( tweetText ) => ( {
 	type: SET_TWEET_TEXT,
 	tweetText,
+} );
+
+export const setAllowTweetImage = ( allowTweetImage ) => ( {
+	type: SET_ALLOW_TWEET_IMAGE,
+	allowTweetImage,
 } );

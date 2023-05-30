@@ -2,7 +2,10 @@
 	"globals": {
 		"adminAutoshareForTwitter": "readonly",
 		"jQuery": "readonly",
-		"wp": "readonly"
+		"wp": "readonly",
+		"FormData": "readonly",
+		"fetch": "readonly",
+		"ajaxurl": "readonly"
 	},
 	"extends": "plugin:@wordpress/eslint-plugin/recommended"
 }
