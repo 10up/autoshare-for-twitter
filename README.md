@@ -93,6 +93,21 @@ add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_defaul
 
 Yes, yes it does! For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
+### Does the plugin work with Twitter API V2?
+
+Yes, the plugin is compatible with Twitter API v2.
+
+### I'm encountering the error message "401: Unauthorized." What could be the possible reason for this error?
+
+There are a few potential reasons for this error:
+
+1. **Incorrect Twitter API credentials**: Please ensure that you have entered the correct Twitter API credentials.
+2. **Deprecated access levels**: If you are still using the old Twitter access levels (Standard (v1.1), Essential (v2), Elevated (v2), etc...), you must migrate to the new access levels (Free, Basic, Pro, etc.). Please make sure to migrate to the new access levels to ensure uninterrupted functionality. Here's how you can do it:
+
+	1. Go to the following URL: https://developer.twitter.com/en/portal/products
+	2. Look for the "Downgrade" button.
+	3. Click on it to migrate to the free access level.
+
 ## Support Level
 
 **Stable:** 10up is not planning to develop any new features for this, but will still respond to bug reports and security concerns. We welcome PRs, but any that include new features should be small and easy to integrate and should not include breaking changes. We otherwise intend to keep this tested up to the most recent version of WordPress.
