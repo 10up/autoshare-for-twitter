@@ -96,6 +96,12 @@ There are a few potential reasons for this error:
 	2. Look for the "Downgrade" button.
 	3. Click on it to migrate to the free access level.
 
+= I'm encountering the error message "429: Too Many Requests." What could be the possible reason for this error? =
+
+If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of Twitter's Free API access. With the Free API, you are allowed **1,500 Tweets per month** and **50 requests within a 24-hour period**. Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to tweet again.
+
+To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on Twitter API access levels, you can visit this link: https://developer.twitter.com/en/products/twitter-api.
+
 == Screenshots ==
 
 1. Create post screen with Autoshare for Twitter options.
