@@ -82,6 +82,26 @@ Additional technical details can be found in [our GitHub repository](https://git
 
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
+= Does the plugin work with Twitter API V2? =
+
+Yes, the plugin is compatible with Twitter API v2.
+
+= I'm encountering the error message "401: Unauthorized." What could be the possible reason for this error? =
+
+There are a few potential reasons for this error:
+1. **Incorrect Twitter API credentials**: Please ensure that you have entered the correct Twitter API credentials.
+2. **Deprecated access levels**: If you are still using the old Twitter access levels (Standard (v1.1), Essential (v2), Elevated (v2), etc...), you must migrate to the new access levels (Free, Basic, Pro, etc.). Please make sure to migrate to the new access levels to ensure uninterrupted functionality. Here's how you can do it:
+
+	1. Go to the following URL: https://developer.twitter.com/en/portal/products
+	2. Look for the "Downgrade" button.
+	3. Click on it to migrate to the free access level.
+
+= I'm encountering the error message "429: Too Many Requests." What could be the possible reason for this error? =
+
+If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of Twitter's Free API access. With the Free API, you are allowed **1,500 Tweets per month** and **50 requests within a 24-hour period**. Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to tweet again.
+
+To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on Twitter API access levels, you can visit this link: https://developer.twitter.com/en/products/twitter-api.
+
 == Screenshots ==
 
 1. Create post screen with Autoshare for Twitter options.
