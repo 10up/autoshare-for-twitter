@@ -149,7 +149,7 @@ class Twitter_Accounts {
 			}
 
 			// Save account details.
-			Utils\save_twitter_account( $account );
+			$this->save_twitter_account( $account );
 			$this->set_connection_notice( 'success', __( 'Twitter account authenticated successfully' ) );
 		} catch ( \Exception $e ) {
 			$error_message = $e->getMessage();

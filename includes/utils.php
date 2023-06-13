@@ -185,8 +185,8 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
  */
 function is_twitter_configured() {
 	$defaults = [
-		'api_key'        => '',
-		'api_secret'     => '',
+		'api_key'    => '',
+		'api_secret' => '',
 	];
 
 	$settings    = get_autoshare_for_twitter_settings();
