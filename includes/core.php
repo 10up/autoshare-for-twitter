@@ -150,7 +150,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 
 	if ( 'publish' === $post_status && 'published' === $status ) {
 		$date        = Utils\date_from_twitter( $tweet_status['created_at'] );
-		$twitter_url = Utils\link_from_twitter( $tweet_status['twitter_id'] );
+		$twitter_url = Utils\link_from_twitter( $tweet_status );
 		$tweet_title = sprintf(
 			'%s %s',
 			__( 'Tweeted on', 'autoshare-for-twitter' ),

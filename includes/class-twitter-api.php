@@ -9,6 +9,8 @@ namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils as Utils;
 use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
+
 /**
  * Publish tweets to twitter.
  */
@@ -59,9 +61,9 @@ class Twitter_API {
 	/**
 	 * Construct the Twitter_API class.
 	 *
-	 * @param string $twitter_id The Twitter account ID.
+	 * @param string $account_id The Twitter account ID.
 	 */
-	public function __construct( $twitter_id = null ) {
+	public function __construct( $account_id = null ) {
 		$at_settings = Utils\get_autoshare_for_twitter_settings();
 
 		$this->consumer_key    = $at_settings['api_key'];
@@ -71,6 +73,22 @@ class Twitter_API {
 			$this->consumer_key,
 			$this->consumer_secret
 		);
+
+		if ( ! empty( $account_id ) ) {
+			$accounts = new Twitter_Accounts();
+			$account  = $accounts->get_twitter_account( $account_id );
+			if ( ! empty( $account ) ) {
+				$this->access_token        = $account['oauth_token'];
+				$this->access_token_secret = $account['oauth_token_secret'];
+
+				$this->client = new TwitterOAuth(
+					$this->consumer_key,
+					$this->consumer_secret,
+					$this->access_token,
+					$this->access_token_secret
+				);
+			}
+		}
 	}
 
 	/**
@@ -166,5 +184,40 @@ class Twitter_API {
 			'oauth_token'        => $this->access_token,
 			'oauth_token_secret' => $this->access_token_secret,
 		);
+	}
+
+	/**
+	 * Send Tweet to Twitter.
+	 *
+	 * @param array $update_data Tweet data.
+	 * @return object
+	 */
+	public function tweet( $update_data ) {
+		$this->client->setTimeouts( 10, 30 );
+		$this->client->setApiVersion( '2' );
+		$response = $this->client->post(
+			'tweets',
+			$update_data,
+			true
+		);
+
+		// Twitter API V2 wraps response in data.
+		if ( isset( $response->data ) ) {
+			$response = $response->data;
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Upload media to Twitter.
+	 *
+	 * @param string $image The path to the image file.
+	 * @return object
+	 */
+	public function upload_media( $image ) {
+		$this->client->setTimeouts( 10, 60 );
+		$this->client->setApiVersion( '1.1' );
+		return $this->client->upload( 'media/upload', array( 'media' => $image ) );
 	}
 }

@@ -301,6 +301,7 @@ function get_tweet_status_message( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -310,7 +311,8 @@ function get_tweet_status_message( $post ) {
 	}
 
 	foreach ( $tweet_metas as $tweet_meta ) {
-		$status = $tweet_meta['status'];
+		$status         = $tweet_meta['status'];
+		$twitter_handle = $tweet_meta['handle'] ?? '';
 		if ( 'publish' !== $post_status && empty( $status ) ) {
 			continue;
 		}
@@ -318,13 +320,14 @@ function get_tweet_status_message( $post ) {
 		switch ( $status ) {
 			case 'published':
 				$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
-				$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
+				$twitter_url = Utils\link_from_twitter( $tweet_meta );
 
 				$response_array[] = [
 					// Translators: Placeholder is a date.
 					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -333,6 +336,7 @@ function get_tweet_status_message( $post ) {
 				$response_array[] = [
 					'message' => __( 'Failed to tweet; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -341,6 +345,7 @@ function get_tweet_status_message( $post ) {
 				$response_array[] = [
 					'message' => $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -428,7 +433,7 @@ function get_tweet_status_logs( $post ) {
 function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
-	$twitter_url = Utils\link_from_twitter( $status_meta['twitter_id'] );
+	$twitter_url = Utils\link_from_twitter( $status_meta );
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)</div>',

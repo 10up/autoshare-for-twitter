@@ -262,15 +262,16 @@ function date_from_twitter( $created_at ) {
 /**
  * Format a URL based on the Twitter ID.
  *
- * @param int $post_id The post id.
+ * @param array $tweet_status Tweet status data.
  *
  * @return string
  */
-function link_from_twitter( $post_id ) {
+function link_from_twitter( $tweet_status ) {
 
-	$handle = get_autoshare_for_twitter_settings( 'twitter_handle' );
+	$tweet_id = $tweet_status['twitter_id'] ?? '';
+	$handle   = $tweet_status['handle'] ?? 'i/web';
 
-	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $post_id );
+	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $tweet_id );
 }
 
 /**

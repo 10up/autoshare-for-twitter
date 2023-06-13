@@ -10,6 +10,7 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Transition;
 use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
 use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
 use TenUp\AutoshareForTwitter\Core\Post_Meta as Meta;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
 use TenUp\AutoshareForTwitter\Utils as Utils;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
@@ -42,7 +43,7 @@ function setup() {
  * @param string  $old_status The old status.
  * @param WP_Post $post       The current post.
  *
- * @return object
+ * @return null
  */
 function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/*
@@ -83,6 +84,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 		// This will already have been done in REST because post data is updated before transition post status.
 		save_tweet_meta( $post->ID );
 		publish_tweet( $post->ID );
+		return;
 	}
 }
 
@@ -92,7 +94,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
  * @param int  $post_id The current post ID.
  * @param bool $force   Publish tweet regardless of autoshare enabled or disabled on post.
  *
- * @return object
+ * @return bool|null
  */
 function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );
@@ -117,35 +119,49 @@ function publish_tweet( $post_id, $force = false ) {
 	/*
 	 * One final check: was the "auto tweet" checkbox selected?
 	 */
-	if ( Utils\autoshare_enabled( $post->ID ) || $force ) {
-		$tweet = Utils\compose_tweet_body( $post );
+	if (
+		( Utils\autoshare_enabled( $post->ID ) || $force ) &&
+		! empty( Utils\get_tweet_accounts( $post->ID ) )
+	) {
+		$tweet   = Utils\compose_tweet_body( $post );
+		$publish = new Publish_Tweet();
 
-		$publish          = new Publish_Tweet();
-		$twitter_response = $publish->status_update( $tweet, $post );
-
-		$response = validate_response( $twitter_response );
-
-		if ( ! is_wp_error( $response ) ) {
-			update_autoshare_for_twitter_meta_from_response( $post->ID, $response );
-
-			/**
-			 * Fires after the status update to Twitter is considered successful.
-			 */
-			do_action( 'autoshare_for_twitter_success' );
-
-			return true;
-
-		} else {
-			// something here about it failing so do not allow republishing just in case.
-			update_autoshare_for_twitter_meta_from_response( $post->ID, $response );
-
-			/**
-			 * Fires if the response back from Twitter was an error.
-			 */
-			do_action( 'autoshare_for_twitter_failed' );
-
+		$connected_accounts = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+		$twitter_accounts   = Utils\get_tweet_accounts( $post->ID );
+		if ( empty( $twitter_accounts ) ) {
 			return false;
 		}
+
+		$failed = false;
+		// Loop through each Tweet enabled Twitter accounts and publish the tweet.
+		foreach ( $twitter_accounts as $account_id ) {
+			$account  = $connected_accounts[ $account_id ] ?? [];
+			$username = $account['username'] ?? '';
+
+			$twitter_response = $publish->status_update( $tweet, $post, $account_id );
+
+			$response = validate_response( $twitter_response );
+
+			if ( ! is_wp_error( $response ) ) {
+				update_autoshare_for_twitter_meta_from_response( $post->ID, $response, $username );
+
+				/**
+				 * Fires after the status update to Twitter is considered successful.
+				 */
+				do_action( 'autoshare_for_twitter_success' );
+			} else {
+				// something here about it failing so do not allow republishing just in case.
+				update_autoshare_for_twitter_meta_from_response( $post->ID, $response, $username );
+
+				/**
+				 * Fires if the response back from Twitter was an error.
+				 */
+				do_action( 'autoshare_for_twitter_failed' );
+				$failed = true;
+			}
+		}
+
+		return ( ! $failed );
 	}
 
 	return false;
@@ -218,14 +234,16 @@ function validate_response( $response ) {
  *
  * @param int    $post_id The post id.
  * @param object $data    The tweet request data.
+ * @param string $handle  The Twitter account handle.
  */
-function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
+function update_autoshare_for_twitter_meta_from_response( $post_id, $data, $handle = '' ) {
 
 	// No errors, Tweet considered successful.
 	if ( ! is_wp_error( $data ) ) {
 		$response = array(
 			'status'     => 'published',
 			'twitter_id' => (int) $data['id'],
+			'handle'     => $handle,
 			'created_at' => sanitize_text_field( $data['created_at'] ),
 		);
 
@@ -237,6 +255,7 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 
 		$response = array(
 			'status'  => 'error',
+			'handle'  => $handle,
 			'message' => sanitize_text_field( $error_code_text . $error_message->message ),
 		);
 
@@ -244,6 +263,7 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data ) {
 	} else {
 		$response = array(
 			'status'  => 'unknown',
+			'handle'  => $handle,
 			'message' => __( 'This post was not published to Twitter.', 'autoshare-for-twitter' ),
 		);
 	}

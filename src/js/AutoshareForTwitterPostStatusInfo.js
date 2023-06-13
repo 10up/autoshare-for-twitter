@@ -67,10 +67,13 @@ export function AutoshareForTwitterPostStatusInfo() {
 		<div className="autoshare-for-twitter-post-status">
 			{ statusMessages.message.map( ( statusMessage, index ) => {
 				const TweetIcon = getIconByStatus( statusMessage.status );
-
 				return (
 					<div className="autoshare-for-twitter-log" key={ index }>
-						{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : <ErrorMessage errorMessage={ statusMessage.message } /> }						
+						{ TweetIcon }
+						<span>
+							{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : <ErrorMessage errorMessage={ statusMessage.message } /> }
+							{ !!statusMessage.handle && <strong>{ ` - @`+statusMessage.handle }</strong> }
+						</span>
 					</div>
 				);
 			} ) }
