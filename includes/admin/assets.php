@@ -8,13 +8,17 @@
 
 namespace TenUp\AutoshareForTwitter\Admin\Assets;
 
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
+
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Utils\opted_into_autoshare_for_twitter;
 use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest_route;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
+use function TenUp\AutoshareForTwitter\Utils\get_tweet_accounts;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
@@ -193,6 +197,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	}
 
 	$status_meta = get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
+	$accounts    = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 
 	$localization = [
 		'enabled'            => autoshare_enabled( $post_id ),
@@ -207,6 +212,10 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'allowTweetImage'    => tweet_image_allowed( $post_id ),
 		'allowTweetImageKey' => TWEET_ALLOW_IMAGE,
 		'retweetAction'      => 'tenup_autoshare_retweet',
+		'connectAccountUrl'  => admin_url( 'options-general.php?page=autoshare-for-twitter' ),
+		'tweetAccounts'      => get_tweet_accounts( $post_id ),
+		'tweetAccountsKey'   => TWEET_ACCOUNTS_KEY,
+		'connectedAccounts'  => $accounts ?? [],
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );

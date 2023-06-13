@@ -223,3 +223,42 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	border-radius: 50%;
 	max-width: 48px;
 }
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper,
+.autoshare-for-twitter-editor-panel .twitter-accounts-wrapper {
+    margin-top: 24px;
+}
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper,
+.autoshare-for-twitter-editor-panel .twitter-account-wrapper {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper img,
+.autoshare-for-twitter-editor-panel .twitter-account-wrapper img {
+	max-width: 36px;
+    max-height: 36px;
+    border-radius: 50%;
+}
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper span.account-details,
+.autoshare-for-twitter-editor-panel .twitter-account-wrapper span.account-details {
+	padding-left: 8px;
+    padding-right: 8px;
+}
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper .autoshare-for-twitter-account-toggle,
+.autoshare-for-twitter-editor-panel .twitter-account-wrapper .autoshare-for-twitter-account-toggle {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: auto;
+}
+
+.autoshare-for-twitter-pre-publish-panel .twitter-account-wrapper span.connect-account-link,
+.autoshare-for-twitter-editor-panel .twitter-account-wrapper span.connect-account-link {
+    margin-top: 12px;
+    display: block;
+}

@@ -42,6 +42,11 @@ const TWITTER_STATUS_KEY = 'status';
 const TWEET_ALLOW_IMAGE = 'tweet-allow-image';
 
 /**
+ * Holds the tweet accounts
+ */
+const TWEET_ACCOUNTS_KEY = 'tweet_accounts';
+
+/**
  * The setup function
  *
  * @return void
@@ -124,6 +129,11 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
 
 			case TWEET_BODY_KEY:
 				$filtered_data[ $key ] = sanitize_text_field( $value );
+				break;
+
+			case TWEET_ACCOUNTS_KEY:
+				$filtered_data[ $key ] = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : [];
+				break;
 		}
 	}
 
@@ -180,6 +190,10 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 
 			case TWEET_ALLOW_IMAGE:
 				update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, $value ? 'yes' : 'no' );
+				break;
+
+			case TWEET_ACCOUNTS_KEY:
+				update_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY, $value );
 				break;
 
 			default:

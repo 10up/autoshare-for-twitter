@@ -4,6 +4,7 @@ import { useState } from '@wordpress/element';
 import { withSelect, useSelect } from '@wordpress/data';
 import { Button, ToggleControl, CardDivider, Icon, ExternalLink } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
+import { TwitterAccounts } from './components/TwitterAccounts';
 import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData } from './hooks';
 
 import { getIconByStatus } from './utils';
@@ -94,6 +95,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 							className="autoshare-for-twitter-toggle-control"
 						/>
 					) }
+					<TwitterAccounts />
 					<TweetTextField />
 					<Button
 						variant="primary"

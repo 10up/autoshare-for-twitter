@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Utils;
 use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
@@ -114,6 +115,28 @@ function tweet_image_allowed( $post_id ) {
 	 * @param int    The current post ID.
 	 */
 	return apply_filters( 'autoshare_for_twitter_tweet_image_allowed', $is_allowed, get_post_type( $post_id ), $post_id );
+}
+
+/**
+ * Returns tweet enabled Twitter accounts for the post.
+ *
+ * @param int $post_id A post ID.
+ * @return array
+ */
+function get_tweet_accounts( $post_id ) {
+	$tweet_accounts = get_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY );
+	if ( empty( $tweet_accounts ) ) {
+		$tweet_accounts = [];
+	}
+
+	/**
+	 * Filters tweet enabled Twitter accounts for the post.
+	 *
+	 * @param array  Tweet enabled Twitter accounts for the post.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_tweet_accounts', $tweet_accounts, get_post_type( $post_id ), $post_id );
 }
 
 /**

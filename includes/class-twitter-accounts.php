@@ -227,9 +227,11 @@ class Twitter_Accounts {
 	/**
 	 * Gets the list of Twitter accounts.
 	 *
+	 * @param bool $info_only Whether to return only the account info.
+	 *
 	 * @return array
 	 */
-	public function get_twitter_accounts() {
+	public function get_twitter_accounts( $info_only = false ) {
 		$accounts = get_option( $this->twitter_accounts_key, array() );
 
 		// Backwards compatibility.
@@ -243,6 +245,18 @@ class Twitter_Accounts {
 					$accounts[ $account['id'] ] = $account;
 				}
 			}
+		}
+
+		// Remove sensitive data.
+		if ( $info_only && ! empty( $accounts ) ) {
+			$accounts = array_map(
+				function( $account ) {
+					unset( $account['oauth_token'] );
+					unset( $account['oauth_token_secret'] );
+					return $account;
+				},
+				$accounts
+			);
 		}
 
 		return $accounts;

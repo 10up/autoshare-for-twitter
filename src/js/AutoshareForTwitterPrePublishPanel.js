@@ -11,6 +11,7 @@ import {
 	useHasFeaturedImage,
 } from './hooks';
 import { getIconByStatus } from './utils';
+import { TwitterAccounts } from './components/TwitterAccounts';
 
 export default function AutoshareForTwitterPrePublishPanel() {
 	const [ autoshareEnabled, setAutoshareEnabled ] = useTwitterAutoshareEnabled();
@@ -56,6 +57,8 @@ export default function AutoshareForTwitterPrePublishPanel() {
 					className="autoshare-for-twitter-toggle-control"
 				/>
 			) }
+
+			{ autoshareEnabled && <TwitterAccounts /> }
 
 			{ autoshareEnabled && (
 				<div className="autoshare-for-twitter-prepublish__override-row">
