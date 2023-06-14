@@ -162,6 +162,42 @@ class Twitter_Accounts {
 	}
 
 	/**
+	 * Disconnect twitter account.
+	 */
+	public function twitter_disconnect() {
+		// Check if the user has the correct permissions.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'autoshare-for-twitter' ) );
+		}
+
+		// Check if the nonce is valid.
+		if ( ! isset( $_GET['autoshare_twitter_disconnect_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['autoshare_twitter_disconnect_nonce'] ) ), 'autoshare_twitter_disconnect_action' ) ) {
+			wp_die( esc_html__( 'You have not access to doing this operations.', 'autoshare-for-twitter' ) );
+		}
+
+		if ( ! isset( $_GET['account_id'] ) ) {
+			wp_die( esc_html__( 'Twitter account ID is required to doing this operation.', 'autoshare-for-twitter' ) );
+		}
+
+		try {
+			$account_id  = sanitize_text_field( wp_unslash( $_GET['account_id'] ) );
+			$twitter_api = new Twitter_API( $account_id );
+			$twitter_api->disconnect_account();
+
+			// Delete account details.
+			$this->delete_twitter_account( $account_id );
+
+			$this->set_connection_notice( 'success', __( 'Twitter account disconnected successfully' ) );
+		} catch ( \Exception $e ) {
+			$this->set_connection_notice( 'error', __( 'Something went wrong. Please try again.', 'autoshare-for-twitter' ) );
+		}
+
+		// Redirect back to AutoShare settings page.
+		wp_safe_redirect( admin_url( 'options-general.php?page=autoshare-for-twitter' ) );
+		exit();
+	}
+
+	/**
 	 * Show notices for Twitter connection errors/success.
 	 *
 	 * @return void
@@ -221,6 +257,20 @@ class Twitter_Accounts {
 		$accounts = get_option( $this->twitter_accounts_key, array() );
 
 		$accounts[ $account['id'] ] = $account;
+		update_option( $this->twitter_accounts_key, $accounts );
+	}
+
+	/**
+	 * Delete connected Twitter account details.
+	 *
+	 * @param string $account_id Twitter Account ID.
+	 * @return void
+	 */
+	public function delete_twitter_account( $account_id ) {
+		$accounts = get_option( $this->twitter_accounts_key, array() );
+		if ( isset( $accounts[ $account_id ] ) ) {
+			unset( $accounts[ $account_id ] );
+		}
 		update_option( $this->twitter_accounts_key, $accounts );
 	}
 

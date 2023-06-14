@@ -80,11 +80,12 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 	 * Handles the action column output.
 	 *
 	 * @param array $item The current Twitter account item.
-	 * @todo Implement the disconnect functionality.
 	 */
 	public function column_action( $item ) {
+		$disconnect_url = wp_nonce_url( add_query_arg( 'account_id', $item['id'], admin_url( 'admin-post.php?action=autoshare_twitter_disconnect_action' ) ), 'autoshare_twitter_disconnect_action', 'autoshare_twitter_disconnect_nonce' );
 		printf(
-			'<a class="button button-secondary" href="#">%1$s</a>',
+			'<a class="button button-secondary" href="%1$s">%2$s</a>',
+			esc_url( $disconnect_url ),
 			esc_html__( 'Disconnect', 'autoshare-for-twitter' ),
 		);
 	}

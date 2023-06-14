@@ -220,4 +220,19 @@ class Twitter_API {
 		$this->client->setApiVersion( '1.1' );
 		return $this->client->upload( 'media/upload', array( 'media' => $image ) );
 	}
+
+	/**
+	 * Disconnect Twitter account.
+	 *
+	 * @return bool True if account was disconnected, false otherwise.
+	 */
+	public function disconnect_account() {
+		try {
+			$this->client->oauth( '1.1/oauth/invalidate_token' );
+			return true;
+		} catch ( \Exception $e ) {
+			// Do nothing.
+			return false;
+		}
+	}
 }
