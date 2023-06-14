@@ -383,6 +383,7 @@ function get_tweet_status_logs( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -434,13 +435,15 @@ function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
 	$twitter_url = Utils\link_from_twitter( $status_meta );
+	$handle      = $status_meta['handle'] ? ' - @' . $status_meta['handle'] : '';
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)</div>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
 		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'autoshare-for-twitter' )
+		esc_html__( 'View', 'autoshare-for-twitter' ),
+		esc_attr( $handle )
 	);
 }
 
@@ -453,6 +456,7 @@ function markup_published( $status_meta ) {
  * @return string
  */
 function markup_error( $status_meta ) {
+	$handle     = $status_meta['handle'] ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	$learn_more = '';
 	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
 		$learn_more = sprintf(
@@ -463,9 +467,10 @@ function markup_error( $status_meta ) {
 	}
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre>%s</div>',
 		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
-		esc_html( $status_meta['message'] ) . $learn_more
+		esc_html( $status_meta['message'] ) . wp_kses_post( $learn_more ),
+		wp_kses_post( $handle )
 	);
 }
 
@@ -478,9 +483,10 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
+	$handle = $status_meta['handle'] ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
-		esc_html( $status_meta['message'] )
+		esc_html( $status_meta['message'] ) . wp_kses_post( $handle )
 	);
 }
 

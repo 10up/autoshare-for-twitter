@@ -84,6 +84,7 @@ class TestPostMeta extends WP_UnitTestCase {
 						'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
 						'url'     => 'https://twitter.com//status/444',
 						'status'  => 'published',
+						'handle'  => '',
 					],
 				],
 			],
