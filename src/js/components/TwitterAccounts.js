@@ -16,7 +16,7 @@ export function TwitterAccounts() {
 	const accounts = connectedAccounts ? Object.values(connectedAccounts) : [];
 
 	return (
-		<div className="twitter-accounts-wrapper">
+		<div className="autoshare-for-twitter-accounts-wrapper">
 			{ accounts.map((account) => (
 				<TwitterAccount key={ account.id } { ...account } />
 			)) }
