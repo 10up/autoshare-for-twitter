@@ -2,23 +2,12 @@ import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
 import { withSelect, useSelect } from '@wordpress/data';
-import { Button, ToggleControl, CardDivider, Icon, ExternalLink } from '@wordpress/components';
+import { Button, ToggleControl, Icon } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
 import { TwitterAccounts } from './components/TwitterAccounts';
 import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData } from './hooks';
 
-import { getIconByStatus } from './utils';
-
-// Error message component.
-const ErrorMessage = ( { errorMessage } ) => {
-	return (
-		<span>
-			{ errorMessage }
-			{ ' ' }
-			{ ( errorMessage?.includes( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' ) ) && <ExternalLink href={ 'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate' }>{ __( 'Learn more here.' ) }</ExternalLink> }
-		</span>
-	);
-};
+import { StatusLogs } from './components/StatusLogs';
 
 export function AutoshareForTwitterPostStatusInfo() {
 	const hasFeaturedImage = useHasFeaturedImage();
@@ -64,20 +53,8 @@ export function AutoshareForTwitterPostStatusInfo() {
 	const chevronDown = <Icon icon={ <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg> } />;
 
 	return (
-		<div className="autoshare-for-twitter-post-status">
-			{ statusMessages.message.map( ( statusMessage, index ) => {
-				const TweetIcon = getIconByStatus( statusMessage.status );
-				return (
-					<div className="autoshare-for-twitter-log" key={ index }>
-						{ TweetIcon }
-						<span>
-							{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : <ErrorMessage errorMessage={ statusMessage.message } /> }
-							{ !!statusMessage.handle && <strong>{ ` - @`+statusMessage.handle }</strong> }
-						</span>
-					</div>
-				);
-			} ) }
-			<CardDivider />
+		<>
+			<StatusLogs messages={ statusMessages } />
 			<Button
 				className="autoshare-for-twitter-tweet-now"
 				variant="link"
@@ -110,7 +87,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 					/>
 				</>
 			) }
-		</div>
+		</>
 	);
 }
 

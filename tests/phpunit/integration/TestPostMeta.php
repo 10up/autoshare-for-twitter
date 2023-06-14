@@ -70,6 +70,7 @@ class TestPostMeta extends WP_UnitTestCase {
 					'status'     => 'published',
 					'created_at' => '2017-01-01',
 					'twitter_id' => 444,
+					'handle'     => '',
 				];
 			}
 
