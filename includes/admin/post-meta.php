@@ -481,7 +481,7 @@ function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
 	$twitter_url = Utils\link_from_twitter( $status_meta );
-	$handle      = isset( $status_meta['handle'] ) ? ' - @' . $status_meta['handle'] : '';
+	$handle      = ! empty( $status_meta['handle'] ) ? ' - @' . $status_meta['handle'] : '';
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
@@ -502,7 +502,7 @@ function markup_published( $status_meta ) {
  * @return string
  */
 function markup_error( $status_meta ) {
-	$handle     = isset( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
+	$handle     = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	$learn_more = '';
 	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
 		$learn_more = sprintf(
@@ -529,7 +529,7 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
-	$handle = isset( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
+	$handle = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
 		esc_html( $status_meta['message'] ) . wp_kses_post( $handle )
