@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
  * Aliases
  */
 use TenUp\AutoshareForTwitter\Utils as Utils;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
 
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
@@ -250,7 +251,7 @@ function render_tweet_submitbox( $post ) {
 		<hr/>
 		<button class="button button-link tweet-now-button">
 		<?php esc_attr_e( 'Tweet Now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
-		</button>		
+		</button>
 		<div class="autoshare-for-twitter-tweet-now-wrapper" style="display: none;">
 			<?php
 			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -274,6 +275,51 @@ function render_tweet_submitbox( $post ) {
 		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
+}
+
+
+/**
+ * Render the Twitter accounts to be used for autosharing.
+ *
+ * @param int $post_id The post ID.
+ */
+function render_twitter_accounts( $post_id ) {
+	$enabled  = Utils\get_tweet_accounts( $post_id );
+	$accounts = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+	if ( empty( $accounts ) ) {
+		return;
+	}
+	?>
+	<div class="autoshare-for-twitter-accounts-wrapper">
+		<?php
+		foreach ( $accounts as $account ) {
+			?>
+			<div class="twitter-account-wrapper">
+				<img src="<?php echo esc_url( $account['profile_image_url'] ); ?>" alt="<?php echo esc_attr( $account['name'] ); ?>" class="twitter-account-profile-image" />
+				<span class="account-details">
+					<strong>@<?php echo esc_attr( $account['username'] ); ?></strong>
+					<br />
+					<?php echo esc_attr( $account['name'] ); ?>
+				</span>
+				<input
+					type="checkbox"
+					class="autoshare-for-twitter-account-checkbox"
+					id="autoshare-for-twitter-account-<?php echo esc_attr( $account['id'] ); ?>"
+					name="<?php echo esc_attr( sprintf( '%s[%s][]', META_PREFIX, TWEET_ACCOUNTS_KEY ) ); ?>"
+					value="<?php echo esc_attr( $account['id'] ); ?>"
+					<?php checked( true, in_array( $account['id'], $enabled, true ), true ); ?>
+				/>
+			</div>
+			<?php
+		}
+		?>
+		<span class="connect-account-link">
+			<a href="<?php echo esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) ); ?>" target="_blank">
+				<?php esc_attr_e( 'Connect an account', 'autoshare-for-twitter' ); ?>
+			</a>
+		</span>
+	</div>
+	<?php
 }
 
 /**
@@ -435,7 +481,7 @@ function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
 	$twitter_url = Utils\link_from_twitter( $status_meta );
-	$handle      = $status_meta['handle'] ? ' - @' . $status_meta['handle'] : '';
+	$handle      = isset( $status_meta['handle'] ) ? ' - @' . $status_meta['handle'] : '';
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
@@ -456,7 +502,7 @@ function markup_published( $status_meta ) {
  * @return string
  */
 function markup_error( $status_meta ) {
-	$handle     = $status_meta['handle'] ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
+	$handle     = isset( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	$learn_more = '';
 	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
 		$learn_more = sprintf(
@@ -483,7 +529,7 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
-	$handle = $status_meta['handle'] ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
+	$handle = isset( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
 		esc_html( $status_meta['message'] ) . wp_kses_post( $handle )
@@ -527,6 +573,11 @@ function _safe_markup_default() {
 			</label>
 		</p>
 	</div>
+
+	<?php
+	// Display twitter accounts.
+	render_twitter_accounts( get_the_ID() );
+	?>
 
 	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
