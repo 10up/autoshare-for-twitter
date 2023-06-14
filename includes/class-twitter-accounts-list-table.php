@@ -58,7 +58,7 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		$accounts    = new Twitter_Accounts();
-		$this->items = $accounts->get_twitter_accounts();
+		$this->items = $accounts->get_twitter_accounts( true );
 	}
 
 	/**

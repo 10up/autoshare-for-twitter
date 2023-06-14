@@ -161,6 +161,12 @@ function enqueue_editor_assets() {
 		return;
 	}
 
+	// Don't load if no Twitter accounts are configured.
+	$accounts = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+	if ( empty( $accounts ) ) {
+		return;
+	}
+
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
 		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/autoshare-for-twitter.js',
