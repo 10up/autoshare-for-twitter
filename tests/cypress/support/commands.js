@@ -114,3 +114,46 @@ Cypress.Commands.add( 'enableEditor', ( editor = 'block' ) => {
 		cy.get('#classic-editor-allow').click();
 		cy.get('#submit').click();
 });
+
+Cypress.Commands.add( 'enableTweetAccount', ( selector, check = true ) => {
+	// Check/Uncheck enable checkbox for auto-share.
+	const checkbox = cy.get(selector).first();
+	checkbox.should('exist');
+	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as('enableTweetAccount');
+	if (true === check) {
+		checkbox.check({force: true});
+		cy.wait('@enableTweetAccount');
+		checkbox.should('be.checked');
+	} else {
+		checkbox.uncheck({force: true});
+		cy.wait('@enableTweetAccount');
+		checkbox.should('not.be.checked');
+	}
+});
+
+Cypress.Commands.add( 'configurePlugin', () => {
+	cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
+	cy.get('body').then($body => {
+		const apiKeySelector = '.credentials-setup.connected';
+        if ($body.find(apiKeySelector).length < 1) {
+            cy.get('.large-text:nth-child(1) .large-text').clear().type( 'TEST_TWITTER_API_KEY' );
+			cy.get('.large-text:nth-child(2) .large-text').clear().type( 'TEST_TWITTER_API_SECRET' );
+			cy.get('#submit').click();
+        }
+    });
+
+	cy.get('body').then($body => {
+		const accountSelector = '.twitter_accounts #the-list tr';
+        if ($body.find(accountSelector).length < 2) {
+			cy.connectAccounts();
+        }
+    });
+});
+
+Cypress.Commands.add( 'clearPluginSettings', () => {
+	cy.wpCli(`option delete autoshare-for-twitter autoshare_for_twitter_accounts`);
+});
+
+Cypress.Commands.add( 'connectAccounts', () => {
+	cy.wpCli(`option update autoshare_for_twitter_accounts '{"TEST_ACCOUNT_ID":{"id":"TEST_ACCOUNT_ID","name":"Test Twitter User","username":"testtwitteruser","profile_image_url":"https://placehold.co\/48x48?text=T1","oauth_token":"TEST_OUTH_TOKEN","oauth_token_secret":"TEST_OUTH_TOKEN_SECRET"},"TEST_ACCOUNT_ID2":{"id":"TEST_ACCOUNT_ID2","name":"Test Twitter User 2","username":"testtwitteruser2","profile_image_url":"https://placehold.co\/48x48?text=T2","oauth_token":"TEST_OUTH_TOKEN2","oauth_token_secret":"TEST_OUTH_TOKEN_SECRET2"}}' --format=json`);
+});
