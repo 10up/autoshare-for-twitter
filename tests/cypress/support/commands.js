@@ -60,11 +60,12 @@ Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, che
 	} else {
 		cy.get(checkboxSelector).should('not.be.checked');
 	}
-	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as('enableCheckbox');
+	const alias = `enableCheckbox${new Date().getTime()}${Math.floor(Math.random() * 999)}`;
+	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as(alias);
 	if (true === check) {
 		cy.get(checkboxSelector).check({force: true});
 		if(defaultBehavior !== check){
-			cy.wait('@enableCheckbox').then(response => {
+			cy.wait(`@${alias}`).then(response => {
 				expect(response.response?.body?.enabled).to.equal(check);
 			});
 		}
@@ -72,10 +73,44 @@ Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, che
 	} else {
 		cy.get(checkboxSelector).uncheck({force: true});
 		if(defaultBehavior !== check){
-			cy.wait('@enableCheckbox').then(response => {
+			cy.wait(`@${alias}`).then(response => {
 				expect(response.response?.body?.enabled).to.equal(check);
 			});
 		}
 		cy.get(checkboxSelector).should('not.be.checked');
 	}
+});
+
+Cypress.Commands.add( 'openAutoTweetPanel', ( inPrePublish = false ) => {
+	// Open Autotweet Panel.
+	let panelSelector = inPrePublish ? '.autoshare-for-twitter-pre-publish-panel' : '.autoshare-for-twitter-editor-panel';
+	cy.get(`${panelSelector} button.components-button`).then($button => {
+		const $panel = $button.parents('.components-panel__body');
+		if (!$panel.hasClass('is-opened')) {
+			cy.wrap($button)
+				.click()
+				.parents('.components-panel__body')
+				.should('have.class', 'is-opened');
+		}
+	});
+});
+
+Cypress.Commands.add( 'markAccountForAutoshare', ( enable = true ) => {
+	cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
+	cy.get('.twitter_accounts #the-list tr').should('be.visible');
+	const checkbox = cy.get('input[name="autoshare-for-twitter[autoshare_accounts][]"]').first();
+	if ( enable ) {
+		checkbox.should('exist').check();
+	} else {
+		checkbox.should('exist').uncheck();
+	}
+	cy.get('#submit').click();
+	cy.get('.notice.notice-success').should('be.visible');
+});
+
+Cypress.Commands.add( 'enableEditor', ( editor = 'block' ) => {
+	cy.visit('/wp-admin/options-writing.php#classic-editor-options');
+		cy.get(`#classic-editor-${editor}`).click();
+		cy.get('#classic-editor-allow').click();
+		cy.get('#submit').click();
 });
