@@ -54,31 +54,30 @@ Cypress.Commands.add( 'openPrePublishPanel', () => {
 
 Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, check = true ) => {
 	// Check/Uncheck enable checkbox for auto-share.
-	const checkbox = cy.get(checkboxSelector).first();
-	checkbox.should('exist');
+	cy.get(checkboxSelector).should('exist');
 	if (true === defaultBehavior) {
-		checkbox.should('be.checked');
+		cy.get(checkboxSelector).should('be.checked');
 	} else {
-		checkbox.should('not.be.checked');
+		cy.get(checkboxSelector).should('not.be.checked');
 	}
 	const alias = `enableCheckbox${new Date().getTime()}${Math.floor(Math.random() * 999)}`;
 	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as(alias);
 	if (true === check) {
-		checkbox.check({force: true});
+		cy.get(checkboxSelector).check({force: true});
 		if(defaultBehavior !== check){
 			cy.wait(`@${alias}`).then(response => {
 				expect(response.response?.body?.enabled).to.equal(check);
 			});
 		}
-		checkbox.should('be.checked');
+		cy.get(checkboxSelector).should('be.checked');
 	} else {
-		checkbox.uncheck({force: true});
+		cy.get(checkboxSelector).uncheck({force: true});
 		if(defaultBehavior !== check){
 			cy.wait(`@${alias}`).then(response => {
 				expect(response.response?.body?.enabled).to.equal(check);
 			});
 		}
-		checkbox.should('not.be.checked');
+		cy.get(checkboxSelector).should('not.be.checked');
 	}
 });
 
