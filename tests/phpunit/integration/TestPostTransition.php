@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Tests;
 use WP_UnitTestCase;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet;
 
@@ -115,7 +116,10 @@ class TestPostTransition extends WP_UnitTestCase {
 		add_filter( 'autoshare_for_twitter_pre_status_update', $pre_status_update_callback );
 
 		$post_form_data_callback = function() use ( $autoshare_enabled_form_data ) {
-			return [ ENABLE_AUTOSHARE_FOR_TWITTER_KEY => $autoshare_enabled_form_data ];
+			return [
+				ENABLE_AUTOSHARE_FOR_TWITTER_KEY => $autoshare_enabled_form_data,
+				TWEET_ACCOUNTS_KEY               => [ 'DUMMY_ACCOUNT_ID' ],
+			];
 		};
 		add_filter( 'autoshare_post_form_data', $post_form_data_callback );
 
