@@ -12,10 +12,10 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 	});
 
 	it('Update settings to keep the default editor as block editor', () => {
-		cy.visit('/wp-admin/options-writing.php#classic-editor-options');
-		cy.get('#classic-editor-block').click();
-		cy.get('#classic-editor-allow').click();
-		cy.get('#submit').click();
+		cy.enableEditor('block');
+
+		// Enable Autoshare on account.
+		cy.markAccountForAutoshare();
 	});
 
 	// Run test cases with default Autoshare enabled and disabled both.
@@ -140,9 +140,9 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 	
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
 			cy.openDocumentSettingsPanel('Autotweet');
-			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-tweet-now').click();
-			cy.get('.autoshare-for-twitter-post-status .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`);
-			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-re-tweet').click();
+			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-tweet-now').click();
+			cy.get('.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`);
+			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-re-tweet').click();
 			cy.get('.autoshare-for-twitter-log a').contains('Tweeted on');
 		});
 	});
