@@ -50,6 +50,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
 			// Post-publish.
+			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 		});
@@ -69,6 +70,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
 			// Post-publish.
+			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
 		});
@@ -93,6 +95,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
 			// Post-publish.
+			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
 		});
@@ -117,6 +120,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
 			// Post-publish.
+			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
 		});
@@ -133,6 +137,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', false);
 
 			// Publish.
+			cy.openAutoTweetPanel();
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
@@ -156,6 +161,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', true);
 
 			// Publish.
+			cy.openAutoTweetPanel();
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
 			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
 
