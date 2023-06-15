@@ -109,6 +109,7 @@ class TestPostMeta extends WP_UnitTestCase {
 				return [
 					'status'  => 'error',
 					'message' => 'There was an error.',
+					'handle'  => '',
 				];
 			}
 
@@ -123,6 +124,7 @@ class TestPostMeta extends WP_UnitTestCase {
 					[
 						'message' => 'Failed to tweet; There was an error.',
 						'status'  => 'error',
+						'handle'  => '',
 					],
 				],
 			],
@@ -145,6 +147,7 @@ class TestPostMeta extends WP_UnitTestCase {
 				return [
 					'status'  => 'unknown',
 					'message' => 'There was an error.',
+					'handle'  => '',
 				];
 			}
 
@@ -157,6 +160,7 @@ class TestPostMeta extends WP_UnitTestCase {
 					[
 						'message' => 'There was an error.',
 						'status'  => 'unknown',
+						'handle'  => '',
 					],
 				],
 			],
