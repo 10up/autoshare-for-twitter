@@ -27,3 +27,8 @@ add_filter(
 		);
 	}
 );
+
+/**
+ * Mock the Twitter invalidate token API.
+ */
+add_filter( 'autoshare_for_twitter_pre_disconnect_account', '__return_true' );

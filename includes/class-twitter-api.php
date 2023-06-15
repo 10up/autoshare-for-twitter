@@ -228,6 +228,15 @@ class Twitter_API {
 	 */
 	public function disconnect_account() {
 		try {
+			/**
+			 * Filters the disconnect account request before it is sent, to facilitate testing.
+			 *
+			 * @param null|mixed Any non-null value will suppress the request to Twitter's API.
+			 */
+			if ( ! is_null( apply_filters( 'autoshare_for_twitter_pre_disconnect_account', null ) ) ) {
+				return true;
+			}
+
 			$this->client->oauth( '1.1/oauth/invalidate_token' );
 			return true;
 		} catch ( \Exception $e ) {
