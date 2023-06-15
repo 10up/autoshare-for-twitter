@@ -58,7 +58,7 @@ jobs:
         run: npm install
 
       - name: Set the core version and plugins config 
-        run: ./tests/bin/set-wp-config.js --core=${{ matrix.core.version }} --plugins=./${{ github.event.repository.name }},https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip,./test-plugin
+        run: ./tests/bin/set-wp-config.js --core=${{ matrix.core.version }} --plugins=./${{ github.event.repository.name }},https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip,./tests/test-plugin
 
       - name: Set up WP environment
         run: npm run env:start
