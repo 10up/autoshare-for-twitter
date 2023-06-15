@@ -148,15 +148,13 @@ function get_tweet_accounts( $post_id ) {
  */
 function get_autoshare_for_twitter_settings( $key = '' ) {
 	$defaults = [
-		'enable_for'     => 'selected',
-		'post_types'     => get_post_types_supported_by_default(),
-		'enable_default' => 1,
-		'enable_upload'  => 1,
-		'access_secret'  => '',
-		'access_token'   => '',
-		'api_key'        => '',
-		'api_secret'     => '',
-		'twitter_handle' => '',
+		'enable_for'         => 'selected',
+		'post_types'         => get_post_types_supported_by_default(),
+		'enable_default'     => 1,
+		'enable_upload'      => 1,
+		'api_key'            => '',
+		'api_secret'         => '',
+		'autoshare_accounts' => [],
 	];
 
 	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );
@@ -405,4 +403,13 @@ function get_enabled_post_types() {
 		return get_available_post_types();
 	}
 	return get_autoshare_for_twitter_settings( 'post_types' );
+}
+
+/**
+ * Get enabled post types.
+ *
+ * @return array
+ */
+function get_default_autoshare_accounts() {
+	return get_autoshare_for_twitter_settings( 'autoshare_accounts' );
 }

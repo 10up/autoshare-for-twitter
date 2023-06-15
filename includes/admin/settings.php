@@ -115,6 +115,18 @@ function register_settings() {
 		]
 	);
 
+	// Twitter account connection table.
+	add_settings_field(
+		'autoshare-autoshare_accounts',
+		__( 'Twitter accounts', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\twitter_accounts_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name' => 'autoshare_accounts',
+		]
+	);
+
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
@@ -149,15 +161,6 @@ function register_settings() {
 			'class'       => 'large-text',
 			'placeholder' => __( 'paste your API Key Secret here', 'autoshare-for-twitter' ),
 		]
-	);
-
-	// Twitter account connection table.
-	add_settings_field(
-		'autoshare-twitter_accounts',
-		__( 'Twitter accounts', 'autoshare-for-twitter' ),
-		__NAMESPACE__ . '\twitter_accounts_field_cb',
-		'autoshare-for-twitter',
-		'autoshare-general_section'
 	);
 }
 

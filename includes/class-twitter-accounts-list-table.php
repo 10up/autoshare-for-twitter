@@ -43,8 +43,9 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'account' => __( 'Twitter account', 'autoshare-for-twitter' ),
-			'action'  => __( 'Action', 'autoshare-for-twitter' ),
+			'account'            => __( 'Twitter account', 'autoshare-for-twitter' ),
+			'autoshare_accounts' => __( 'Autoshare by default', 'autoshare-for-twitter' ),
+			'action'             => __( 'Action', 'autoshare-for-twitter' ),
 		);
 	}
 
@@ -73,6 +74,26 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 			esc_attr( $item['name'] ),
 			'@' . esc_attr( $item['username'] ),
 			esc_html( $item['name'] ),
+		);
+	}
+
+	/**
+	 * Handles the "Autoshare by default" column output.
+	 *
+	 * @param array $item The current Twitter account item.
+	 */
+	public function column_autoshare_accounts( $item ) {
+		$settings_key = 'autoshare-for-twitter';
+		$options      = get_option( $settings_key, array() );
+		$accounts     = $options['autoshare_accounts'] ?? array();
+		$account_id   = $item['id'];
+		$name         = $settings_key . '[autoshare_accounts][]';
+
+		printf(
+			'<input type="checkbox" name="%1$s" value="%2$s" %3$s/>',
+			esc_attr( $name ),
+			esc_attr( $account_id ),
+			checked( true, in_array( $account_id, $accounts, true ), false )
 		);
 	}
 
