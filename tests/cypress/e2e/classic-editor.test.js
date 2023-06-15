@@ -3,11 +3,12 @@ import { getRandomText } from "../support/functions";
 describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	before(() => {
 		cy.login();
+		
+		cy.enableEditor('classic');
+		cy.configurePlugin();
 	});
 
-	it('Update settings to keep the default editor as Classic editor', () => {
-		cy.enableEditor('classic');
-
+	beforeEach(() => {
 		// Enable Autoshare on account.
 		cy.markAccountForAutoshare();
 	});
@@ -87,6 +88,41 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
 			cy.get('#autoshare_for_twitter_metabox').contains('Tweeted on');
+		});
+
+		it('Tests that new post is not tweeted when tweet accounts are unchecked', () => {
+			// Start create post.
+			cy.classicStartCreatePost();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
+			cy.enableTweetAccount('input.autoshare-for-twitter-account-checkbox', false);
+
+			// publish
+			cy.get('#publish').should('be.visible').click({force: true});
+
+			// Post-publish.
+			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post was not tweeted');
+		});
+
+		it('Tests that new post is tweeted when tweet accounts are checked', () => {
+			// Disable Autoshare on account.
+			cy.markAccountForAutoshare(false);
+			
+			// Start create post.
+			cy.classicStartCreatePost();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
+			cy.enableTweetAccount('input.autoshare-for-twitter-account-checkbox', true);
+
+			// publish
+			cy.get('#publish').should('be.visible').click({force: true});
+
+			// Post-publish.
+			cy.get('#autoshare_for_twitter_metabox',).should('be.visible');
+			cy.get('#autoshare_for_twitter_metabox',).contains('Tweeted on');
 		});
 
 		it('Tweet Now should work fine', () => {

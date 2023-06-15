@@ -9,11 +9,12 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 				return false;
 			}
 		});
+
+		cy.enableEditor('block');
+		cy.configurePlugin();
 	});
 
-	it('Update settings to keep the default editor as block editor', () => {
-		cy.enableEditor('block');
-
+	beforeEach(() => {
 		// Enable Autoshare on account.
 		cy.markAccountForAutoshare();
 	});
@@ -110,6 +111,49 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 
 			// Check enable checkbox for auto-share.
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
+
+			// Publish.
+			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+			cy.get('.editor-post-publish-button').click();
+
+			// Post-publish.
+			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+		});
+
+		it('Tests that new post is not tweeted when tweet accounts are unchecked', () => {
+			// Start create new post by enter post title
+			cy.startCreatePost();
+
+			// Open pre-publish Panel.
+			cy.openPrePublishPanel();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
+			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', false);
+
+			// Publish.
+			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
+			cy.get('.editor-post-publish-button').click();
+
+			// Post-publish.
+			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+		});
+
+		it('Tests that new post is tweeted when tweet accounts are checked', () => {
+			// Disable Autoshare on account.
+			cy.markAccountForAutoshare(false);
+
+			// Start create new post by enter post title
+			cy.startCreatePost();
+
+			// Open pre-publish Panel.
+			cy.openPrePublishPanel();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
+			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', true);
 
 			// Publish.
 			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
