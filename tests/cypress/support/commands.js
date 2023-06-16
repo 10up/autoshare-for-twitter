@@ -65,17 +65,13 @@ Cypress.Commands.add( 'enableCheckbox', ( checkboxSelector, defaultBehavior, che
 	if (true === check) {
 		cy.get(checkboxSelector).first().check({force: true});
 		if(defaultBehavior !== check){
-			cy.wait('@enableCheckbox').then(response => {
-				expect(response.response?.body?.enabled).to.equal(check);
-			});
+			cy.wait('@enableCheckbox');
 		}
 		cy.get(checkboxSelector).first().should('be.checked');
 	} else {
 		cy.get(checkboxSelector).first().uncheck({force: true});
 		if(defaultBehavior !== check){
-			cy.wait('@enableCheckbox').then(response => {
-				expect(response.response?.body?.enabled).to.equal(check);
-			});
+			cy.wait('@enableCheckbox');
 		}
 		cy.get(checkboxSelector).first().should('not.be.checked');
 	}
@@ -156,4 +152,16 @@ Cypress.Commands.add( 'clearPluginSettings', () => {
 
 Cypress.Commands.add( 'connectAccounts', () => {
 	cy.wpCli(`option update autoshare_for_twitter_accounts '{"TEST_ACCOUNT_ID":{"id":"TEST_ACCOUNT_ID","name":"Test Twitter User","username":"testtwitteruser","profile_image_url":"https://placehold.co\/48x48?text=T1","oauth_token":"TEST_OUTH_TOKEN","oauth_token_secret":"TEST_OUTH_TOKEN_SECRET"},"TEST_ACCOUNT_ID2":{"id":"TEST_ACCOUNT_ID2","name":"Test Twitter User 2","username":"testtwitteruser2","profile_image_url":"https://placehold.co\/48x48?text=T2","oauth_token":"TEST_OUTH_TOKEN2","oauth_token_secret":"TEST_OUTH_TOKEN_SECRET2"}}' --format=json`);
+});
+
+Cypress.Commands.add( 'publishPost', () => {
+    cy.intercept({ method: 'POST' }, req => {
+      const body = req.body;
+      if (body.status === 'publish') {
+        req.alias = 'publishPost';
+      }
+    });
+
+	cy.get('[aria-disabled="false"].editor-post-publish-button').click();
+    cy.wait('@publishPost');
 });

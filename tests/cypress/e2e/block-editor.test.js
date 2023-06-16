@@ -46,8 +46,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -65,8 +64,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -89,8 +87,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -113,8 +110,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -133,8 +129,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', false);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -156,8 +151,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', true);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -175,8 +169,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 	
 			// Publish
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('[aria-disabled="false"].editor-post-publish-button').click({force: true});
+			cy.publishPost();
 	
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
