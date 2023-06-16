@@ -10,7 +10,7 @@ import {
 /**
  * Twitter accounts component.
  *
- * @return Twitter accounts component.
+ * @return {Function} Twitter accounts component.
  */
 export function TwitterAccounts() {
 	const accounts = connectedAccounts ? Object.values(connectedAccounts) : [];
@@ -32,7 +32,9 @@ export function TwitterAccounts() {
 /**
  * Twitter account component.
  *
- * @return Twitter account component.
+ * @param {Object} props Twitter account props.
+ *
+ * @return {Function} Twitter account component.
  */
 function TwitterAccount(props) {
 	const [tweetAccounts, setTweetAccounts] = useTweetAccounts();

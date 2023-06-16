@@ -225,11 +225,11 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 }
 
 .autoshare-for-twitter-accounts-wrapper {
-    margin-top: 24px;
+	margin-top: 24px;
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-accounts-wrapper {
-    margin-top: 12px;
+	margin-top: 12px;
 }
 
 .autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper {
@@ -241,13 +241,13 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 
 .autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper img {
 	max-width: 36px;
-    max-height: 36px;
-    border-radius: 50%;
+	max-height: 36px;
+	border-radius: 50%;
 }
 
 .autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper span.account-details {
 	padding-left: 8px;
-    padding-right: 8px;
+	padding-right: 8px;
 }
 
 #autoshare_for_twitter_metabox .twitter-account-wrapper input.autoshare-for-twitter-account-checkbox{
@@ -261,6 +261,6 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 }
 
 .autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper span.connect-account-link {
-    margin-top: 12px;
-    display: block;
+	margin-top: 12px;
+	display: block;
 }
