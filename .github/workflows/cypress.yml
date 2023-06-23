@@ -70,7 +70,15 @@ jobs:
           CYPRESS_TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET_V2 }}
           CYPRESS_TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN_V2 }}
           CYPRESS_TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET_V2 }}
-          
+
+      - name: Update summary
+        run: |
+          npx mochawesome-merge ./tests/cypress/reports/*.json -o tests/cypress/reports/mochawesome.json
+          rm -rf ./tests/cypress/reports/mochawesome-*.json
+          npx mochawesome-json-to-md -p ./tests/cypress/reports/mochawesome.json -o ./tests/cypress/reports/mochawesome.md
+          npx mochawesome-report-generator tests/cypress/reports/mochawesome.json -o tests/cypress/reports/
+          cat ./tests/cypress/reports/mochawesome.md >> $GITHUB_STEP_SUMMARY
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         if: failure()
@@ -81,11 +89,3 @@ jobs:
             ${{ github.workspace }}/tests/cypress/screenshots/
             ${{ github.workspace }}/tests/cypress/videos/
             ${{ github.workspace }}/tests/cypress/logs/
-
-      - name: Update summary
-        run: |
-          npx mochawesome-merge ./tests/cypress/reports/*.json -o tests/cypress/reports/mochawesome.json
-          rm -rf ./tests/cypress/reports/mochawesome-*.json
-          npx mochawesome-json-to-md -p ./tests/cypress/reports/mochawesome.json -o ./tests/cypress/reports/mochawesome.md
-          npx mochawesome-report-generator tests/cypress/reports/mochawesome.json -o tests/cypress/reports/
-          cat ./tests/cypress/reports/mochawesome.md >> $GITHUB_STEP_SUMMARY
