@@ -72,6 +72,7 @@ jobs:
           CYPRESS_TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET_V2 }}
 
       - name: Update summary
+        if: always()
         run: |
           npx mochawesome-merge ./tests/cypress/reports/*.json -o tests/cypress/reports/mochawesome.json
           rm -rf ./tests/cypress/reports/mochawesome-*.json
