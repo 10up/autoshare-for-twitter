@@ -12,7 +12,7 @@ import {
 } from './constants';
 
 export const DEFAULT_STATE = {
-	autoshareEnabled: ! ! enabled,
+	autoshareEnabled: ( ! ! enabled && '0' !== enabled ),
 	errorMessage: '',
 	loaded: false,
 	overriding: false,

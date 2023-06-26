@@ -406,6 +406,21 @@ function get_enabled_post_types() {
 }
 
 /**
+ * Mask secure values.
+ *
+ * @param string $value Original value.
+ *
+ * @return string
+ */
+function mask_secure_values( $value ) {
+	$count  = strlen( $value );
+	$substr = substr( $value, -5 );
+	$return = str_pad( $substr, $count, '*', STR_PAD_LEFT );
+
+	return $return;
+}
+
+/**
  * Get enabled post types.
  *
  * @return array

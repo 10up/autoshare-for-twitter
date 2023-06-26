@@ -17,7 +17,15 @@ module.exports = defineConfig({
   retries: {
     runMode: 2,
     openMode: 0
-  }
+  },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    mochaFile: "mochawesome-[name]",
+    reportDir: __dirname + "/reports",
+    overwrite: false,
+    html: false,
+    json: true
+  },
 });
   
 /**

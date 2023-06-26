@@ -40,13 +40,38 @@ function admin_menu() {
 }
 
 /**
+ * Sanitize and validate user input.
+ *
+ * @param string $post The user input to sanitize and validate.
+ *
+ * @return array The sanitized and validated values.
+ */
+function sanitize_settings( $post ) {
+	$options = get_option( AT_SETTINGS );
+
+	// The post keys that should be secure.
+	$secure_keys = array( 'api_key', 'api_secret', 'access_token', 'access_secret' );
+	foreach ( $secure_keys as $key ) {
+		if ( ! empty( $post[ $key ] ) ) {
+			$value = sanitize_text_field( trim( $post[ $key ] ) );
+			// If the value contains '***', use the existing option value if available, else empty string.
+			if ( false !== stripos( $value, '***' ) ) {
+				$post[ $key ] = isset( $options[ $key ] ) ? $options[ $key ] : '';
+			}
+		}
+	}
+
+	return $post;
+}
+
+/**
  * Register section and settings
  *
  * @return void
  */
 function register_settings() {
 
-	register_setting( AT_GROUP, AT_SETTINGS );
+	register_setting( AT_GROUP, AT_SETTINGS, __NAMESPACE__ . '\sanitize_settings' );
 
 	// Register the general setting section.
 	add_settings_section(
@@ -179,6 +204,10 @@ function text_field_cb( $args ) {
 	$value       = isset( $options[ $key ] ) ? $options[ $key ] : '';
 	$class       = isset( $args['class'] ) ? $args['class'] : 'regular-text';
 	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
+
+	// The post keys that should be secure.
+	$secure_keys = array( 'api_key', 'api_secret', 'access_token', 'access_secret' );
+	$value       = in_array( $key, $secure_keys, true ) ? Utils\mask_secure_values( $value ) : $value;
 	?>
 		<input type='text' class="<?php echo esc_attr( $class ); ?>" name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>">
 	<?php
