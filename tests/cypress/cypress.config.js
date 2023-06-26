@@ -14,6 +14,14 @@ module.exports = defineConfig({
     specPattern: 'tests/cypress/e2e/**/*.test.{js,jsx,ts,tsx}',
     supportFile: 'tests/cypress/support/e2e.js',
   },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    mochaFile: "mochawesome-[name]",
+    reportDir: __dirname + "/reports",
+    overwrite: false,
+    html: false,
+    json: true
+  },
 });
   
 /**
