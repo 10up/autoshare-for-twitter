@@ -43,7 +43,7 @@ function setup() {
  * @param string  $old_status The old status.
  * @param WP_Post $post       The current post.
  *
- * @return null
+ * @return void
  */
 function maybe_publish_tweet( $new_status, $old_status, $post ) {
 	/*
@@ -94,7 +94,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
  * @param int  $post_id The current post ID.
  * @param bool $force   Publish tweet regardless of autoshare enabled or disabled on post.
  *
- * @return bool|null
+ * @return bool|void
  */
 function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );

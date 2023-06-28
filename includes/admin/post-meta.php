@@ -301,9 +301,9 @@ function render_twitter_accounts( $post_id ) {
 			<div class="twitter-account-wrapper">
 				<img src="<?php echo esc_url( $account['profile_image_url'] ); ?>" alt="<?php echo esc_attr( $account['name'] ); ?>" class="twitter-account-profile-image" />
 				<span class="account-details">
-					<strong>@<?php echo esc_attr( $account['username'] ); ?></strong>
+					<strong>@<?php echo esc_html( $account['username'] ); ?></strong>
 					<br />
-					<?php echo esc_attr( $account['name'] ); ?>
+					<?php echo esc_html( $account['name'] ); ?>
 				</span>
 				<input
 					type="checkbox"
@@ -319,7 +319,7 @@ function render_twitter_accounts( $post_id ) {
 		?>
 		<span class="connect-account-link">
 			<a href="<?php echo esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) ); ?>" target="_blank">
-				<?php esc_attr_e( 'Connect an account', 'autoshare-for-twitter' ); ?>
+				<?php esc_html_e( 'Connect an account', 'autoshare-for-twitter' ); ?>
 			</a>
 		</span>
 	</div>
@@ -493,7 +493,7 @@ function markup_published( $status_meta ) {
 		esc_html( $date ),
 		esc_url( $twitter_url ),
 		esc_html__( 'View', 'autoshare-for-twitter' ),
-		esc_attr( $handle )
+		esc_html( $handle )
 	);
 }
 

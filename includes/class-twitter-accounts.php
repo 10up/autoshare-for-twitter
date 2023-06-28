@@ -59,7 +59,7 @@ class Twitter_Accounts {
 
 		// Check if the nonce is valid.
 		if ( ! isset( $_GET['autoshare_twitter_authorize_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['autoshare_twitter_authorize_nonce'] ) ), 'autoshare_twitter_authorize_action' ) ) {
-			wp_die( esc_html__( 'You have not access to doing this operations.', 'autoshare-for-twitter' ) );
+			wp_die( esc_html__( 'You are not authorized to perform this operation.', 'autoshare-for-twitter' ) );
 		}
 
 		// Get the request token.
@@ -118,7 +118,7 @@ class Twitter_Accounts {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$is_deniend = isset( $_GET['denied'] ) ? sanitize_text_field( wp_unslash( $_GET['denied'] ) ) : false;
 			if ( $is_deniend ) {
-				throw new \Exception( __( 'You have denied the authorization.', 'autoshare-for-twitter' ) );
+				throw new \Exception( __( 'Authorization denied for this request.', 'autoshare-for-twitter' ) );
 			}
 
 			$oauth_token        = isset( $_COOKIE['autoshare_oauth_token'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['autoshare_oauth_token'] ) ) : '';
@@ -134,7 +134,7 @@ class Twitter_Accounts {
 			$access_token   = $this->twitter_api->get_access_token( $oauth_token, $oauth_token_secret, $oauth_verifier );
 
 			if ( ! $access_token || ! isset( $access_token['oauth_token'] ) || ! isset( $access_token['oauth_token_secret'] ) ) {
-				throw new \Exception( 'autoshare_twitter_authorize_error', __( 'Something went wrong during getting access token. Please try again', 'autoshare-for-twitter' ) );
+				throw new \Exception( 'autoshare_twitter_authorize_error', __( 'Something went wrong while fetching the access token. Please try again', 'autoshare-for-twitter' ) );
 			}
 
 			// Remove temporary credentials from cookies.
@@ -172,11 +172,11 @@ class Twitter_Accounts {
 
 		// Check if the nonce is valid.
 		if ( ! isset( $_GET['autoshare_twitter_disconnect_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['autoshare_twitter_disconnect_nonce'] ) ), 'autoshare_twitter_disconnect_action' ) ) {
-			wp_die( esc_html__( 'You have not access to doing this operations.', 'autoshare-for-twitter' ) );
+			wp_die( esc_html__( 'You are not authorized to perform this operation.', 'autoshare-for-twitter' ) );
 		}
 
 		if ( ! isset( $_GET['account_id'] ) ) {
-			wp_die( esc_html__( 'Twitter account ID is required to doing this operation.', 'autoshare-for-twitter' ) );
+			wp_die( esc_html__( 'Twitter account ID is required to perform this operation.', 'autoshare-for-twitter' ) );
 		}
 
 		try {
