@@ -94,7 +94,7 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
  * @param int  $post_id The current post ID.
  * @param bool $force   Publish tweet regardless of autoshare enabled or disabled on post.
  *
- * @return bool|void
+ * @return bool
  */
 function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );
@@ -103,17 +103,17 @@ function publish_tweet( $post_id, $force = false ) {
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
 	if ( ! Utils\opted_into_autoshare_for_twitter( $post->ID ) ) {
-		return;
+		return false;
 	}
 
 	// Don't publish tweets from staging/testing sites.
 	if ( ! AST_Staging::is_production_site() ) {
-		return;
+		return false;
 	}
 
 	// Ensure we have a $post object.
 	if ( ! $post ) {
-		return;
+		return false;
 	}
 
 	/*
