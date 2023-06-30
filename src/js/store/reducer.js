@@ -1,4 +1,4 @@
-import { enabled, allowTweetImage } from 'admin-autoshare-for-twitter';
+import { enabled, allowTweetImage, tweetAccounts } from 'admin-autoshare-for-twitter';
 
 import {
 	SET_AUTOSHARE_FOR_TWITTER_ENABLED,
@@ -8,6 +8,7 @@ import {
 	SET_LOADED,
 	SET_OVERRIDING,
 	SET_ALLOW_TWEET_IMAGE,
+	SET_TWEET_ACCOUNTS,
 } from './constants';
 
 export const DEFAULT_STATE = {
@@ -18,6 +19,7 @@ export const DEFAULT_STATE = {
 	overrideLength: 0,
 	tweetText: '',
 	allowTweetImage: ! ! allowTweetImage,
+	tweetAccounts: tweetAccounts || [],
 };
 
 export default function reducer( state = DEFAULT_STATE, action ) {
@@ -66,6 +68,13 @@ export default function reducer( state = DEFAULT_STATE, action ) {
 			return {
 				...state,
 				allowTweetImage: action.allowTweetImage,
+			};
+		}
+
+		case SET_TWEET_ACCOUNTS: {
+			return {
+				...state,
+				tweetAccounts: action.tweetAccounts,
 			};
 		}
 	}

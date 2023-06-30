@@ -1,4 +1,4 @@
-import { Button, ToggleControl, ExternalLink, CardDivider } from '@wordpress/components';
+import { Button, ToggleControl } from '@wordpress/components';
 import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { TweetTextField } from './components/TweetTextField';
@@ -10,7 +10,8 @@ import {
 	useSaveTwitterData,
 	useHasFeaturedImage,
 } from './hooks';
-import { getIconByStatus } from './utils';
+import { TwitterAccounts } from './components/TwitterAccounts';
+import { StatusLogs } from './components/StatusLogs';
 
 export default function AutoshareForTwitterPrePublishPanel() {
 	const [ autoshareEnabled, setAutoshareEnabled ] = useTwitterAutoshareEnabled();
@@ -24,18 +25,7 @@ export default function AutoshareForTwitterPrePublishPanel() {
 
 	return (
 		<>
-			{ messages && !!messages.message.length && ( <div className="autoshare-for-twitter-post-status">
-				{ messages.message.map( ( statusMessage, index ) => {
-					const TweetIcon = getIconByStatus( statusMessage.status );
-
-					return (
-						<div className="autoshare-for-twitter-log" key={ index }>
-							{ TweetIcon }{ statusMessage.url ? <ExternalLink href={ statusMessage.url }>{ statusMessage.message }</ExternalLink> : statusMessage.message }
-						</div>
-					);
-				} ) }
-				<CardDivider />
-			</div> ) }
+			<StatusLogs messages={ messages } />
 			<ToggleControl
 				label={ autoshareEnabled ? __( 'Tweet when published', 'autoshare-for-twitter' ) : __( 'Don\'t Tweet', 'autoshare-for-twitter' )
 				}
@@ -56,6 +46,8 @@ export default function AutoshareForTwitterPrePublishPanel() {
 					className="autoshare-for-twitter-toggle-control"
 				/>
 			) }
+
+			{ autoshareEnabled && <TwitterAccounts /> }
 
 			{ autoshareEnabled && (
 				<div className="autoshare-for-twitter-prepublish__override-row">

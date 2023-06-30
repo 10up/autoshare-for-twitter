@@ -9,6 +9,7 @@ namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils;
 use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 
@@ -25,12 +26,19 @@ function setup() {
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-ast-staging.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-publish-tweet.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/rest.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts-list-table.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-api.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts.php';
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
 
 	// Initiate staging class.
 	AST_Staging::init();
+
+	// Initialize the Twitter Account class.
+	$twitter_accounts = new Twitter_Accounts();
+	$twitter_accounts->init();
 
 	/**
 	 * Allow others to hook into the core setup action
@@ -142,7 +150,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 
 	if ( 'publish' === $post_status && 'published' === $status ) {
 		$date        = Utils\date_from_twitter( $tweet_status['created_at'] );
-		$twitter_url = Utils\link_from_twitter( $tweet_status['twitter_id'] );
+		$twitter_url = Utils\link_from_twitter( $tweet_status );
 		$tweet_title = sprintf(
 			'%s %s',
 			__( 'Tweeted on', 'autoshare-for-twitter' ),
