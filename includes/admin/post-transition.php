@@ -138,9 +138,19 @@ function publish_tweet( $post_id, $force = false ) {
 			$account  = $connected_accounts[ $account_id ] ?? [];
 			$username = $account['username'] ?? '';
 
-			$twitter_response = $publish->status_update( $tweet, $post, $account_id );
+			try {
+				$twitter_response = $publish->status_update( $tweet, $post, $account_id );
 
-			$response = validate_response( $twitter_response );
+				$response = validate_response( $twitter_response );
+			} catch ( \Exception $e ) {
+				$response = new \WP_Error(
+					'autoshare_for_twitter_failed',
+					esc_html__( 'Something went wrong, please try again.', 'autoshare-for-twitter' ),
+					array(
+						(object) array( 'message' => $e->getMessage() ),
+					)
+				);
+			}
 
 			if ( ! is_wp_error( $response ) ) {
 				update_autoshare_for_twitter_meta_from_response( $post->ID, $response, $username );
