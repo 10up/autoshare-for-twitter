@@ -110,6 +110,16 @@ To avoid encountering this error in the future and to have higher usage limits, 
 4. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Changelog ==
+= 2.1.0 - 2023-07-05 =
+* **Added:** Support for connect multiple Twitter accounts (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+* **Added:** Obfuscation of saved Twitter keys in the UI. (props [@lgrzegorski](https://github.com/lgrzegorski), [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh) via [#245](https://github.com/10up/autoshare-for-twitter/pull/245)).
+* **Added:** GitHub Action summary for E2E tests. (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#247](https://github.com/10up/autoshare-for-twitter/pull/247)).
+* **Changed:** Readme updates for the FAQs section and formatting (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#235](https://github.com/10up/autoshare-for-twitter/pull/235), [#241](https://github.com/10up/autoshare-for-twitter/pull/241) and [#242](https://github.com/10up/autoshare-for-twitter/pull/242)).
+* **Changed:** Enhanced E2E tests by implementing mocking of Twitter API and bypassing actual Twitter API calls (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+* **Changed:** Updated the Dependency Review GitHub Action (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#239](https://github.com/10up/autoshare-for-twitter/pull/239)).
+* **Changed:** Fixed Inconsistent tweet status for scheduled posts (props [@mae829](https://github.com/mae829), [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#246](https://github.com/10up/autoshare-for-twitter/pull/246)).
+* **Changed:** Improved Error handing (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#249](https://github.com/10up/autoshare-for-twitter/pull/249)).
+
 = 2.0.0 - 2023-05-16 =
 **Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).**
 
