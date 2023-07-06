@@ -203,7 +203,7 @@ class Twitter_Accounts {
 	 * @return void
 	 */
 	public function twitter_connection_notices() {
-		$notice = get_transient( 'autoshare_for_twitter_connection_notice' );
+		$notice = $this->get_connection_notice();
 		if ( ! $notice ) {
 			return;
 		}
@@ -236,15 +236,12 @@ class Twitter_Accounts {
 
 	/**
 	 * Get connection notice.
-	 *
-	 * @param string $type    Notice type.
-	 * @param string $message Notice message.
 	 */
-	public function get_connection_notice( $type, $message ) {
-		$notices = get_transient( 'autoshare_for_twitter_connection_notice' );
+	public function get_connection_notice() {
+		$notice = get_transient( 'autoshare_for_twitter_connection_notice' );
 		delete_transient( 'autoshare_for_twitter_connection_notice' );
 
-		return $notices;
+		return $notice;
 	}
 
 	/**
