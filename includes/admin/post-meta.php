@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
  * Aliases
  */
 use TenUp\AutoshareForTwitter\Utils as Utils;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
 
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
@@ -40,6 +41,11 @@ const TWEET_BODY_KEY = 'tweet-body';
 const TWITTER_STATUS_KEY = 'status';
 
 const TWEET_ALLOW_IMAGE = 'tweet-allow-image';
+
+/**
+ * Holds the tweet accounts
+ */
+const TWEET_ACCOUNTS_KEY = 'tweet_accounts';
 
 /**
  * The setup function
@@ -124,6 +130,11 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
 
 			case TWEET_BODY_KEY:
 				$filtered_data[ $key ] = sanitize_text_field( $value );
+				break;
+
+			case TWEET_ACCOUNTS_KEY:
+				$filtered_data[ $key ] = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : [];
+				break;
 		}
 	}
 
@@ -182,6 +193,10 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 				update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, $value ? 'yes' : 'no' );
 				break;
 
+			case TWEET_ACCOUNTS_KEY:
+				update_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY, $value );
+				break;
+
 			default:
 				break;
 		}
@@ -236,7 +251,7 @@ function render_tweet_submitbox( $post ) {
 		<hr/>
 		<button class="button button-link tweet-now-button">
 		<?php esc_attr_e( 'Tweet Now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
-		</button>		
+		</button>
 		<div class="autoshare-for-twitter-tweet-now-wrapper" style="display: none;">
 			<?php
 			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -260,6 +275,55 @@ function render_tweet_submitbox( $post ) {
 		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
+}
+
+
+/**
+ * Render the Twitter accounts to be used for autosharing.
+ *
+ * @param int $post_id The post ID.
+ */
+function render_twitter_accounts( $post_id ) {
+	$accounts = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+	if ( empty( $accounts ) ) {
+		return;
+	}
+
+	$enabled = Utils\get_tweet_accounts( $post_id );
+	if ( empty( $enabled ) ) {
+		$enabled = Utils\get_default_autoshare_accounts();
+	}
+	?>
+	<div class="autoshare-for-twitter-accounts-wrapper">
+		<?php
+		foreach ( $accounts as $account ) {
+			?>
+			<div class="twitter-account-wrapper">
+				<img src="<?php echo esc_url( $account['profile_image_url'] ); ?>" alt="<?php echo esc_attr( $account['name'] ); ?>" class="twitter-account-profile-image" />
+				<span class="account-details">
+					<strong>@<?php echo esc_html( $account['username'] ); ?></strong>
+					<br />
+					<?php echo esc_html( $account['name'] ); ?>
+				</span>
+				<input
+					type="checkbox"
+					class="autoshare-for-twitter-account-checkbox"
+					id="autoshare-for-twitter-account-<?php echo esc_attr( $account['id'] ); ?>"
+					name="<?php echo esc_attr( sprintf( '%s[%s][]', META_PREFIX, TWEET_ACCOUNTS_KEY ) ); ?>"
+					value="<?php echo esc_attr( $account['id'] ); ?>"
+					<?php checked( true, in_array( $account['id'], $enabled, true ), true ); ?>
+				/>
+			</div>
+			<?php
+		}
+		?>
+		<span class="connect-account-link">
+			<a href="<?php echo esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) ); ?>" target="_blank">
+				<?php esc_html_e( 'Connect an account', 'autoshare-for-twitter' ); ?>
+			</a>
+		</span>
+	</div>
+	<?php
 }
 
 /**
@@ -287,6 +351,7 @@ function get_tweet_status_message( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -296,7 +361,8 @@ function get_tweet_status_message( $post ) {
 	}
 
 	foreach ( $tweet_metas as $tweet_meta ) {
-		$status = $tweet_meta['status'];
+		$status         = $tweet_meta['status'];
+		$twitter_handle = $tweet_meta['handle'] ?? '';
 		if ( 'publish' !== $post_status && empty( $status ) ) {
 			continue;
 		}
@@ -304,13 +370,14 @@ function get_tweet_status_message( $post ) {
 		switch ( $status ) {
 			case 'published':
 				$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
-				$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
+				$twitter_url = Utils\link_from_twitter( $tweet_meta );
 
 				$response_array[] = [
 					// Translators: Placeholder is a date.
 					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -319,6 +386,7 @@ function get_tweet_status_message( $post ) {
 				$response_array[] = [
 					'message' => __( 'Failed to tweet; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -327,6 +395,7 @@ function get_tweet_status_message( $post ) {
 				$response_array[] = [
 					'message' => $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -364,6 +433,7 @@ function get_tweet_status_logs( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -414,14 +484,16 @@ function get_tweet_status_logs( $post ) {
 function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
-	$twitter_url = Utils\link_from_twitter( $status_meta['twitter_id'] );
+	$twitter_url = Utils\link_from_twitter( $status_meta );
+	$handle      = ! empty( $status_meta['handle'] ) ? ' - @' . $status_meta['handle'] : '';
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)</div>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
 		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'autoshare-for-twitter' )
+		esc_html__( 'View', 'autoshare-for-twitter' ),
+		esc_html( $handle )
 	);
 }
 
@@ -434,6 +506,7 @@ function markup_published( $status_meta ) {
  * @return string
  */
 function markup_error( $status_meta ) {
+	$handle     = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	$learn_more = '';
 	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
 		$learn_more = sprintf(
@@ -444,9 +517,10 @@ function markup_error( $status_meta ) {
 	}
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre>%s</div>',
 		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
-		esc_html( $status_meta['message'] ) . $learn_more
+		esc_html( $status_meta['message'] ) . wp_kses_post( $learn_more ),
+		wp_kses_post( $handle )
 	);
 }
 
@@ -459,9 +533,10 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
+	$handle = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
-		esc_html( $status_meta['message'] )
+		esc_html( $status_meta['message'] ) . wp_kses_post( $handle )
 	);
 }
 
@@ -502,6 +577,11 @@ function _safe_markup_default() {
 			</label>
 		</p>
 	</div>
+
+	<?php
+	// Display twitter accounts.
+	render_twitter_accounts( get_the_ID() );
+	?>
 
 	<div id="autoshare-for-twitter-override-body" style="display: none;">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">

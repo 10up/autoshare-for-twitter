@@ -4,7 +4,7 @@ Tags:              twitter, tweet, autoshare, auto-share, auto share, share, sha
 Requires at least: 5.7
 Tested up to:      6.2
 Requires PHP:      7.4
-Stable tag:        2.0.0
+Stable tag:        2.1.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -82,6 +82,26 @@ Additional technical details can be found in [our GitHub repository](https://git
 
 Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/autoshare-for-twitter/pull/44).
 
+= Does the plugin work with Twitter API V2? =
+
+Yes, the plugin is compatible with Twitter API v2.
+
+= I'm encountering the error message "401: Unauthorized." What could be the possible reason for this error? =
+
+There are a few potential reasons for this error:
+1. **Incorrect Twitter API credentials**: Please ensure that you have entered the correct Twitter API credentials.
+2. **Deprecated access levels**: If you are still using the old Twitter access levels (Standard (v1.1), Essential (v2), Elevated (v2), etc...), you must migrate to the new access levels (Free, Basic, Pro, etc.). Please make sure to migrate to the new access levels to ensure uninterrupted functionality. Here's how you can do it:
+
+	1. Go to the following URL: https://developer.twitter.com/en/portal/products
+	2. Look for the "Downgrade" button.
+	3. Click on it to migrate to the free access level.
+
+= I'm encountering the error message "429: Too Many Requests." What could be the possible reason for this error? =
+
+If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of Twitter's Free API access. With the Free API, you are allowed **1,500 Tweets per month** and **50 requests within a 24-hour period**. Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to tweet again.
+
+To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on Twitter API access levels, you can visit this link: https://developer.twitter.com/en/products/twitter-api.
+
 == Screenshots ==
 
 1. Create post screen with Autoshare for Twitter options.
@@ -90,6 +110,16 @@ Yes, yes it does!  For more details on this, see [#44](https://github.com/10up/a
 4. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Changelog ==
+= 2.1.0 - 2023-07-05 =
+* **Added:** Support for tweeting via multiple Twitter accounts (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+* **Added:** Obfuscation of saved Twitter keys in the UI (props [@lgrzegorski](https://github.com/lgrzegorski), [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh) via [#245](https://github.com/10up/autoshare-for-twitter/pull/245)).
+* **Added:** GitHub Action summary for end-to-end tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#247](https://github.com/10up/autoshare-for-twitter/pull/247)).
+* **Changed:** Readme updates for FAQs and formatting (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#235](https://github.com/10up/autoshare-for-twitter/pull/235), [#241](https://github.com/10up/autoshare-for-twitter/pull/241), [#242](https://github.com/10up/autoshare-for-twitter/pull/242)).
+* **Changed:** Enhanced end-to-end tests by implementing mocking of Twitter API and bypassing actual Twitter API calls (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+* **Changed:** Updated the Dependency Review GitHub Action (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#239](https://github.com/10up/autoshare-for-twitter/pull/239)).
+* **Changed:** Fixed inconsistent tweet status for scheduled posts (props [@mae829](https://github.com/mae829), [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#246](https://github.com/10up/autoshare-for-twitter/pull/246)).
+* **Changed:** Improved error handing (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#249](https://github.com/10up/autoshare-for-twitter/pull/249)).
+
 = 2.0.0 - 2023-05-16 =
 **Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).**
 

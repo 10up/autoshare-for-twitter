@@ -8,6 +8,7 @@
 namespace TenUp\AutoshareForTwitter\Core\Admin;
 
 use TenUp\AutoshareForTwitter\Utils;
+use TenUp\AutoshareForTwitter\List_Table\Twitter_Accounts_List_Table as Twitter_Accounts_List_Table;
 
 const AT_GROUP    = 'autoshare-for-twitter';
 const AT_SETTINGS = 'autoshare-for-twitter';
@@ -39,13 +40,38 @@ function admin_menu() {
 }
 
 /**
+ * Sanitize and validate user input.
+ *
+ * @param string $post The user input to sanitize and validate.
+ *
+ * @return array The sanitized and validated values.
+ */
+function sanitize_settings( $post ) {
+	$options = get_option( AT_SETTINGS );
+
+	// The post keys that should be secure.
+	$secure_keys = array( 'api_key', 'api_secret', 'access_token', 'access_secret' );
+	foreach ( $secure_keys as $key ) {
+		if ( ! empty( $post[ $key ] ) ) {
+			$value = sanitize_text_field( trim( $post[ $key ] ) );
+			// If the value contains '***', use the existing option value if available, else empty string.
+			if ( false !== stripos( $value, '***' ) ) {
+				$post[ $key ] = isset( $options[ $key ] ) ? $options[ $key ] : '';
+			}
+		}
+	}
+
+	return $post;
+}
+
+/**
  * Register section and settings
  *
  * @return void
  */
 function register_settings() {
 
-	register_setting( AT_GROUP, AT_SETTINGS );
+	register_setting( AT_GROUP, AT_SETTINGS, __NAMESPACE__ . '\sanitize_settings' );
 
 	// Register the general setting section.
 	add_settings_section(
@@ -114,6 +140,18 @@ function register_settings() {
 		]
 	);
 
+	// Twitter account connection table.
+	add_settings_field(
+		'autoshare-autoshare_accounts',
+		__( 'Twitter accounts', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\twitter_accounts_field_cb',
+		'autoshare-for-twitter',
+		'autoshare-general_section',
+		[
+			'name' => 'autoshare_accounts',
+		]
+	);
+
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
@@ -149,47 +187,6 @@ function register_settings() {
 			'placeholder' => __( 'paste your API Key Secret here', 'autoshare-for-twitter' ),
 		]
 	);
-
-	// Access Token.
-	add_settings_field(
-		'autoshare-access_token',
-		__( 'Access Token', 'autoshare-for-twitter' ),
-		__NAMESPACE__ . '\text_field_cb',
-		'autoshare-for-twitter',
-		'autoshare-cred_section',
-		[
-			'name'        => 'access_token',
-			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access Token here', 'autoshare-for-twitter' ),
-		]
-	);
-
-	// Access Secret.
-	add_settings_field(
-		'autoshare-access_secret',
-		__( 'Access Token Secret', 'autoshare-for-twitter' ),
-		__NAMESPACE__ . '\text_field_cb',
-		'autoshare-for-twitter',
-		'autoshare-cred_section',
-		[
-			'name'        => 'access_secret',
-			'class'       => 'large-text',
-			'placeholder' => __( 'paste your Access Token Secret here', 'autoshare-for-twitter' ),
-		]
-	);
-
-	// Twitter Handle.
-	add_settings_field(
-		'autoshare-twitter_handle',
-		__( 'Twitter handle', 'autoshare-for-twitter' ),
-		__NAMESPACE__ . '\text_field_cb',
-		'autoshare-for-twitter',
-		'autoshare-cred_section',
-		[
-			'name'        => 'twitter_handle',
-			'placeholder' => __( 'enter your Twitter handle here', 'autoshare-for-twitter' ),
-		]
-	);
 }
 
 /**
@@ -207,6 +204,10 @@ function text_field_cb( $args ) {
 	$value       = isset( $options[ $key ] ) ? $options[ $key ] : '';
 	$class       = isset( $args['class'] ) ? $args['class'] : 'regular-text';
 	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
+
+	// The post keys that should be secure.
+	$secure_keys = array( 'api_key', 'api_secret', 'access_token', 'access_secret' );
+	$value       = in_array( $key, $secure_keys, true ) ? Utils\mask_secure_values( $value ) : $value;
 	?>
 		<input type='text' class="<?php echo esc_attr( $class ); ?>" name=<?php echo esc_attr( $name ); ?> value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>">
 	<?php
@@ -292,6 +293,19 @@ function checkbox_field_cb( $args ) {
 }
 
 /**
+ * Helper for outputting a Twitter account list table.
+ *
+ * @param array $args The field arguments.
+ *
+ * @return void
+ */
+function twitter_accounts_field_cb( $args ) {
+	$list_table = new Twitter_Accounts_List_Table();
+	$list_table->prepare_items();
+	$list_table->display();
+}
+
+/**
  * Helper for outputting general section heading and description.
  *
  * @return void
@@ -354,7 +368,18 @@ function cred_section_cb() {
 				<li><?php esc_html_e( 'Find the App and click it to show the Settings page for the App.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php esc_html_e( 'Click "Setup" under User authentication settings to setup Authentication.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Enable <code>OAuth 1.0a</code> and Set App permissions to <strong>Read and write</strong>.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Set the <code>Website URL</code> and <code>Callback URLs</code> fields to https://yourdomain.yourdomainextension and click <code>Save</code>.', 'autoshare-for-twitter' ) ); ?></li>
+				<li>
+					<?php
+					/* translators: Placeholders %s - Site URL */
+					echo wp_kses_data( sprintf( __( 'Set the <code>Website URL</code> to <code>%s</code>.', 'autoshare-for-twitter' ), esc_url( get_site_url() ) ) );
+					?>
+				</li>
+				<li>
+					<?php
+					/* translators: Placeholders %s - Callback URL for Twitter Auth */
+					echo wp_kses_data( sprintf( __( 'Set the <code>Callback URLs</code> fields to <code>%s</code> and click <code>Save</code>.', 'autoshare-for-twitter' ), esc_url( admin_url( 'admin-post.php?action=authoshare_authorize_callback' ) ) ) );
+					?>
+				</li>
 				<li><?php esc_html_e( 'Switch from the "Settings" tab to the "Keys and tokens" tab.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>API Key and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Key Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
@@ -362,14 +387,15 @@ function cred_section_cb() {
 				<li><?php echo wp_kses_data( __( 'Copy the <code>Access Token</code> and <code>Access Token Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '3. Confirm Twitter handle', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '3. Save settings', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php esc_html_e( 'Fill out your Twitter handle that will be used to tweet your posts, pages, etc.', 'autoshare-for-twitter' ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Save Changes</code> button below to save settings.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '4. Connect your Twitter developer app with this site', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '4. Connect your Twitter account', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'Click the <code>Save Changes</code> button below.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'After saving settings, you will see the option to connect your Twitter account.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Connect Twitter account</code> button and follow the instructions provided there to connect your Twitter account with this site.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 		</section>
 	</section>
@@ -388,13 +414,15 @@ function options_page() {
 		<h1><?php esc_html_e( 'Autoshare for Twitter Settings', 'autoshare-for-twitter' ); ?></h1>
 
 		<div class="autoshare-settings">
-			<form action='options.php' method='post'>
-				<?php
-				settings_fields( AT_GROUP );
-				do_settings_sections( 'autoshare-for-twitter' );
-				submit_button();
-				?>
-			</form>
+			<div class="settings-wrapper">
+				<form action='options.php' method='post'>
+					<?php
+					settings_fields( AT_GROUP );
+					do_settings_sections( 'autoshare-for-twitter' );
+					submit_button();
+					?>
+				</form>
+			</div>
 			<div class="brand">
 				<a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>">
 					<img src="<?php echo esc_url( trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'assets/images/10up.svg' ); ?>" alt="<?php esc_attr_e( '10up logo', 'autoshare-for-twitter' ); ?>" />

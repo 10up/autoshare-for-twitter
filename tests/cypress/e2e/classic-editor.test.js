@@ -3,13 +3,14 @@ import { getRandomText } from "../support/functions";
 describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	before(() => {
 		cy.login();
+		
+		cy.enableEditor('classic');
+		cy.configurePlugin();
 	});
 
-	it('Update settings to keep the default editor as Classic editor', () => {
-		cy.visit('/wp-admin/options-writing.php#classic-editor-options');
-		cy.get('#classic-editor-classic').click();
-		cy.get('#classic-editor-allow').click();
-		cy.get('#submit').click();
+	beforeEach(() => {
+		// Enable Autoshare on account.
+		cy.markAccountForAutoshare();
 	});
 
 	// Run test cases with default Autoshare enabled and disabled both.
@@ -34,8 +35,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, false);
 
 			// publish
-			cy.get('#publish').click();
-			cy.get('#wpadminbar').should('be.visible');
+			cy.get('#publish').should('be.visible').click({force: true});
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
@@ -49,7 +49,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 
 			// Check enable checkbox for auto-share.
 			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
-			cy.get('#publish').click();
+			cy.get('#publish').should('be.visible').click({force: true});
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox',).should('be.visible');
@@ -66,7 +66,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 
 			// Uncheck the checkbox and publish
 			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, false);
-			cy.get('#publish').click();
+			cy.get('#publish').should('be.visible').click({force: true});
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
@@ -83,11 +83,46 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			
 			// Check the checkbox and publish
 			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
-			cy.get('#publish').click();
+			cy.get('#publish').should('be.visible').click({force: true});
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
 			cy.get('#autoshare_for_twitter_metabox').contains('Tweeted on');
+		});
+
+		it('Tests that new post is not tweeted when tweet accounts are unchecked', () => {
+			// Start create post.
+			cy.classicStartCreatePost();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
+			cy.enableTweetAccount('input.autoshare-for-twitter-account-checkbox', false);
+
+			// publish
+			cy.get('#publish').should('be.visible').click({force: true});
+
+			// Post-publish.
+			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post was not tweeted');
+		});
+
+		it('Tests that new post is tweeted when tweet accounts are checked', () => {
+			// Disable Autoshare on account.
+			cy.markAccountForAutoshare(false);
+			
+			// Start create post.
+			cy.classicStartCreatePost();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, true);
+			cy.enableTweetAccount('input.autoshare-for-twitter-account-checkbox', true);
+
+			// publish
+			cy.get('#publish').should('be.visible').click({force: true});
+
+			// Post-publish.
+			cy.get('#autoshare_for_twitter_metabox',).should('be.visible');
+			cy.get('#autoshare_for_twitter_metabox',).contains('Tweeted on');
 		});
 
 		it('Tweet Now should work fine', () => {
@@ -99,7 +134,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	
 			// Uncheck the checkbox and publish
 			cy.enableCheckbox('#autoshare-for-twitter-enable', defaultBehavior, false);
-			cy.get('#publish').click();
+			cy.get('#publish').should('be.visible').click({force: true});
 	
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');

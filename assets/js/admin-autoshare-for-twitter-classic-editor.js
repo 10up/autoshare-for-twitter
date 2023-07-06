@@ -27,7 +27,7 @@
 	// Event handlers.
 	$tweetPost.on('click', handleRequest);
 	$tweetText.change(handleRequest);
-	$tweetPost.change(toggleAllowImageVisibility);
+	$tweetPost.change(toggleVisibility);
 	$allowTweetImage.change(handleRequest);
 	$editLink.on('click', function() {
 		$editBody.slideToggle();
@@ -42,6 +42,7 @@
 		$('#autoshare-for-twitter-override-body').slideToggle();
 		$editLink.show();
 	});
+	$('input.autoshare-for-twitter-account-checkbox').on('change', handleRequest);
 
 	// Runs on page load to auto-enable posts to be tweeted
 	window.onload = function(event) {
@@ -66,7 +67,7 @@
 
 		$icon.removeClass('pending');
 		$tweetPost.prop('checked', false);
-		$('#submit').attr('disabled', true);
+		$('#publish').prop('disabled', false);
 	}
 
 	/**
@@ -74,11 +75,16 @@
 	 * @param event
 	 */
 	function handleRequest(event, status = $tweetPost.prop('checked')) {
-		var data = {};
+		let data = {};
+		let enabledAccounts = [];
+		$('input.autoshare-for-twitter-account-checkbox:checked').each(function() {
+			enabledAccounts.push($(this).val());
+		});
 		data[adminAutoshareForTwitter.enableAutoshareKey] = status;
 		data[adminAutoshareForTwitter.tweetBodyKey] = $tweetText.val();
 		data[adminAutoshareForTwitter.allowTweetImageKey] = $allowTweetImage.prop('checked');
-		$('#submit').attr('disabled', true);
+		data[adminAutoshareForTwitter.tweetAccountsKey] = enabledAccounts;
+		$('#publish').prop('disabled', true);
 
 		wp.apiFetch({
 			url: adminAutoshareForTwitter.restUrl,
@@ -113,7 +119,7 @@
 					$allowTweetImage.prop('checked', false);
 				}
 
-				$('#submit').attr('disabled', false);
+				$('#publish').prop('disabled', false);
 			})
 			.catch(onRequestFail);
 	}
@@ -171,6 +177,20 @@
 		// Listen event for add/remove featured image.
 		wp.media.featuredImage.frame().on( 'select', toggleAllowImageVisibility );
 		$('#postimagediv').on( 'click', '#remove-post-thumbnail', toggleAllowImageVisibility );
+	}
+
+	/**
+	 * Show/Hide accounts and visibility options.
+	 */
+	function toggleVisibility( event ) {
+		toggleAllowImageVisibility( event );
+		const autoshareEnabled = $tweetPost.prop('checked');
+		const accountsWrap = $('.autoshare-for-twitter-accounts-wrapper');
+		if ( autoshareEnabled ) {
+			accountsWrap.show();
+		} else {
+			accountsWrap.hide();
+		}
 	}
 
 	/**

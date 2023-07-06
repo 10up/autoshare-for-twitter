@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Utils;
 use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
@@ -117,6 +118,28 @@ function tweet_image_allowed( $post_id ) {
 }
 
 /**
+ * Returns tweet enabled Twitter accounts for the post.
+ *
+ * @param int $post_id A post ID.
+ * @return array
+ */
+function get_tweet_accounts( $post_id ) {
+	$tweet_accounts = get_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY );
+	if ( empty( $tweet_accounts ) ) {
+		$tweet_accounts = [];
+	}
+
+	/**
+	 * Filters tweet enabled Twitter accounts for the post.
+	 *
+	 * @param array  Tweet enabled Twitter accounts for the post.
+	 * @param string Post type.
+	 * @param int    The current post ID.
+	 */
+	return apply_filters( 'autoshare_for_twitter_tweet_accounts', $tweet_accounts, get_post_type( $post_id ), $post_id );
+}
+
+/**
  * Helper for returning the Auto Tweet site settings.
  *
  * @param string $key The option key.
@@ -125,15 +148,13 @@ function tweet_image_allowed( $post_id ) {
  */
 function get_autoshare_for_twitter_settings( $key = '' ) {
 	$defaults = [
-		'enable_for'     => 'selected',
-		'post_types'     => get_post_types_supported_by_default(),
-		'enable_default' => 1,
-		'enable_upload'  => 1,
-		'access_secret'  => '',
-		'access_token'   => '',
-		'api_key'        => '',
-		'api_secret'     => '',
-		'twitter_handle' => '',
+		'enable_for'         => 'selected',
+		'post_types'         => get_post_types_supported_by_default(),
+		'enable_default'     => 1,
+		'enable_upload'      => 1,
+		'api_key'            => '',
+		'api_secret'         => '',
+		'autoshare_accounts' => [],
 	];
 
 	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );
@@ -162,16 +183,13 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
  */
 function is_twitter_configured() {
 	$defaults = [
-		'access_secret'  => '',
-		'access_token'   => '',
-		'api_key'        => '',
-		'api_secret'     => '',
-		'twitter_handle' => '',
+		'api_key'    => '',
+		'api_secret' => '',
 	];
 
 	$settings    = get_autoshare_for_twitter_settings();
 	$credentials = array_intersect_key( $settings, $defaults );
-	return 5 === count( array_filter( $credentials ) );
+	return 2 === count( array_filter( $credentials ) );
 }
 
 /**
@@ -242,15 +260,16 @@ function date_from_twitter( $created_at ) {
 /**
  * Format a URL based on the Twitter ID.
  *
- * @param int $post_id The post id.
+ * @param array $tweet_status Tweet status data.
  *
  * @return string
  */
-function link_from_twitter( $post_id ) {
+function link_from_twitter( $tweet_status ) {
 
-	$handle = get_autoshare_for_twitter_settings( 'twitter_handle' );
+	$tweet_id = $tweet_status['twitter_id'] ?? '';
+	$handle   = $tweet_status['handle'] ?? 'i/web';
 
-	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $post_id );
+	return esc_url( 'https://twitter.com/' . $handle . '/status/' . $tweet_id );
 }
 
 /**
@@ -384,4 +403,28 @@ function get_enabled_post_types() {
 		return get_available_post_types();
 	}
 	return get_autoshare_for_twitter_settings( 'post_types' );
+}
+
+/**
+ * Mask secure values.
+ *
+ * @param string $value Original value.
+ *
+ * @return string
+ */
+function mask_secure_values( $value ) {
+	$count  = strlen( $value );
+	$substr = substr( $value, -5 );
+	$return = str_pad( $substr, $count, '*', STR_PAD_LEFT );
+
+	return $return;
+}
+
+/**
+ * Get enabled post types.
+ *
+ * @return array
+ */
+function get_default_autoshare_accounts() {
+	return get_autoshare_for_twitter_settings( 'autoshare_accounts' );
 }
