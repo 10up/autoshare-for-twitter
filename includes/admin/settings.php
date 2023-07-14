@@ -381,10 +381,8 @@ function cred_section_cb() {
 					?>
 				</li>
 				<li><?php esc_html_e( 'Switch from the "Settings" tab to the "Keys and tokens" tab.', 'autoshare-for-twitter' ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>API Key and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code>/<code>Regenerate</code> button in the <code>Consumer Keys</code> section.', 'autoshare-for-twitter' ) ); ?></li>
 				<li><?php echo wp_kses_data( __( 'Copy the <code>API Key</code> and <code>API Key Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Click on the <code>Generate</code> button in the <code>Access Token and Secret</code> section.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Copy the <code>Access Token</code> and <code>Access Token Secret</code> values and paste them below.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
 			<h4><?php esc_html_e( '3. Save settings', 'autoshare-for-twitter' ); ?></h4>

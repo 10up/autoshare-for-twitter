@@ -45,13 +45,6 @@ class Twitter_API {
 	protected $access_token_secret;
 
 	/**
-	 * The twitter handle.
-	 *
-	 * @var string The twitter handle.
-	 */
-	protected $twitter_handle;
-
-	/**
 	 * The TwitterOAuth client.
 	 *
 	 * @var TwitterOAuth The TwitterOAuth client.
@@ -172,6 +165,9 @@ class Twitter_API {
 		);
 
 		if ( ! $user || ! isset( $user->data ) || ! isset( $user->data->id ) ) {
+			if ( ! empty( $user->detail ) ) {
+				return new \WP_Error( 'error_get_twitter_user', $user->detail );
+			}
 			return new \WP_Error( 'error_get_twitter_user', __( 'Something went wrong during getting user details', 'autoshare-for-twitter' ) );
 		}
 
