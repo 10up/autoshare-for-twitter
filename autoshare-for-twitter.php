@@ -3,7 +3,7 @@
  * Plugin Name:       Autoshare for Twitter
  * Description:       Automatically tweets the post title or custom message and a link to the post.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
- * Version:           2.1.1
+ * Version:           2.1.0
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            10up
@@ -15,20 +15,20 @@
  * @package TenUp\AutoshareForTwitter
  */
 
+namespace TenUp\AutoshareForTwitter;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 define( 'AUTOSHARE_FOR_TWITTER', __FILE__ );
-define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.1.1' );
+define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.1.0' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
 
 /**
  * Get the minimum version of PHP required by this plugin.
- *
- * @since 2.1.1
  *
  * @return string Minimum version required.
  */
@@ -38,8 +38,6 @@ function minimum_php_requirement() {
 
 /**
  * Whether PHP installation meets the minimum requirements
- *
- * @since 2.1.1
  *
  * @return bool True if meets minimum requirements, false otherwise.
  */
