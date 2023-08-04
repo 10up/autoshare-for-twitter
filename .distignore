@@ -9,11 +9,7 @@
 # DO NOT EXCLUDE /vendor
 
 # Files
-.babelrc
-.distignore
-.eslintignore
-.eslintrc.json
-.gitignore
+.*
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 composer.json
@@ -28,5 +24,3 @@ phpunit.xml
 README.md
 webpack.config.js
 webpack.gutenberg.config.js
-.wp-env.json
-.nvmrc
