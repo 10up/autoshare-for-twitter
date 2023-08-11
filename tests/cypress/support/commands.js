@@ -30,10 +30,13 @@ Cypress.Commands.add( 'startCreatePost', () => {
 	const titleInput = 'h1.editor-post-title__input, #post-title-0';
 
 	// Make sure editor loaded properly.
-	cy.get(titleInput).should('exist');
 	cy.closeWelcomeGuide();
+	cy.getBlockEditor().find(titleInput).should('exist');
 
-	cy.get(titleInput).clear().type(`Random Post Title ${getRandomText(6)}`);
+	cy.getBlockEditor()
+		.find(titleInput)
+		.clear()
+		.type(`Random Post Title ${getRandomText(6)}`);
 });
 
 
@@ -164,4 +167,32 @@ Cypress.Commands.add( 'publishPost', () => {
 
 	cy.get('[aria-disabled="false"].editor-post-publish-button').click();
     cy.wait('@publishPost');
+});
+
+Cypress.Commands.add('getBlockEditor', () => {
+	cy.get('.edit-post-visual-editor').should('be.visible');
+	return cy
+		.get('body')
+		.then(($body) => {
+			if ($body.find('iframe[name="editor-canvas"]').length) {
+				return cy.iframe('iframe[name="editor-canvas"]');
+			}
+			return $body;
+		})
+		.then(cy.wrap);
+});
+
+Cypress.Commands.add('closeWelcomeGuide', () => {
+	cy.window().then((win) => {
+		const { wp } = win;
+		if (
+			wp.data
+				.select('core/edit-post')
+				.isFeatureActive('welcomeGuide')
+		) {
+			wp.data
+				.dispatch('core/edit-post')
+				.toggleFeature('welcomeGuide');
+		}
+	});
 });
