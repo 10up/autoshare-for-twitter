@@ -206,6 +206,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$status_meta    = get_autoshare_for_twitter_meta( $post_id, TWITTER_STATUS_KEY );
 	$accounts       = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 	$tweet_accounts = get_tweet_accounts( $post_id );
+	$tweet_body     = trim( get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY ) );
 	if ( empty( $tweet_accounts ) ) {
 		$tweet_accounts = get_default_autoshare_accounts();
 	}
@@ -217,6 +218,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'nonce'              => wp_create_nonce( 'wp_rest' ),
 		'restUrl'            => rest_url( post_autoshare_for_twitter_meta_rest_route( $post_id ) ),
 		'tweetBodyKey'       => TWEET_BODY_KEY,
+		'customTweetBody'    => $tweet_body,
 		'status'             => $status_meta && is_array( $status_meta ) ? $status_meta : null,
 		'unknownErrorText'   => __( 'An unknown error occurred', 'autoshare-for-twitter' ),
 		'siteUrl'            => home_url(),
