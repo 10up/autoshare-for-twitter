@@ -4,7 +4,7 @@ const fs = require( 'fs' );
 
 const path = `${ process.cwd() }/.wp-env.json`;
 
-let config = fs.existsSync( path ) ? require( path ) : { plugins: [ '.', 'https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip' ] };
+let config = fs.existsSync( path ) ? require( path ) : { plugins: [ '.', 'https://downloads.wordpress.org/plugin/classic-editor.zip' ] };
 
 const args = {};
 process.argv
