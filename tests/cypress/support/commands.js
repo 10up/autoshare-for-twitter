@@ -30,8 +30,8 @@ Cypress.Commands.add( 'startCreatePost', () => {
 	const titleInput = 'h1.editor-post-title__input, #post-title-0';
 
 	// Make sure editor loaded properly.
-	cy.getBlockEditor().find(titleInput).should('exist');
 	cy.closeWelcomeGuide();
+	cy.getBlockEditor().find(titleInput).should('exist');
 
 	cy.getBlockEditor()
 		.find(titleInput)
@@ -183,12 +183,16 @@ Cypress.Commands.add('getBlockEditor', () => {
 });
 
 Cypress.Commands.add('closeWelcomeGuide', () => {
-    // Wait for edit page to load
-	cy.getBlockEditor();
-	const closeButtonSelector = '.edit-post-welcome-guide .components-modal__header button';
-    cy.get('body').then($body => {
-        if ($body.find(closeButtonSelector).length > 0) {
-            cy.get(closeButtonSelector).click();
-        }
-    });
+	cy.window().then((win) => {
+		const { wp } = win;
+		if (
+			wp.data
+				.select('core/edit-post')
+				.isFeatureActive('welcomeGuide')
+		) {
+			wp.data
+				.dispatch('core/edit-post')
+				.toggleFeature('welcomeGuide');
+		}
+	});
 });
