@@ -5,13 +5,14 @@ import { withSelect, useSelect } from '@wordpress/data';
 import { Button, ToggleControl, Icon } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
 import { TwitterAccounts } from './components/TwitterAccounts';
-import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData } from './hooks';
+import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData, useTweetText } from './hooks';
 
 import { StatusLogs } from './components/StatusLogs';
 
 export function AutoshareForTwitterPostStatusInfo() {
 	const hasFeaturedImage = useHasFeaturedImage();
 	const [ allowTweetImage, setAllowTweetImage ] = useAllowTweetImage();
+	const [ , setTweetText ] = useTweetText();
 	const [ reTweet, setReTweet ] = useState( false );
 	const [ tweetNow, setTweetNow ] = useState( false );
 	const { messages } = useSelect( ( select ) => {
@@ -41,6 +42,10 @@ export function AutoshareForTwitterPostStatusInfo() {
 
 		const { data } = await apiResponse.json();
 
+		// Clear the tweet text if the tweet was successful.
+		if ( data.is_retweeted ) {
+			setTweetText( '' );
+		}
 		setStatusMessages( data );
 		setReTweet( false );
 	};
