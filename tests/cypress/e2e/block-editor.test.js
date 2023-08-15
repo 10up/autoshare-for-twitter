@@ -183,4 +183,38 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.autoshare-for-twitter-log a').contains('Tweeted on');
 		});
 	});
+
+	it('Tests that custom tweet message remain persistent for Tweet', () => {
+		const customTweetBody = `Custom Tweet ${getRandomText(6)}`;
+		// Start create new post by enter post title
+		cy.startCreatePost();
+
+		// Open AutoTweet Panel and set custom tweet message.
+		cy.openDocumentSettingsPanel('Autotweet enabled');
+		cy.get('.autoshare-for-twitter-prepublish__override-row button').click();
+		cy.get('.autoshare-for-twitter-tweet-text textarea').clear().type(customTweetBody);
+
+		// Save Draft
+		cy.get('.editor-post-save-draft').should('be.visible');
+		cy.get('.editor-post-save-draft').click();
+		cy.get('.editor-post-saved-state').should('have.text', 'Saved');
+
+		// Verify custom tweet message.
+		cy.reload();
+		cy.get('.autoshare-for-twitter-tweet-text textarea').should('have.value', customTweetBody);
+
+		// Open pre-publish Panel.
+		cy.openPrePublishPanel();
+
+		// Publish
+		cy.publishPost();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+
+		// Verify custom tweet message is cleared on publish.
+		cy.get('.post-publish-panel__postpublish button.autoshare-for-twitter-tweet-now').click();
+		cy.get('.post-publish-panel__postpublish .autoshare-for-twitter-tweet-text textarea').should('have.value', '');
+	});
 });

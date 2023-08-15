@@ -148,4 +148,32 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 			cy.get('.autoshare-for-twitter-status-log-data').contains('Tweeted on');
 		});
 	});
+
+	it('Tests that custom tweet message remain persistent for Tweet', () => {
+		const customTweetBody = `Custom Tweet ${getRandomText(6)}`;
+		// Start create post.
+		cy.classicStartCreatePost();
+
+		// Set custom tweet message.
+		cy.enableCheckbox('#autoshare-for-twitter-enable', true, true);
+		cy.get('#autoshare-for-twitter-edit').click();
+		cy.get('textarea#autoshare-for-twitter-text').clear().type(customTweetBody);
+
+		// Save Draft
+		cy.get('#save-post').click();
+
+		// verify custom tweet message.
+		cy.get('textarea#autoshare-for-twitter-text').should('have.value', customTweetBody);
+
+		// publish
+		cy.get('#publish').should('be.visible').click({force: true});
+
+		// Post-publish.
+		cy.get('#autoshare_for_twitter_metabox',).should('be.visible');
+		cy.get('#autoshare_for_twitter_metabox',).contains('Tweeted on');
+
+		// Verify custom tweet message is cleared on publish.
+		cy.get('button.tweet-now-button').click();
+		cy.get('textarea#autoshare-for-twitter-text').should('have.value', '');
+	});
 });
