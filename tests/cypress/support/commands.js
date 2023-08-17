@@ -110,7 +110,7 @@ Cypress.Commands.add( 'markAccountForAutoshare', ( enable = true ) => {
 Cypress.Commands.add( 'enableEditor', ( editor = 'block' ) => {
 	cy.visit('/wp-admin/options-writing.php#classic-editor-options');
 		cy.get(`#classic-editor-${editor}`).click();
-		cy.get('#classic-editor-allow').click();
+		cy.get('#classic-editor-disallow').click();
 		cy.get('#submit').click();
 });
 

@@ -238,6 +238,9 @@
 				( ( response.success && response.data.message ) || ( false === response.success && false === response.data.is_retweeted) )
 			) {
 				$('.autoshare-for-twitter-status-logs-wrapper').html(response.data.message);
+				if ( response.data.is_retweeted ) {
+					$tweetText.val(''); // Reset the tweet text.
+				}
 			} else {
 				$("#autoshare-for-twitter-error-message").html(adminAutoshareForTwitter.unknownErrorText);
 			}

@@ -546,6 +546,8 @@ function markup_unknown( $status_meta ) {
  * @return string
  */
 function _safe_markup_default() {
+	$custom_tweet_body = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY );
+
 	$count      = ( strlen( get_permalink( get_the_ID() ) ) + 5 );
 	$max_length = 280 - $count;
 	ob_start();
@@ -560,7 +562,9 @@ function _safe_markup_default() {
 		>
 		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
-		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
+		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit" style="<?php echo ( ( ! empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
+			<?php esc_attr_e( 'Edit', 'autoshare-for-twitter' ); ?>
+		</a>
 	</label>
 
 	<div class="autoshare-for-twitter-tweet-allow-image-wrap" style="display: none;">
@@ -583,7 +587,7 @@ function _safe_markup_default() {
 	render_twitter_accounts( get_the_ID() );
 	?>
 
-	<div id="autoshare-for-twitter-override-body" style="display: none;">
+	<div id="autoshare-for-twitter-override-body" style="<?php echo ( ( empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
 			<?php esc_html_e( 'Custom Message', 'autoshare-for-twitter' ); ?>:
 		</label>
@@ -593,7 +597,7 @@ function _safe_markup_default() {
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
 			rows="3"
 			maxlength="<?php echo esc_attr( $max_length ); ?>"
-		><?php echo esc_textarea( Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
+		><?php echo esc_textarea( $custom_tweet_body ); ?></textarea>
 		<p class="howto" id="autoshare-for-twitter-text-desc"><?php esc_html_e( 'Character count is inclusive of the post permalink which will be included in the final tweet.', 'autoshare-for-twitter' ); ?></p>
 
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text"><?php esc_html_e( 'Hide', 'autoshare-for-twitter' ); ?></a></p>

@@ -19,6 +19,8 @@ use function TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_meta;
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_logs;
 
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
+
 /**
  * Setup function.
  *
@@ -169,6 +171,12 @@ function publish_tweet( $post_id, $force = false ) {
 				do_action( 'autoshare_for_twitter_failed' );
 				$failed = true;
 			}
+		}
+
+		if ( ! $failed ) {
+			// Clear the tweet body on successful publishing to Twitter.
+			Utils\delete_autoshare_for_twitter_meta( $post->ID, TWEET_BODY_KEY );
+			remove_action( 'save_post', 'TenUp\AutoshareForTwitter\Core\Post_Meta\save_tweet_meta', 10 );
 		}
 
 		return ( ! $failed );
