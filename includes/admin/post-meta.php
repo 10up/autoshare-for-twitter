@@ -156,7 +156,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 	// If the enable key is not set, set it to the default setting value.
 	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( isset( $_POST['classic-editor'] ) ) {
+		if ( isset( $_POST['autoshare-classic-editor'] ) ) {
 			// Handle unchecked "Tweet this post" checkbox for classic editor.
 			$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
 		} else {
@@ -166,7 +166,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 
 	if ( ! array_key_exists( TWEET_ALLOW_IMAGE, $data ) ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( isset( $_POST['classic-editor'] ) ) {
+		if ( isset( $_POST['autoshare-classic-editor'] ) ) {
 			// Handle unchecked "Tweet this post" checkbox for classic editor.
 			$data[ TWEET_ALLOW_IMAGE ] = 0;
 		} else {
@@ -293,8 +293,9 @@ function render_twitter_accounts( $post_id ) {
 	if ( empty( $enabled ) ) {
 		$enabled = Utils\get_default_autoshare_accounts();
 	}
+	$display = ( autoshare_enabled( $post_id ) ) ? '' : 'display: none;';
 	?>
-	<div class="autoshare-for-twitter-accounts-wrapper">
+	<div class="autoshare-for-twitter-accounts-wrapper" style="<?php echo esc_attr( $display ); ?>">
 		<?php
 		foreach ( $accounts as $account ) {
 			?>
@@ -560,6 +561,7 @@ function _safe_markup_default() {
 			value="1"
 			<?php checked( autoshare_enabled( get_the_ID() ) ); ?>
 		>
+		<input type="hidden" name="autoshare-classic-editor" value="1" />
 		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
 		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
 		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit" style="<?php echo ( ( ! empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
