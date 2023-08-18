@@ -111,7 +111,7 @@ To avoid encountering this error in the future and to have higher usage limits, 
 
 == Changelog ==
 = 2.1.0 - 2023-08-XX =
-* **Changed:** Improved setup Instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255))
+* **Changed:** Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255))
 * **Changed:** Bump WordPress "tested up to" version 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#265](https://github.com/10up/autoshare-for-twitter/pull/265))
 * **Fixed:** Better error handling for environments that don't match our minimum PHP version (props [@dkotter](https://github.com/dkotter), [@rahulsprajapati](https://github.com/rahulsprajapati), [@iamdharmesh](https://github.com/iamdharmesh) via [#258](https://github.com/10up/autoshare-for-twitter/pull/258))
 * **Fixed:** Ensure our E2E tests work properly on WordPress 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#264](https://github.com/10up/autoshare-for-twitter/pull/264))
