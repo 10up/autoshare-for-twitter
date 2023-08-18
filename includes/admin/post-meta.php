@@ -293,8 +293,9 @@ function render_twitter_accounts( $post_id ) {
 	if ( empty( $enabled ) ) {
 		$enabled = Utils\get_default_autoshare_accounts();
 	}
+	$display = ( autoshare_enabled( $post_id ) ) ? '' : 'display: none;';
 	?>
-	<div class="autoshare-for-twitter-accounts-wrapper">
+	<div class="autoshare-for-twitter-accounts-wrapper" style="<?php echo esc_attr( $display ); ?>">
 		<?php
 		foreach ( $accounts as $account ) {
 			?>
