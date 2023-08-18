@@ -9,18 +9,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.1.1] - 2023-08-XX
 
 ### Changed
-- Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255))
-- Bump WordPress "tested up to" version 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#265](https://github.com/10up/autoshare-for-twitter/pull/265))
+- Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255)).
+- Bump WordPress "tested up to" version 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#265](https://github.com/10up/autoshare-for-twitter/pull/265)).
 
 ### Fixed
-- Better error handling for environments that don't match our minimum PHP version (props [@dkotter](https://github.com/dkotter), [@rahulsprajapati](https://github.com/rahulsprajapati), [@iamdharmesh](https://github.com/iamdharmesh) via [#258](https://github.com/10up/autoshare-for-twitter/pull/258))
-- Ensure our E2E tests work properly on WordPress 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#264](https://github.com/10up/autoshare-for-twitter/pull/264))
-- The custom tweet message does not work with scheduled posts.  (props [@GeoffLambert77](https://github.com/GeoffLambert77), [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#267](https://github.com/10up/autoshare-for-twitter/pull/267))
-- Connected Twitter accounts visibility in the classic editor. (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#269](https://github.com/10up/autoshare-for-twitter/pull/269))
+- The custom tweet message does not work with scheduled posts (props [@GeoffLambert77](https://github.com/GeoffLambert77), [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#267](https://github.com/10up/autoshare-for-twitter/pull/267)).
+- Connected Twitter accounts visibility in the classic editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#269](https://github.com/10up/autoshare-for-twitter/pull/269)).
+- Better error handling for environments that don't match our minimum PHP version (props [@dkotter](https://github.com/dkotter), [@rahulsprajapati](https://github.com/rahulsprajapati), [@iamdharmesh](https://github.com/iamdharmesh) via [#258](https://github.com/10up/autoshare-for-twitter/pull/258)).
+- Ensure our E2E tests work properly on WordPress 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#264](https://github.com/10up/autoshare-for-twitter/pull/264)).
 
 ### Security
-- Bump `tough-cookie` from 2.5.0 to 4.1.3 and `@cypress/request` from 2.88.10 to 2.88.12 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#266](https://github.com/10up/autoshare-for-twitter/pull/266))
-- Bump `word-wrap` from 1.2.3 to 1.2.4 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#257](https://github.com/10up/autoshare-for-twitter/pull/257))
+- Bump `tough-cookie` from 2.5.0 to 4.1.3 and `@cypress/request` from 2.88.10 to 2.88.12 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#266](https://github.com/10up/autoshare-for-twitter/pull/266)).
+- Bump `word-wrap` from 1.2.3 to 1.2.4 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#257](https://github.com/10up/autoshare-for-twitter/pull/257)).
 
 ## [2.1.0] - 2023-07-06
 ### Added
