@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [2.1.1] - 2023-08-XX
+## [2.1.1] - 2023-08-22
 
 ### Changed
 - Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255)).

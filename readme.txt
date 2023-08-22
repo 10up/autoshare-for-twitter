@@ -110,7 +110,7 @@ To avoid encountering this error in the future and to have higher usage limits, 
 4. Autoshare for Twitter Settings, found under `Settings` > `Autoshare for Twitter`.
 
 == Changelog ==
-= 2.1.0 - 2023-08-XX =
+= 2.1.1 - 2023-08-22 =
 * **Changed:** Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255)).
 * **Changed:** Bump WordPress "tested up to" version 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#265](https://github.com/10up/autoshare-for-twitter/pull/265)).
 * **Fixed:** The custom tweet message does not work with scheduled posts (props [@GeoffLambert77](https://github.com/GeoffLambert77), [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#267](https://github.com/10up/autoshare-for-twitter/pull/267)).
