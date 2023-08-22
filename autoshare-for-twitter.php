@@ -3,7 +3,7 @@
  * Plugin Name:       Autoshare for Twitter
  * Description:       Automatically tweets the post title or custom message and a link to the post.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
- * Version:           2.1.0
+ * Version:           2.1.1
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            10up
@@ -15,15 +15,60 @@
  * @package TenUp\AutoshareForTwitter
  */
 
+namespace TenUp\AutoshareForTwitter;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 define( 'AUTOSHARE_FOR_TWITTER', __FILE__ );
-define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.1.0' );
+define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.1.1' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
+
+/**
+ * Get the minimum version of PHP required by this plugin.
+ *
+ * @return string Minimum version required.
+ */
+function minimum_php_requirement() {
+	return '7.4';
+}
+
+/**
+ * Whether PHP installation meets the minimum requirements
+ *
+ * @return bool True if meets minimum requirements, false otherwise.
+ */
+function site_meets_php_requirements() {
+	return version_compare( phpversion(), minimum_php_requirement(), '>=' );
+}
+
+// Ensuring our PHP version requirement is met first before loading plugin.
+if ( ! site_meets_php_requirements() ) {
+	add_action(
+		'admin_notices',
+		function() {
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php
+					echo wp_kses_post(
+						sprintf(
+							/* translators: %s: Minimum required PHP version */
+							__( 'Autoshare for Twitter requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
+							esc_html( minimum_php_requirement() )
+						)
+					);
+					?>
+				</p>
+			</div>
+			<?php
+		}
+	);
+	return;
+}
 
 /**
  * Composer check.

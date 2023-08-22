@@ -3,6 +3,7 @@ import { useSelect } from '@wordpress/data';
 import { siteUrl } from 'admin-autoshare-for-twitter';
 import { __, sprintf } from '@wordpress/i18n';
 import { useTweetText } from '../hooks';
+import { useEffect, useState } from '@wordpress/element';
 
 export function TweetTextField() {
 	const getPermalinkLength = ( select ) => {
@@ -46,6 +47,18 @@ export function TweetTextField() {
 
 	const [ tweetText, setTweetText ] = useTweetText();
 	const { tweetLength, overrideLengthClass } = getTweetLength();
+
+	const status = useSelect( ( __select ) =>  __select( 'core/editor' ).getEditedPostAttribute( 'status' ) );
+	const [ isPublished, setIsPublished ] = useState( status === 'publish' );
+
+	useEffect( () => {
+		if ( 'publish' !==  status || isPublished ) {
+			return;
+		}
+
+		setTweetText( '' );
+		setIsPublished( true );
+	}, [ status, isPublished ] );
 
 	const CounterTooltip = () => (
 		<Tooltip 
