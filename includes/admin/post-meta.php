@@ -284,7 +284,8 @@ function render_tweet_submitbox( $post ) {
  * @param int $post_id The post ID.
  */
 function render_twitter_accounts( $post_id ) {
-	$accounts = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+	$post_status = get_post_status( $post_id );
+	$accounts    = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 	if ( empty( $accounts ) ) {
 		return;
 	}
@@ -293,7 +294,7 @@ function render_twitter_accounts( $post_id ) {
 	if ( empty( $enabled ) ) {
 		$enabled = Utils\get_default_autoshare_accounts();
 	}
-	$display = ( autoshare_enabled( $post_id ) ) ? '' : 'display: none;';
+	$display = ( autoshare_enabled( $post_id ) || 'publish' === $post_status ) ? '' : 'display: none;';
 	?>
 	<div class="autoshare-for-twitter-accounts-wrapper" style="<?php echo esc_attr( $display ); ?>">
 		<?php
