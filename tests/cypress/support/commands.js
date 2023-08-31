@@ -71,22 +71,24 @@ Cypress.Commands.add(
 
 		if (true === check) {
 			cy.get(checkboxSelector).first().check({ force: true });
+			cy.wait(1000);
 			if (checkboxSelector === '#autoshare-for-twitter-enable') {
 				cy.get('#publish').should('not.be.disabled');
 			} else {
-				cy.get('button.editor-post-publish-button').should(
-					'not.be.disabled'
-				);
+				cy.get(
+					'.editor-post-publish-panel__header-publish-button button.editor-post-publish-button'
+				).should('not.be.disabled');
 			}
 			cy.get(checkboxSelector).first().should('be.checked');
 		} else {
 			cy.get(checkboxSelector).first().uncheck({ force: true });
+			cy.wait(1000);
 			if (checkboxSelector === '#autoshare-for-twitter-enable') {
 				cy.get('#publish').should('not.be.disabled');
 			} else {
-				cy.get('button.editor-post-publish-button').should(
-					'not.be.disabled'
-				);
+				cy.get(
+					'.editor-post-publish-panel__header-publish-button button.editor-post-publish-button'
+				).should('not.be.disabled');
 			}
 			cy.get(checkboxSelector).first().should('not.be.checked');
 		}
@@ -137,22 +139,24 @@ Cypress.Commands.add('enableTweetAccount', (selector, check = true) => {
 	checkbox.should('exist');
 	if (true === check) {
 		checkbox.check({ force: true });
+		cy.wait(1000);
 		if (selector === 'input.autoshare-for-twitter-account-checkbox') {
 			cy.get('#publish').should('not.be.disabled');
 		} else {
-			cy.get('button.editor-post-publish-button').should(
-				'not.be.disabled'
-			);
+			cy.get(
+				'.editor-post-publish-panel__header-publish-button button.editor-post-publish-button'
+			).should('not.be.disabled');
 		}
 		cy.get(selector).first().should('be.checked');
 	} else {
 		checkbox.uncheck({ force: true });
+		cy.wait(1000);
 		if (selector === 'input.autoshare-for-twitter-account-checkbox') {
 			cy.get('#publish').should('not.be.disabled');
 		} else {
-			cy.get('button.editor-post-publish-button').should(
-				'not.be.disabled'
-			);
+			cy.get(
+				'.editor-post-publish-panel__header-publish-button button.editor-post-publish-button'
+			).should('not.be.disabled');
 		}
 		cy.get(selector).first().should('not.be.checked');
 	}

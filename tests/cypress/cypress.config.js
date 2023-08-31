@@ -20,7 +20,6 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0
   },
-  defaultCommandTimeout: 10000,
   reporter: 'mochawesome',
   reporterOptions: {
     mochaFile: "mochawesome-[name]",
