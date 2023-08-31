@@ -15,6 +15,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 	});
 
 	beforeEach(() => {
+		cy.login();
 		// Enable Autoshare on account.
 		cy.markAccountForAutoshare();
 	});

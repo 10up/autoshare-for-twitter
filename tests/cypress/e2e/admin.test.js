@@ -1,5 +1,5 @@
 describe('Admin can login and make sure plugin is activated', () => {
-	before(() => {
+	beforeEach(() => {
 		cy.login();
 		cy.clearPluginSettings();
 	});
@@ -14,6 +14,10 @@ describe('Admin can login and make sure plugin is activated', () => {
 });
 
 describe('Plugin settings page has the necessary fields', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Can see all the fields on the settings page', () => {
 		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 		cy.get('input[name="autoshare-for-twitter[api_key]"]').should('be.visible');
@@ -22,6 +26,10 @@ describe('Plugin settings page has the necessary fields', () => {
 });
 
 describe('Configure the plugin', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Configure the plugin settings and Twitter accounts', () => {
 		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 		cy.get('.large-text:nth-child(1) .large-text').clear().type( 'TEST_TWITTER_API_KEY' );

@@ -4,6 +4,10 @@ describe('Twitter accounts should visible in Autotweet Panel and should respect 
 		cy.configurePlugin();
 	});
 
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Can see Twitter accounts in Block editor', () => {
 		//Block editor.
 		cy.enableEditor('block');

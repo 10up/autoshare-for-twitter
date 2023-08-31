@@ -9,6 +9,7 @@ describe('Test Autoshare for Twitter with Classic Editor.', () => {
 	});
 
 	beforeEach(() => {
+		cy.login();
 		// Enable Autoshare on account.
 		cy.markAccountForAutoshare();
 	});
