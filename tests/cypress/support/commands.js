@@ -56,7 +56,7 @@ Cypress.Commands.add('openPrePublishPanel', () => {
 
 Cypress.Commands.add(
 	'enableCheckbox',
-	(checkboxSelector, defaultBehavior, check = true) => {
+	(checkboxSelector, defaultBehavior, check) => {
 		// Check/Uncheck enable checkbox for auto-share.
 		cy.get(checkboxSelector).should('exist');
 		if (true === defaultBehavior) {
@@ -65,19 +65,28 @@ Cypress.Commands.add(
 			cy.get(checkboxSelector).first().should('not.be.checked');
 		}
 
-		cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as(
-			'enableCheckbox'
-		);
+		if (defaultBehavior === check) {
+			return;
+		}
+
 		if (true === check) {
 			cy.get(checkboxSelector).first().check({ force: true });
-			if (defaultBehavior !== check) {
-				cy.wait('@enableCheckbox');
+			if (checkboxSelector === '#autoshare-for-twitter-enable') {
+				cy.get('#publish').should('not.be.disabled');
+			} else {
+				cy.get('button.editor-post-publish-button').should(
+					'not.be.disabled'
+				);
 			}
 			cy.get(checkboxSelector).first().should('be.checked');
 		} else {
 			cy.get(checkboxSelector).first().uncheck({ force: true });
-			if (defaultBehavior !== check) {
-				cy.wait('@enableCheckbox');
+			if (checkboxSelector === '#autoshare-for-twitter-enable') {
+				cy.get('#publish').should('not.be.disabled');
+			} else {
+				cy.get('button.editor-post-publish-button').should(
+					'not.be.disabled'
+				);
 			}
 			cy.get(checkboxSelector).first().should('not.be.checked');
 		}
@@ -126,17 +135,26 @@ Cypress.Commands.add('enableTweetAccount', (selector, check = true) => {
 	// Check/Uncheck enable checkbox for auto-share.
 	const checkbox = cy.get(selector).first();
 	checkbox.should('exist');
-	cy.intercept('**/autoshare/v1/post-autoshare-for-twitter-meta/*').as(
-		'enableTweetAccount'
-	);
 	if (true === check) {
 		checkbox.check({ force: true });
-		cy.wait('@enableTweetAccount');
-		checkbox.should('be.checked');
+		if (selector === 'input.autoshare-for-twitter-account-checkbox') {
+			cy.get('#publish').should('not.be.disabled');
+		} else {
+			cy.get('button.editor-post-publish-button').should(
+				'not.be.disabled'
+			);
+		}
+		cy.get(selector).first().should('be.checked');
 	} else {
 		checkbox.uncheck({ force: true });
-		cy.wait('@enableTweetAccount');
-		checkbox.should('not.be.checked');
+		if (selector === 'input.autoshare-for-twitter-account-checkbox') {
+			cy.get('#publish').should('not.be.disabled');
+		} else {
+			cy.get('button.editor-post-publish-button').should(
+				'not.be.disabled'
+			);
+		}
+		cy.get(selector).first().should('not.be.checked');
 	}
 });
 
@@ -183,6 +201,6 @@ Cypress.Commands.add('publishPost', () => {
 		}
 	});
 
-	cy.get('[aria-disabled="false"].editor-post-publish-button').click();
+	cy.get('button[aria-disabled="false"].editor-post-publish-button').click();
 	cy.wait('@publishPost');
 });

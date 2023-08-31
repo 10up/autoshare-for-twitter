@@ -179,7 +179,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
 			cy.openDocumentSettingsPanel('Autotweet');
 			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-tweet-now').click();
-			cy.get('.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`);
+			cy.get('.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`, {force: true});
 			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-re-tweet').click();
 			cy.get('.autoshare-for-twitter-log a').contains('Tweeted on');
 		});
@@ -193,7 +193,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 		// Open AutoTweet Panel and set custom tweet message.
 		cy.openDocumentSettingsPanel('Autotweet enabled');
 		cy.get('.autoshare-for-twitter-prepublish__override-row button').click();
-		cy.get('.autoshare-for-twitter-tweet-text textarea').clear().type(customTweetBody);
+		cy.get('.autoshare-for-twitter-tweet-text textarea').clear().type(customTweetBody,  {force: true});
 
 		// Save Draft
 		cy.get('.editor-post-save-draft').should('be.visible');
