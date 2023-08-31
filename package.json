@@ -48,7 +48,7 @@
 		"@wordpress/prettier-config": "^1.1.1",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
-		"cypress": "^11.2.0",
+		"cypress": "^13.0.0",
 		"cypress-iframe": "^1.0.1",
 		"cypress-mochawesome-reporter": "^3.5.1",
 		"eslint": "^6.3.0",
