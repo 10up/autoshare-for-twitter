@@ -43,7 +43,7 @@
 		"@babel/core": "^7.6.0",
 		"@babel/preset-env": "^7.6.0",
 		"@babel/preset-react": "^7.0.0",
-		"@wordpress/env": "^5.7.0",
+		"@wordpress/env": "^8.6.0",
 		"@wordpress/eslint-plugin": "^3.0.0",
 		"@wordpress/prettier-config": "^1.1.1",
 		"babel-eslint": "^10.0.3",

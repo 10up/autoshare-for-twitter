@@ -1,5 +1,6 @@
 const { defineConfig } = require('cypress');
-const { readConfig } = require('@wordpress/env/lib/config');
+const { loadConfig } = require( '@wordpress/env/lib/config' );
+const getCacheDirectory = require( '@wordpress/env/lib/config/get-cache-directory' );
 
 module.exports = defineConfig({
   chromeWebSecurity: false,
@@ -38,7 +39,8 @@ module.exports = defineConfig({
  * @returns config Updated Cypress Config object.
  */
 const setBaseUrl = async (on, config) => {
-  const wpEnvConfig = await readConfig('wp-env');
+  const cacheDirectory = await getCacheDirectory();
+  const wpEnvConfig = await loadConfig( cacheDirectory );
 
   if (wpEnvConfig) {
     const port = wpEnvConfig.env.tests.port || null;
