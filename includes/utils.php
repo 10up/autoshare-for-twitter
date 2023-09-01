@@ -214,7 +214,9 @@ function compose_tweet_body( \WP_Post $post ) {
 	$url = apply_filters( 'autoshare_for_twitter_post_url', get_the_permalink( $post->ID ), $post );
 
 	$url               = esc_url( $url );
-	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.
+	// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length.
+	$url_length        = AUTOSHARE_FOR_TWITTER_URL_LENGTH ? AUTOSHARE_FOR_TWITTER_URL_LENGTH : strlen( $url );
+	$body_max_length   = 275 - $url_length; // 275 instead of 280 because of the space between body and URL and the ellipsis.
 	$tweet_body        = sanitize_text_field( $tweet_body );
 	$tweet_body        = html_entity_decode( $tweet_body, ENT_QUOTES, get_bloginfo( 'charset' ) );
 	$tweet_body_length = strlen( $tweet_body );

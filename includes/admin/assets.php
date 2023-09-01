@@ -211,6 +211,7 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'tweetAccounts'      => $tweet_accounts,
 		'tweetAccountsKey'   => TWEET_ACCOUNTS_KEY,
 		'connectedAccounts'  => $accounts ?? [],
+		'twitterURLLength'   => AUTOSHARE_FOR_TWITTER_URL_LENGTH,
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );
