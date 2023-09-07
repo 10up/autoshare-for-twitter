@@ -9,13 +9,15 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 				return false;
 			}
 		});
+
+		cy.enableEditor('block');
+		cy.configurePlugin();
 	});
 
-	it('Update settings to keep the default editor as block editor', () => {
-		cy.visit('/wp-admin/options-writing.php#classic-editor-options');
-		cy.get('#classic-editor-block').click();
-		cy.get('#classic-editor-allow').click();
-		cy.get('#submit').click();
+	beforeEach(() => {
+		cy.login();
+		// Enable Autoshare on account.
+		cy.markAccountForAutoshare();
 	});
 
 	// Run test cases with default Autoshare enabled and disabled both.
@@ -45,8 +47,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('.editor-post-publish-button').click();
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -64,8 +65,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('.editor-post-publish-button').click();
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -88,8 +88,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('.editor-post-publish-button').click();
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -112,8 +111,48 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
 
 			// Publish.
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('.editor-post-publish-button').click();
+			cy.publishPost();
+
+			// Post-publish.
+			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+			cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+		});
+
+		it('Tests that new post is not tweeted when tweet accounts are unchecked', () => {
+			// Start create new post by enter post title
+			cy.startCreatePost();
+
+			// Open pre-publish Panel.
+			cy.openPrePublishPanel();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
+			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', false);
+
+			// Publish.
+			cy.publishPost();
+
+			// Post-publish.
+			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+		});
+
+		it('Tests that new post is tweeted when tweet accounts are checked', () => {
+			// Disable Autoshare on account.
+			cy.markAccountForAutoshare(false);
+
+			// Start create new post by enter post title
+			cy.startCreatePost();
+
+			// Open pre-publish Panel.
+			cy.openPrePublishPanel();
+
+			// Check enable checkbox for auto-share.
+			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, true);
+			cy.enableTweetAccount('.autoshare-for-twitter-account-toggle input:checkbox', true);
+
+			// Publish.
+			cy.publishPost();
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -131,8 +170,7 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 	
 			// Publish
-			cy.get('[aria-disabled="false"].editor-post-publish-button').should('be.visible');
-			cy.get('.editor-post-publish-button').click();
+			cy.publishPost();
 	
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
@@ -140,10 +178,44 @@ describe('Test Autoshare for Twitter with Block Editor.', () => {
 	
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
 			cy.openDocumentSettingsPanel('Autotweet');
-			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-tweet-now').click();
-			cy.get('.autoshare-for-twitter-post-status .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`);
-			cy.get('.autoshare-for-twitter-post-status button.autoshare-for-twitter-re-tweet').click();
+			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-tweet-now').click();
+			cy.get('.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`, {force: true});
+			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-re-tweet').click();
 			cy.get('.autoshare-for-twitter-log a').contains('Tweeted on');
 		});
+	});
+
+	it('Tests that custom tweet message remain persistent for Tweet', () => {
+		const customTweetBody = `Custom Tweet ${getRandomText(6)}`;
+		// Start create new post by enter post title
+		cy.startCreatePost();
+
+		// Open AutoTweet Panel and set custom tweet message.
+		cy.openDocumentSettingsPanel('Autotweet enabled');
+		cy.get('.autoshare-for-twitter-prepublish__override-row button').click();
+		cy.get('.autoshare-for-twitter-tweet-text textarea').clear().type(customTweetBody,  {force: true});
+
+		// Save Draft
+		cy.get('.editor-post-save-draft').should('be.visible');
+		cy.get('.editor-post-save-draft').click();
+		cy.get('.editor-post-saved-state').should('have.text', 'Saved');
+
+		// Verify custom tweet message.
+		cy.reload();
+		cy.get('.autoshare-for-twitter-tweet-text textarea').should('have.value', customTweetBody);
+
+		// Open pre-publish Panel.
+		cy.openPrePublishPanel();
+
+		// Publish
+		cy.publishPost();
+
+		// Post-publish.
+		cy.get('.autoshare-for-twitter-post-status').should('be.visible');
+		cy.get('.autoshare-for-twitter-post-status').contains('Tweeted on');
+
+		// Verify custom tweet message is cleared on publish.
+		cy.get('.post-publish-panel__postpublish button.autoshare-for-twitter-tweet-now').click();
+		cy.get('.post-publish-panel__postpublish .autoshare-for-twitter-tweet-text textarea').should('have.value', '');
 	});
 });

@@ -1,6 +1,7 @@
 describe('Admin can login and make sure plugin is activated', () => {
-	before(() => {
+	beforeEach(() => {
 		cy.login();
+		cy.clearPluginSettings();
 	});
 
 	it('Can activate plugin if it is deactivated', () => {
@@ -13,6 +14,10 @@ describe('Admin can login and make sure plugin is activated', () => {
 });
 
 describe('Plugin settings page has the necessary fields', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
 	it('Can see all the fields on the settings page', () => {
 		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 		cy.get('input[name="autoshare-for-twitter[api_key]"]').should('be.visible');
@@ -21,13 +26,25 @@ describe('Plugin settings page has the necessary fields', () => {
 });
 
 describe('Configure the plugin', () => {
-	it('Configure the plugin secrets', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
+	it('Configure the plugin settings and Twitter accounts', () => {
 		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
-		cy.get('.large-text:nth-child(1) .large-text').clear().type( Cypress.env('TWITTER_API_KEY') );
-		cy.get('.large-text:nth-child(2) .large-text').clear().type( Cypress.env('TWITTER_API_SECRET') );
-		cy.get('.large-text:nth-child(3) .large-text').clear().type( Cypress.env('TWITTER_ACCESS_TOKEN') );
-		cy.get('.large-text:nth-child(4) .large-text').clear().type( Cypress.env('TWITTER_ACCESS_SECRET') );
-		cy.get('.regular-text').clear().type('gh_issue_help');
+		cy.get('.large-text:nth-child(1) .large-text').clear().type( 'TEST_TWITTER_API_KEY' );
+		cy.get('.large-text:nth-child(2) .large-text').clear().type( 'TEST_TWITTER_API_SECRET' );
 		cy.get('#submit').click();
+
+		// Verify that the credentials are saved and no accounts are connected.
+		cy.get('.twitter_accounts #the-list tr.no-items').should('be.visible');
+
+		// Connect a twitter account and verify it shows up in the list.
+		cy.connectAccounts();
+		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
+
+		cy.get('.twitter_accounts #the-list tr').should('be.visible').should('have.length', 2);
+		cy.get('.account-details strong').first().should('be.visible').contains('@testtwitteruser');
+		cy.get('.account-details strong').last().should('be.visible').contains('@testtwitteruser2');
 	});
 });

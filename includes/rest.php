@@ -13,6 +13,7 @@ use WP_REST_Server;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_BODY_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
 use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 
 use function TenUp\AutoshareForTwitter\Core\Post_Meta\get_tweet_status_message;
@@ -91,6 +92,18 @@ function register_post_autoshare_for_twitter_meta_rest_route() {
 					'type'              => 'boolean',
 					'validate_callback' => 'rest_validate_request_arg',
 				],
+				TWEET_ACCOUNTS_KEY               => [
+					'description'       => __( 'Tweet enabled Twitter accounts.', 'autoshare-for-twitter' ),
+					'required'          => true,
+					'type'              => 'array',
+					'sanitize_callback' => function( $value ) {
+						if ( is_array( $value ) ) {
+							return array_map( 'sanitize_text_field', $value );
+						}
+						return [];
+					},
+					'validate_callback' => 'rest_validate_request_arg',
+				],
 			],
 		]
 	);
@@ -130,18 +143,21 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 
 	save_autoshare_for_twitter_meta_data( $request['id'], $params );
 
-	$enabled           = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY, true );
-	$tweet_allow_image = (bool) ( 'yes' === get_autoshare_for_twitter_meta( $request['id'], TWEET_ALLOW_IMAGE, true ) );
+	$enabled           = (bool) get_autoshare_for_twitter_meta( $request['id'], ENABLE_AUTOSHARE_FOR_TWITTER_KEY );
+	$tweet_allow_image = (bool) ( 'yes' === get_autoshare_for_twitter_meta( $request['id'], TWEET_ALLOW_IMAGE ) );
+	$accounts          = get_autoshare_for_twitter_meta( $request['id'], TWEET_ACCOUNTS_KEY );
+	$accounts          = ! empty( $accounts ) ? $accounts : [];
 	$message           = $enabled ?
 		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
 		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
 
 	return rest_ensure_response(
 		[
-			'enabled'    => $enabled,
-			'message'    => $message,
-			'override'   => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY, true ) ),
-			'allowImage' => $tweet_allow_image,
+			'enabled'       => $enabled,
+			'message'       => $message,
+			'override'      => ! empty( get_autoshare_for_twitter_meta( $request['id'], TWEET_BODY_KEY ) ),
+			'allowImage'    => $tweet_allow_image,
+			'tweetAccounts' => $accounts,
 		]
 	);
 }

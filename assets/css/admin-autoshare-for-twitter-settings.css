@@ -86,7 +86,7 @@
 		display: flex;
 	}
 
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 70%;
 		margin-right: 50px;
 	}
@@ -96,8 +96,13 @@
 	}
 }
 
+.autoshare-settings table.twitter_accounts th,
+.autoshare-settings table.twitter_accounts td {
+    padding: 8px 10px;
+}
+
 @media (min-width: 1200px) {
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 60%;
 		margin-right: 10%;
 	}

@@ -8,7 +8,8 @@
 namespace TenUp\AutoshareForTwitter\Core\Publish_Tweet;
 
 use TenUp\AutoshareForTwitter\Utils as Utils;
-use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
+use TenUp\AutoshareForTwitter\Core\Twitter_API as Twitter_API;
+
 use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 
 /**
@@ -17,83 +18,28 @@ use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 class Publish_Tweet {
 
 	/**
-	 * The consumer key.
+	 * Twitter API.
 	 *
-	 * @var string The consumer key.
+	 * @var Twitter_API The Twitter API Class Instance.
 	 */
-	protected $consumer_key;
-
-	/**
-	 * The consumer secret.
-	 *
-	 * @var string The consumer secret.
-	 */
-	protected $consumer_secret;
-
-	/**
-	 * The access token.
-	 *
-	 * @var string The access token.
-	 */
-	protected $access_token;
-
-	/**
-	 * The access secret.
-	 *
-	 * @var string The access secret.
-	 */
-	protected $access_token_secret;
-
-	/**
-	 * The twitter handle.
-	 *
-	 * @var string The twitter handle.
-	 */
-	protected $twitter_handle;
-
-	/**
-	 * The TwitterOAuth client.
-	 *
-	 * @var object The TwitterOAuth client.
-	 */
-	protected $client;
+	private $twitter_api;
 
 	/**
 	 * Construct the PublishTweet class.
 	 */
-	public function __construct() {
-
-		$at_settings = Utils\get_autoshare_for_twitter_settings();
-
-		$this->consumer_key        = $at_settings['api_key'];
-		$this->consumer_secret     = $at_settings['api_secret'];
-		$this->access_token        = $at_settings['access_token'];
-		$this->access_token_secret = $at_settings['access_secret'];
-		$this->twitter_handle      = $at_settings['twitter_handle'];
-
-		// @todo add empty check error handler here
-		$this->client = new TwitterOAuth(
-			$this->consumer_key,
-			$this->consumer_secret,
-			$this->access_token,
-			$this->access_token_secret
-		);
-	}
-
-	/**
-	 *  Maybe account/verify_credentials?
-	 */
-	public function connection_test() {}
+	public function __construct() {}
 
 	/**
 	 * POST a status update.
 	 *
-	 * @param string  $body The tweet body.
-	 * @param WP_Post $post The post object.
+	 * @param string   $body The tweet body.
+	 * @param \WP_Post $post The post object.
+	 * @param int|null $account_id The Twitter account ID.
 	 *
 	 * @return object
 	 */
-	public function status_update( $body, $post ) {
+	public function status_update( $body, $post, $account_id = null ) {
+		$this->twitter_api = new Twitter_API( $account_id );
 
 		// Bail early if the body text is empty.
 		if ( empty( $body ) ) {
@@ -101,14 +47,16 @@ class Publish_Tweet {
 		}
 
 		$update_data = array(
-			'status' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
+			'text' => $body, // URL encoding handled by buildHttpQuery vai TwitterOAuth.
 		);
 
 		$is_image_allowed = Utils\get_autoshare_for_twitter_meta( $post->ID, TWEET_ALLOW_IMAGE );
 		if ( 'no' !== $is_image_allowed ) {
 			$media_id = $this->get_upload_data_media_id( $post );
 			if ( $media_id ) {
-				$update_data['media_ids'] = [ $media_id ];
+				$update_data['media'] = array(
+					'media_ids' => [ (string) $media_id ],
+				);
 			}
 		}
 
@@ -119,7 +67,7 @@ class Publish_Tweet {
 		 * @see https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-statuses-update
 		 *
 		 * @param array   Data sent to the Twitter endpoint.
-		 * @param WP_Post The post associated with the tweet.
+		 * @param \WP_Post The post associated with the tweet.
 		 */
 		$update_data = apply_filters( 'autoshare_for_twitter_tweet', $update_data, $post );
 
@@ -128,7 +76,7 @@ class Publish_Tweet {
 		 *
 		 * @param null|mixed Any non-null value will suppress the request to the Twitter endpoint.
 		 * @param array      Data to send to the Twitter endpoint.
-		 * @param WP_Post    The post associated with the tweet.
+		 * @param \WP_Post    The post associated with the tweet.
 		 */
 		$response = apply_filters( 'autoshare_for_twitter_pre_status_update', null, $update_data, $post );
 
@@ -136,18 +84,15 @@ class Publish_Tweet {
 			return $response;
 		}
 
-		$this->client->setTimeouts( 10, 30 );
-		$response = $this->client->post(
-			'statuses/update',
-			$update_data
-		);
+		// Send tweet to Twitter.
+		$response = $this->twitter_api->tweet( $update_data );
 
 		/**
 		 * Fires after the request to the Twitter endpoint had been made.
 		 *
 		 * @param array|object The response from the Twitter endpoint.
 		 * @param array        Data to send to the Twitter endpoint.
-		 * @param WP_Post      The post associated with the tweet.
+		 * @param \WP_Post      The post associated with the tweet.
 		 */
 		do_action( 'autoshare_for_twitter_after_status_update', $response, $update_data, $post );
 
@@ -219,7 +164,7 @@ class Publish_Tweet {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param WP_Post $post The post associated with the tweet.
+	 * @param \WP_Post $post The post associated with the tweet.
 	 * @return null|int The Twitter media ID or null if no image is to be sent.
 	 */
 	public function get_upload_data_media_id( $post ) {
@@ -230,7 +175,7 @@ class Publish_Tweet {
 		 * @since 1.0.0
 		 *
 		 * @param null|int An attachment ID, null to fall back to the featured image, or false to send no image.
-		 * @param WP_Post  The post associated with the tweet.
+		 * @param \WP_Post  The post associated with the tweet.
 		 */
 		$attachment_id = apply_filters( 'autoshare_for_twitter_attached_image', null, $post );
 
@@ -285,8 +230,7 @@ class Publish_Tweet {
 			return $media_upload_id;
 		}
 
-		$this->client->setTimeouts( 10, 60 );
-		$response = $this->client->upload( 'media/upload', array( 'media' => $image ) );
+		$response = $this->twitter_api->upload_media( $image );
 
 		if ( ! is_object( $response ) || ! isset( $response->media_id ) ) {
 			$media_upload_id = 0;

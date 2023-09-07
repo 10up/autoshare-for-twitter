@@ -9,6 +9,7 @@ namespace TenUp\AutoshareForTwitter\Core;
 
 use TenUp\AutoshareForTwitter\Utils;
 use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWITTER_STATUS_KEY;
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 
@@ -25,12 +26,19 @@ function setup() {
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-ast-staging.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-publish-tweet.php';
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/rest.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts-list-table.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-api.php';
+	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts.php';
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
 
 	// Initiate staging class.
 	AST_Staging::init();
+
+	// Initialize the Twitter Account class.
+	$twitter_accounts = new Twitter_Accounts();
+	$twitter_accounts->init();
 
 	/**
 	 * Allow others to hook into the core setup action
@@ -41,6 +49,8 @@ function setup() {
 	add_action( 'init', __NAMESPACE__ . '\set_post_type_supports_with_custom_columns' );
 	add_filter( 'autoshare_for_twitter_enabled_default', __NAMESPACE__ . '\maybe_enable_autoshare_by_default' );
 	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image', 10, 2 );
+	add_action( 'admin_init', __NAMESPACE__ . '\handle_notice_dismiss' );
+	add_action( 'admin_notices', __NAMESPACE__ . '\migrate_to_twitter_v2_api' );
 }
 
 /**
@@ -140,7 +150,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 
 	if ( 'publish' === $post_status && 'published' === $status ) {
 		$date        = Utils\date_from_twitter( $tweet_status['created_at'] );
-		$twitter_url = Utils\link_from_twitter( $tweet_status['twitter_id'] );
+		$twitter_url = Utils\link_from_twitter( $tweet_status );
 		$tweet_title = sprintf(
 			'%s %s',
 			__( 'Tweeted on', 'autoshare-for-twitter' ),
@@ -164,5 +174,51 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		printf(
 			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
 		);
+	}
+}
+
+/**
+ * Display admin notice to migrate to Twitter v2 API.
+ *
+ * @since 2.0.0
+ */
+function migrate_to_twitter_v2_api() {
+	$show_notice = get_option( 'autoshare_migrate_to_v2_api_notice_dismissed', false );
+	if ( $show_notice ) {
+		return;
+	}
+	$dismiss_url = wp_nonce_url( add_query_arg( 'autoshare_dismiss_notice', '1' ), 'ast_dismiss_migrate_notice', '_ast_dismiss_nonce' );
+	?>
+	<div class="ast_notice notice notice-warning is-dismissible" data-dismiss-url="<?php echo esc_url( $dismiss_url ); ?>">
+		<p>
+			<?php
+			printf(
+				// translators: 1$-2$: Opening and closing <a> tags for Twitter V2 API, 3$-4$: Opening and closing <a> tags for migrate app, 5$-6$: Opening and closing <a> tags for learn more.
+				wp_kses_post( __( 'Autoshare for Twitter now utilizes the %1$sTwitter v2 API%2$s. If you have not already done so, please %3$smigrate your app%4$s to Twitter v2 API to continue using Autoshare for Twitter. %5$sLearn more about migrating here%6$s.', 'autoshare-for-twitter' ) ),
+				'<a href="https://developer.twitter.com/en/products/twitter-api" target="_blank">',
+				'</a>',
+				'<a href="https://developer.twitter.com/en/portal/projects-and-apps" target="_blank">',
+				'</a>',
+				'<a href="https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate" target="_blank">',
+				'</a>'
+			);
+			?>
+		</p>
+	</div>
+	<?php
+}
+
+/**
+ * Handle notice dismissal.
+ *
+ * @since 2.0.0
+ */
+function handle_notice_dismiss() {
+	if (
+		! empty( $_GET['_ast_dismiss_nonce'] ) &&
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_ast_dismiss_nonce'] ) ), 'ast_dismiss_migrate_notice' ) &&
+		isset( $_GET['autoshare_dismiss_notice'] )
+	) {
+		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
 	}
 }

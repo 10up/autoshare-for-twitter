@@ -1,7 +1,9 @@
 const { defineConfig } = require('cypress');
-const { readConfig } = require('@wordpress/env/lib/config');
+const { loadConfig } = require( '@wordpress/env/lib/config' );
+const getCacheDirectory = require( '@wordpress/env/lib/config/get-cache-directory' );
 
 module.exports = defineConfig({
+  chromeWebSecurity: false,
   fixturesFolder: 'tests/cypress/fixtures',
   screenshotsFolder: 'tests/cypress/screenshots',
   videosFolder: 'tests/cypress/videos',
@@ -14,6 +16,18 @@ module.exports = defineConfig({
     specPattern: 'tests/cypress/e2e/**/*.test.{js,jsx,ts,tsx}',
     supportFile: 'tests/cypress/support/e2e.js',
   },
+  retries: {
+    runMode: 2,
+    openMode: 0
+  },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    mochaFile: "mochawesome-[name]",
+    reportDir: __dirname + "/reports",
+    overwrite: false,
+    html: false,
+    json: true
+  },
 });
   
 /**
@@ -24,7 +38,8 @@ module.exports = defineConfig({
  * @returns config Updated Cypress Config object.
  */
 const setBaseUrl = async (on, config) => {
-  const wpEnvConfig = await readConfig('wp-env');
+  const cacheDirectory = await getCacheDirectory();
+  const wpEnvConfig = await loadConfig( cacheDirectory );
 
   if (wpEnvConfig) {
     const port = wpEnvConfig.env.tests.port || null;

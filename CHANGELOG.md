@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.1.1] - 2023-08-22
+
+### Changed
+- Improved setup instructions and error handing (props [@johnwatkins0](https://github.com/johnwatkins0), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#255](https://github.com/10up/autoshare-for-twitter/pull/255)).
+- Bump WordPress "tested up to" version 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#265](https://github.com/10up/autoshare-for-twitter/pull/265)).
+
+### Fixed
+- The custom tweet message does not work with scheduled posts (props [@GeoffLambert77](https://github.com/GeoffLambert77), [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#267](https://github.com/10up/autoshare-for-twitter/pull/267)).
+- Connected Twitter accounts visibility in the classic editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#269](https://github.com/10up/autoshare-for-twitter/pull/269)).
+- Better error handling for environments that don't match our minimum PHP version (props [@dkotter](https://github.com/dkotter), [@rahulsprajapati](https://github.com/rahulsprajapati), [@iamdharmesh](https://github.com/iamdharmesh) via [#258](https://github.com/10up/autoshare-for-twitter/pull/258)).
+- Ensure our E2E tests work properly on WordPress 6.3 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#264](https://github.com/10up/autoshare-for-twitter/pull/264)).
+
+### Security
+- Bump `tough-cookie` from 2.5.0 to 4.1.3 and `@cypress/request` from 2.88.10 to 2.88.12 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#266](https://github.com/10up/autoshare-for-twitter/pull/266)).
+- Bump `word-wrap` from 1.2.3 to 1.2.4 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#257](https://github.com/10up/autoshare-for-twitter/pull/257)).
+
+## [2.1.0] - 2023-07-06
+### Added
+- Support for tweeting via multiple Twitter accounts (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+- Obfuscation of saved Twitter keys in the UI (props [@lgrzegorski](https://github.com/lgrzegorski), [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh) via [#245](https://github.com/10up/autoshare-for-twitter/pull/245)).
+- GitHub Action summary for end-to-end tests (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#247](https://github.com/10up/autoshare-for-twitter/pull/247)).
+
+### Changed
+- Readme updates for FAQs and formatting (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#235](https://github.com/10up/autoshare-for-twitter/pull/235), [#241](https://github.com/10up/autoshare-for-twitter/pull/241), [#242](https://github.com/10up/autoshare-for-twitter/pull/242)).
+- Enhanced end-to-end tests by implementing mocking of Twitter API and bypassing actual Twitter API calls (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@Sidsector9](https://github.com/Sidsector9) via [#238](https://github.com/10up/autoshare-for-twitter/pull/238)).
+- Updated the Dependency Review GitHub Action (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#239](https://github.com/10up/autoshare-for-twitter/pull/239)).
+- Fixed inconsistent tweet status for scheduled posts (props [@mae829](https://github.com/mae829), [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#246](https://github.com/10up/autoshare-for-twitter/pull/246)).
+- Improved error handing (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#249](https://github.com/10up/autoshare-for-twitter/pull/249)).
+
+## [2.0.0] - 2023-05-16
+**Autoshare for Twitter 2.0.0 utilizes [Twitter's v2 API](https://developer.twitter.com/en/products/twitter-api).  If you have not already done so, please [migrate your app](https://developer.twitter.com/en/portal/projects-and-apps) to Twitter's v2 API to continue using Autoshare for Twitter.  [Learn more about migrating here](https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate).**
+
+### Added
+- Migrated to Twitter API v2 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@ravinderk](https://github.com/ravinderk), [@Sidsector9](https://github.com/Sidsector9) via [#229](https://github.com/10up/autoshare-for-twitter/pull/229)).
+
+### Changed
+- Bump WordPress "tested up to" version 6.2 (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh) via [#228](https://github.com/10up/autoshare-for-twitter/pull/228)).
+- Update plugin settings and guidelines to set up a Twitter app (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul), [@ravinderk](https://github.com/ravinderk) [@Sidsector9](https://github.com/Sidsector9) via [#229](https://github.com/10up/autoshare-for-twitter/pull/229)).
+- Updated documentation (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#231](https://github.com/10up/autoshare-for-twitter/pull/231)).
+
+### Security
+- Bump `simple-git` from 3.15.1 to 3.16.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#221](https://github.com/10up/autoshare-for-twitter/pull/221)).
+- Bump `http-cache-semantics` from 4.1.0 to 4.1.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#222](https://github.com/10up/autoshare-for-twitter/pull/222)).
+- Bump `@sideway/formula` from 3.0.0 to 3.0.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#223](https://github.com/10up/autoshare-for-twitter/pull/223)).
+- Bump `webpack` from 5.74.0 to 5.76.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#224](https://github.com/10up/autoshare-for-twitter/pull/224)).
+
 ## [1.3.0] - 2023-01-20
 ### Added
 - "Tweet now" functionality (props [@Sidsector9](https://github.com/Sidsector9), [@iamdharmesh](https://github.com/iamdharmesh), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul), [@linawiezkowiak](https://github.com/linawiezkowiak), [@oszkarnagy](https://github.com/oszkarnagy) via [#188](https://github.com/10up/autoshare-for-twitter/pull/188)).
@@ -180,6 +226,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.1.1]: https://github.com/10up/autoshare-for-twitter/compare/2.1.0...2.1.1
+[2.1.0]: https://github.com/10up/autoshare-for-twitter/compare/2.0.0...2.1.0
+[2.0.0]: https://github.com/10up/autoshare-for-twitter/compare/1.3.0...2.0.0
 [1.3.0]: https://github.com/10up/autoshare-for-twitter/compare/1.2.1...1.3.0
 [1.2.1]: https://github.com/10up/autoshare-for-twitter/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/10up/autoshare-for-twitter/compare/1.1.2...1.2.0
