@@ -9,7 +9,6 @@ module.exports = {
 	},
 	entry: {
 		'autoshare-for-twitter': './src/js/index.js',
-		'api-fetch': './src/js/externals/api-fetch.js'
 	},
 	externals: {
 		'admin-autoshare-for-twitter': 'adminAutoshareForTwitter',
