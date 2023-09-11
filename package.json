@@ -39,19 +39,13 @@
 	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
 		"@10up/cypress-wp-utils": "^0.2.0",
-		"@10up/eslint-config": "^1.0.9",
 		"@wordpress/env": "^8.6.0",
-		"@wordpress/eslint-plugin": "^3.0.0",
-		"@wordpress/prettier-config": "^1.4.0",
 		"@wordpress/scripts": "^26.12.0",
 		"cypress": "^13.0.0",
 		"cypress-mochawesome-reporter": "^3.5.1",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
 		"node-wp-i18n": "^1.2.3"
-	},
-	"dependencies": {
-		"@wordpress/api-fetch": "^3.5.0"
 	},
 	"prettier": "@wordpress/prettier-config"
 }
