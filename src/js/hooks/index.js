@@ -2,8 +2,17 @@ import { useSelect, useDispatch, dispatch } from '@wordpress/data';
 import { useEffect, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { enableAutoshareKey, errorText, restUrl, tweetBodyKey, allowTweetImageKey, tweetAccountsKey } from 'admin-autoshare-for-twitter';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { debounce } from 'lodash';
+
+const {
+	enableAutoshareKey,
+	errorText,
+	restUrl,
+	tweetBodyKey,
+	allowTweetImageKey,
+	tweetAccountsKey,
+} = adminAutoshareForTwitter;
 import { STORE } from '../store';
 
 export function useTweetText() {
@@ -86,7 +95,6 @@ export function useTweetAccounts() {
 	return [ tweetAccounts, setTweetAccounts ];
 }
 
-
 export function useTwitterAutoshareErrorMessage() {
 	const { errorMessage } = useSelect( ( select ) => {
 		return {
@@ -102,7 +110,10 @@ export function useTwitterAutoshareErrorMessage() {
 export function useHasFeaturedImage() {
 	const { imageId } = useSelect( ( select ) => {
 		return {
-			imageId: select( 'core/editor' ).getEditedPostAttribute( 'featured_media' ),
+			imageId:
+				select( 'core/editor' ).getEditedPostAttribute(
+					'featured_media'
+				),
 		};
 	} );
 
@@ -120,14 +131,20 @@ export function useSaveTwitterData() {
 	const [ , setSaving ] = useSavingTweetData();
 
 	const { hasFeaturedImage } = useSelect( ( select ) => {
-		const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
+		const imageId =
+			select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
 
 		return {
 			hasFeaturedImage: imageId > 0,
 		};
 	} );
 
-	async function saveData( autoshareEnabledArg, tweetTextArg, allowTweetImageArg, tweetAccountsArg ) {
+	async function saveData(
+		autoshareEnabledArg,
+		tweetTextArg,
+		allowTweetImageArg,
+		tweetAccountsArg
+	) {
 		const body = {};
 		body[ enableAutoshareKey ] = autoshareEnabledArg;
 		body[ tweetBodyKey ] = tweetTextArg;
@@ -153,7 +170,9 @@ export function useSaveTwitterData() {
 			setSaving( false );
 		} catch ( e ) {
 			setErrorMessage(
-				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autoshare-for-twitter' ),
+				e.statusText
+					? `${ errorText } ${ e.status }: ${ e.statusText }`
+					: __( 'An error occurred.', 'autoshare-for-twitter' )
 			);
 
 			setSaving( false );
@@ -163,6 +182,18 @@ export function useSaveTwitterData() {
 	const saveDataDebounced = useCallback( debounce( saveData, 250 ), [] );
 
 	useEffect( () => {
-		saveDataDebounced( autoshareEnabled, tweetText, allowTweetImage, tweetAccounts );
-	}, [ autoshareEnabled, tweetText, hasFeaturedImage, allowTweetImage, tweetAccounts ] );
+		saveDataDebounced(
+			autoshareEnabled,
+			tweetText,
+			allowTweetImage,
+			tweetAccounts
+		);
+	}, [
+		autoshareEnabled,
+		tweetText,
+		hasFeaturedImage,
+		allowTweetImage,
+		tweetAccounts,
+		saveDataDebounced,
+	] );
 }

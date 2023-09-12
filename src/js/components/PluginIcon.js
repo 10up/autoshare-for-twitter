@@ -1,6 +1,6 @@
 import { SVG, Path } from '@wordpress/primitives';
 
-const TwitterIcon = (fillColor) => (
+const TwitterIcon = ( fillColor ) => (
 	<SVG
 		version="1.1"
 		id="Twitter"
@@ -17,10 +17,10 @@ const TwitterIcon = (fillColor) => (
 	</SVG>
 );
 
-const DefaultIcon = TwitterIcon('#1B1C20');
-const EnabledIcon = TwitterIcon('#1DA1F2');
-const DisabledIcon = TwitterIcon('#787E88');
-const FailedIcon = TwitterIcon('#D0494A');
-const TweetedIcon = TwitterIcon('#7FD051');
+const DefaultIcon = TwitterIcon( '#1B1C20' );
+const EnabledIcon = TwitterIcon( '#1DA1F2' );
+const DisabledIcon = TwitterIcon( '#787E88' );
+const FailedIcon = TwitterIcon( '#D0494A' );
+const TweetedIcon = TwitterIcon( '#7FD051' );
 
 export { DefaultIcon, EnabledIcon, DisabledIcon, FailedIcon, TweetedIcon };

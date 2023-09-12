@@ -1,11 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withSelect, useSelect } from '@wordpress/data';
+import { withSelect, useSelect, select } from '@wordpress/data';
 import { Button, ToggleControl, Icon } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
 import { TwitterAccounts } from './components/TwitterAccounts';
-import { useHasFeaturedImage, useAllowTweetImage, useSaveTwitterData, useTweetText } from './hooks';
+import {
+	useHasFeaturedImage,
+	useAllowTweetImage,
+	useSaveTwitterData,
+	useTweetText,
+} from './hooks';
 
 import { StatusLogs } from './components/StatusLogs';
 
@@ -15,9 +20,11 @@ export function AutoshareForTwitterPostStatusInfo() {
 	const [ , setTweetText ] = useTweetText();
 	const [ reTweet, setReTweet ] = useState( false );
 	const [ tweetNow, setTweetNow ] = useState( false );
-	const { messages } = useSelect( ( select ) => {
+	const { messages } = useSelect( ( __select ) => {
 		return {
-			messages: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' ),
+			messages: __select( 'core/editor' ).getCurrentPostAttribute(
+				'autoshare_for_twitter_status'
+			),
 		};
 	} );
 
@@ -28,7 +35,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 	const reTweetHandler = async () => {
 		setReTweet( true );
 
-		const postId = await wp.data.select( 'core/editor' ).getCurrentPostId();
+		const postId = await select( 'core/editor' ).getCurrentPostId();
 		const body = new FormData();
 
 		body.append( 'action', adminAutoshareForTwitter.retweetAction );
@@ -54,8 +61,38 @@ export function AutoshareForTwitterPostStatusInfo() {
 		return null;
 	}
 
-	const chevronUp = <Icon icon={ <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg> } />;
-	const chevronDown = <Icon icon={ <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg> } />;
+	const chevronUp = (
+		<Icon
+			icon={
+				<svg
+					viewBox="0 0 28 28"
+					xmlns="http://www.w3.org/2000/svg"
+					width="28"
+					height="28"
+					aria-hidden="true"
+					focusable="false"
+				>
+					<path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path>
+				</svg>
+			}
+		/>
+	);
+	const chevronDown = (
+		<Icon
+			icon={
+				<svg
+					viewBox="0 0 28 28"
+					xmlns="http://www.w3.org/2000/svg"
+					width="28"
+					height="28"
+					aria-hidden="true"
+					focusable="false"
+				>
+					<path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path>
+				</svg>
+			}
+		/>
+	);
 
 	return (
 		<>
@@ -72,7 +109,10 @@ export function AutoshareForTwitterPostStatusInfo() {
 				<>
 					{ hasFeaturedImage && (
 						<ToggleControl
-							label={ __( 'Use featured image in Tweet', 'autoshare-for-twitter' ) }
+							label={ __(
+								'Use featured image in Tweet',
+								'autoshare-for-twitter'
+							) }
 							checked={ allowTweetImage }
 							onChange={ () => {
 								setAllowTweetImage( ! allowTweetImage );
@@ -85,7 +125,11 @@ export function AutoshareForTwitterPostStatusInfo() {
 					<Button
 						variant="primary"
 						className="autoshare-for-twitter-re-tweet"
-						text={ reTweet ? __( 'Tweeting...', 'autoshare-for-twitter' ) : __( 'Tweet again', 'autoshare-for-twitter' ) }
+						text={
+							reTweet
+								? __( 'Tweeting…', 'autoshare-for-twitter' )
+								: __( 'Tweet again', 'autoshare-for-twitter' )
+						}
 						onClick={ () => {
 							reTweetHandler();
 						} }
@@ -97,7 +141,9 @@ export function AutoshareForTwitterPostStatusInfo() {
 }
 
 export default compose(
-	withSelect( ( select ) => ( {
-		statusMessage: select( 'core/editor' ).getCurrentPostAttribute( 'autoshare_for_twitter_status' ),
-	} ) ),
+	withSelect( ( __select ) => ( {
+		statusMessage: __select( 'core/editor' ).getCurrentPostAttribute(
+			'autoshare_for_twitter_status'
+		),
+	} ) )
 )( AutoshareForTwitterPostStatusInfo );

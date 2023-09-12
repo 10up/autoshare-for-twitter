@@ -19,32 +19,35 @@ import { EnabledIcon, DisabledIcon } from './components/PluginIcon';
 createAutoshareStore();
 
 class AutoshareForTwitterPrePublishPanelPlugin extends Component {
-	constructor(props) {
-		super(props);
+	constructor( props ) {
+		super( props );
 
 		this.state = {
 			enabledText: '',
 		};
 
-		this.maybeSetEnabledText = this.maybeSetEnabledText.bind(this);
+		this.maybeSetEnabledText = this.maybeSetEnabledText.bind( this );
 	}
 
 	componentDidMount() {
-		dispatch(STORE).setLoaded();
-		subscribe(this.maybeSetEnabledText);
+		dispatch( STORE ).setLoaded();
+		subscribe( this.maybeSetEnabledText );
 	}
 
 	maybeSetEnabledText() {
 		try {
-			const enabled = select(STORE).getAutoshareEnabled();
+			const enabled = select( STORE ).getAutoshareEnabled();
 			const enabledText = enabled
-				? __('This post will be Tweeted', 'autoshare-for-twitter')
-				: __('This post will not be Tweeted', 'autoshare-for-twitter');
+				? __( 'This post will be Tweeted', 'autoshare-for-twitter' )
+				: __(
+						'This post will not be Tweeted',
+						'autoshare-for-twitter'
+				  );
 
-			if (enabledText !== this.state.enabledText) {
-				this.setState({ enabled, enabledText });
+			if ( enabledText !== this.state.enabledText ) {
+				this.setState( { enabled, enabledText } );
 			}
-		} catch (e) {}
+		} catch ( e ) {}
 	}
 
 	render() {
@@ -79,52 +82,52 @@ const AutoshareForTwitterPostPublishPanelPlugin = () => {
 };
 
 class AutoshareForTwitterEditorPanelPlugin extends Component {
-	constructor(props) {
-		super(props);
+	constructor( props ) {
+		super( props );
 
 		this.state = {
 			enabledText: '',
 		};
 
-		this.maybeSetEnabledText = this.maybeSetEnabledText.bind(this);
+		this.maybeSetEnabledText = this.maybeSetEnabledText.bind( this );
 	}
 
 	componentDidMount() {
-		dispatch(STORE).setLoaded();
-		subscribe(this.maybeSetEnabledText);
+		dispatch( STORE ).setLoaded();
+		subscribe( this.maybeSetEnabledText );
 	}
 
 	maybeSetEnabledText() {
 		try {
-			const enabled = select(STORE).getAutoshareEnabled();
+			const enabled = select( STORE ).getAutoshareEnabled();
 			const enabledText = enabled
-				? __('Autotweet enabled', 'autoshare-for-twitter')
-				: __('Autotweet disabled', 'autoshare-for-twitter');
+				? __( 'Autotweet enabled', 'autoshare-for-twitter' )
+				: __( 'Autotweet disabled', 'autoshare-for-twitter' );
 
-			if (enabledText !== this.state.enabledText) {
-				this.setState({ enabledText, enabled });
+			if ( enabledText !== this.state.enabledText ) {
+				this.setState( { enabledText, enabled } );
 			}
-		} catch (e) {}
+		} catch ( e ) {}
 	}
 
 	render() {
 		const postStatus =
-			select('core/editor').getCurrentPostAttribute('status');
-		if ('publish' === postStatus) {
-			const tweetMeta = select('core/editor').getCurrentPostAttribute(
+			select( 'core/editor' ).getCurrentPostAttribute( 'status' );
+		if ( 'publish' === postStatus ) {
+			const tweetMeta = select( 'core/editor' ).getCurrentPostAttribute(
 				'autoshare_for_twitter_status'
 			);
 			let tweetStatus = '';
-			if (tweetMeta && tweetMeta.message && tweetMeta.message.length) {
+			if ( tweetMeta && tweetMeta.message && tweetMeta.message.length ) {
 				tweetStatus =
-					tweetMeta.message[tweetMeta.message.length - 1].status ||
+					tweetMeta.message[ tweetMeta.message.length - 1 ].status ||
 					'';
 			}
 
 			return (
 				<PluginDocumentSettingPanel
-					title={ __('Autotweet', 'autoshare-for-twitter') }
-					icon={ getIconByStatus(tweetStatus) }
+					title={ __( 'Autotweet', 'autoshare-for-twitter' ) }
+					icon={ getIconByStatus( tweetStatus ) }
 					className="autoshare-for-twitter-editor-panel"
 				>
 					<AutoshareForTwitterPostStatusInfo />
@@ -154,12 +157,12 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 	}
 }
 
-registerPlugin('autoshare-for-twitter-editor-panel', {
+registerPlugin( 'autoshare-for-twitter-editor-panel', {
 	render: AutoshareForTwitterEditorPanelPlugin,
-});
-registerPlugin('autoshare-for-twitter-pre-publish-panel', {
+} );
+registerPlugin( 'autoshare-for-twitter-pre-publish-panel', {
 	render: AutoshareForTwitterPrePublishPanelPlugin,
-});
-registerPlugin('autoshare-for-twitter-post-publish-panel', {
+} );
+registerPlugin( 'autoshare-for-twitter-post-publish-panel', {
 	render: AutoshareForTwitterPostPublishPanelPlugin,
-});
+} );
