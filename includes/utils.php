@@ -237,6 +237,8 @@ function compose_tweet_body( \WP_Post $post ) {
 		$tweet_body_length = strlen( $tweet_body );
 	}
 
+	// This is test
+
 	return sprintf( '%s%s %s', $tweet_body, $ellipsis, $url );
 }
 
