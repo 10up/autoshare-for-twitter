@@ -15,7 +15,7 @@ const ErrorMessage = ( { errorMessage } ) => {
 						'https://developer.twitter.com/en/docs/twitter-api/migrate/ready-to-migrate'
 					}
 				>
-					{ __( 'Learn more here.' ) }
+					{ __( 'Learn more here.', 'autoshare-for-twitter' ) }
 				</ExternalLink>
 			) }
 		</span>

@@ -72,6 +72,7 @@ export function TweetTextField() {
 
 		setTweetText( '' );
 		setIsPublished( true );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ status, isPublished ] );
 
 	const CounterTooltip = () => (

@@ -21,7 +21,7 @@ export function TwitterAccounts() {
 			) ) }
 			<span className="connect-account-link">
 				<ExternalLink href={ connectAccountUrl }>
-					{ __( 'Connect an account' ) }
+					{ __( 'Connect an account', 'autoshare-for-twitter' ) }
 				</ExternalLink>
 			</span>
 		</div>

@@ -179,6 +179,7 @@ export function useSaveTwitterData() {
 		}
 	}
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const saveDataDebounced = useCallback( debounce( saveData, 250 ), [] );
 
 	useEffect( () => {
