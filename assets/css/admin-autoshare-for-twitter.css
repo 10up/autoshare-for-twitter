@@ -87,7 +87,7 @@ span.over-limit {
 /* Styling for post columns */
 .fixed .column-is_tweeted {
 	width: 50px;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 .fixed .column-is_tweeted a {
