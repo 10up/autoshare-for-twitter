@@ -4,12 +4,12 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useTweetText } from '../hooks';
 import { useEffect, useState } from '@wordpress/element';
 
-const { siteUrl, twitterURLLength } = adminAutoshareForTwitter;
+const { siteUrl, isLocalSite, twitterURLLength } = adminAutoshareForTwitter;
 
 export function TweetTextField() {
 	const getPermalinkLength = ( select ) => {
-		if ( twitterURLLength ) {
-			// according to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length
+		if ( ! isLocalSite && ! isNaN( twitterURLLength ) ) {
+			// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length
 			return Number( twitterURLLength );
 		}
 

@@ -142,25 +142,20 @@
 	function getPermalinkLength() {
 		let permalinkLength = 0;
 		if ($('#sample-permalink').length) {
-			if (adminAutoshareForTwitter.twitterURLLength) {
-				// according to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length
+			if (
+				! adminAutoshareForTwitter.isLocalSite &&
+				! isNaN( adminAutoshareForTwitter.twitterURLLength )
+			) {
+				// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length
 				permalinkLength = Number(
 					adminAutoshareForTwitter.twitterURLLength
 				);
 			} else {
-				// The #sample-permalink > a tag seems like the only convenient place to get the correct path for the post,
-				// without doing an AJAX call. We're using this technique to isolate the path (remove the <span>):
-				// https://stackoverflow.com/a/74517817
-				let slug = jQuery('#editable-post-name-full').text();
-
-				// get the hypothetical path
-				let aTagContents = jQuery('#sample-permalink > a')[0].innerHTML;
-				let workingDiv = document.createElement('span');
-				workingDiv.innerHTML = aTagContents;
-				let fakeSlugSpan = workingDiv.querySelector('span');
-				workingDiv.removeChild(fakeSlugSpan);
-				let permalinkPrefix = workingDiv.innerText;
-				let permalink = permalinkPrefix + slug + '/';
+				// Calculate the permalink length.
+				const slug = jQuery('#editable-post-name-full').text();
+				const aTagContents = jQuery('#sample-permalink > a')[0].innerHTML;
+				const permalinkPrefix = 'string' === typeof aTagContents ? aTagContents.split('<span')[0] : '';
+				const permalink = permalinkPrefix + slug + '/';
 				permalinkLength = permalink.length;
 			}
 		}

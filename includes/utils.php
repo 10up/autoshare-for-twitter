@@ -222,7 +222,7 @@ function compose_tweet_body( \WP_Post $post ) {
 
 	$url = esc_url( $url );
 	// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length.
-	$url_length        = AUTOSHARE_FOR_TWITTER_URL_LENGTH ? AUTOSHARE_FOR_TWITTER_URL_LENGTH : strlen( $url );
+	$url_length        = ( ! is_local() ) ? AUTOSHARE_FOR_TWITTER_URL_LENGTH : strlen( $url );
 	$body_max_length   = 275 - $url_length; // 275 instead of 280 because of the space between body and URL and the ellipsis.
 	$tweet_body        = sanitize_text_field( $tweet_body );
 	$tweet_body        = html_entity_decode( $tweet_body, ENT_QUOTES, get_bloginfo( 'charset' ) );
@@ -457,17 +457,4 @@ function is_local() {
 	 * @param bool $is_local whether WP environment is local or not.
 	 */
 	return apply_filters( 'autoshare_for_twitter_is_local', $is_local );
-}
-
-/**
- * Function to set the AUTOSHARE_FOR_TWITTER_URL_LENGTH value based on environment
- */
-function set_url_length() {
-	if ( is_local() ) {
-		// When set to false, the JS tools will calculate the _real_ hypothetical URL length, and the php tools will use the real length.
-		define( 'AUTOSHARE_FOR_TWITTER_URL_LENGTH', false );
-	} else {
-		// This should be updated if Twitter/X ever update the t.co URL shortening length.
-		define( 'AUTOSHARE_FOR_TWITTER_URL_LENGTH', 23 );
-	}
 }
