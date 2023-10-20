@@ -291,9 +291,7 @@ function render_twitter_accounts( $post_id ) {
 	}
 
 	$enabled = Utils\get_tweet_accounts( $post_id );
-	if ( empty( $enabled ) ) {
-		$enabled = Utils\get_default_autoshare_accounts();
-	}
+
 	$display = ( autoshare_enabled( $post_id ) || 'publish' === $post_status ) ? '' : 'display: none;';
 	?>
 	<div class="autoshare-for-twitter-accounts-wrapper" style="<?php echo esc_attr( $display ); ?>">

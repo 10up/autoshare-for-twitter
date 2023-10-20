@@ -189,9 +189,6 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$accounts       = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 	$tweet_accounts = get_tweet_accounts( $post_id );
 	$tweet_body     = trim( get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY ) );
-	if ( empty( $tweet_accounts ) ) {
-		$tweet_accounts = get_default_autoshare_accounts();
-	}
 
 	$localization = [
 		'enabled'            => autoshare_enabled( $post_id ),
