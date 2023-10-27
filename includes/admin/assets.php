@@ -17,6 +17,7 @@ use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 use function TenUp\AutoshareForTwitter\Utils\get_tweet_accounts;
 use function TenUp\AutoshareForTwitter\Utils\get_default_autoshare_accounts;
+use function TenUp\AutoshareForTwitter\Utils\is_local;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
@@ -211,6 +212,8 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'tweetAccounts'      => $tweet_accounts,
 		'tweetAccountsKey'   => TWEET_ACCOUNTS_KEY,
 		'connectedAccounts'  => $accounts ?? [],
+		'isLocalSite'        => is_local(),
+		'twitterURLLength'   => AUTOSHARE_FOR_TWITTER_URL_LENGTH,
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );
