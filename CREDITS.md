@@ -1,3 +1,5 @@
+# Credits
+
 The following acknowledges the Maintainers for this repository, those who have Contributed to this repository (via bug reports, code, design, ideas, project management, translation, testing, etc.), and any Libraries utilized.
 
 ## Maintainers
