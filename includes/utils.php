@@ -19,7 +19,7 @@ use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
 /**
  * Helper/Wrapper function for returning the meta entries for autosharing.
  *
- * @param int    $id  The post ID.
+ * @param int    $id The post ID.
  * @param string $key The meta key to retrieve.
  *
  * @return mixed
@@ -30,11 +30,11 @@ function get_autoshare_for_twitter_meta( $id, $key ) {
 	/**
 	 * Filters autoshare metadata.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @param mixed  Retrieved metadata.
 	 * @param int    Post ID.
 	 * @param string The meta key.
+	 *
+	 * @since 1.0.0
 	 */
 	return apply_filters( 'autoshare_for_twitter_meta', $data, $id, $key );
 }
@@ -42,9 +42,10 @@ function get_autoshare_for_twitter_meta( $id, $key ) {
 /**
  * Updates autoshare-for-twitter-related post metadata by prefixing the passed key.
  *
- * @param int    $id    Post ID.
- * @param string $key   Autoshare meta key.
+ * @param int    $id Post ID.
+ * @param string $key Autoshare meta key.
  * @param mixed  $value The meta value to save.
+ *
  * @return mixed The meta_id if the meta doesn't exist, otherwise returns true on success and false on failure.
  */
 function update_autoshare_for_twitter_meta( $id, $key, $value ) {
@@ -54,8 +55,9 @@ function update_autoshare_for_twitter_meta( $id, $key, $value ) {
 /**
  * Determines whether an Autoshare for Twitter post meta key exists on the provided post.
  *
- * @param int    $id  A Post ID.
+ * @param int    $id A Post ID.
  * @param string $key A meta key.
+ *
  * @return boolean
  */
 function has_autoshare_for_twitter_meta( $id, $key ) {
@@ -65,8 +67,9 @@ function has_autoshare_for_twitter_meta( $id, $key ) {
 /**
  * Deletes autoshare-for-twitter-related metadata.
  *
- * @param int    $id  The post ID.
+ * @param int    $id The post ID.
  * @param string $key The key of the meta value to delete.
+ *
  * @return boolean False for failure. True for success.
  */
 function delete_autoshare_for_twitter_meta( $id, $key ) {
@@ -77,6 +80,7 @@ function delete_autoshare_for_twitter_meta( $id, $key ) {
  * Returns whether autoshare is enabled for a post.
  *
  * @param int $post_id A post ID.
+ *
  * @return boolean
  */
 function autoshare_enabled( $post_id ) {
@@ -98,6 +102,7 @@ function autoshare_enabled( $post_id ) {
  * Returns whether image is allowed in a tweet.
  *
  * @param int $post_id A post ID.
+ *
  * @return boolean
  */
 function tweet_image_allowed( $post_id ) {
@@ -121,6 +126,7 @@ function tweet_image_allowed( $post_id ) {
  * Returns tweet enabled Twitter accounts for the post.
  *
  * @param int $post_id A post ID.
+ *
  * @return array
  */
 function get_tweet_accounts( $post_id ) {
@@ -196,6 +202,7 @@ function is_twitter_configured() {
 
 	$settings    = get_autoshare_for_twitter_settings();
 	$credentials = array_intersect_key( $settings, $defaults );
+
 	return 2 === count( array_filter( $credentials ) );
 }
 
@@ -220,8 +227,10 @@ function compose_tweet_body( \WP_Post $post ) {
 	 */
 	$url = apply_filters( 'autoshare_for_twitter_post_url', get_the_permalink( $post->ID ), $post );
 
-	$url               = esc_url( $url );
-	$body_max_length   = 275 - strlen( $url ); // 275 instead of 280 because of the space between body and URL and the ellipsis.
+	$url = esc_url( $url );
+	// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length.
+	$url_length        = ( ! is_local() ) ? AUTOSHARE_FOR_TWITTER_URL_LENGTH : strlen( $url );
+	$body_max_length   = 275 - $url_length; // 275 instead of 280 because of the space between body and URL and the ellipsis.
 	$tweet_body        = sanitize_text_field( $tweet_body );
 	$tweet_body        = html_entity_decode( $tweet_body, ENT_QUOTES, get_bloginfo( 'charset' ) );
 	$tweet_body_length = strlen( $tweet_body );
@@ -282,11 +291,10 @@ function link_from_twitter( $tweet_status ) {
 /**
  * Determine if a post has already been published based on the meta entry alone.
  *
- * @internal does NOT query the Twitter API.
- *
  * @param int $post_id The post id.
  *
  * @return bool
+ * @internal does NOT query the Twitter API.
  */
 function already_published( $post_id ) {
 
@@ -372,8 +380,9 @@ function get_post_types_supported_by_default() {
 	/**
 	 * Filters post types supported by default.
 	 *
-	 * @since 1.0.0
 	 * @param array Array of post types.
+	 *
+	 * @since 1.0.0
 	 */
 	return (array) apply_filters( 'autoshare_for_twitter_default_post_types', [ 'post', 'page' ] );
 }
@@ -391,9 +400,10 @@ function get_hardcoded_supported_post_types() {
 	$available_post_types = get_available_post_types();
 	$enabled_post_types   = get_autoshare_for_twitter_settings( 'post_types' );
 	$remaining            = array_diff( $available_post_types, $enabled_post_types );
+
 	return array_filter(
 		$remaining,
-		function( $post_type ) {
+		function ( $post_type ) {
 			return post_type_supports( $post_type, POST_TYPE_SUPPORT_FEATURE );
 		}
 	);
@@ -409,6 +419,7 @@ function get_enabled_post_types() {
 	if ( 'all' === $enable_for ) {
 		return get_available_post_types();
 	}
+
 	return get_autoshare_for_twitter_settings( 'post_types' );
 }
 
@@ -421,7 +432,7 @@ function get_enabled_post_types() {
  */
 function mask_secure_values( $value ) {
 	$count  = strlen( $value );
-	$substr = substr( $value, -5 );
+	$substr = substr( $value, - 5 );
 	$return = str_pad( $substr, $count, '*', STR_PAD_LEFT );
 
 	return $return;
@@ -434,4 +445,23 @@ function mask_secure_values( $value ) {
  */
 function get_default_autoshare_accounts() {
 	return get_autoshare_for_twitter_settings( 'autoshare_accounts' );
+}
+
+
+/**
+ * Returns whether WP environment is local.
+ *
+ * @return bool
+ */
+function is_local() {
+	$is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
+	$is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
+	$is_local     = $is_local_env || $is_local_url;
+
+	/**
+	 * Filters whether WP environment is local or not.
+	 *
+	 * @param bool $is_local whether WP environment is local or not.
+	 */
+	return apply_filters( 'autoshare_for_twitter_is_local', $is_local );
 }

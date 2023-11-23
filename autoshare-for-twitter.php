@@ -26,6 +26,7 @@ define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.1.1' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
+define( 'AUTOSHARE_FOR_TWITTER_URL_LENGTH', 23 );
 
 /**
  * Get the minimum version of PHP required by this plugin.
@@ -49,14 +50,14 @@ function site_meets_php_requirements() {
 if ( ! site_meets_php_requirements() ) {
 	add_action(
 		'admin_notices',
-		function() {
+		function () {
 			?>
 			<div class="notice notice-error">
 				<p>
 					<?php
 					echo wp_kses_post(
 						sprintf(
-							/* translators: %s: Minimum required PHP version */
+						/* translators: %s: Minimum required PHP version */
 							__( 'Autoshare for Twitter requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
 							esc_html( minimum_php_requirement() )
 						)
@@ -67,6 +68,7 @@ if ( ! site_meets_php_requirements() ) {
 			<?php
 		}
 	);
+
 	return;
 }
 

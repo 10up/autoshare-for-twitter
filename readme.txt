@@ -2,7 +2,7 @@
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, autoshare, auto-share, auto share, share, sharing, social media, posse
 Requires at least: 5.7
-Tested up to:      6.3
+Tested up to:      6.4
 Requires PHP:      7.4
 Stable tag:        2.1.1
 License:           GPL-2.0-or-later
