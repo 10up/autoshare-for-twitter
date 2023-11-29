@@ -130,8 +130,15 @@ function tweet_image_allowed( $post_id ) {
  * @return array
  */
 function get_tweet_accounts( $post_id ) {
-	$tweet_accounts = get_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY );
-	if ( empty( $tweet_accounts ) ) {
+	$tweet_accounts = [];
+	if ( has_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY ) ) {
+		$tweet_accounts = get_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY );
+	} else {
+		// If post don't have meta value set for tweet accounts, use default enabled accounts to handle auto-tweet for automated posts.
+		$tweet_accounts = get_default_autoshare_accounts();
+	}
+
+	if ( ! is_array( $tweet_accounts ) ) {
 		$tweet_accounts = [];
 	}
 
