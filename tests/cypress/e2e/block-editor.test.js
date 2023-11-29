@@ -1,6 +1,6 @@
 import { getRandomText } from "../support/functions";
 
-describe('Test Autoshare for Twitter with Block Editor.', () => {
+describe('Test Autopost for X with Block Editor.', () => {
 	before(() => {
 		cy.login();
 		// Ignore WP 5.2 Synchronous XHR error.

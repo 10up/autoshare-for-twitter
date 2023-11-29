@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin name: Autoshare for Twitter Cypress Test plugin
+ * Plugin name: Autopost for X Cypress Test plugin
  * Description: Mock the Twitter API requests.
  *
  * @package autoshare-for-twitter

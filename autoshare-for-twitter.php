@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       Autoshare for Twitter
- * Description:       Automatically tweets the post title or custom message and a link to the post.
+ * Plugin Name:       Autopost for X (formerly Autoshare for Twitter)
+ * Description:       Automatically shares the post title or custom message and a link to the post to X/Twitter.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
  * Version:           2.1.1
  * Requires at least: 5.7
@@ -58,7 +58,7 @@ if ( ! site_meets_php_requirements() ) {
 					echo wp_kses_post(
 						sprintf(
 						/* translators: %s: Minimum required PHP version */
-							__( 'Autoshare for Twitter requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
+							__( 'Autopost for X requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
 							esc_html( minimum_php_requirement() )
 						)
 					);

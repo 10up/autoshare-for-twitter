@@ -43,8 +43,8 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'account'            => __( 'Twitter account', 'autoshare-for-twitter' ),
-			'autoshare_accounts' => __( 'Autoshare by default', 'autoshare-for-twitter' ),
+			'account'            => __( 'X account', 'autoshare-for-twitter' ),
+			'autoshare_accounts' => __( 'Autopost by default', 'autoshare-for-twitter' ),
 			'action'             => __( 'Action', 'autoshare-for-twitter' ),
 		);
 	}
@@ -128,7 +128,7 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 	 */
 	public function no_items() {
 		?>
-		<p><?php esc_html_e( 'No Twitter accounts are connected. Please connect at least one Twitter account to continue using Autoshare for Twitter.', 'autoshare-for-twitter' ); ?></p>
+		<p><?php esc_html_e( 'No Twitter accounts are connected. Please connect at least one Twitter account to continue using Autopost for X.', 'autoshare-for-twitter' ); ?></p>
 		<?php
 	}
 
@@ -148,7 +148,7 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 			<?php if ( 'bottom' === $which ) : ?>
 				<div class="alignleft">
 					<a href="<?php echo esc_url( $connect_url ); ?>" class="button button-secondary">
-						<?php echo ( ! empty( $this->items ) ? esc_attr__( 'Connect another account', 'autoshare-for-twitter' ) : esc_attr__( 'Connect Twitter account', 'autoshare-for-twitter' ) ); ?>
+						<?php echo ( ! empty( $this->items ) ? esc_attr__( 'Connect another account', 'autoshare-for-twitter' ) : esc_attr__( 'Connect X account', 'autoshare-for-twitter' ) ); ?>
 					</a>
 				</div>
 			<?php endif; ?>

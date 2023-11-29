@@ -1,6 +1,6 @@
 import { getRandomText } from "../support/functions";
 
-describe('Test Autoshare for Twitter with Classic Editor.', () => {
+describe('Test Autopost for X with Classic Editor.', () => {
 	before(() => {
 		cy.login();
 		

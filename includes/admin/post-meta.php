@@ -34,7 +34,7 @@ const ENABLE_AUTOSHARE_FOR_TWITTER_KEY = 'autoshare_for_twitter';
 const TWEET_BODY_KEY = 'tweet-body';
 
 /**
- * Holds the formatted response object from Twitter.
+ * Holds the formatted response object from X.
  *
  * @see post-transition.php
  */
@@ -53,7 +53,7 @@ const TWEET_ACCOUNTS_KEY = 'tweet_accounts';
  * @return void
  */
 function setup() {
-	// Add Autoshare for twitter meta box to classic editor.
+	// Add Autopost for X meta box to classic editor.
 	add_action( 'add_meta_boxes', __NAMESPACE__ . '\autoshare_for_twitter_metabox', 10, 2 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 3 );
 }
@@ -204,7 +204,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 }
 
 /**
- * Add Autoshare for twitter metabox on post/post types.
+ * Add Autopost for X metabox on post/post types.
  *
  * @param string  $post_type Post Type.
  * @param WP_Post $post      WP_Post object.
@@ -221,7 +221,7 @@ function autoshare_for_twitter_metabox( $post_type, $post ) {
 
 	add_meta_box(
 		'autoshare_for_twitter_metabox',
-		__( 'Autoshare for Twitter ', 'autoshare-for-twitter' ),
+		__( 'Autopost for X', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\render_tweet_submitbox',
 		null,
 		'side',
@@ -279,7 +279,7 @@ function render_tweet_submitbox( $post ) {
 
 
 /**
- * Render the Twitter accounts to be used for autosharing.
+ * Render the X accounts to be used for autoposting.
  *
  * @param int $post_id The post ID.
  */
@@ -475,7 +475,7 @@ function get_tweet_status_logs( $post ) {
 
 /**
  * Outputs the markup and language to be used when a post has been successfully
- * sent to Twitter
+ * sent to X
  *
  * @param array $status_meta The status meta.
  *
@@ -499,7 +499,7 @@ function markup_published( $status_meta ) {
 
 /**
  * Outputs the markup and language to be used when a post has had an error
- * when posting to Twitter
+ * when posting to X
  *
  * @param array $status_meta The status meta.
  *
@@ -525,7 +525,7 @@ function markup_error( $status_meta ) {
 }
 
 /**
- * Outputs the markup and language to be used when a post NOT been auto-posted to Twitter.
+ * Outputs the markup and language to be used when a post NOT been auto-posted to X.
  * Also considered a fallback message of sorts.
  *
  * @param array $status_meta The status meta.
