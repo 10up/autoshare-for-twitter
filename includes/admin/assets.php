@@ -16,7 +16,6 @@ use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 use function TenUp\AutoshareForTwitter\Utils\get_tweet_accounts;
-use function TenUp\AutoshareForTwitter\Utils\get_default_autoshare_accounts;
 use function TenUp\AutoshareForTwitter\Utils\is_local;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
@@ -190,9 +189,6 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$accounts       = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 	$tweet_accounts = get_tweet_accounts( $post_id );
 	$tweet_body     = trim( get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY ) );
-	if ( empty( $tweet_accounts ) ) {
-		$tweet_accounts = get_default_autoshare_accounts();
-	}
 
 	$localization = [
 		'enabled'            => autoshare_enabled( $post_id ),
