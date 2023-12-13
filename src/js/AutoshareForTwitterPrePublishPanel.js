@@ -32,8 +32,14 @@ export default function AutoshareForTwitterPrePublishPanel() {
 			<ToggleControl
 				label={
 					autoshareEnabled
-						? __( 'Tweet when published', 'autoshare-for-twitter' )
-						: __( "Don't Tweet", 'autoshare-for-twitter' )
+						? __(
+								'Post to X/Twitter when published',
+								'autoshare-for-twitter'
+						  )
+						: __(
+								"Don't post to X/Twitter",
+								'autoshare-for-twitter'
+						  )
 				}
 				checked={ autoshareEnabled }
 				onChange={ ( checked ) => {
@@ -45,7 +51,7 @@ export default function AutoshareForTwitterPrePublishPanel() {
 			{ autoshareEnabled && hasFeaturedImage && (
 				<ToggleControl
 					label={ __(
-						'Use featured image in Tweet',
+						'Use featured image in Post to X/Twitter',
 						'autoshare-for-twitter'
 					) }
 					checked={ allowTweetImage }
