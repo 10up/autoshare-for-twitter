@@ -31,8 +31,8 @@ function setup() {
  */
 function admin_menu() {
 	add_options_page(
-		__( 'Autopost for X Settings', 'autoshare-for-twitter' ),
-		__( 'Autopost for X', 'autoshare-for-twitter' ),
+		__( 'Autopost for X/Twitter Settings', 'autoshare-for-twitter' ),
+		__( 'Autopost for X/Twitter', 'autoshare-for-twitter' ),
 		'manage_options',
 		'autoshare-for-twitter',
 		__NAMESPACE__ . '\options_page'
@@ -143,7 +143,7 @@ function register_settings() {
 	// X account connection table.
 	add_settings_field(
 		'autoshare-autoshare_accounts',
-		__( 'X accounts', 'autoshare-for-twitter' ),
+		__( 'X/Twitter accounts', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\twitter_accounts_field_cb',
 		'autoshare-for-twitter',
 		'autoshare-general_section',
@@ -155,7 +155,7 @@ function register_settings() {
 	// Register the credential setting section.
 	add_settings_section(
 		'autoshare-cred_section',
-		__( 'X connection settings', 'autoshare-for-twitter' ),
+		__( 'X/Twitter connection settings', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\cred_section_cb',
 		'autoshare-for-twitter'
 	);
@@ -314,7 +314,7 @@ function general_section_cb() {
 	$cred_class = Utils\is_twitter_configured() ? 'connected' : '';
 	?>
 	<div class="general-settings <?php echo esc_attr( $cred_class ); ?>">
-		<h2><?php esc_html_e( 'X Settings', 'autoshare-for-twitter' ); ?>
+		<h2><?php esc_html_e( 'X/Twitter Settings', 'autoshare-for-twitter' ); ?>
 	</div>
 	<?php
 }
@@ -338,7 +338,7 @@ function cred_section_cb() {
 		</p>
 		<?php endif; ?>
 		<section class="credentials-instructions">
-			<h4><a href="https://developer.twitter.com/en/portal/petition/essential/basic-info" target="_blank"><?php esc_html_e( '1. Sign up for a X developer account', 'autoshare-for-twitter' ); ?></a></h4>
+			<h4><a href="https://developer.twitter.com/en/portal/petition/essential/basic-info" target="_blank"><?php esc_html_e( '1. Sign up for a X/Twitter developer account', 'autoshare-for-twitter' ); ?></a></h4>
 			<ul>
 				<li><?php esc_html_e( 'Click on "Sign up for Free Account" button to proceed with free access.', 'autoshare-for-twitter' ); ?></li>
 				<li><?php echo wp_kses_data( __( "Fill out the <code>Describe all of your use cases of X's data and API</code> field. You can find an example response below.", 'autoshare-for-twitter' ) ); ?>
@@ -352,13 +352,13 @@ function cred_section_cb() {
 				<li><?php esc_html_e( 'Click on "Submit" button, it will redirect you to Developer portal.', 'autoshare-for-twitter' ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '2. Configure access to your X app access tokens', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '2. Configure access to your X/Twitter app access tokens', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
 				<li>
 					<?php
 					printf(
 						/* translators: Placeholders %1$s - opening HTML <a> link tag, closing HTML </a> link tag */
-						wp_kses_data( __( 'Go to the %1$sX developer portal%2$s', 'autoshare-for-twitter' ) ),
+						wp_kses_data( __( 'Go to the %1$sX/Twitter developer portal%2$s', 'autoshare-for-twitter' ) ),
 						'<a href="https://developer.twitter.com/en/portal/dashboard" target="_blank">',
 						'</a>'
 					);
@@ -376,7 +376,7 @@ function cred_section_cb() {
 				</li>
 				<li>
 					<?php
-					/* translators: Placeholders %s - Callback URL for X Auth */
+					/* translators: Placeholders %s - Callback URL for X/Twitter Auth */
 					echo wp_kses_data( sprintf( __( 'Set the <code>Callback URLs</code> fields to <code>%s</code> and click <code>Save</code>.', 'autoshare-for-twitter' ), esc_url( admin_url( 'admin-post.php?action=authoshare_authorize_callback' ) ) ) );
 					?>
 				</li>
@@ -390,10 +390,10 @@ function cred_section_cb() {
 				<li><?php echo wp_kses_data( __( 'Click the <code>Save Changes</code> button below to save settings.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 
-			<h4><?php esc_html_e( '4. Connect your X account', 'autoshare-for-twitter' ); ?></h4>
+			<h4><?php esc_html_e( '4. Connect your X/Twitter account', 'autoshare-for-twitter' ); ?></h4>
 			<ul>
-				<li><?php echo wp_kses_data( __( 'After saving settings, you will see the option to connect your X account.', 'autoshare-for-twitter' ) ); ?></li>
-				<li><?php echo wp_kses_data( __( 'Click the <code>Connect X account</code> button and follow the instructions provided there to connect your X account with this site.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'After saving settings, you will see the option to connect your X/Twitter account.', 'autoshare-for-twitter' ) ); ?></li>
+				<li><?php echo wp_kses_data( __( 'Click the <code>Connect X/Twitter account</code> button and follow the instructions provided there to connect your X/Twitter account with this site.', 'autoshare-for-twitter' ) ); ?></li>
 			</ul>
 		</section>
 	</section>
@@ -409,7 +409,7 @@ function options_page() {
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Autopost for X Settings', 'autoshare-for-twitter' ); ?></h1>
+		<h1><?php esc_html_e( 'Autopost for X/Twitter Settings', 'autoshare-for-twitter' ); ?></h1>
 
 		<div class="autoshare-settings">
 			<div class="settings-wrapper">
@@ -427,7 +427,7 @@ function options_page() {
 				</a>
 				<p>
 					<strong>
-						<?php echo esc_html__( 'Autopost for X', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( '10up', 'autoshare-for-twitter' ); ?></a>
+						<?php echo esc_html__( 'Autopost for X (formerly Autoshare for Twitter)', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( '10up', 'autoshare-for-twitter' ); ?></a>
 					</strong>
 				</p>
 				<nav>
@@ -462,7 +462,7 @@ function action_links( $links ) {
 	} else {
 		$new_links['initial-setup'] = sprintf(
 			/* translators: %s is the plugin setting page URL */
-			__( '<a href="%s">Set up your X account</a>', 'autoshare-for-twitter' ),
+			__( '<a href="%s">Set up your X/Twitter account</a>', 'autoshare-for-twitter' ),
 			esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) )
 		);
 	}

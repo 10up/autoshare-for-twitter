@@ -194,7 +194,7 @@ function migrate_to_twitter_v2_api() {
 			<?php
 			printf(
 				// translators: 1$-2$: Opening and closing <a> tags for Twitter V2 API, 3$-4$: Opening and closing <a> tags for migrate app, 5$-6$: Opening and closing <a> tags for learn more.
-				wp_kses_post( __( 'Autopost for X now utilizes the %1$sTwitter v2 API%2$s. If you have not already done so, please %3$smigrate your app%4$s to Twitter v2 API to continue using Autopost for X. %5$sLearn more about migrating here%6$s.', 'autoshare-for-twitter' ) ),
+				wp_kses_post( __( 'Autopost for X/Twitter now utilizes the %1$sTwitter v2 API%2$s. If you have not already done so, please %3$smigrate your app%4$s to Twitter v2 API to continue using Autopost for X. %5$sLearn more about migrating here%6$s.', 'autoshare-for-twitter' ) ),
 				'<a href="https://developer.twitter.com/en/products/twitter-api" target="_blank">',
 				'</a>',
 				'<a href="https://developer.twitter.com/en/portal/projects-and-apps" target="_blank">',

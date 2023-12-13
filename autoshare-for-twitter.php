@@ -58,7 +58,7 @@ if ( ! site_meets_php_requirements() ) {
 					echo wp_kses_post(
 						sprintf(
 						/* translators: %s: Minimum required PHP version */
-							__( 'Autopost for X requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
+							__( 'Autopost for X/Twitter requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'autoshare-for-twitter' ),
 							esc_html( minimum_php_requirement() )
 						)
 					);

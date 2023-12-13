@@ -13,9 +13,9 @@
 
 Autopost for X (formerly Autoshare for Twitter) automatically shares your posts to X/Twitter as soon as they’re published.  Once you hit the Publish button, the plugin sends your post’s title, featured image, and link to X/Twitter, along with a custom message.
 
-| Create post screen with Autopost for X options | Published post screen with Autopost for X options. |
+| Create post screen with Autopost for X/Twitter options | Published post screen with Autopost for X/Twitter options. |
 | -------------- | ---------------- |
-| [![Create post screen with Autopost for X options](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png) | [![Published post screen with Autopost for X options.](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) |
+| [![Create post screen with Autopost for X/Twitter options](.wordpress-org/screenshot-1.png)](.wordpress-org/screenshot-1.png) | [![Published post screen with Autopost for X/Twitter options.](.wordpress-org/screenshot-2.png)](.wordpress-org/screenshot-2.png) |
 
 Unlike a myriad of other social media, multitool solutions, Autopost for X is built solely for X/Twitter.  It focuses on doing one thing and does it well, with the code and interface craftsmanship we apply to every project.
 
@@ -27,9 +27,9 @@ With Autopost for X, developers can further customize nearly everything about th
 * Counts characters to keep you under the tweet limit.
 * Adds a link to the tweet in the block editor sidebar.
 
-| Autopost For X block editor sidebar panel | Autopost for X Settings, found under `Settings` > `Autopost for X`. | 
+| Autopost For X/Twitter block editor sidebar panel | Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X`. | 
 | --------------- | --------------- |
-|[![Autopost For X block editor sidebar panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autopost for X Settings, found under `Settings` > `Autopost for X`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
+|[![Autopost For X/Twitter block editor sidebar panel](.wordpress-org/screenshot-3.gif)](.wordpress-org/screenshot-3.gif) | [![Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X/Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)|
 
 **Disclaimer:** _TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates._
 

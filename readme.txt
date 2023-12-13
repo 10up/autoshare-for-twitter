@@ -104,10 +104,10 @@ To avoid encountering this error in the future and to have higher usage limits, 
 
 == Screenshots ==
 
-1. Create post screen with Autopost for X options.
-2. Published post screen with Autopost for X options.
-3. Autopost for X sidebar panel.
-4. Autopost for X Settings, found under `Settings` > `Autopost for X`.
+1. Create post screen with Autopost for X/Twitter options.
+2. Published post screen with Autopost for X/Twitter options.
+3. Autopost for X/Twitter sidebar panel.
+4. Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X/Twitter`.
 
 == Changelog ==
 = 2.1.1 - 2023-08-22 =

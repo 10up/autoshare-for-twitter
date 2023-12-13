@@ -150,7 +150,7 @@ class Twitter_Accounts {
 
 			// Save account details.
 			$this->save_twitter_account( $account );
-			$this->set_connection_notice( 'success', __( 'X account authenticated successfully' ) );
+			$this->set_connection_notice( 'success', __( 'X/Twitter account authenticated successfully' ) );
 		} catch ( \Exception $e ) {
 			$error_message = $e->getMessage();
 			$this->set_connection_notice( 'error', $error_message );
@@ -176,7 +176,7 @@ class Twitter_Accounts {
 		}
 
 		if ( ! isset( $_GET['account_id'] ) ) {
-			wp_die( esc_html__( 'X account ID is required to perform this operation.', 'autoshare-for-twitter' ) );
+			wp_die( esc_html__( 'X/Twitter account ID is required to perform this operation.', 'autoshare-for-twitter' ) );
 		}
 
 		try {
