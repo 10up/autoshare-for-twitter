@@ -81,7 +81,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
+						'message' => 'Posted to X/Twitter 2017-01-01 @ 12:00AM',
 						'url'     => 'https://twitter.com//status/444',
 						'status'  => 'published',
 						'handle'  => '',
@@ -95,7 +95,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			sprintf(
 				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">View</a>)<strong></strong></div>',
-				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
+				esc_html__( 'Posted to X/Twitter on', 'autoshare-for-twitter' ),
 				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
 				esc_url( link_from_twitter( $twitter_status ) )
 			),
