@@ -122,7 +122,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'Failed to tweet; There was an error.',
+						'message' => 'Failed to post to X/Twitter; There was an error.',
 						'status'  => 'error',
 						'handle'  => '',
 					],
@@ -135,7 +135,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			sprintf(
 				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
-				esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
+				esc_html__( 'Failed to post to X/Twitter', 'autoshare-for-twitter' ),
 				esc_html( $twitter_status['message'] )
 			),
 			markup_error( $twitter_status )
