@@ -221,7 +221,7 @@ function autoshare_for_twitter_metabox( $post_type, $post ) {
 
 	add_meta_box(
 		'autoshare_for_twitter_metabox',
-		__( 'Autopost for X', 'autoshare-for-twitter' ),
+		__( 'Autopost for X/Twitter', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\render_tweet_submitbox',
 		null,
 		'side',
@@ -250,13 +250,13 @@ function render_tweet_submitbox( $post ) {
 		</div>
 		<hr/>
 		<button class="button button-link tweet-now-button">
-		<?php esc_attr_e( 'Tweet Now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+		<?php esc_attr_e( 'Post to X/Twitter now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
 		</button>
 		<div class="autoshare-for-twitter-tweet-now-wrapper" style="display: none;">
 			<?php
 			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
-			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Tweet again', 'autoshare-for-twitter' ); ?>">
+			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Post to X/Twitter again', 'autoshare-for-twitter' ); ?>">
 			<span class="spinner"></span>
 		</div>
 		<?php
@@ -374,7 +374,7 @@ function get_tweet_status_message( $post ) {
 
 				$response_array[] = [
 					// Translators: Placeholder is a date.
-					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
+					'message' => sprintf( __( 'Posted to X/Twitter on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 					'status'  => $status,
 					'handle'  => $twitter_handle,
@@ -384,7 +384,7 @@ function get_tweet_status_message( $post ) {
 
 			case 'error':
 				$response_array[] = [
-					'message' => __( 'Failed to tweet; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
+					'message' => __( 'Failed to post to X/Twitter; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
 					'status'  => $status,
 					'handle'  => $twitter_handle,
 				];
@@ -402,7 +402,7 @@ function get_tweet_status_message( $post ) {
 
 			default:
 				$response_array[] = [
-					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
+					'message' => __( 'This post was not posted to X/Twitter.', 'autoshare-for-twitter' ),
 					'status'  => $status,
 				];
 		}
@@ -489,7 +489,7 @@ function markup_published( $status_meta ) {
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
-		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
+		esc_html__( 'Posted to X/Twitter on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
 		esc_html__( 'View', 'autoshare-for-twitter' ),
@@ -518,7 +518,7 @@ function markup_error( $status_meta ) {
 
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre>%s</div>',
-		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
+		esc_html__( 'Failed to post to X/Twitter', 'autoshare-for-twitter' ),
 		esc_html( $status_meta['message'] ) . wp_kses_post( $learn_more ),
 		wp_kses_post( $handle )
 	);
@@ -561,8 +561,7 @@ function _safe_markup_default() {
 			<?php checked( autoshare_enabled( get_the_ID() ) ); ?>
 		>
 		<input type="hidden" name="autoshare-classic-editor" value="1" />
-		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
-		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
+		<?php esc_html_e( 'Post to X/Twitter', 'autoshare-for-twitter' ); ?>
 		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit" style="<?php echo ( ( ! empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
 			<?php esc_attr_e( 'Edit', 'autoshare-for-twitter' ); ?>
 		</a>
@@ -578,7 +577,7 @@ function _safe_markup_default() {
 					value="1"
 					<?php checked( tweet_image_allowed( get_the_ID() ) ); ?>
 				>
-				<?php esc_html_e( 'Use featured image in Tweet', 'autoshare-for-twitter' ); ?>
+				<?php esc_html_e( 'Use featured image in Post to X/Twitter', 'autoshare-for-twitter' ); ?>
 			</label>
 		</p>
 	</div>
