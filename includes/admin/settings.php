@@ -427,7 +427,7 @@ function options_page() {
 				</a>
 				<p>
 					<strong>
-						<?php echo esc_html__( 'Autopost for X (formerly Autoshare for Twitter)', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( '10up', 'autoshare-for-twitter' ); ?></a>
+						<?php echo esc_html__( 'Autopost for X', 'autoshare-for-twitter' ) . ' ' . esc_html__( 'by', 'autoshare-for-twitter' ); ?> <a href="https://10up.com" class="logo" title="<?php esc_attr_e( '10up', 'autoshare-for-twitter' ); ?>"><?php esc_html_e( '10up', 'autoshare-for-twitter' ); ?></a>
 					</strong>
 				</p>
 				<nav>
