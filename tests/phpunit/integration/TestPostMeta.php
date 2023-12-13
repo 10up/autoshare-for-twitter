@@ -185,7 +185,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'This post was not tweeted.',
+						'message' => 'This post was not posted to X/Twitter.',
 						'status'  => 'other',
 					],
 				],

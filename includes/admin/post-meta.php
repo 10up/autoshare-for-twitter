@@ -463,7 +463,7 @@ function get_tweet_status_logs( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
+				$output = __( 'This post was not posted to X/Twitter.', 'autoshare-for-twitter' );
 				break;
 		}
 

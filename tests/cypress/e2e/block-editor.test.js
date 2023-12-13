@@ -51,7 +51,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
 		});
 
 		it('Tests that new post is tweeted when box is checked', () => {
@@ -92,7 +92,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
 		});
 
 		it('Tests that Draft post is tweeted when box is checked', () => {
@@ -134,7 +134,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
 		});
 
 		it('Tests that new post is tweeted when tweet accounts are checked', () => {
@@ -174,10 +174,10 @@ describe('Test Autopost for X with Block Editor.', () => {
 	
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not tweeted.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
 	
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
-			cy.openDocumentSettingsPanel('Autotweet');
+			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-tweet-now').click();
 			cy.get('.autoshare-for-twitter-editor-panel .autoshare-for-twitter-tweet-text textarea').clear().type(`Random Tweet ${getRandomText(6)}`, {force: true});
 			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-re-tweet').click();
@@ -191,7 +191,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 		cy.startCreatePost();
 
 		// Open AutoTweet Panel and set custom tweet message.
-		cy.openDocumentSettingsPanel('Autotweet enabled');
+		cy.openAutoTweetPanel();
 		cy.get('.autoshare-for-twitter-prepublish__override-row button').click();
 		cy.get('.autoshare-for-twitter-tweet-text textarea').clear().type(customTweetBody,  {force: true});
 
