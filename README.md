@@ -70,9 +70,9 @@ function opt_my_cpt_into_autoshare() {
 add_action( 'init', 'opt_my_cpt_into_autoshare' );
 ```
 
-In addition, adding support while registering custom post types also works. Post types are automatically set to autoshare. Future versions of this plugin could allow this to be set manually.
+In addition, adding support while registering custom post types also works. Post types are automatically set to autopost. Future versions of this plugin could allow this to be set manually.
 
-While the autoshare feature can be opted into for post types using the above filter, by default the editor still has to manually enable autoshare during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autoshare to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow.
+While the autopost feature can be opted into for post types using the above filter, by default the editor still has to manually enable autopost during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autopost to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow.
 
 Example:
 
