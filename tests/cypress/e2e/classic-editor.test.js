@@ -41,7 +41,7 @@ describe('Test Autopost for X with Classic Editor.', () => {
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
-			cy.get('#autoshare_for_twitter_metabox').contains('This post was not posted to X/Twitter');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post has not been posted to X/Twitter');
 		});
 
 
@@ -74,7 +74,7 @@ describe('Test Autopost for X with Classic Editor.', () => {
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
-			cy.get('#autoshare_for_twitter_metabox').contains('This post was not posted to X/Twitter');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post has not been posted to X/Twitter');
 		});
 
 
@@ -109,7 +109,7 @@ describe('Test Autopost for X with Classic Editor.', () => {
 
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
-			cy.get('#autoshare_for_twitter_metabox').contains('This post was not posted to X/Twitter');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post has not been posted to X/Twitter');
 		});
 
 		it('Tests that new post is tweeted when tweet accounts are checked', () => {
@@ -146,7 +146,7 @@ describe('Test Autopost for X with Classic Editor.', () => {
 	
 			// Post-publish.
 			cy.get('#autoshare_for_twitter_metabox').should('be.visible');
-			cy.get('#autoshare_for_twitter_metabox').contains('This post was not posted to X/Twitter');
+			cy.get('#autoshare_for_twitter_metabox').contains('This post has not been posted to X/Twitter');
 	
 			cy.get('#autoshare_for_twitter_metabox button.tweet-now-button').contains('Post to X/Twitter now').click();
 			cy.get('#autoshare-for-twitter-override-body textarea').should('be.visible')
