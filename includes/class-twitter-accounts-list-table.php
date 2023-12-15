@@ -128,7 +128,7 @@ class Twitter_Accounts_List_Table extends \WP_List_Table {
 	 */
 	public function no_items() {
 		?>
-		<p><?php esc_html_e( 'No Twitter accounts are connected. Please connect at least one Twitter account to continue using Autopost for X.', 'autoshare-for-twitter' ); ?></p>
+		<p><?php esc_html_e( 'No X/Twitter accounts are connected. Please connect at least one X/Twitter account to continue using Autopost for X.', 'autoshare-for-twitter' ); ?></p>
 		<?php
 	}
 

@@ -256,7 +256,7 @@ function render_tweet_submitbox( $post ) {
 			<?php
 			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
-			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Post to X/Twitter again', 'autoshare-for-twitter' ); ?>">
+			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Post to X/Twitter', 'autoshare-for-twitter' ); ?>">
 			<span class="spinner"></span>
 		</div>
 		<?php
@@ -402,7 +402,7 @@ function get_tweet_status_message( $post ) {
 
 			default:
 				$response_array[] = [
-					'message' => __( 'This post was not posted to X/Twitter.', 'autoshare-for-twitter' ),
+					'message' => __( 'This post has not been posted to X/Twitter.', 'autoshare-for-twitter' ),
 					'status'  => $status,
 				];
 		}
@@ -463,7 +463,7 @@ function get_tweet_status_logs( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not posted to X/Twitter.', 'autoshare-for-twitter' );
+				$output = __( 'This post has not been posted to X/Twitter.', 'autoshare-for-twitter' );
 				break;
 		}
 

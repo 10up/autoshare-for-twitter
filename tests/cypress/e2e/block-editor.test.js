@@ -51,7 +51,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post has not been posted to X/Twitter.');
 		});
 
 		it('Tests that new post is tweeted when box is checked', () => {
@@ -92,7 +92,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post has not been posted to X/Twitter.');
 		});
 
 		it('Tests that Draft post is tweeted when box is checked', () => {
@@ -134,7 +134,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post has not been posted to X/Twitter.');
 		});
 
 		it('Tests that new post is tweeted when tweet accounts are checked', () => {
@@ -174,7 +174,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 	
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
-			cy.get('.autoshare-for-twitter-post-status').contains('This post was not posted to X/Twitter.');
+			cy.get('.autoshare-for-twitter-post-status').contains('This post has not been posted to X/Twitter.');
 	
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
 			cy.openAutoTweetPanel();

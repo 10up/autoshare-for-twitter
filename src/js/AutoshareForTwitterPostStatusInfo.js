@@ -132,7 +132,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 										'autoshare-for-twitter'
 								  )
 								: __(
-										'Post to X/Twitter again',
+										'Post to X/Twitter',
 										'autoshare-for-twitter'
 								  )
 						}

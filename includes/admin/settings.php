@@ -122,7 +122,7 @@ function register_settings() {
 		'autoshare-general_section',
 		[
 			'name'    => 'enable_default',
-			'choices' => __( 'Enable Autoshare by default when publishing content', 'autoshare-for-twitter' ),
+			'choices' => __( 'Enable Autopost by default when publishing content', 'autoshare-for-twitter' ),
 			'default' => true,
 		]
 	);
@@ -345,7 +345,7 @@ function cred_section_cb() {
 				</li>
 				<div class="copy-container-wrap">
 					<p class="copy-container">
-						<span class="copy-content"><?php esc_html_e( 'I am planning to add an auto-tweet feature on my WordPress website with the help of the Autopost for X, WordPress plugin. Whenever a new post will be published on the website, Autopost for X plugin will use the post data to curate and trigger a Tweet.', 'autoshare-for-twitter' ); ?></span>
+						<span class="copy-content"><?php esc_html_e( 'I am planning to add an auto-post feature on my WordPress website with the help of the Autopost for X, WordPress plugin. Whenever a new post will be published on the website, Autopost for X plugin will use the post data to curate and trigger a Post.', 'autoshare-for-twitter' ); ?></span>
 						<a href="#" class="astCopyToClipCard"><span class="dashicons dashicons-clipboard"></span></a>
 					</p>
 				</div>
