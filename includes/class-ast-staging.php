@@ -8,7 +8,7 @@
 namespace TenUp\AutoshareForTwitter\Core\AST_Staging;
 
 /**
- * Autoshare For Twitter staging mode handler.
+ * Autopost for X staging mode handler.
  *
  * @package TenUp\AutoshareForTwitter\Core
  *
@@ -68,7 +68,7 @@ class AST_Staging {
 					<?php
 					printf(
 						// translators: 1$-2$: opening and closing <strong> tags. 3$-4$: Opening and closing link to production URL. 5$: Production URL.
-						esc_html__( 'It looks like this site has moved or is a duplicate site. %1$sAutoshare for Twitter%2$s has disabled publish tweets on this site to prevent tweets from a staging or test environment. %1$sAutoshare for Twitter%2$s considers %3$s%5$s%4$s to be the site\'s URL. ', 'autoshare-for-twitter' ),
+						esc_html__( 'It looks like this site has moved or is a duplicate site. %1$sAutopost for X%2$s has disabled publish tweets on this site to prevent tweets from a staging or test environment. %1$sAutopost for X%2$s considers %3$s%5$s%4$s to be the site\'s URL. ', 'autoshare-for-twitter' ),
 						'<strong>',
 						'</strong>',
 						'<a href="' . esc_url( self::get_url_from_source( 'autoshare' ) ) . '" target="_blank">',

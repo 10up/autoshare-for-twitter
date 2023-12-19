@@ -1,3 +1,5 @@
+# Credits
+
 The following acknowledges the Maintainers for this repository, those who have Contributed to this repository (via bug reports, code, design, ideas, project management, translation, testing, etc.), and any Libraries utilized.
 
 ## Maintainers
@@ -19,3 +21,7 @@ The following software libraries are utilized in this repository.
 [TwitterOAuth](https://twitteroauth.com/) by [Abraham Williams](https://github.com/abraham) and licensed [MIT](https://github.com/abraham/twitteroauth/blob/master/LICENSE.md).
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
+
+## Icons
+
+X SVG Icons by [Iconpacks](https://iconpacks.net)

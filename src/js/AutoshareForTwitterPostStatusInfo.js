@@ -100,7 +100,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 			<Button
 				className="autoshare-for-twitter-tweet-now"
 				variant="link"
-				text={ __( 'Tweet now', 'autoshare-for-twitter' ) }
+				text={ __( 'Post to X/Twitter now', 'autoshare-for-twitter' ) }
 				onClick={ () => setTweetNow( ! tweetNow ) }
 				iconPosition="right"
 				icon={ tweetNow ? chevronUp : chevronDown }
@@ -110,7 +110,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 					{ hasFeaturedImage && (
 						<ToggleControl
 							label={ __(
-								'Use featured image in Tweet',
+								'Use featured image in Post to X/Twitter',
 								'autoshare-for-twitter'
 							) }
 							checked={ allowTweetImage }
@@ -127,8 +127,14 @@ export function AutoshareForTwitterPostStatusInfo() {
 						className="autoshare-for-twitter-re-tweet"
 						text={
 							reTweet
-								? __( 'Tweeting…', 'autoshare-for-twitter' )
-								: __( 'Tweet again', 'autoshare-for-twitter' )
+								? __(
+										'Posting to X/Twitter…',
+										'autoshare-for-twitter'
+								  )
+								: __(
+										'Post to X/Twitter',
+										'autoshare-for-twitter'
+								  )
 						}
 						onClick={ () => {
 							reTweetHandler();

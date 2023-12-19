@@ -7,7 +7,6 @@
 	'use strict';
 
 	var $tweetPost = $('#autoshare-for-twitter-enable'),
-		$icon = $('#autoshare-for-twitter-icon'),
 		$tweetText = $('#autoshare-for-twitter-text'),
 		$editLink = $('#autoshare-for-twitter-edit'),
 		$editBody = $('#autoshare-for-twitter-override-body'),
@@ -24,11 +23,6 @@
 		),
 		limit = 280;
 	const { __, sprintf } = wp.i18n;
-
-	// Add enabled class if checked
-	if ($tweetPost.prop('checked')) {
-		$icon.addClass('enabled');
-	}
 
 	// Event handlers.
 	$tweetPost.on('click', handleRequest);
@@ -74,7 +68,6 @@
 
 		errorMessageContainer.innerText = errorText;
 
-		$icon.removeClass('pending');
 		$tweetPost.prop('checked', false);
 		$('#publish').prop('disabled', false);
 	}
@@ -114,14 +107,9 @@
 			.then(function (data) {
 				errorMessageContainer.innerText = '';
 
-				$icon.removeClass('pending');
 				if (data.enabled) {
-					$icon.removeClass('disabled');
-					$icon.addClass('enabled');
 					$tweetPost.prop('checked', true);
 				} else {
-					$icon.removeClass('enabled');
-					$icon.addClass('disabled');
 					$tweetPost.prop('checked', false);
 				}
 
@@ -179,14 +167,14 @@
 		if (limit <= count) {
 			counterWrap.classList.remove('near-limit');
 			counterWrap.classList.add('over-limit');
-			/* translators: %d is tweet message character count */
+			/* translators: %d is post message character count */
 			$(counterWrap).text(
 				sprintf(__('%d - Too Long!', 'autoshare-for-twitter'), count)
 			);
 		} else if (240 <= count) {
 			counterWrap.classList.remove('over-limit');
 			counterWrap.classList.add('near-limit');
-			/* translators: %d is tweet message character count */
+			/* translators: %d is post message character count */
 			$(counterWrap).text(
 				sprintf(
 					__('%d - Getting Long!', 'autoshare-for-twitter'),
@@ -203,15 +191,6 @@
 	$('#titlediv').on('focus', '.edit-slug', function () {
 		updateRemainingField();
 	});
-
-	/**
-	 * Helper for toggling classes to indicate something is happening.
-	 */
-	function pendingStatus() {
-		$icon.toggleClass('pending');
-		$icon.removeClass('enabled');
-		$icon.removeClass('disabled');
-	}
 
 	// Show/Hide "Use featured image in Tweet" checkbox.
 	if (allowTweetImageWrap && wp.media.featuredImage) {

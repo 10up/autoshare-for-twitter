@@ -38,9 +38,12 @@ class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 		try {
 			const enabled = select( STORE ).getAutoshareEnabled();
 			const enabledText = enabled
-				? __( 'This post will be Tweeted', 'autoshare-for-twitter' )
+				? __(
+						'This post will be posted to X/Twitter',
+						'autoshare-for-twitter'
+				  )
 				: __(
-						'This post will not be Tweeted',
+						'This post will not be posted to X/Twitter',
 						'autoshare-for-twitter'
 				  );
 
@@ -101,8 +104,11 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 		try {
 			const enabled = select( STORE ).getAutoshareEnabled();
 			const enabledText = enabled
-				? __( 'Autotweet enabled', 'autoshare-for-twitter' )
-				: __( 'Autotweet disabled', 'autoshare-for-twitter' );
+				? __( 'Autopost to X/Twitter enabled', 'autoshare-for-twitter' )
+				: __(
+						'Autopost to X/Twitter disabled',
+						'autoshare-for-twitter'
+				  );
 
 			if ( enabledText !== this.state.enabledText ) {
 				this.setState( { enabledText, enabled } );
@@ -126,7 +132,10 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 
 			return (
 				<PluginDocumentSettingPanel
-					title={ __( 'Autotweet', 'autoshare-for-twitter' ) }
+					title={ __(
+						'Autopost to X/Twitter',
+						'autoshare-for-twitter'
+					) }
 					icon={ getIconByStatus( tweetStatus ) }
 					className="autoshare-for-twitter-editor-panel"
 				>
