@@ -1,6 +1,6 @@
 {
 	"name": "@10up/autoshare-for-twitter",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Automatically shares a post title, URL, and optional description to X/Twitter.",
 	"scripts": {
 		"start": "wp-scripts start",
