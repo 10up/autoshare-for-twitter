@@ -13,7 +13,7 @@ jobs:
   build:
     uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
 
-  cypress:
+  plugin-check:
     needs: build
     runs-on: ubuntu-latest
 
