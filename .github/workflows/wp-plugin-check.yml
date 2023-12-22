@@ -1,0 +1,30 @@
+name: WP plugin check
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop
+
+  cypress:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build zip
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ github.event.repository.name }}
+          path: ${{ github.event.repository.name }}
+
+      - name: Run plugin check
+        uses: swissspidy/wp-plugin-check-action@v1
+        with:
+          build-dir: ${{ github.event.repository.name }}
