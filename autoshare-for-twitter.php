@@ -99,3 +99,4 @@ register_activation_hook(
 		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
 	}
 );
+    
