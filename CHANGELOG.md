@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [2.2.0] - 2023-12-XX
+## [2.2.0] - 2024-01-04
 **Autoshare for Twitter rebranded / renamed to Autopost for X.**
 
 ### Changed
@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Resolved the issue with Twitter accounts' visibility in the classic editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#277](https://github.com/10up/autoshare-for-twitter/pull/277)).
 - Fixed bugs related to calculating tweet length (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#288](https://github.com/10up/autoshare-for-twitter/pull/288)).
 - Addressed auto-posting tweets for automatically published posts (props [@iamdharmesh](https://github.com/iamdharmesh), [@sunnmagic](https://github.com/sunnmagic), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#294](https://github.com/10up/autoshare-for-twitter/pull/294)).
+- Fixed deprecation warning regarding implicit float-to-int conversion in PHP 8.2 (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#301](https://github.com/10up/autoshare-for-twitter/pull/301)).
 
 ### Security
 - Bump `@babel/traverse` from 7.22.17 to 7.23.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#289](https://github.com/10up/autoshare-for-twitter/pull/289)).
