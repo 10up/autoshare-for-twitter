@@ -175,7 +175,7 @@ class AST_Staging {
 		$scheme = wp_parse_url( $url, PHP_URL_SCHEME ) . '://';
 		$url    = str_replace( $scheme, '', $url );
 
-		return $scheme . substr_replace( $url, '_[autoshare_liveurl]_', intval(strlen( $url ) / 2), 0 );
+		return $scheme . substr_replace( $url, '_[autoshare_liveurl]_', intval( strlen( $url ) / 2 ), 0 );
 	}
 
 	/**
