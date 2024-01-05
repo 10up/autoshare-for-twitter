@@ -32,7 +32,7 @@
 		"platform": {
 			"php": "7.4"
 		},
-		"autoloader-suffix": "10upAutoshareForTwitterV211",
+		"autoloader-suffix": "10upAutoshareForTwitterV220",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
