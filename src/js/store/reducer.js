@@ -1,4 +1,5 @@
-import { enabled, allowTweetImage, tweetAccounts, customTweetBody } from 'admin-autoshare-for-twitter';
+const { enabled, allowTweetImage, tweetAccounts, customTweetBody } =
+	adminAutoshareForTwitter;
 
 import {
 	SET_AUTOSHARE_FOR_TWITTER_ENABLED,
@@ -12,13 +13,13 @@ import {
 } from './constants';
 
 export const DEFAULT_STATE = {
-	autoshareEnabled: ( ! ! enabled && '0' !== enabled ),
+	autoshareEnabled: !! enabled && '0' !== enabled,
 	errorMessage: '',
 	loaded: false,
 	overriding: customTweetBody ? true : false,
 	overrideLength: 0,
-	tweetText : customTweetBody || '',
-	allowTweetImage: ! ! allowTweetImage,
+	tweetText: customTweetBody || '',
+	allowTweetImage: !! allowTweetImage,
 	tweetAccounts: tweetAccounts || [],
 };
 

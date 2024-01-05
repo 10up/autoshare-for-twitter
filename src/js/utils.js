@@ -1,8 +1,5 @@
 import { Icon } from '@wordpress/components';
-
-import FailedIcon from '../../assets/images/twitter_failed.svg';
-import TweetedIcon from '../../assets/images/twitter_tweeted.svg';
-import DefaultIcon from '../../assets/images/twitter_default.svg';
+import { FailedIcon, TweetedIcon, DefaultIcon } from './components/PluginIcon';
 
 export const getIconByStatus = ( tweetStatus ) => {
 	let StatusIcon = DefaultIcon;
@@ -20,10 +17,9 @@ export const getIconByStatus = ( tweetStatus ) => {
 	const TweetStatusIcon = (
 		<Icon
 			className="autoshare-for-twitter-icon"
-			icon={ <StatusIcon /> }
-			size={ 24 }
+			icon={ StatusIcon }
+			size={ 48 }
 		/>
 	);
-
 	return TweetStatusIcon;
 };

@@ -87,7 +87,7 @@ span.over-limit {
 /* Styling for post columns */
 .fixed .column-is_tweeted {
 	width: 50px;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 .fixed .column-is_tweeted a {
@@ -99,29 +99,29 @@ span.over-limit {
 }
 
 .autoshare-for-twitter-status-logo::before {
-	background-image: url('../images/twitter_default.svg');
+	background-image: url('../images/x_default.svg');
 	background-repeat: no-repeat;
-	background-size: 25px 25px;
+	background-size: 24px 24px;
 	content: ' ';
 	display: block;
-	height: 25px;
-	width: 25px;
+	height: 24px;
+	width: 24px;
 }
 
 tbody .autoshare-for-twitter-status-logo--published::before {
-	background-image: url('../images/twitter_tweeted.svg');
+	background-image: url('../images/x_tweeted.svg');
 }
 
 tbody .autoshare-for-twitter-status-logo--error::before {
-	background-image: url('../images/twitter_failed.svg');
+	background-image: url('../images/x_failed.svg');
 }
 
 tbody .autoshare-for-twitter-status-logo--enabled::before {
-	background-image: url('../images/twitter_enabled.svg');
+	background-image: url('../images/x_enabled.svg');
 }
 
 tbody .autoshare-for-twitter-status-logo--disabled::before {
-	background-image: url('../images/twitter_disabled.svg');
+	background-image: url('../images/x_disabled.svg');
 }
 
 .autoshare-for-twitter-pre-publish-panel svg.components-panel__icon,
@@ -138,12 +138,13 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 
 .autoshare-for-twitter-log svg {
 	max-width: 20px;
+	min-width: 20px;
 	height: auto;
 }
 
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon::before {
-	background-image: url('../images/twitter_default.svg');
+	background-image: url('../images/x_default.svg');
 	background-repeat: no-repeat;
 	background-size: 24px 24px;
 	content: ' ';
@@ -155,19 +156,19 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--published::before {
-	background-image: url('../images/twitter_tweeted.svg');
+	background-image: url('../images/x_tweeted.svg');
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--error::before {
-	background-image: url('../images/twitter_failed.svg');
+	background-image: url('../images/x_failed.svg');
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--enabled::before {
-	background-image: url('../images/twitter_enabled.svg');
+	background-image: url('../images/x_enabled.svg');
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-icon--disabled::before {
-	background-image: url('../images/twitter_disabled.svg');
+	background-image: url('../images/x_disabled.svg');
 }
 
 #autoshare_for_twitter_metabox .autoshare-for-twitter-status-log-data {
