@@ -16,7 +16,7 @@ use function TenUp\AutoshareForTwitter\REST\post_autoshare_for_twitter_meta_rest
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\tweet_image_allowed;
 use function TenUp\AutoshareForTwitter\Utils\get_tweet_accounts;
-use function TenUp\AutoshareForTwitter\Utils\get_default_autoshare_accounts;
+use function TenUp\AutoshareForTwitter\Utils\is_local;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
@@ -111,35 +111,6 @@ function maybe_enqueue_classic_editor_assets( $hook ) {
 		return;
 	}
 
-	$api_fetch_handle = 'wp-api-fetch';
-	if ( ! wp_script_is( $api_fetch_handle, 'registered' ) ) {
-		wp_register_script(
-			$api_fetch_handle,
-			trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/api-fetch.js',
-			[],
-			'3.4.0',
-			true
-		);
-
-		wp_add_inline_script(
-			$api_fetch_handle,
-			sprintf(
-				'wp.apiFetch.use( wp.apiFetch.createNonceMiddleware( "%s" ) );',
-				( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' )
-			),
-			'after'
-		);
-
-		wp_add_inline_script(
-			$api_fetch_handle,
-			sprintf(
-				'wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "%s" ) );',
-				esc_url_raw( get_rest_url() )
-			),
-			'after'
-		);
-	}
-
 	$handle = 'admin_autoshare_for_twitter_classic_editor';
 	wp_enqueue_script(
 		$handle,
@@ -168,10 +139,11 @@ function enqueue_editor_assets() {
 		return;
 	}
 
-	wp_enqueue_script(
-		SCRIPT_HANDLE,
-		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/autoshare-for-twitter.js',
-		[
+	$asset_file = AUTOSHARE_FOR_TWITTER_PATH . '/dist/autoshare-for-twitter.asset.php';
+	// Fallback asset data.
+	$asset_data = array(
+		'version'      => AUTOSHARE_FOR_TWITTER_VERSION,
+		'dependencies' => array(
 			'lodash',
 			'wp-components',
 			'wp-compose',
@@ -180,8 +152,18 @@ function enqueue_editor_assets() {
 			'wp-element',
 			'wp-i18n',
 			'wp-plugins',
-		],
-		AUTOSHARE_FOR_TWITTER_VERSION,
+			'wp-primitives',
+		),
+	);
+	if ( file_exists( $asset_file ) ) {
+		$asset_data = require $asset_file;
+	}
+
+	wp_enqueue_script(
+		SCRIPT_HANDLE,
+		trailingslashit( AUTOSHARE_FOR_TWITTER_URL ) . 'dist/autoshare-for-twitter.js',
+		$asset_data['dependencies'],
+		$asset_data['version'],
 		true
 	);
 
@@ -207,9 +189,6 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 	$accounts       = ( new Twitter_Accounts() )->get_twitter_accounts( true );
 	$tweet_accounts = get_tweet_accounts( $post_id );
 	$tweet_body     = trim( get_autoshare_for_twitter_meta( $post_id, TWEET_BODY_KEY ) );
-	if ( empty( $tweet_accounts ) ) {
-		$tweet_accounts = get_default_autoshare_accounts();
-	}
 
 	$localization = [
 		'enabled'            => autoshare_enabled( $post_id ),
@@ -229,6 +208,8 @@ function localize_data( $handle = SCRIPT_HANDLE ) {
 		'tweetAccounts'      => $tweet_accounts,
 		'tweetAccountsKey'   => TWEET_ACCOUNTS_KEY,
 		'connectedAccounts'  => $accounts ?? [],
+		'isLocalSite'        => is_local(),
+		'twitterURLLength'   => AUTOSHARE_FOR_TWITTER_URL_LENGTH,
 	];
 
 	wp_localize_script( $handle, 'adminAutoshareForTwitter', $localization );

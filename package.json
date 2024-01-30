@@ -1,19 +1,19 @@
 {
 	"name": "@10up/autoshare-for-twitter",
-	"version": "2.1.1",
-	"description": "Automatically tweets a post title, URL, and optional description.",
+	"version": "2.2.0",
+	"description": "Automatically shares a post title, URL, and optional description to X/Twitter.",
 	"scripts": {
-		"watch": "webpack -w --devtool eval-cheap-module-source-map --output-pathinfo --mode development --config webpack.gutenberg.config.js",
-		"build": "webpack --optimization-minimize --mode production --config webpack.gutenberg.config.js",
-		"build:externals": "webpack ./src/js/externals/api-fetch.js  --output-path dist/ --output-filename api-fetch.js --mode production",
+		"start": "wp-scripts start",
+		"build": "wp-scripts build",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js-fix": "wp-scripts lint-js --fix",
 		"env": "wp-env",
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
 		"postenv:start": "./tests/bin/initialize.sh",
 		"cypress:open": "cypress open --config-file tests/cypress/cypress.config.js --e2e --browser chrome",
-		"cypress:run": "cypress run --config-file tests/cypress/cypress.config.js",
-		"lint": "eslint ."
+		"cypress:run": "cypress run --config-file tests/cypress/cypress.config.js"
 	},
 	"husky": {
 		"hooks": {
@@ -22,7 +22,7 @@
 	},
 	"lint-staged": {
 		"*.js": [
-			"eslint"
+			"wp-scripts lint-js"
 		],
 		"*.php": [
 			"./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
@@ -39,27 +39,14 @@
 	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
 		"@10up/cypress-wp-utils": "^0.2.0",
-		"@10up/eslint-config": "^1.0.9",
-		"@babel/core": "^7.6.0",
-		"@babel/preset-env": "^7.6.0",
-		"@babel/preset-react": "^7.0.0",
 		"@wordpress/env": "^8.6.0",
-		"@wordpress/eslint-plugin": "^3.0.0",
-		"@wordpress/prettier-config": "^1.1.1",
-		"babel-eslint": "^10.0.3",
-		"babel-loader": "^8.0.6",
+		"@wordpress/scripts": "^26.19.0",
 		"cypress": "^13.0.0",
 		"cypress-mochawesome-reporter": "^3.5.1",
-		"eslint": "^6.3.0",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
-		"node-wp-i18n": "^1.2.3",
-		"svg-react-loader": "^0.4.6",
-		"webpack": "^5.76.0",
-		"webpack-cli": "^4.10.0"
-	},
-	"dependencies": {
-		"@wordpress/api-fetch": "^3.5.0"
+		"mochawesome-json-to-md": "^0.7.2",
+		"node-wp-i18n": "^1.2.3"
 	},
 	"prettier": "@wordpress/prettier-config"
 }

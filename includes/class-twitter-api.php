@@ -218,7 +218,7 @@ class Twitter_API {
 	}
 
 	/**
-	 * Disconnect Twitter account.
+	 * Disconnect X account.
 	 *
 	 * @return bool True if account was disconnected, false otherwise.
 	 */

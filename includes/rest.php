@@ -80,7 +80,7 @@ function register_post_autoshare_for_twitter_meta_rest_route() {
 					'validate_callback' => 'rest_validate_request_arg',
 				],
 				ENABLE_AUTOSHARE_FOR_TWITTER_KEY => [
-					'description'       => __( 'Whether autoshare is enabled for the current post', 'autoshare-for-twitter' ),
+					'description'       => __( 'Whether autopost is enabled for the current post', 'autoshare-for-twitter' ),
 					'required'          => true,
 					'sanitize_callback' => 'absint',
 					'type'              => 'boolean',
@@ -148,8 +148,8 @@ function update_post_autoshare_for_twitter_meta( $request ) {
 	$accounts          = get_autoshare_for_twitter_meta( $request['id'], TWEET_ACCOUNTS_KEY );
 	$accounts          = ! empty( $accounts ) ? $accounts : [];
 	$message           = $enabled ?
-		__( 'Autoshare enabled.', 'autoshare-for-twitter' ) :
-		__( 'Autoshare disabled.', 'autoshare-for-twitter' );
+		__( 'Autopost to X/Twitter enabled.', 'autoshare-for-twitter' ) :
+		__( 'Autopost to X/Twitter disabled.', 'autoshare-for-twitter' );
 
 	return rest_ensure_response(
 		[

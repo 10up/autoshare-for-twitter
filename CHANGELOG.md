@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.2.0] - 2024-01-04
+**Autoshare for Twitter rebranded / renamed to Autopost for X.**
+
+### Changed
+- Updated repo automator workflow (props [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#273](https://github.com/10up/autoshare-for-twitter/pull/273)).
+- Bump `Cypress` version from 11.2.0 to 13.0.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
+- Bump `@10up/cypress-wp-utils` version from 0.1.0 to 0.2.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
+- Bump `@wordpress/env` version from 5.7.0 to 8.6.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
+- Replaced the custom build process with WP-Scripts (props [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@ravinderk](https://github.com/ravinderk) via [#282](https://github.com/10up/autoshare-for-twitter/pull/282)).
+- Disabled auto-sync for pull requests with the target branch (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#291](https://github.com/10up/autoshare-for-twitter/pull/291)).
+- Bump WordPress "tested up to" version 6.4 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@jeffpaul](https://github.com/jeffpaul) via [#292](https://github.com/10up/autoshare-for-twitter/pull/292)).
+- Renamed plugin from "Autoshare for Twitter" to "Autopost for X (formerly Autoshare for Twitter)" (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh), [Morgan Hartnett](https://www.morganhartnett.com/) via [#293](https://github.com/10up/autoshare-for-twitter/pull/293)).
+
+### Fixed
+- Resolved the issue with Twitter accounts' visibility in the classic editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#277](https://github.com/10up/autoshare-for-twitter/pull/277)).
+- Fixed bugs related to calculating tweet length (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#288](https://github.com/10up/autoshare-for-twitter/pull/288)).
+- Addressed auto-posting tweets for automatically published posts (props [@iamdharmesh](https://github.com/iamdharmesh), [@sunnmagic](https://github.com/sunnmagic), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#294](https://github.com/10up/autoshare-for-twitter/pull/294)).
+- Fixed deprecation warning regarding implicit float-to-int conversion in PHP 8.2 (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#301](https://github.com/10up/autoshare-for-twitter/pull/301)).
+
+### Security
+- Bump `@babel/traverse` from 7.22.17 to 7.23.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#289](https://github.com/10up/autoshare-for-twitter/pull/289)).
+- Bump `@wordpress/scripts` from 26.12.0 to 26.19.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#298](https://github.com/10up/autoshare-for-twitter/pull/298)).
+
 ## [2.1.1] - 2023-08-22
 
 ### Changed
@@ -226,6 +249,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.2.0]: https://github.com/10up/autoshare-for-twitter/compare/2.1.1...2.2.0
 [2.1.1]: https://github.com/10up/autoshare-for-twitter/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/10up/autoshare-for-twitter/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/10up/autoshare-for-twitter/compare/1.3.0...2.0.0

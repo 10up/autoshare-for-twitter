@@ -30,7 +30,7 @@ describe('Configure the plugin', () => {
 		cy.login();
 	});
 
-	it('Configure the plugin settings and Twitter accounts', () => {
+	it('Configure the plugin settings and X accounts', () => {
 		cy.visit('/wp-admin/options-general.php?page=autoshare-for-twitter');
 		cy.get('.large-text:nth-child(1) .large-text').clear().type( 'TEST_TWITTER_API_KEY' );
 		cy.get('.large-text:nth-child(2) .large-text').clear().type( 'TEST_TWITTER_API_SECRET' );

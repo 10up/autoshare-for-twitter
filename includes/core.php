@@ -61,7 +61,7 @@ function setup() {
 add_action( 'autoshare_for_twitter_loaded', __NAMESPACE__ . '\setup' );
 
 /**
- * Adds autoshare support for enabled post types, and add tweeted status column.
+ * Adds autoshare support for enabled post types, and add Autopost status column.
  *
  * @since 1.0.0
  */
@@ -115,8 +115,8 @@ function modify_post_type_add_tweet_status_column( $columns ) {
 	// Add tweet status column header.
 	$columns['is_tweeted'] = sprintf(
 		'<span class="autoshare-for-twitter-status-logo" title="%s"><span class="screen-reader-text">%s</span></span>',
-		esc_attr__( 'Tweeted status', 'autoshare-for-twitter' ),
-		esc_html__( 'Tweeted status', 'autoshare-for-twitter' )
+		esc_attr__( 'Autopost status', 'autoshare-for-twitter' ),
+		esc_html__( 'Posted to X/Twitter status', 'autoshare-for-twitter' )
 	);
 
 	// Add the date column back.
@@ -153,7 +153,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		$twitter_url = Utils\link_from_twitter( $tweet_status );
 		$tweet_title = sprintf(
 			'%s %s',
-			__( 'Tweeted on', 'autoshare-for-twitter' ),
+			__( 'Posted to X/Twitter on', 'autoshare-for-twitter' ),
 			$date
 		);
 
@@ -172,7 +172,7 @@ function modify_post_type_add_tweet_status( $column_name, $post_id ) {
 		);
 	} else {
 		printf(
-			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled"></span>'
+			'<span class="autoshare-for-twitter-status-logo autoshare-for-twitter-status-logo--disabled" title="' . esc_attr( __( 'Has not been Posted to X/Twitter', 'autoshare-for-twitter' ) ) . '"></span>'
 		);
 	}
 }
@@ -194,7 +194,7 @@ function migrate_to_twitter_v2_api() {
 			<?php
 			printf(
 				// translators: 1$-2$: Opening and closing <a> tags for Twitter V2 API, 3$-4$: Opening and closing <a> tags for migrate app, 5$-6$: Opening and closing <a> tags for learn more.
-				wp_kses_post( __( 'Autoshare for Twitter now utilizes the %1$sTwitter v2 API%2$s. If you have not already done so, please %3$smigrate your app%4$s to Twitter v2 API to continue using Autoshare for Twitter. %5$sLearn more about migrating here%6$s.', 'autoshare-for-twitter' ) ),
+				wp_kses_post( __( 'Autopost for X/Twitter now utilizes the %1$sX/Twitter v2 API%2$s. If you have not already done so, please %3$smigrate your app%4$s to X/Twitter v2 API to continue using Autopost for X. %5$sLearn more about migrating here%6$s.', 'autoshare-for-twitter' ) ),
 				'<a href="https://developer.twitter.com/en/products/twitter-api" target="_blank">',
 				'</a>',
 				'<a href="https://developer.twitter.com/en/portal/projects-and-apps" target="_blank">',

@@ -1,6 +1,6 @@
 {
 	"name": "10up/autoshare-for-twitter",
-	"description": "Automatically tweets the post title or custom message and a link to the post.",
+	"description": "Automatically shares the post title or custom message and a link to the post on X/Twitter.",
 	"type": "wordpress-plugin",
 	"keywords": [],
 	"homepage": "https://10up.com",
@@ -18,7 +18,7 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
 		"10up/phpcs-composer": "dev-master",
 		"phpunit/phpunit": "9.6.x-dev",
-		"yoast/phpunit-polyfills": "2.x-dev"
+		"yoast/phpunit-polyfills": "2.0.0"
 	},
 	"scripts": {
 		"test": "phpunit",
@@ -32,7 +32,7 @@
 		"platform": {
 			"php": "7.4"
 		},
-		"autoloader-suffix": "10upAutoshareForTwitterV211",
+		"autoloader-suffix": "10upAutoshareForTwitterV220",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
