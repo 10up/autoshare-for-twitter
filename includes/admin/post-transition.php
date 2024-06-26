@@ -314,6 +314,16 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data, $hand
 	 */
 	update_autoshare_for_twitter_meta( $post_id, Meta\TWITTER_STATUS_KEY, $tweet_meta );
 
+	if ( method_exists( 'Syn_Meta', 'add_syndication_link' ) ) {
+		// Add syndication link to the post.
+		foreach ( $tweet_meta as $tweet ) {
+			if ( 'published' === $tweet['status'] ) {
+				$uri = Utils\link_from_twitter( $tweet );
+				\Syn_Meta::add_syndication_link( 'post', $post_id, $uri );
+			}
+		}
+	}
+
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
 	 */
