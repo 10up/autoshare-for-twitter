@@ -243,6 +243,64 @@
 		}
 	}
 
+	function addSyndicatedLinks( data ) {
+		if ( ! data ) {
+			return;
+		}
+
+		// Get the Syndication URL inputs.
+		const syndicationUrlInputs = Array.from(
+			document.querySelectorAll( 'input[name="syndication_urls[]"]' )
+		);
+
+		// Bail if there are no Syndication URL inputs.
+		if ( ! syndicationUrlInputs.length ) {
+			return;
+		}
+
+		// Get the URLs from the status messages.
+		// We'll use these to compare and populate the Syndication URL inputs.
+		const statusMessagesUrls = Array.from(document.querySelectorAll('.autoshare-for-twitter-status-logs-wrapper a')).map( ( link ) => {
+			return link.getAttribute('href');
+		} );
+
+		// Get the existing URLs from the Syndication URL inputs.
+		const syndicationUrlInputsUrls = syndicationUrlInputs.map(
+			( input ) => {
+				return input.value;
+			}
+		);
+
+		// Get the Syndication URL list.
+		const syndicationUrlList = document.querySelector(
+			'.syndication_url_list ul'
+		);
+
+		statusMessagesUrls.forEach( ( url ) => {
+			// If the URL is already in the Syndication URL inputs, bail.
+			if ( syndicationUrlInputsUrls.includes( url ) ) {
+				return;
+			}
+
+			// Create the Syndication URL input list item.
+			const syndicationUrlInputListItem = document.createElement( 'li' );
+
+			// Create the Syndication URL input.
+			const syndicationUrlInput = document.createElement( 'input' );
+			syndicationUrlInput.classList.add( 'widefat' );
+			syndicationUrlInput.type = 'text';
+			syndicationUrlInput.name = 'syndication_urls[]';
+			syndicationUrlInput.value = url;
+
+			// Append the Syndication URL input to the Syndication URL list.
+			syndicationUrlInputListItem.appendChild( syndicationUrlInput );
+			syndicationUrlList.appendChild( syndicationUrlInputListItem );
+
+			// Add the URL to the Syndication URL inputs URLs so we don't repeat ourselves.
+			syndicationUrlInputsUrls.push( url );
+		} );
+	}
+
 	// Tweet Now functionality.
 	$('#tweet_now').on('click', function () {
 		$('#autoshare-for-twitter-error-message').html('');
@@ -272,9 +330,13 @@
 						(false === response.success &&
 							false === response.data.is_retweeted))
 				) {
+					console.log({ data: response.data })
 					$('.autoshare-for-twitter-status-logs-wrapper').html(
 						response.data.message
 					);
+					
+					addSyndicatedLinks( response.data );
+
 					if (response.data.is_retweeted) {
 						$tweetText.val(''); // Reset the tweet text.
 					}
