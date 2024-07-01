@@ -1,15 +1,15 @@
 import { getRandomText } from "../support/functions";
 
-// describe('Admin can login and make sure plugin is activated', () => {
-// 	beforeEach(() => {
-// 		cy.login();
-// 		cy.clearPluginSettings();
-// 	});
+describe('Admin can login and make sure plugin is activated', () => {
+	beforeEach(() => {
+		cy.login();
+		cy.clearPluginSettings();
+	});
 
-// 	it('Can activate Syndication Links plugin if it is deactivated', () => {
-// 		cy.activatePlugin('syndication-links');
-// 	});
-// });
+	it('Can activate Syndication Links plugin if it is deactivated', () => {
+		cy.activatePlugin('syndication-links');
+	});
+});
 
 describe('Test Autopost for X with Syndication Links.', () => {
 	before(() => {
