@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { withSelect, useSelect, select } from '@wordpress/data';
 import { Button, ToggleControl, Icon } from '@wordpress/components';
 import { TweetTextField } from './components/TweetTextField';
@@ -33,14 +33,16 @@ export function AutoshareForTwitterPostStatusInfo() {
 	// Syndication Links plugin support.
 	// This is all so that the Syndication Links plugin can show updates in real time with our status messages.
 	// In addition, this fixes an issue where a user might actually remove a syndicated link unintentionally when clicking "update" on the post.
-	useEffect( () => {
-		// Bail if there are no status messages.
-		if ( statusMessages && ! statusMessages.message.length ) {
+	function addSyndicatedLinks( data ) {
+		// No data, bail.
+		if ( ! data ) {
 			return;
 		}
 
-		// Bail if the reTweet is false. Prevents this from happening on load.
-		if ( ! reTweet ) {
+		const { message } = data;
+
+		// No messages, bail.
+		if ( ! message?.length ) {
 			return;
 		}
 
@@ -56,9 +58,11 @@ export function AutoshareForTwitterPostStatusInfo() {
 
 		// Get the URLs from the status messages.
 		// We'll use these to compare and populate the Syndication URL inputs.
-		const statusMessagesUrls = statusMessages.message.map( ( message ) => {
-			return message.url;
-		} );
+		const statusMessagesUrls = message
+			.map( ( entry ) => {
+				return entry.url;
+			} )
+			.filter( ( url ) => url );
 
 		// Get the existing URLs from the Syndication URL inputs.
 		const syndicationUrlInputsUrls = syndicationUrlInputs.map(
@@ -95,7 +99,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 			// Add the URL to the Syndication URL inputs URLs so we don't repeat ourselves.
 			syndicationUrlInputsUrls.push( url );
 		} );
-	}, [ statusMessages, reTweet ] );
+	}
 
 	useSaveTwitterData();
 
@@ -121,6 +125,7 @@ export function AutoshareForTwitterPostStatusInfo() {
 			setTweetText( '' );
 		}
 		setStatusMessages( data );
+		addSyndicatedLinks( data );
 		setReTweet( false );
 	};
 
