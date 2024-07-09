@@ -11,6 +11,7 @@ namespace TenUp\AutoshareForTwitter\Core\Post_Meta;
  * Aliases
  */
 use TenUp\AutoshareForTwitter\Utils as Utils;
+use TenUp\AutoshareForTwitter\Core\Twitter_Accounts as Twitter_Accounts;
 
 use function TenUp\AutoshareForTwitter\Utils\autoshare_enabled;
 use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
@@ -33,7 +34,7 @@ const ENABLE_AUTOSHARE_FOR_TWITTER_KEY = 'autoshare_for_twitter';
 const TWEET_BODY_KEY = 'tweet-body';
 
 /**
- * Holds the formatted response object from Twitter.
+ * Holds the formatted response object from X.
  *
  * @see post-transition.php
  */
@@ -42,12 +43,17 @@ const TWITTER_STATUS_KEY = 'status';
 const TWEET_ALLOW_IMAGE = 'tweet-allow-image';
 
 /**
+ * Holds the tweet accounts
+ */
+const TWEET_ACCOUNTS_KEY = 'tweet_accounts';
+
+/**
  * The setup function
  *
  * @return void
  */
 function setup() {
-	// Add Autoshare for twitter meta box to classic editor.
+	// Add Autopost for X meta box to classic editor.
 	add_action( 'add_meta_boxes', __NAMESPACE__ . '\autoshare_for_twitter_metabox', 10, 2 );
 	add_action( 'save_post', __NAMESPACE__ . '\save_tweet_meta', 10, 3 );
 }
@@ -124,6 +130,11 @@ function sanitize_autoshare_for_twitter_meta_data( $data ) {
 
 			case TWEET_BODY_KEY:
 				$filtered_data[ $key ] = sanitize_text_field( $value );
+				break;
+
+			case TWEET_ACCOUNTS_KEY:
+				$filtered_data[ $key ] = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : [];
+				break;
 		}
 	}
 
@@ -145,7 +156,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 	// If the enable key is not set, set it to the default setting value.
 	if ( ! array_key_exists( ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $data ) ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( isset( $_POST['classic-editor'] ) ) {
+		if ( isset( $_POST['autoshare-classic-editor'] ) ) {
 			// Handle unchecked "Tweet this post" checkbox for classic editor.
 			$data[ ENABLE_AUTOSHARE_FOR_TWITTER_KEY ] = 0;
 		} else {
@@ -155,7 +166,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 
 	if ( ! array_key_exists( TWEET_ALLOW_IMAGE, $data ) ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( isset( $_POST['classic-editor'] ) ) {
+		if ( isset( $_POST['autoshare-classic-editor'] ) ) {
 			// Handle unchecked "Tweet this post" checkbox for classic editor.
 			$data[ TWEET_ALLOW_IMAGE ] = 0;
 		} else {
@@ -182,6 +193,10 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 				update_autoshare_for_twitter_meta( $post_id, TWEET_ALLOW_IMAGE, $value ? 'yes' : 'no' );
 				break;
 
+			case TWEET_ACCOUNTS_KEY:
+				update_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY, $value );
+				break;
+
 			default:
 				break;
 		}
@@ -189,7 +204,7 @@ function save_autoshare_for_twitter_meta_data( $post_id, $data ) {
 }
 
 /**
- * Add Autoshare for twitter metabox on post/post types.
+ * Add Autopost for X metabox on post/post types.
  *
  * @param string  $post_type Post Type.
  * @param WP_Post $post      WP_Post object.
@@ -206,7 +221,7 @@ function autoshare_for_twitter_metabox( $post_type, $post ) {
 
 	add_meta_box(
 		'autoshare_for_twitter_metabox',
-		__( 'Autoshare for Twitter ', 'autoshare-for-twitter' ),
+		__( 'Autopost for X/Twitter', 'autoshare-for-twitter' ),
 		__NAMESPACE__ . '\render_tweet_submitbox',
 		null,
 		'side',
@@ -235,13 +250,13 @@ function render_tweet_submitbox( $post ) {
 		</div>
 		<hr/>
 		<button class="button button-link tweet-now-button">
-		<?php esc_attr_e( 'Tweet Now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
-		</button>		
+		<?php esc_attr_e( 'Post to X/Twitter now', 'autoshare-for-twitter' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span>
+		</button>
 		<div class="autoshare-for-twitter-tweet-now-wrapper" style="display: none;">
 			<?php
 			echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
-			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Tweet again', 'autoshare-for-twitter' ); ?>">
+			<input type="button" name="tweet_now" id="tweet_now" class="button button-primary" value="<?php esc_attr_e( 'Post to X/Twitter', 'autoshare-for-twitter' ); ?>">
 			<span class="spinner"></span>
 		</div>
 		<?php
@@ -260,6 +275,55 @@ function render_tweet_submitbox( $post ) {
 		echo _safe_markup_default(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
+}
+
+
+/**
+ * Render the X accounts to be used for autoposting.
+ *
+ * @param int $post_id The post ID.
+ */
+function render_twitter_accounts( $post_id ) {
+	$post_status = get_post_status( $post_id );
+	$accounts    = ( new Twitter_Accounts() )->get_twitter_accounts( true );
+	if ( empty( $accounts ) ) {
+		return;
+	}
+
+	$enabled = Utils\get_tweet_accounts( $post_id );
+
+	$display = ( autoshare_enabled( $post_id ) || 'publish' === $post_status ) ? '' : 'display: none;';
+	?>
+	<div class="autoshare-for-twitter-accounts-wrapper" style="<?php echo esc_attr( $display ); ?>">
+		<?php
+		foreach ( $accounts as $account ) {
+			?>
+			<div class="twitter-account-wrapper">
+				<img src="<?php echo esc_url( $account['profile_image_url'] ); ?>" alt="<?php echo esc_attr( $account['name'] ); ?>" class="twitter-account-profile-image" />
+				<span class="account-details">
+					<strong>@<?php echo esc_html( $account['username'] ); ?></strong>
+					<br />
+					<?php echo esc_html( $account['name'] ); ?>
+				</span>
+				<input
+					type="checkbox"
+					class="autoshare-for-twitter-account-checkbox"
+					id="autoshare-for-twitter-account-<?php echo esc_attr( $account['id'] ); ?>"
+					name="<?php echo esc_attr( sprintf( '%s[%s][]', META_PREFIX, TWEET_ACCOUNTS_KEY ) ); ?>"
+					value="<?php echo esc_attr( $account['id'] ); ?>"
+					<?php checked( true, in_array( $account['id'], $enabled, true ), true ); ?>
+				/>
+			</div>
+			<?php
+		}
+		?>
+		<span class="connect-account-link">
+			<a href="<?php echo esc_url( admin_url( 'options-general.php?page=autoshare-for-twitter' ) ); ?>" target="_blank">
+				<?php esc_html_e( 'Connect an account', 'autoshare-for-twitter' ); ?>
+			</a>
+		</span>
+	</div>
+	<?php
 }
 
 /**
@@ -287,6 +351,7 @@ function get_tweet_status_message( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -296,7 +361,8 @@ function get_tweet_status_message( $post ) {
 	}
 
 	foreach ( $tweet_metas as $tweet_meta ) {
-		$status = $tweet_meta['status'];
+		$status         = $tweet_meta['status'];
+		$twitter_handle = $tweet_meta['handle'] ?? '';
 		if ( 'publish' !== $post_status && empty( $status ) ) {
 			continue;
 		}
@@ -304,21 +370,23 @@ function get_tweet_status_message( $post ) {
 		switch ( $status ) {
 			case 'published':
 				$date        = Utils\date_from_twitter( $tweet_meta['created_at'] );
-				$twitter_url = Utils\link_from_twitter( $tweet_meta['twitter_id'] );
+				$twitter_url = Utils\link_from_twitter( $tweet_meta );
 
 				$response_array[] = [
 					// Translators: Placeholder is a date.
-					'message' => sprintf( __( 'Tweeted on %s', 'autoshare-for-twitter' ), $date ),
+					'message' => sprintf( __( 'Posted to X/Twitter on %s', 'autoshare-for-twitter' ), $date ),
 					'url'     => $twitter_url,
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
 
 			case 'error':
 				$response_array[] = [
-					'message' => __( 'Failed to tweet; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
+					'message' => __( 'Failed to post to X/Twitter; ', 'autoshare-for-twitter' ) . $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
@@ -327,13 +395,14 @@ function get_tweet_status_message( $post ) {
 				$response_array[] = [
 					'message' => $tweet_meta['message'],
 					'status'  => $status,
+					'handle'  => $twitter_handle,
 				];
 
 				break;
 
 			default:
 				$response_array[] = [
-					'message' => __( 'This post was not tweeted.', 'autoshare-for-twitter' ),
+					'message' => __( 'This post has not been posted to X/Twitter.', 'autoshare-for-twitter' ),
 					'status'  => $status,
 				];
 		}
@@ -364,6 +433,7 @@ function get_tweet_status_logs( $post ) {
 				'status'     => isset( $tweet_metas['status'] ) ? $tweet_metas['status'] : '',
 				'created_at' => isset( $tweet_metas['created_at'] ) ? $tweet_metas['created_at'] : '',
 				'twitter_id' => isset( $tweet_metas['twitter_id'] ) ? $tweet_metas['twitter_id'] : '',
+				'handle'     => isset( $tweet_metas['handle'] ) ? $tweet_metas['handle'] : '',
 			),
 		);
 	} elseif ( isset( $tweet_metas['status'] ) && ( 'error' === $tweet_metas['status'] || 'unknown' === $tweet_metas['status'] || 'other' === $tweet_metas['status'] ) ) {
@@ -393,7 +463,7 @@ function get_tweet_status_logs( $post ) {
 				break;
 
 			default:
-				$output = __( 'This post was not tweeted.', 'autoshare-for-twitter' );
+				$output = __( 'This post has not been posted to X/Twitter.', 'autoshare-for-twitter' );
 				break;
 		}
 
@@ -405,7 +475,7 @@ function get_tweet_status_logs( $post ) {
 
 /**
  * Outputs the markup and language to be used when a post has been successfully
- * sent to Twitter
+ * sent to X
  *
  * @param array $status_meta The status meta.
  *
@@ -414,26 +484,29 @@ function get_tweet_status_logs( $post ) {
 function markup_published( $status_meta ) {
 
 	$date        = Utils\date_from_twitter( $status_meta['created_at'] );
-	$twitter_url = Utils\link_from_twitter( $status_meta['twitter_id'] );
+	$twitter_url = Utils\link_from_twitter( $status_meta );
+	$handle      = ! empty( $status_meta['handle'] ) ? ' - @' . $status_meta['handle'] : '';
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)</div>',
-		esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">%s</a>)<strong>%s</strong></div>',
+		esc_html__( 'Posted to X/Twitter on', 'autoshare-for-twitter' ),
 		esc_html( $date ),
 		esc_url( $twitter_url ),
-		esc_html__( 'View', 'autoshare-for-twitter' )
+		esc_html__( 'View', 'autoshare-for-twitter' ),
+		esc_html( $handle )
 	);
 }
 
 /**
  * Outputs the markup and language to be used when a post has had an error
- * when posting to Twitter
+ * when posting to X
  *
  * @param array $status_meta The status meta.
  *
  * @return string
  */
 function markup_error( $status_meta ) {
+	$handle     = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	$learn_more = '';
 	if ( 'When authenticating requests to the Twitter API v2 endpoints, you must use keys and tokens from a Twitter developer App that is attached to a Project. You can create a project via the developer portal.' === $status_meta['message'] ) {
 		$learn_more = sprintf(
@@ -444,14 +517,15 @@ function markup_error( $status_meta ) {
 	}
 
 	return sprintf(
-		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
-		esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
-		esc_html( $status_meta['message'] ) . $learn_more
+		'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre>%s</div>',
+		esc_html__( 'Failed to post to X/Twitter', 'autoshare-for-twitter' ),
+		esc_html( $status_meta['message'] ) . wp_kses_post( $learn_more ),
+		wp_kses_post( $handle )
 	);
 }
 
 /**
- * Outputs the markup and language to be used when a post NOT been auto-posted to Twitter.
+ * Outputs the markup and language to be used when a post NOT been auto-posted to X.
  * Also considered a fallback message of sorts.
  *
  * @param array $status_meta The status meta.
@@ -459,9 +533,10 @@ function markup_error( $status_meta ) {
  * @return string
  */
 function markup_unknown( $status_meta ) {
+	$handle = ! empty( $status_meta['handle'] ) ? '<strong> - @' . $status_meta['handle'] . '</strong>' : '';
 	return sprintf(
 		'<div class="autoshare-for-twitter-status-log-data">%s</div>',
-		esc_html( $status_meta['message'] )
+		esc_html( $status_meta['message'] ) . wp_kses_post( $handle )
 	);
 }
 
@@ -471,6 +546,8 @@ function markup_unknown( $status_meta ) {
  * @return string
  */
 function _safe_markup_default() {
+	$custom_tweet_body = Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY );
+
 	$count      = ( strlen( get_permalink( get_the_ID() ) ) + 5 );
 	$max_length = 280 - $count;
 	ob_start();
@@ -483,9 +560,11 @@ function _safe_markup_default() {
 			value="1"
 			<?php checked( autoshare_enabled( get_the_ID() ) ); ?>
 		>
-		<span id="autoshare-for-twitter-icon" class="dashicons-before dashicons-twitter"></span>
-		<?php esc_html_e( 'Tweet this post', 'autoshare-for-twitter' ); ?>
-		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit"><?php esc_html_e( 'Edit', 'autoshare-for-twitter' ); ?></a>
+		<input type="hidden" name="autoshare-classic-editor" value="1" />
+		<?php esc_html_e( 'Post to X/Twitter', 'autoshare-for-twitter' ); ?>
+		<a href="#edit_tweet_text" id="autoshare-for-twitter-edit" style="<?php echo ( ( ! empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
+			<?php esc_attr_e( 'Edit', 'autoshare-for-twitter' ); ?>
+		</a>
 	</label>
 
 	<div class="autoshare-for-twitter-tweet-allow-image-wrap" style="display: none;">
@@ -498,12 +577,17 @@ function _safe_markup_default() {
 					value="1"
 					<?php checked( tweet_image_allowed( get_the_ID() ) ); ?>
 				>
-				<?php esc_html_e( 'Use featured image in Tweet', 'autoshare-for-twitter' ); ?>
+				<?php esc_html_e( 'Use featured image in Post to X/Twitter', 'autoshare-for-twitter' ); ?>
 			</label>
 		</p>
 	</div>
 
-	<div id="autoshare-for-twitter-override-body" style="display: none;">
+	<?php
+	// Display twitter accounts.
+	render_twitter_accounts( get_the_ID() );
+	?>
+
+	<div id="autoshare-for-twitter-override-body" style="<?php echo ( ( empty( $custom_tweet_body ) ) ? 'display: none;' : '' ); ?>">
 		<label for="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>">
 			<?php esc_html_e( 'Custom Message', 'autoshare-for-twitter' ); ?>:
 		</label>
@@ -513,7 +597,7 @@ function _safe_markup_default() {
 			name="<?php echo esc_attr( sprintf( '%s[%s]', META_PREFIX, TWEET_BODY_KEY ) ); ?>"
 			rows="3"
 			maxlength="<?php echo esc_attr( $max_length ); ?>"
-		><?php echo esc_textarea( Utils\get_autoshare_for_twitter_meta( get_the_ID(), TWEET_BODY_KEY ) ); ?></textarea>
+		><?php echo esc_textarea( $custom_tweet_body ); ?></textarea>
 		<p class="howto" id="autoshare-for-twitter-text-desc"><?php esc_html_e( 'Character count is inclusive of the post permalink which will be included in the final tweet.', 'autoshare-for-twitter' ); ?></p>
 
 		<p><a href="#" class="hide-if-no-js cancel-tweet-text"><?php esc_html_e( 'Hide', 'autoshare-for-twitter' ); ?></a></p>

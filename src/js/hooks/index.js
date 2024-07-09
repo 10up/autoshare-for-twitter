@@ -2,8 +2,17 @@ import { useSelect, useDispatch, dispatch } from '@wordpress/data';
 import { useEffect, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { enableAutoshareKey, errorText, restUrl, tweetBodyKey, allowTweetImageKey } from 'admin-autoshare-for-twitter';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { debounce } from 'lodash';
+
+const {
+	enableAutoshareKey,
+	errorText,
+	restUrl,
+	tweetBodyKey,
+	allowTweetImageKey,
+	tweetAccountsKey,
+} = adminAutoshareForTwitter;
 import { STORE } from '../store';
 
 export function useTweetText() {
@@ -74,6 +83,18 @@ export function useAllowTweetImage() {
 	return [ allowTweetImage, setAllowTweetImage ];
 }
 
+export function useTweetAccounts() {
+	const { tweetAccounts } = useSelect( ( select ) => {
+		return {
+			tweetAccounts: select( STORE ).getTweetAccounts(),
+		};
+	} );
+
+	const { setTweetAccounts } = useDispatch( STORE );
+
+	return [ tweetAccounts, setTweetAccounts ];
+}
+
 export function useTwitterAutoshareErrorMessage() {
 	const { errorMessage } = useSelect( ( select ) => {
 		return {
@@ -89,7 +110,10 @@ export function useTwitterAutoshareErrorMessage() {
 export function useHasFeaturedImage() {
 	const { imageId } = useSelect( ( select ) => {
 		return {
-			imageId: select( 'core/editor' ).getEditedPostAttribute( 'featured_media' ),
+			imageId:
+				select( 'core/editor' ).getEditedPostAttribute(
+					'featured_media'
+				),
 		};
 	} );
 
@@ -101,25 +125,34 @@ export function useHasFeaturedImage() {
 export function useSaveTwitterData() {
 	const [ autoshareEnabled ] = useTwitterAutoshareEnabled();
 	const [ allowTweetImage ] = useAllowTweetImage();
+	const [ tweetAccounts ] = useTweetAccounts();
 	const [ tweetText ] = useTweetText();
 	const [ , setErrorMessage ] = useTwitterAutoshareErrorMessage();
 	const [ , setSaving ] = useSavingTweetData();
 
 	const { hasFeaturedImage } = useSelect( ( select ) => {
-		const imageId = select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
+		const imageId =
+			select( 'core/editor' ).getEditedPostAttribute( 'featured_media' );
 
 		return {
 			hasFeaturedImage: imageId > 0,
 		};
 	} );
 
-	async function saveData( autoshareEnabledArg, tweetTextArg, allowTweetImageArg ) {
+	async function saveData(
+		autoshareEnabledArg,
+		tweetTextArg,
+		allowTweetImageArg,
+		tweetAccountsArg
+	) {
 		const body = {};
 		body[ enableAutoshareKey ] = autoshareEnabledArg;
 		body[ tweetBodyKey ] = tweetTextArg;
 		body[ allowTweetImageKey ] = allowTweetImageArg;
+		body[ tweetAccountsKey ] = tweetAccountsArg || [];
 
 		try {
+			setSaving( true );
 			const response = await apiFetch( {
 				url: restUrl,
 				data: body,
@@ -137,16 +170,31 @@ export function useSaveTwitterData() {
 			setSaving( false );
 		} catch ( e ) {
 			setErrorMessage(
-				e.statusText ? `${ errorText } ${ e.status }: ${ e.statusText }` : __( 'An error occurred.', 'autoshare-for-twitter' ),
+				e.statusText
+					? `${ errorText } ${ e.status }: ${ e.statusText }`
+					: __( 'An error occurred.', 'autoshare-for-twitter' )
 			);
 
 			setSaving( false );
 		}
 	}
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const saveDataDebounced = useCallback( debounce( saveData, 250 ), [] );
 
 	useEffect( () => {
-		saveDataDebounced( autoshareEnabled, tweetText, allowTweetImage );
-	}, [ autoshareEnabled, tweetText, hasFeaturedImage, allowTweetImage ] );
+		saveDataDebounced(
+			autoshareEnabled,
+			tweetText,
+			allowTweetImage,
+			tweetAccounts
+		);
+	}, [
+		autoshareEnabled,
+		tweetText,
+		hasFeaturedImage,
+		allowTweetImage,
+		tweetAccounts,
+		saveDataDebounced,
+	] );
 }

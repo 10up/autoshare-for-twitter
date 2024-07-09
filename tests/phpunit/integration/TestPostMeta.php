@@ -70,6 +70,7 @@ class TestPostMeta extends WP_UnitTestCase {
 					'status'     => 'published',
 					'created_at' => '2017-01-01',
 					'twitter_id' => 444,
+					'handle'     => '',
 				];
 			}
 
@@ -80,9 +81,10 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'Tweeted on 2017-01-01 @ 12:00AM',
+						'message' => 'Posted to X/Twitter on 2017-01-01 @ 12:00AM',
 						'url'     => 'https://twitter.com//status/444',
 						'status'  => 'published',
+						'handle'  => '',
 					],
 				],
 			],
@@ -92,10 +94,10 @@ class TestPostMeta extends WP_UnitTestCase {
 		$twitter_status = get_autoshare_for_twitter_meta( $post, TWITTER_STATUS_KEY );
 		$this->assertEquals(
 			sprintf(
-				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">View</a>)</div>',
-				esc_html__( 'Tweeted on', 'autoshare-for-twitter' ),
+				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/> <span>%s</span> (<a href="%s" target="_blank">View</a>)<strong></strong></div>',
+				esc_html__( 'Posted to X/Twitter on', 'autoshare-for-twitter' ),
 				esc_html( date_from_twitter( $twitter_status['created_at'] ) ),
-				esc_url( link_from_twitter( $twitter_status['twitter_id'] ) )
+				esc_url( link_from_twitter( $twitter_status ) )
 			),
 			markup_published( $twitter_status )
 		);
@@ -107,6 +109,7 @@ class TestPostMeta extends WP_UnitTestCase {
 				return [
 					'status'  => 'error',
 					'message' => 'There was an error.',
+					'handle'  => '',
 				];
 			}
 
@@ -119,8 +122,9 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'Failed to tweet; There was an error.',
+						'message' => 'Failed to post to X/Twitter; There was an error.',
 						'status'  => 'error',
+						'handle'  => '',
 					],
 				],
 			],
@@ -131,7 +135,7 @@ class TestPostMeta extends WP_UnitTestCase {
 		$this->assertEquals(
 			sprintf(
 				'<div class="autoshare-for-twitter-status-log-data"><strong>%s</strong><br/><pre>%s</pre></div>',
-				esc_html__( 'Failed to tweet', 'autoshare-for-twitter' ),
+				esc_html__( 'Failed to post to X/Twitter', 'autoshare-for-twitter' ),
 				esc_html( $twitter_status['message'] )
 			),
 			markup_error( $twitter_status )
@@ -143,6 +147,7 @@ class TestPostMeta extends WP_UnitTestCase {
 				return [
 					'status'  => 'unknown',
 					'message' => 'There was an error.',
+					'handle'  => '',
 				];
 			}
 
@@ -155,6 +160,7 @@ class TestPostMeta extends WP_UnitTestCase {
 					[
 						'message' => 'There was an error.',
 						'status'  => 'unknown',
+						'handle'  => '',
 					],
 				],
 			],
@@ -179,7 +185,7 @@ class TestPostMeta extends WP_UnitTestCase {
 			[
 				'message' => [
 					[
-						'message' => 'This post was not tweeted.',
+						'message' => 'This post has not been posted to X/Twitter.',
 						'status'  => 'other',
 					],
 				],

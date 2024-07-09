@@ -81,12 +81,20 @@
 	background: #bbb;
 }
 
+.autoshare-settings table.twitter_accounts th#autoshare_accounts {
+	max-width: 160px;
+}
+
+.autoshare-settings table.twitter_accounts th#action {
+	max-width: 140px;
+}
+
 @media (min-width: 1024px) {
 	.autoshare-settings {
 		display: flex;
 	}
 
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 70%;
 		margin-right: 50px;
 	}
@@ -94,10 +102,20 @@
 	.autoshare-settings .brand {
 		display: block;
 	}
+
+}
+
+.autoshare-settings table.form-table tr th[scope="row"] {
+	min-width: 140px;
+}
+
+.autoshare-settings table.twitter_accounts th,
+.autoshare-settings table.twitter_accounts td {
+    padding: 8px 10px;
 }
 
 @media (min-width: 1200px) {
-	.autoshare-settings form {
+	.autoshare-settings .settings-wrapper {
 		width: 60%;
 		margin-right: 10%;
 	}
