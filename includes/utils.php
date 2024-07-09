@@ -8,6 +8,10 @@
 
 namespace TenUp\AutoshareForTwitter\Utils;
 
+use DateTime;
+use DateTimeZone;
+use WP_Post;
+use const TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS;
 use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
@@ -170,7 +174,7 @@ function get_autoshare_for_twitter_settings( $key = '' ) {
 		'autoshare_accounts' => [],
 	];
 
-	$settings = get_option( \TenUp\AutoshareForTwitter\Core\Admin\AT_SETTINGS );
+	$settings = get_option( AT_SETTINGS );
 
 	if ( empty( $settings ) ) {
 		$settings = [];
@@ -209,11 +213,11 @@ function is_twitter_configured() {
 /**
  * Composes the tweet based off Title and URL.
  *
- * @param \WP_Post $post The post object.
+ * @param WP_Post $post The post object.
  *
  * @return string
  */
-function compose_tweet_body( \WP_Post $post ) {
+function compose_tweet_body( WP_Post $post ) {
 
 	/**
 	 * Allow filtering of tweet body
@@ -227,7 +231,7 @@ function compose_tweet_body( \WP_Post $post ) {
 	 */
 	$url = apply_filters( 'autoshare_for_twitter_post_url', get_the_permalink( $post->ID ), $post );
 
-	$url = esc_url( $url );
+	$url = esc_url_raw( $url );
 	// According to this page https://developer.twitter.com/en/docs/counting-characters, all URLs are transformed to a uniform length.
 	$url_length        = ( ! is_local() ) ? AUTOSHARE_FOR_TWITTER_URL_LENGTH : strlen( $url );
 	$body_max_length   = 275 - $url_length; // 275 instead of 280 because of the space between body and URL and the ellipsis.
@@ -267,8 +271,8 @@ function date_from_twitter( $created_at ) {
 
 	$tz   = get_option( 'timezone_string' );
 	$tz   = ( ! empty( $tz ) ) ? $tz : 'UTC';
-	$date = new \DateTime( $created_at, new \DateTimeZone( 'UTC' ) );
-	$date->setTimezone( new \DateTimeZone( $tz ) );
+	$date = new DateTime( $created_at, new DateTimeZone( 'UTC' ) );
+	$date->setTimezone( new DateTimeZone( $tz ) );
 
 	return $date->format( 'Y-m-d @ g:iA' );
 }

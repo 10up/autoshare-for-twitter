@@ -10,6 +10,7 @@ namespace TenUp\AutoshareForTwitter\Tests;
 
 use TenUp\AutoshareForTwitter\Core\Publish_Tweet\Publish_Tweet;
 use WP_UnitTestCase;
+use function TenUp\AutoshareForTwitter\Utils\compose_tweet_body;
 
 /**
  * Tests for the Publish_Tweet class.
@@ -90,5 +91,50 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 		$this->assertNull( $file );
 
 		remove_filter( 'autoshare_for_twitter_max_image_size', $set_1kb_max_filesize );
+	}
+
+	/**
+	 * Tests adding query args to Tweet URL through the 'autoshare_for_twitter_post_url' filter.
+	 */
+	public function test_filter_url_with_params() {
+		$post = $this->factory->post->create_and_get();
+
+		$params_array = array(
+			'utm_source'   => 'x',
+			'utm_medium'   => 'social',
+			'utm_campaign' => 'my_test',
+			'utm_content'  => 'auto-tweet',
+			'utm_term'     => 'post',
+		);
+
+		// Set up the expected URL result.
+		$expected_url = add_query_arg( $params_array, get_permalink( $post ) );
+		add_filter(
+			'autoshare_for_twitter_post_url',
+			function ( $url ) use ( $params_array ) {
+				return add_query_arg( $params_array, $url );
+			}
+		);
+
+		// Get the body of the Tweet, including the URL, with all the relevant filters.
+		$tweet = compose_tweet_body( $post );
+
+		// Make the assertion inside the 'autoshare_for_twitter_tweet' filter.
+		$test_class = $this;
+		add_filter(
+			'autoshare_for_twitter_tweet',
+			function( $update_data ) use ( $expected_url, $test_class ) {
+				// Extract the URL from the real Tweet body.
+				preg_match_all( '#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $update_data['text'], $match );
+				$link = $match[0][0];
+				$test_class->assertEquals( $expected_url, $link );
+				return $update_data;
+			}
+		);
+
+		// Short circuit and don't actually post the status update.
+		add_filter( 'autoshare_for_twitter_pre_status_update', '__return_true' );
+
+		$this->publish_tweet->status_update( $tweet, $post );
 	}
 }
