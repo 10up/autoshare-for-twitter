@@ -1,7 +1,7 @@
 === Autopost for X (formerly Autoshare for Twitter) ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, share, social media, posse
-Tested up to:      6.5
+Tested up to:      6.6
 Stable tag:        2.2.1
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
