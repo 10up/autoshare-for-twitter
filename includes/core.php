@@ -51,6 +51,7 @@ function setup() {
 	add_filter( 'autoshare_for_twitter_attached_image', __NAMESPACE__ . '\maybe_disable_upload_image', 10, 2 );
 	add_action( 'admin_init', __NAMESPACE__ . '\handle_notice_dismiss' );
 	add_action( 'admin_notices', __NAMESPACE__ . '\migrate_to_twitter_v2_api' );
+	add_action( 'autoshare_for_twitter_after_status_update', __NAMESPACE__ . '\update_account_rate_limits', 10, 5 );
 }
 
 /**
@@ -221,4 +222,54 @@ function handle_notice_dismiss() {
 	) {
 		update_option( 'autoshare_migrate_to_v2_api_notice_dismissed', true );
 	}
+}
+
+/**
+ * Update the account rate limits from the last Twitter API request.
+ *
+ * @param  object     $response     The response from the Twitter endpoint.
+ * @param  array      $update_data  Data to send to the Twitter endpoint.
+ * @param  \WP_Post   $post         The post associated with the tweet.
+ * @param  string     $account_id   The account ID associated with the tweet.
+ * @param  array|null $last_headers The headers from the last request.
+ * @return void
+ */
+function update_account_rate_limits( $response, $update_data, $post, $account_id, $last_headers ) {
+
+	if ( empty( $account_id ) ) {
+		return;
+	}
+
+	$accounts = get_option( 'autoshare_for_twitter_accounts', array() );
+
+	if ( empty( $accounts[ $account_id ] ) ) {
+		return;
+	}
+
+	$accounts_rates = get_option( 'autopost_for_x_accounts_rates', array() );
+
+	$map = array(
+		'rate_limit_limit'            => 'x_rate_limit_limit',
+		'rate_limit_reset'            => 'x_rate_limit_reset',
+		'rate_limit_remaining'        => 'x_rate_limit_remaining',
+		'app_limit_24hour_limit'      => 'x_app_limit_24hour_limit',
+		'app_limit_24hour_reset'      => 'x_app_limit_24hour_reset',
+		'app_limit_24hour_remaining'  => 'x_app_limit_24hour_remaining',
+		'user_limit_24hour_limit'     => 'x_user_limit_24hour_limit',
+		'user_limit_24hour_reset'     => 'x_user_limit_24hour_reset',
+		'user_limit_24hour_remaining' => 'x_user_limit_24hour_remaining',
+	);
+
+	$accounts_rates[ $account_id ] = array();
+
+	foreach ( $map as $key => $header ) {
+
+		if ( ! isset( $last_headers[ $header ] ) ) {
+			continue;
+		}
+
+		$accounts_rates[ $account_id ][ $key ] = sanitize_text_field( $last_headers[ $header ] );
+	}
+
+	update_option( 'autopost_for_x_accounts_rates', $accounts_rates );
 }
