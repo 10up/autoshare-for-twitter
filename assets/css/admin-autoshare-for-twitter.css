@@ -246,7 +246,7 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	border-radius: 50%;
 }
 
-.autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper span.account-details {
+.autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper div.account-details {
 	padding-left: 8px;
 	padding-right: 8px;
 }
@@ -321,4 +321,9 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 .autoshare-for-twitter-rate-monitor__footer p {
 	margin-bottom: 8px;
 	margin-top: 0;
+}
+
+.autoshare-for-twitter-accounts-wrapper .autoshare-for-twitter-rate-monitor__rates {
+	border-bottom: 0;
+	padding: 0;
 }

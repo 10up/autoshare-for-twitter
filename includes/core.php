@@ -310,19 +310,19 @@ function display_rate_monitor_dashboard_widget() {
 
 	$rows = array(
 		array(
-			'label'         => __( 'Rate Limit', 'autoshare-for-twitter' ),
+			'label'         => __( 'Rate Limit:', 'autoshare-for-twitter' ),
 			'remaining_key' => 'rate_limit_remaining',
 			'limit_key'     => 'rate_limit_limit',
 			'reset_key'     => 'rate_limit_reset',
 		),
 		array(
-			'label'         => __( 'User 24-Hour Limit', 'autoshare-for-twitter' ),
+			'label'         => __( 'User 24-Hour Limit:', 'autoshare-for-twitter' ),
 			'remaining_key' => 'user_limit_24hour_remaining',
 			'limit_key'     => 'user_limit_24hour_limit',
 			'reset_key'     => 'user_limit_24hour_reset',
 		),
 		array(
-			'label'         => __( 'App 24-Hour Limit', 'autoshare-for-twitter' ),
+			'label'         => __( 'App 24-Hour Limit:', 'autoshare-for-twitter' ),
 			'remaining_key' => 'app_limit_24hour_remaining',
 			'limit_key'     => 'app_limit_24hour_limit',
 			'reset_key'     => 'app_limit_24hour_reset',
@@ -340,13 +340,13 @@ function display_rate_monitor_dashboard_widget() {
 
 			$account_markup = array_map(
 				function ( $row ) use ( $rate_limits ) {
-					$remaining = isset( $rate_limits[ $row['remaining_key'] ] ) ? (int) $rate_limits[ $row['remaining_key'] ] : 0;
-					$limit     = isset( $rate_limits[ $row['limit_key'] ] ) ? (int) $rate_limits[ $row['limit_key'] ] : 0;
+					$remaining = isset( $rate_limits[ $row['remaining_key'] ] ) ? (int) $rate_limits[ $row['remaining_key'] ] : __( 'N/A', 'autoshare-for-twitter' );
+					$limit     = isset( $rate_limits[ $row['limit_key'] ] ) ? (int) $rate_limits[ $row['limit_key'] ] : __( 'N/A', 'autoshare-for-twitter' );
 					$reset     = isset( $rate_limits[ $row['reset_key'] ] ) ? human_readable_time( $rate_limits[ $row['reset_key'] ] ) : esc_html__( 'N/A', 'autoshare-for-twitter' );
 
 					return sprintf(
 						'<div class="autoshare-for-twitter-rate-monitor__rate">
-							<p class="autoshare-for-twitter-rate-monitor__limit"><strong>%1$s</strong>: %2$s</p>
+							<p class="autoshare-for-twitter-rate-monitor__limit"><strong>%1$s</strong> %2$s</p>
 							<p class="autoshare-for-twitter-rate-monitor__reset">%3$s</p>
 						</div>',
 						esc_html( $row['label'] ),
@@ -431,20 +431,18 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 
 	$timestamp = (int) $timestamp;
 
-	$timezone = wp_timezone();
-
 	$datetime = new \DateTime( '@' . $timestamp, new \DateTimeZone( 'UTC' ) );
-	$datetime->setTimezone( $timezone );
 
 	if ( empty( $date_format ) ) {
 		$date_format = sprintf(
-			'%s %s (T)',
+			'%s %s',
 			esc_html( get_option( 'date_format' ) ),
 			esc_html( get_option( 'time_format' ) )
 		);
 	}
 
 	$human_readable_time = $datetime->format( $date_format );
+	$human_readable_time = sprintf( '%s (UTC)', $human_readable_time );
 
 	return $human_readable_time;
 }
