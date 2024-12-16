@@ -52,6 +52,7 @@ function setup() {
 	add_action( 'admin_init', __NAMESPACE__ . '\handle_notice_dismiss' );
 	add_action( 'admin_notices', __NAMESPACE__ . '\migrate_to_twitter_v2_api' );
 	add_action( 'autoshare_for_twitter_after_status_update', __NAMESPACE__ . '\update_account_rate_limits', 10, 5 );
+	add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\register_rate_monitor_dashboard_widget' );
 }
 
 /**
@@ -248,6 +249,9 @@ function update_account_rate_limits( $response, $update_data, $post, $account_id
 
 	$accounts_rates = get_option( 'autopost_for_x_accounts_rates', array() );
 
+	/**
+	 * Map the headers from the last request to internal keys.
+	 */
 	$map = array(
 		'rate_limit_limit'            => 'x_rate_limit_limit',
 		'rate_limit_reset'            => 'x_rate_limit_reset',
@@ -272,4 +276,176 @@ function update_account_rate_limits( $response, $update_data, $post, $account_id
 	}
 
 	update_option( 'autopost_for_x_accounts_rates', $accounts_rates );
+}
+
+/**
+ * Register the Rate Monitor dashboard widget.
+ *
+ * @return void
+ */
+function register_rate_monitor_dashboard_widget() {
+
+	wp_add_dashboard_widget(
+		'autopost_for_x_rate_monitor_dashboard_widget',
+		esc_html__( 'Autopost for X — Rate Monitor', 'autoshare-for-twitter' ),
+		__NAMESPACE__ . '\display_rate_monitor_dashboard_widget'
+	);
+}
+
+/**
+ * Display the Rate Monitor dashboard widget.
+ *
+ * @return void
+ */
+function display_rate_monitor_dashboard_widget() {
+	$accounts = get_option( 'autoshare_for_twitter_accounts', array() );
+
+	if ( empty( $accounts ) ) {
+		printf(
+			'<p>%s</p>',
+			esc_html__( 'No X/Twitter accounts are connected. Please connect at least one X/Twitter account to continue using Autopost for X.', 'autoshare-for-twitter' )
+		);
+		return;
+	}
+
+	$accounts_rates = get_option( 'autopost_for_x_accounts_rates', array() );
+
+	if ( empty( $accounts_rates ) ) {
+		printf(
+			'<p>%s</p>',
+			esc_html__( 'No X/Twitter rate data available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
+		);
+		return;
+	}
+
+	$rows = array(
+		array(
+			'label'         => __( 'Rate Limit', 'autoshare-for-twitter' ),
+			'remaining_key' => 'rate_limit_remaining',
+			'limit_key'     => 'rate_limit_limit',
+			'reset_key'     => 'rate_limit_reset',
+		),
+		array(
+			'label'         => __( 'User 24-Hour Limit', 'autoshare-for-twitter' ),
+			'remaining_key' => 'user_limit_24hour_remaining',
+			'limit_key'     => 'user_limit_24hour_limit',
+			'reset_key'     => 'user_limit_24hour_reset',
+		),
+		array(
+			'label'         => __( 'App 24-Hour Limit', 'autoshare-for-twitter' ),
+			'remaining_key' => 'app_limit_24hour_remaining',
+			'limit_key'     => 'app_limit_24hour_limit',
+			'reset_key'     => 'app_limit_24hour_reset',
+		),
+	);
+
+	$accounts_data = '';
+
+	foreach ( $accounts_rates as $account_id => $rates ) {
+
+		if ( empty( $accounts[ $account_id ] ) ) {
+			continue;
+		}
+
+		$account_data = array_map(
+			function ( $row ) use ( $rates ) {
+				$remaining = isset( $rates[ $row['remaining_key'] ] ) ? (int) $rates[ $row['remaining_key'] ] : 0;
+				$limit     = isset( $rates[ $row['limit_key'] ] ) ? (int) $rates[ $row['limit_key'] ] : 0;
+				$reset     = isset( $rates[ $row['reset_key'] ] ) ? human_readable_time( $rates[ $row['reset_key'] ] ) : esc_html__( 'N/A', 'autoshare-for-twitter' );
+
+				return sprintf(
+					'<div class="autoshare-for-twitter-rate-monitor__rate">
+						<p class="autoshare-for-twitter-rate-monitor__limit"><strong>%1$s</strong>: %2$s</p>
+						<p class="autoshare-for-twitter-rate-monitor__reset">%3$s</p>
+					</div>',
+					esc_html( $row['label'] ),
+					sprintf(
+						/* translators: %1$s: Remaining, %2$s: Limit */
+						esc_html__( '%1$s of %2$s', 'autoshare-for-twitter' ),
+						esc_html( $remaining ),
+						esc_html( $limit )
+					),
+					sprintf(
+						/* translators: %1$s: Reset time */
+						esc_html__( 'Resets on %1$s', 'autoshare-for-twitter' ),
+						esc_html( $reset )
+					)
+				);
+			},
+			$rows
+		);
+
+		$accounts_data .= sprintf(
+			'<div class="autoshare-for-twitter-rate-monitor__account">
+				<img src="%1$s" alt="%2$s" class="twitter-account-profile-image">
+				<h3>@%3$s</h3>
+			</div>
+			<div class="autoshare-for-twitter-rate-monitor__rates">
+				%4$s
+			</div>',
+			esc_url( $accounts[ $account_id ]['profile_image_url'] ),
+			esc_attr( $accounts[ $account_id ]['name'] ),
+			esc_html( $accounts[ $account_id ]['username'] ),
+			implode( ' ', $account_data ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		);
+	}
+
+	$footnotes = array(
+		__( 'Rate Limit: The maximum number of API calls allowed within a 15-minute window for the current app.', 'autoshare-for-twitter' ),
+		__( 'User 24-Hour Limit: The maximum number of requests a single user can make across all API endpoints within a 24-hour period.', 'autoshare-for-twitter' ),
+		__( 'App 24-Hour Limit: The total number of API calls your app can make across all users within a 24-hour period.', 'autoshare-for-twitter' ),
+	);
+
+	$footnotes = array_map(
+		function ( $footnote ) {
+			return sprintf(
+				'<li>%1$s</li>',
+				esc_html( $footnote )
+			);
+		},
+		$footnotes
+	);
+
+	printf(
+		'<div class="autoshare-for-twitter-rate-monitor">
+			%1$s
+			<div class="autoshare-for-twitter-rate-monitor__footer">
+				<p><strong>%3$s</strong> %4$s</p>
+				<ul>%2$s</ul>
+			</div>
+		</div>',
+		$accounts_data, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		implode( ' ', $footnotes ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		esc_html__( 'Note:', 'autoshare-for-twitter' ),
+		esc_html__( 'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.', 'autoshare-for-twitter' )
+	);
+}
+
+/**
+ * Get human readable time.
+ *
+ * @param  int    $timestamp   Timestamp.
+ * @param  string $date_format Date format.
+ * @return string
+ */
+function human_readable_time( $timestamp, $date_format = '' ) {
+
+	$timestamp = (int) $timestamp;
+
+	$timezone = wp_timezone();
+
+	$datetime = new \DateTime( '@' . $timestamp, new \DateTimeZone( 'UTC' ) );
+	$datetime->setTimezone( $timezone );
+
+	if ( empty( $date_format ) ) {
+		$date_format = sprintf(
+			'%s %s (T)',
+			esc_html( get_option( 'date_format' ) ),
+			esc_html( get_option( 'time_format' ) )
+		);
+	}
+
+	$human_readable_time = $datetime->format( $date_format );
+
+	return $human_readable_time;
 }

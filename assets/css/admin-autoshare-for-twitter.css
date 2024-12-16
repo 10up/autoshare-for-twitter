@@ -265,3 +265,60 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	margin-top: 12px;
 	display: block;
 }
+
+#autopost_for_x_rate_monitor_dashboard_widget .inside {
+	padding: 0;
+}
+
+.autoshare-for-twitter-rate-monitor__account {
+	align-items: center;
+	display: flex;
+	padding: 0 12px 12px;
+}
+
+.autoshare-for-twitter-rate-monitor__account img {
+	border-radius: 50%;
+	margin-right: 10px;
+	max-width: 48px;
+}
+
+#autopost_for_x_rate_monitor_dashboard_widget .autoshare-for-twitter-rate-monitor__account h3 {
+	font-weight: bold;
+}
+
+.autoshare-for-twitter-rate-monitor__rates {
+	border-bottom: 1px solid #f0f0f1;
+	font-size: 13px;
+	padding: 0 12px 12px;
+}
+
+.autoshare-for-twitter-rate-monitor__rate {
+	margin-bottom: 8px;
+}
+
+.autoshare-for-twitter-rate-monitor__rate p {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.autoshare-for-twitter-rate-monitor__reset {
+	font-size: 12px;
+	font-style: italic;
+}
+
+.autoshare-for-twitter-rate-monitor__footer {
+	color: #50575e;
+	background: #f6f7f7;
+	border-top: 1px solid #f0f0f1;
+	padding: 12px;
+}
+
+.autoshare-for-twitter-rate-monitor__footer ul {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.autoshare-for-twitter-rate-monitor__footer p {
+	margin-bottom: 8px;
+	margin-top: 0;
+}
