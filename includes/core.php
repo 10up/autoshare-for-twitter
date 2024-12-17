@@ -364,7 +364,7 @@ function display_rate_monitor_dashboard_widget() {
 		} else {
 			$account_markup = sprintf(
 				'<p>%s</p>',
-				esc_html__( 'No X/Twitter rate data available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
+				esc_html__( 'No X/Twitter rate limit available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
 			);
 		}
 

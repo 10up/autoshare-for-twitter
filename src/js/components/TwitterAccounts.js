@@ -130,7 +130,7 @@ function TwitterAccountRateLimits( { rate_limits: rateLimits } ) {
 			) : (
 				<p className="autoshare-for-twitter-rate-monitor__error">
 					{ __(
-						'No X/Twitter rate data available yet. Make a post to X/Twitter first.',
+						'No X/Twitter rate limit available yet. Make a post to X/Twitter first.',
 						'autoshare-for-twitter'
 					) }
 				</p>
