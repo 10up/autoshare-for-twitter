@@ -271,30 +271,27 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	margin-top: 0px;
 }
 
-.autoshare-for-twitter-rate-monitor__account {
-	align-items: center;
-	display: flex;
-	padding: 12px 12px;
+.autoshare-for-twitter-rate-monitor__users {
+	border-top: 1px solid #f0f0f1;
 }
 
-.autoshare-for-twitter-rate-monitor__account img {
+.autoshare-for-twitter-rate-monitor__user {
+	align-items: center;
+	border-bottom: 1px solid #f0f0f1;
+	display: flex;
+	padding: 12px;
+}
+
+.autoshare-for-twitter-rate-monitor__user img {
 	border-radius: 50%;
 	margin-right: 10px;
 	max-width: 48px;
 }
 
-#autopost_for_x_rate_monitor_dashboard_widget .autoshare-for-twitter-rate-monitor__account h3 {
+#autopost_for_x_rate_monitor_dashboard_widget .autoshare-for-twitter-rate-monitor__user h3 {
 	font-weight: bold;
-}
-
-.autoshare-for-twitter-rate-monitor__rates {
-	border-bottom: 1px solid #f0f0f1;
-	font-size: 13px;
-	padding: 0 12px 12px;
-}
-
-.autoshare-for-twitter-rate-monitor__rate {
-	margin-bottom: 8px;
+	margin-bottom: 0;
+	margin-right: 10px;
 }
 
 .autoshare-for-twitter-rate-monitor__rate p {
@@ -302,33 +299,48 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	margin-top: 0;
 }
 
-.autoshare-for-twitter-rate-monitor__reset {
+.autoshare-for-twitter-rate-monitor__rate-reset {
 	font-size: 12px;
 	font-style: italic;
 }
 
-.autoshare-for-twitter-rate-monitor__footer {
-	color: #50575e;
-	background: #f6f7f7;
-	border-top: 1px solid #f0f0f1;
+.autoshare-for-twitter-rate-monitor__app {
+	align-items: center;
+	display: flex;
 	padding: 12px;
 }
 
-.autoshare-for-twitter-rate-monitor__footer ul {
+.autoshare-for-twitter-rate-monitor__disclaimer {
+	background: #f6f7f7;
+	color: #50575e;
+	padding: 12px;
+}
+
+.autoshare-for-twitter-rate-monitor__disclaimer ul {
 	margin-bottom: 0;
 	margin-top: 0;
 }
 
-.autoshare-for-twitter-rate-monitor__footer p {
+.autoshare-for-twitter-rate-monitor__disclaimer p {
 	margin-bottom: 8px;
 	margin-top: 0;
 }
 
-.autoshare-for-twitter-accounts-wrapper .autoshare-for-twitter-rate-monitor__rates {
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__user {
 	border-bottom: 0;
+	margin-bottom: 16px;
 	padding: 0;
 }
 
-.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__footer {
-	margin-bottom: 8px;
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__app {
+	padding: 0;
+	margin-bottom: 16px;
+}
+
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__disclaimer {
+	margin-bottom: 16px;
+}
+
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__disclaimer p {
+	margin-bottom: 0;
 }

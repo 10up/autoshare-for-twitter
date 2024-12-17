@@ -226,10 +226,10 @@ function handle_notice_dismiss() {
 }
 
 /**
- * Update the account rate limits from the last Twitter API request.
+ * Update the account rate limits from the last X/Twitter API request.
  *
- * @param  object     $response     The response from the Twitter endpoint.
- * @param  array      $update_data  Data to send to the Twitter endpoint.
+ * @param  object     $response     The response from the X/Twitter endpoint.
+ * @param  array      $update_data  Data to send to the X/Twitter endpoint.
  * @param  \WP_Post   $post         The post associated with the tweet.
  * @param  string     $account_id   The account ID associated with the tweet.
  * @param  array|null $last_headers The headers from the last request.
@@ -320,59 +320,19 @@ function display_rate_monitor_dashboard_widget() {
 		return;
 	}
 
-	$rows = array(
-		array(
-			'label'         => __( 'User 24-Hour Limit:', 'autoshare-for-twitter' ),
-			'remaining_key' => 'user_limit_24hour_remaining',
-			'limit_key'     => 'user_limit_24hour_limit',
-			'reset_key'     => 'user_limit_24hour_reset',
-		),
-		array(
-			'label'         => __( 'App 24-Hour Limit:', 'autoshare-for-twitter' ),
-			'remaining_key' => 'app_limit_24hour_remaining',
-			'limit_key'     => 'app_limit_24hour_limit',
-			'reset_key'     => 'app_limit_24hour_reset',
-		),
-	);
-
-	$all_accounts_markup = '';
+	$app_rate_limits_markup   = '';
+	$users_rate_limits_markup = '';
 
 	foreach ( $accounts as $account ) {
 
 		$account_markup = '';
 
 		if ( ! empty( $account['rate_limits'] ) ) {
-			$rate_limits = $account['rate_limits'];
+			$account_markup = get_user_rate_limits_markup( $account['rate_limits'] );
 
-			$account_markup = array_map(
-				function ( $row ) use ( $rate_limits ) {
-					$remaining = isset( $rate_limits[ $row['remaining_key'] ] ) ? (int) $rate_limits[ $row['remaining_key'] ] : __( 'N/A', 'autoshare-for-twitter' );
-					$limit     = isset( $rate_limits[ $row['limit_key'] ] ) ? (int) $rate_limits[ $row['limit_key'] ] : __( 'N/A', 'autoshare-for-twitter' );
-					$reset     = isset( $rate_limits[ $row['reset_key'] ] ) ? human_readable_time( $rate_limits[ $row['reset_key'] ] ) : esc_html__( 'N/A', 'autoshare-for-twitter' );
-
-					return sprintf(
-						'<div class="autoshare-for-twitter-rate-monitor__rate">
-							<p class="autoshare-for-twitter-rate-monitor__limit"><strong>%1$s</strong> %2$s</p>
-							<p class="autoshare-for-twitter-rate-monitor__reset">%3$s</p>
-						</div>',
-						esc_html( $row['label'] ),
-						sprintf(
-							/* translators: %1$s: Remaining, %2$s: Limit */
-							esc_html__( '%1$s of %2$s', 'autoshare-for-twitter' ),
-							esc_html( $remaining ),
-							esc_html( $limit )
-						),
-						sprintf(
-							/* translators: %1$s: Reset time */
-							esc_html__( 'Resets on %1$s', 'autoshare-for-twitter' ),
-							esc_html( $reset )
-						)
-					);
-				},
-				$rows
-			);
-
-			$account_markup = implode( ' ', $account_markup );
+			if ( empty( $app_rate_limits_markup ) ) { // We only need to display the app rate limits once.
+				$app_rate_limits_markup = get_app_rate_limits_markup( $account['rate_limits'] );
+			}
 		} else {
 			$account_markup = sprintf(
 				'<p>%s</p>',
@@ -380,12 +340,10 @@ function display_rate_monitor_dashboard_widget() {
 			);
 		}
 
-		$all_accounts_markup .= sprintf(
-			'<div class="autoshare-for-twitter-rate-monitor__account">
+		$users_rate_limits_markup .= sprintf(
+			'<div class="autoshare-for-twitter-rate-monitor__user">
 				<img src="%1$s" alt="%2$s" class="twitter-account-profile-image">
 				<h3>@%3$s</h3>
-			</div>
-			<div class="autoshare-for-twitter-rate-monitor__rates">
 				%4$s
 			</div>',
 			esc_url( $account['profile_image_url'] ),
@@ -412,17 +370,46 @@ function display_rate_monitor_dashboard_widget() {
 
 	printf(
 		'<div class="autoshare-for-twitter-rate-monitor">
-			%1$s
-			<div class="autoshare-for-twitter-rate-monitor__footer">
+			<div class="autoshare-for-twitter-rate-monitor__users">
+				%1$s
+			</div>
+			<div class="autoshare-for-twitter-rate-monitor__app">
+				%2$s
+			</div>
+			<div class="autoshare-for-twitter-rate-monitor__disclaimer">
 				<p><strong>%3$s</strong> %4$s</p>
-				<ul>%2$s</ul>
+				<ul>%5$s</ul>
 			</div>
 		</div>',
-		$all_accounts_markup, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		implode( ' ', $footnotes ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		$users_rate_limits_markup, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		$app_rate_limits_markup, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		esc_html__( 'Note:', 'autoshare-for-twitter' ),
-		esc_html__( 'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.', 'autoshare-for-twitter' )
+		esc_html__( 'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.', 'autoshare-for-twitter' ),
+		implode( ' ', $footnotes ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	);
+}
+
+/**
+ * Parse the last headers from the X/Twitter API response.
+ *
+ * @param  array $last_headers The headers from the last request.
+ * @param  array $map          The map of X/Twitter headers to internal WP keys.
+ * @return array
+ */
+function parse_last_headers( $last_headers, $map ) {
+
+	$parsed = array();
+
+	foreach ( $map as $key => $header ) {
+
+		if ( ! isset( $last_headers[ $header ] ) ) {
+			continue;
+		}
+
+		$parsed[ $key ] = sanitize_text_field( $last_headers[ $header ] );
+	}
+
+	return $parsed;
 }
 
 /**
@@ -453,24 +440,76 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 }
 
 /**
- * Parse the last headers from the Twitter API response.
+ * Get user rate limits markup.
  *
- * @param  array $last_headers The headers from the last request.
- * @param  array $map          The map of headers to internal keys.
- * @return array
+ * @param  array $rate_limits Rate limits.
+ * @return string
  */
-function parse_last_headers( $last_headers, $map ) {
+function get_user_rate_limits_markup( $rate_limits ) {
 
-	$parsed = array();
+	$remaining = isset( $rate_limits['user_limit_24hour_remaining'] ) ? $rate_limits['user_limit_24hour_remaining'] : '';
+	$limit     = isset( $rate_limits['user_limit_24hour_limit'] ) ? $rate_limits['user_limit_24hour_limit'] : '';
+	$reset     = isset( $rate_limits['user_limit_24hour_reset'] ) ? $rate_limits['user_limit_24hour_reset'] : '';
 
-	foreach ( $map as $key => $header ) {
+	return get_rate_limits_markup(
+		__( 'User 24-Hour Limit:', 'autoshare-for-twitter' ),
+		$remaining,
+		$limit,
+		$reset
+	);
+}
 
-		if ( ! isset( $last_headers[ $header ] ) ) {
-			continue;
-		}
+/**
+ * Get app rate limits markup.
+ *
+ * @param  array $rate_limits Rate limits.
+ * @return string
+ */
+function get_app_rate_limits_markup( $rate_limits ) {
 
-		$parsed[ $key ] = sanitize_text_field( $last_headers[ $header ] );
-	}
+	$remaining = isset( $rate_limits['app_limit_24hour_remaining'] ) ? $rate_limits['app_limit_24hour_remaining'] : '';
+	$limit     = isset( $rate_limits['app_limit_24hour_limit'] ) ? $rate_limits['app_limit_24hour_limit'] : '';
+	$reset     = isset( $rate_limits['app_limit_24hour_reset'] ) ? $rate_limits['app_limit_24hour_reset'] : '';
 
-	return $parsed;
+	return get_rate_limits_markup(
+		__( 'App 24-Hour Limit:', 'autoshare-for-twitter' ),
+		$remaining,
+		$limit,
+		$reset
+	);
+}
+
+/**
+ * Get rate limits markup.
+ *
+ * @param  string $title      Rate limit title.
+ * @param  int    $remaining  Remaining rate limit.
+ * @param  int    $limit      Total rate limit.
+ * @param  int    $reset      Rate limit reset time.
+ * @return string
+ */
+function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
+
+	$remaining = isset( $remaining ) ? (int) $remaining : esc_html__( 'N/A', 'autoshare-for-twitter' );
+	$limit     = isset( $limit ) ? (int) $limit : esc_html__( 'N/A', 'autoshare-for-twitter' );
+	$reset     = isset( $reset ) ? human_readable_time( $reset ) : esc_html__( 'N/A', 'autoshare-for-twitter' );
+
+	return sprintf(
+		'<div class="autoshare-for-twitter-rate-monitor__rate">
+			<p class="autoshare-for-twitter-rate-monitor__rate-limit"><strong>%1$s</strong> %2$s</p>
+			<p class="autoshare-for-twitter-rate-monitor__rate-reset">%3$s</p>
+		</div>',
+		esc_html( $title ),
+		sprintf(
+			/* translators: %1$s: Remaining, %2$s: Limit */
+			esc_html__( '%1$s of %2$s', 'autoshare-for-twitter' ),
+			esc_html( $remaining ),
+			esc_html( $limit )
+		),
+		sprintf(
+			/* translators: %1$s: Reset time */
+			esc_html__( 'Resets on %1$s', 'autoshare-for-twitter' ),
+			esc_html( $reset )
+		)
+	);
 }
