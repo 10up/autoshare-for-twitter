@@ -1,4 +1,4 @@
-import { ToggleControl, ExternalLink } from '@wordpress/components';
+import { ToggleControl, ExternalLink, Tooltip } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, getSettings } from '@wordpress/date';
 
@@ -80,7 +80,7 @@ function TwitterAccount( props ) {
  *
  * @param {Object} props
  * @param {Object} props.rate_limits - Rate limit data from the API.
- * @return {JSX.Element}
+ * @return {JSX.Element} The account rate limits.
  */
 function TwitterAccountRateLimits( { rate_limits: rateLimits } ) {
 	return (
@@ -88,27 +88,39 @@ function TwitterAccountRateLimits( { rate_limits: rateLimits } ) {
 			<div className="autoshare-for-twitter-rate-monitor__rates">
 				{ rateLimits ? (
 					<>
-						<TwitterAccountRateLimit
+						<TwitterRateLimit
 							title={ __(
 								'Rate Limit:',
+								'autoshare-for-twitter'
+							) }
+							tooltip={ __(
+								'The maximum number of API calls allowed within a 15-minute window for the current app.',
 								'autoshare-for-twitter'
 							) }
 							remaining={ rateLimits.rate_limit_remaining }
 							limit={ rateLimits.rate_limit_limit }
 							reset={ rateLimits.rate_limit_reset }
 						/>
-						<TwitterAccountRateLimit
+						<TwitterRateLimit
 							title={ __(
 								'User 24-Hour Limit:',
+								'autoshare-for-twitter'
+							) }
+							tooltip={ __(
+								'The maximum number of requests a single user can make across all API endpoints within a 24-hour period.',
 								'autoshare-for-twitter'
 							) }
 							remaining={ rateLimits.user_limit_24hour_remaining }
 							limit={ rateLimits.user_limit_24hour_limit }
 							reset={ rateLimits.user_limit_24hour_reset }
 						/>
-						<TwitterAccountRateLimit
+						<TwitterRateLimit
 							title={ __(
 								'App 24-Hour Limit:',
+								'autoshare-for-twitter'
+							) }
+							tooltip={ __(
+								'The total number of API calls your app can make across all users within a 24-hour period.',
 								'autoshare-for-twitter'
 							) }
 							remaining={ rateLimits.app_limit_24hour_remaining }
@@ -143,12 +155,13 @@ function TwitterAccountRateLimits( { rate_limits: rateLimits } ) {
  *
  * @param {Object} props
  * @param {string} props.title     - The title of the rate limit (e.g., "Rate Limit").
+ * @param {string} props.tooltip   - The tooltip for the rate limit.
  * @param {number} props.remaining - The remaining requests for this limit.
  * @param {number} props.limit     - The total limit for this type.
  * @param {number} props.reset     - The UNIX timestamp for when the limit resets.
- * @return {JSX.Element}
+ * @return {JSX.Element} The rate limit details.
  */
-function TwitterAccountRateLimit( { title, remaining, limit, reset } ) {
+function TwitterRateLimit( { title, tooltip, remaining, limit, reset } ) {
 	let formattedResetTime = __( 'N/A', 'autoshare-for-twitter' );
 	if ( reset && settings?.formats?.datetime ) {
 		formattedResetTime = dateI18n(
@@ -162,7 +175,9 @@ function TwitterAccountRateLimit( { title, remaining, limit, reset } ) {
 	return (
 		<div className="autoshare-for-twitter-rate-monitor__rate">
 			<p className="autoshare-for-twitter-rate-monitor__limit">
-				<strong>{ title }</strong>{ ' ' }
+				<Tooltip text={ tooltip }>
+					<strong>{ title }</strong>
+				</Tooltip>{ ' ' }
 				{ sprintf(
 					/* translators: %1$s: Remaining, %2$s: Limit */
 					__( '%1$s of %2$s', 'autoshare-for-twitter' ),
