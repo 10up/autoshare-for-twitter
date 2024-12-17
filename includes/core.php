@@ -247,33 +247,45 @@ function update_account_rate_limits( $response, $update_data, $post, $account_id
 		return;
 	}
 
-	/**
-	 * Map the headers from the last request to internal keys.
-	 */
-	$map = array(
-		'rate_limit_limit'            => 'x_rate_limit_limit',
-		'rate_limit_reset'            => 'x_rate_limit_reset',
-		'rate_limit_remaining'        => 'x_rate_limit_remaining',
-		'app_limit_24hour_limit'      => 'x_app_limit_24hour_limit',
-		'app_limit_24hour_reset'      => 'x_app_limit_24hour_reset',
-		'app_limit_24hour_remaining'  => 'x_app_limit_24hour_remaining',
-		'user_limit_24hour_limit'     => 'x_user_limit_24hour_limit',
-		'user_limit_24hour_reset'     => 'x_user_limit_24hour_reset',
-		'user_limit_24hour_remaining' => 'x_user_limit_24hour_remaining',
+	$rate_limits = parse_last_headers(
+		$last_headers,
+		array(
+			'rate_limit_limit'     => 'x_rate_limit_limit',
+			'rate_limit_reset'     => 'x_rate_limit_reset',
+			'rate_limit_remaining' => 'x_rate_limit_remaining',
+		)
 	);
 
-	$account_rate_limits = array();
+	$app_rate_limits = parse_last_headers(
+		$last_headers,
+		array(
+			'app_limit_24hour_limit'     => 'x_app_limit_24hour_limit',
+			'app_limit_24hour_reset'     => 'x_app_limit_24hour_reset',
+			'app_limit_24hour_remaining' => 'x_app_limit_24hour_remaining',
+		)
+	);
 
-	foreach ( $map as $key => $header ) {
+	$user_rate_limits = parse_last_headers(
+		$last_headers,
+		array(
+			'user_limit_24hour_limit'     => 'x_user_limit_24hour_limit',
+			'user_limit_24hour_reset'     => 'x_user_limit_24hour_reset',
+			'user_limit_24hour_remaining' => 'x_user_limit_24hour_remaining',
+		)
+	);
 
-		if ( ! isset( $last_headers[ $header ] ) ) {
-			continue;
+	foreach ( $accounts as $key => $account ) {
+
+		// Update the "global" and app rate limits on all accounts.
+		$account_rate_limits = array_merge( $rate_limits, $app_rate_limits );
+
+		// Update the user rate limits on the account that made the request.
+		if ( $account['id'] === $account_id ) {
+			$account_rate_limits = array_merge( $user_rate_limits, $account_rate_limits );
 		}
 
-		$account_rate_limits[ $key ] = sanitize_text_field( $last_headers[ $header ] );
+		$accounts[ $key ]['rate_limits'] = $account_rate_limits;
 	}
-
-	$accounts[ $account_id ]['rate_limits'] = $account_rate_limits;
 
 	update_option( 'autoshare_for_twitter_accounts', $accounts );
 }
@@ -439,4 +451,27 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 	$human_readable_time = sprintf( '%s (UTC)', $human_readable_time );
 
 	return $human_readable_time;
+}
+
+/**
+ * Parse the last headers from the Twitter API response.
+ *
+ * @param  array $last_headers The headers from the last request.
+ * @param  array $map          The map of headers to internal keys.
+ * @return array
+ */
+function parse_last_headers( $last_headers, $map ) {
+
+	$parsed = array();
+
+	foreach ( $map as $key => $header ) {
+
+		if ( ! isset( $last_headers[ $header ] ) ) {
+			continue;
+		}
+
+		$parsed[ $key ] = sanitize_text_field( $last_headers[ $header ] );
+	}
+
+	return $parsed;
 }
