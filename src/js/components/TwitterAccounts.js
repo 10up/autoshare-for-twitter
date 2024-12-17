@@ -15,12 +15,26 @@ export function TwitterAccounts() {
 	const accounts = connectedAccounts
 		? Object.values( connectedAccounts )
 		: [];
+	const [ tweetAccounts ] = useTweetAccounts();
 
 	return (
 		<div className="autoshare-for-twitter-accounts-wrapper">
 			{ accounts.map( ( account ) => (
 				<TwitterAccount key={ account.id } { ...account } />
 			) ) }
+			{ tweetAccounts?.length > 0 && (
+				<div className="autoshare-for-twitter-rate-monitor__footer">
+					<p>
+						<strong>
+							{ __( 'Note:', 'autoshare-for-twitter' ) }
+						</strong>{ ' ' }
+						{ __(
+							'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.',
+							'autoshare-for-twitter'
+						) }
+					</p>
+				</div>
+			) }
 			<span className="connect-account-link">
 				<ExternalLink href={ connectAccountUrl }>
 					{ __( 'Connect an account', 'autoshare-for-twitter' ) }
@@ -70,20 +84,9 @@ function TwitterAccount( props ) {
 					className="autoshare-for-twitter-account-toggle"
 				/>
 			</div>
-			<div className="autoshare-for-twitter-rate-monitor">
+			{ tweetAccounts && tweetAccounts.includes( id ) && (
 				<TwitterAccountRateLimits { ...props } />
-				<div className="autoshare-for-twitter-rate-monitor__footer">
-					<p>
-						<strong>
-							{ __( 'Note:', 'autoshare-for-twitter' ) }
-						</strong>{ ' ' }
-						{ __(
-							'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.',
-							'autoshare-for-twitter'
-						) }
-					</p>
-				</div>
-			</div>
+			) }
 		</>
 	);
 }
