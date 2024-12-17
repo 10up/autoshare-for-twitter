@@ -246,7 +246,7 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	border-radius: 50%;
 }
 
-.autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper div.account-details {
+.autoshare-for-twitter-accounts-wrapper .twitter-account-wrapper span.account-details {
 	padding-left: 8px;
 	padding-right: 8px;
 }

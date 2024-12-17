@@ -48,11 +48,11 @@ function TwitterAccount( props ) {
 					alt={ name }
 					className="twitter-account-profile-image"
 				/>
-				<div className="account-details">
+				<span className="account-details">
 					<strong>@{ username }</strong>
 					<br />
 					{ name }
-				</div>
+				</span>
 
 				<ToggleControl
 					checked={ tweetAccounts && tweetAccounts.includes( id ) }
