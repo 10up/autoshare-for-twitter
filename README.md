@@ -33,7 +33,7 @@ With Autopost for X, developers can further customize nearly everything about th
 ## Requirements
 
 - PHP 7.4+
-- [WordPress](http://wordpress.org) 5.7+
+- [WordPress](http://wordpress.org) 6.5+
 
 ## Installation
 
@@ -107,9 +107,9 @@ There are a few potential reasons for this error:
 
 ### I'm encountering the error message "429: Too Many Requests." What could be the possible reason for this error?
 
-If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of X/Twitter's Free API access. With the Free API, you are allowed **1,500 Posts per month** and **50 requests within a 24-hour period**. Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to post again.
+If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of X/Twitter's Free API access. With the Free API, you are allowed **500 requests per month** and **17 requests within a 24-hour period**. Please note that these limits were accurate at the time of writing and may have been updated. For the most up-to-date information, please refer to the X API [documentation](https://developer.x.com/en/docs/x-api/rate-limits). Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to post again.
 
-To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.twitter.com/en/products/twitter-api.
+To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.x.com/en/products/x-api.
 
 ## Support Level
 

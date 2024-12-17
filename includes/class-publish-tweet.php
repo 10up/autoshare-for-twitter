@@ -87,14 +87,19 @@ class Publish_Tweet {
 		// Send tweet to Twitter.
 		$response = $this->twitter_api->tweet( $update_data );
 
+		// Get the last headers from the Twitter API.
+		$last_headers = $this->twitter_api->get_last_headers();
+
 		/**
 		 * Fires after the request to the Twitter endpoint had been made.
 		 *
 		 * @param array|object The response from the Twitter endpoint.
 		 * @param array        Data to send to the Twitter endpoint.
-		 * @param \WP_Post      The post associated with the tweet.
+		 * @param \WP_Post     The post associated with the tweet.
+		 * @param int|null     The Twitter account ID.
+		 * @param array        The headers from the last request.
 		 */
-		do_action( 'autoshare_for_twitter_after_status_update', $response, $update_data, $post );
+		do_action( 'autoshare_for_twitter_after_status_update', $response, $update_data, $post, $account_id, $last_headers );
 
 		return $response;
 	}

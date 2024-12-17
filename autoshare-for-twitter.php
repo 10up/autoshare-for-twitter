@@ -4,7 +4,7 @@
  * Description:       Automatically shares the post title or custom message and a link to the post to X/Twitter.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
  * Version:           2.2.1
- * Requires at least: 5.7
+ * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
