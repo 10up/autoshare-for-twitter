@@ -384,7 +384,6 @@ function display_rate_monitor_dashboard_widget() {
 	}
 
 	$footnotes = array(
-		__( 'Rate Limit: The maximum number of API calls allowed within a 15-minute window for the current app.', 'autoshare-for-twitter' ),
 		__( 'User 24-Hour Limit: The maximum number of requests a single user can make across all API endpoints within a 24-hour period.', 'autoshare-for-twitter' ),
 		__( 'App 24-Hour Limit: The total number of API calls your app can make across all users within a 24-hour period.', 'autoshare-for-twitter' ),
 	);

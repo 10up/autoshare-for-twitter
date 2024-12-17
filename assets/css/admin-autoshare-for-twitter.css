@@ -268,12 +268,13 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 
 #autopost_for_x_rate_monitor_dashboard_widget .inside {
 	padding: 0;
+	margin-top: 0px;
 }
 
 .autoshare-for-twitter-rate-monitor__account {
 	align-items: center;
 	display: flex;
-	padding: 0 12px 12px;
+	padding: 12px 12px;
 }
 
 .autoshare-for-twitter-rate-monitor__account img {
@@ -326,4 +327,8 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 .autoshare-for-twitter-accounts-wrapper .autoshare-for-twitter-rate-monitor__rates {
 	border-bottom: 0;
 	padding: 0;
+}
+
+.autoshare-for-twitter-editor-panel .autoshare-for-twitter-rate-monitor__footer {
+	margin-bottom: 8px;
 }
