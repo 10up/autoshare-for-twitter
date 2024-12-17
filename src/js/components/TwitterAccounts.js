@@ -70,7 +70,20 @@ function TwitterAccount( props ) {
 					className="autoshare-for-twitter-account-toggle"
 				/>
 			</div>
-			<TwitterAccountRateLimits { ...props } />
+			<div className="autoshare-for-twitter-rate-monitor">
+				<TwitterAccountRateLimits { ...props } />
+				<div className="autoshare-for-twitter-rate-monitor__footer">
+					<p>
+						<strong>
+							{ __( 'Note:', 'autoshare-for-twitter' ) }
+						</strong>{ ' ' }
+						{ __(
+							'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.',
+							'autoshare-for-twitter'
+						) }
+					</p>
+				</div>
+			</div>
 		</>
 	);
 }
@@ -84,68 +97,44 @@ function TwitterAccount( props ) {
  */
 function TwitterAccountRateLimits( { rate_limits: rateLimits } ) {
 	return (
-		<div className="autoshare-for-twitter-rate-monitor">
-			<div className="autoshare-for-twitter-rate-monitor__rates">
-				{ rateLimits ? (
-					<>
-						<TwitterRateLimit
-							title={ __(
-								'Rate Limit:',
-								'autoshare-for-twitter'
-							) }
-							tooltip={ __(
-								'The maximum number of API calls allowed within a 15-minute window for the current app.',
-								'autoshare-for-twitter'
-							) }
-							remaining={ rateLimits.rate_limit_remaining }
-							limit={ rateLimits.rate_limit_limit }
-							reset={ rateLimits.rate_limit_reset }
-						/>
-						<TwitterRateLimit
-							title={ __(
-								'User 24-Hour Limit:',
-								'autoshare-for-twitter'
-							) }
-							tooltip={ __(
-								'The maximum number of requests a single user can make across all API endpoints within a 24-hour period.',
-								'autoshare-for-twitter'
-							) }
-							remaining={ rateLimits.user_limit_24hour_remaining }
-							limit={ rateLimits.user_limit_24hour_limit }
-							reset={ rateLimits.user_limit_24hour_reset }
-						/>
-						<TwitterRateLimit
-							title={ __(
-								'App 24-Hour Limit:',
-								'autoshare-for-twitter'
-							) }
-							tooltip={ __(
-								'The total number of API calls your app can make across all users within a 24-hour period.',
-								'autoshare-for-twitter'
-							) }
-							remaining={ rateLimits.app_limit_24hour_remaining }
-							limit={ rateLimits.app_limit_24hour_limit }
-							reset={ rateLimits.app_limit_24hour_reset }
-						/>
-					</>
-				) : (
-					<p className="autoshare-for-twitter-rate-monitor__error">
-						{ __(
-							'No X/Twitter rate data available yet. Make a post to X/Twitter first.',
+		<div className="autoshare-for-twitter-rate-monitor__rates">
+			{ rateLimits ? (
+				<>
+					<TwitterRateLimit
+						title={ __(
+							'User 24-Hour Limit:',
 							'autoshare-for-twitter'
 						) }
-					</p>
-				) }
-			</div>
-			<div className="autoshare-for-twitter-rate-monitor__footer">
-				<p>
-					<strong>{ __( 'Note:', 'autoshare-for-twitter' ) }</strong>{ ' ' }
+						tooltip={ __(
+							'The maximum number of requests a single user can make across all API endpoints within a 24-hour period.',
+							'autoshare-for-twitter'
+						) }
+						remaining={ rateLimits.user_limit_24hour_remaining }
+						limit={ rateLimits.user_limit_24hour_limit }
+						reset={ rateLimits.user_limit_24hour_reset }
+					/>
+					<TwitterRateLimit
+						title={ __(
+							'App 24-Hour Limit:',
+							'autoshare-for-twitter'
+						) }
+						tooltip={ __(
+							'The total number of API calls your app can make across all users within a 24-hour period.',
+							'autoshare-for-twitter'
+						) }
+						remaining={ rateLimits.app_limit_24hour_remaining }
+						limit={ rateLimits.app_limit_24hour_limit }
+						reset={ rateLimits.app_limit_24hour_reset }
+					/>
+				</>
+			) : (
+				<p className="autoshare-for-twitter-rate-monitor__error">
 					{ __(
-						'The displayed API rate limits are updated only when a tweet is posted. Since there is no dedicated endpoint for real-time usage data, the information provided may not fully reflect the current API usage, especially if other tweets are made through the same app.',
+						'No X/Twitter rate data available yet. Make a post to X/Twitter first.',
 						'autoshare-for-twitter'
 					) }
 				</p>
-			</div>
+			) }
 		</div>
 	);
 }
