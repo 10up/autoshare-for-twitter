@@ -310,12 +310,6 @@ function display_rate_monitor_dashboard_widget() {
 
 	$rows = array(
 		array(
-			'label'         => __( 'Rate Limit:', 'autoshare-for-twitter' ),
-			'remaining_key' => 'rate_limit_remaining',
-			'limit_key'     => 'rate_limit_limit',
-			'reset_key'     => 'rate_limit_reset',
-		),
-		array(
 			'label'         => __( 'User 24-Hour Limit:', 'autoshare-for-twitter' ),
 			'remaining_key' => 'user_limit_24hour_remaining',
 			'limit_key'     => 'user_limit_24hour_limit',
