@@ -275,6 +275,7 @@ function update_account_rate_limits( $response, $update_data, $post, $account_id
 	);
 
 	foreach ( $accounts as $key => $account ) {
+		$current_rate_limits = ( isset( $account['rate_limits'] ) && is_array( $account['rate_limits'] ) ) ? $account['rate_limits'] : array();
 
 		// Update the "global" and app rate limits on all accounts.
 		$account_rate_limits = array_merge( $rate_limits, $app_rate_limits );
@@ -283,6 +284,9 @@ function update_account_rate_limits( $response, $update_data, $post, $account_id
 		if ( $account['id'] === $account_id ) {
 			$account_rate_limits = array_merge( $user_rate_limits, $account_rate_limits );
 		}
+
+		// Merge the current rate limits with the new rate limits.
+		$account_rate_limits = array_merge( $current_rate_limits, $account_rate_limits );
 
 		$accounts[ $key ]['rate_limits'] = $account_rate_limits;
 	}
@@ -314,7 +318,7 @@ function display_rate_monitor_dashboard_widget() {
 
 	if ( empty( $accounts ) ) {
 		printf(
-			'<p>%s</p>',
+			'<p class="autoshare-for-twitter-no-accounts">%s</p>',
 			esc_html__( 'No X/Twitter accounts are connected. Please connect at least one X/Twitter account to continue using Autopost for X.', 'autoshare-for-twitter' )
 		);
 		return;
@@ -343,8 +347,10 @@ function display_rate_monitor_dashboard_widget() {
 		$users_rate_limits_markup .= sprintf(
 			'<div class="autoshare-for-twitter-rate-monitor__user">
 				<img src="%1$s" alt="%2$s" class="twitter-account-profile-image">
-				<h3>@%3$s</h3>
-				%4$s
+				<div class="autoshare-for-twitter-rate-monitor__user-info">
+					<h3>@%3$s</h3>
+					%4$s
+				</div>
 			</div>',
 			esc_url( $account['profile_image_url'] ),
 			esc_attr( $account['name'] ),
@@ -450,6 +456,13 @@ function get_user_rate_limits_markup( $rate_limits ) {
 	$remaining = isset( $rate_limits['user_limit_24hour_remaining'] ) ? $rate_limits['user_limit_24hour_remaining'] : '';
 	$limit     = isset( $rate_limits['user_limit_24hour_limit'] ) ? $rate_limits['user_limit_24hour_limit'] : '';
 	$reset     = isset( $rate_limits['user_limit_24hour_reset'] ) ? $rate_limits['user_limit_24hour_reset'] : '';
+
+	if ( empty( $remaining ) && empty( $limit ) && empty( $reset ) ) {
+		return sprintf(
+			'<p>%s</p>',
+			esc_html__( 'No X/Twitter rate limit available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
+		);
+	}
 
 	return get_rate_limits_markup(
 		__( 'User 24-Hour Limit:', 'autoshare-for-twitter' ),

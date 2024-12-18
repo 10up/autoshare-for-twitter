@@ -271,6 +271,10 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	margin-top: 0px;
 }
 
+.autoshare-for-twitter-no-accounts {
+	padding: 0px 12px 12px 12px;
+}
+
 .autoshare-for-twitter-rate-monitor__users {
 	border-top: 1px solid #f0f0f1;
 }
@@ -294,6 +298,7 @@ tbody .autoshare-for-twitter-status-logo--disabled::before {
 	margin-right: 10px;
 }
 
+.autoshare-for-twitter-rate-monitor__user-info p,
 .autoshare-for-twitter-rate-monitor__rate p {
 	margin-bottom: 0;
 	margin-top: 0;

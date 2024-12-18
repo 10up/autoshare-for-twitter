@@ -105,7 +105,7 @@ function TwitterAccount( props ) {
  * @return {JSX.Element} The account rate limits.
  */
 function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
-	if ( ! rateLimits ) {
+	if ( ! rateLimits || ! rateLimits.user_limit_24hour_limit ) {
 		return (
 			<p>
 				{ __(
