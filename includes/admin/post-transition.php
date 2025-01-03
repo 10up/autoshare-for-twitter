@@ -228,15 +228,30 @@ function validate_response( $response ) {
 		);
 
 	} else {
-		$errors = $response->errors;
-		if ( empty( $response->errors ) && ! empty( $response->detail ) ) {
+		// Build error message based on response structure.
+		$errors = array();
+
+		if ( ! empty( $response->errors ) ) {
+			// Error response structure with errors array.
+			$errors = $response->errors;
+		} elseif ( ! empty( $response->detail ) ) {
+			// Error response structure with status and detail.
 			$errors = array(
 				(object) array(
 					'code'    => $response->status,
 					'message' => $response->detail,
 				),
 			);
+		} else {
+			// Fallback for unknown error response structure.
+			$errors = array(
+				(object) array(
+					'code'    => 0,
+					'message' => __( 'Unknown error occurred', 'autoshare-for-twitter' ),
+				),
+			);
 		}
+
 		$validated_response = new \WP_Error(
 			'autoshare_for_twitter_failed',
 			__( 'Something happened during Twitter update.', 'autoshare-for-twitter' ),
