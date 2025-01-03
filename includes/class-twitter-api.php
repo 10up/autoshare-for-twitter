@@ -240,4 +240,13 @@ class Twitter_API {
 			return false;
 		}
 	}
+
+	/**
+	 * Get the HTTP headers from the most recent request.
+	 *
+	 * @return array
+	 */
+	public function get_last_headers() {
+		return $this->client->getLastXHeaders();
+	}
 }

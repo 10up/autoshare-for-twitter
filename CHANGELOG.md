@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.2.1] - 2024-07-08
+### Changed
+- Bump WordPress "tested up to" version 6.5 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul) via [#319](https://github.com/10up/autoshare-for-twitter/pull/319)).
+
+### Fixed
+- Ampersands no longer converted to HTML entities when adding query parameters to the post URL with the `autoshare_for_twitter_post_url` filter (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#324](https://github.com/10up/autoshare-for-twitter/pull/324)).
+
+### Security
+- Bump `express` from 4.18.2 to 4.19.2 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
+- Bump `follow-redirects` from 1.15.5 to 1.15.6 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
+- Bump `ip` from 1.1.8 to 1.1.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
+- Bump `webpack-dev-middleware` from 5.3.3 to 5.3.4 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
+
+### Developer
+- Cleaned up NPM dependencies and update Node to v20 (props [@Sidsector9](https://github.com/Sidsector9), [@dkotter](https://github.com/dkotter) via [#310](https://github.com/10up/autoshare-for-twitter/pull/310)).
+- Upgrade `download-artifact` from v3 to v4 (props [@iamdharmesh](https://github.com/iamdharmesh) via [#316](https://github.com/10up/autoshare-for-twitter/pull/316)).
+- Replaced [lee-dohm/no-response](https://github.com/lee-dohm/no-response) with [actions/stale](https://github.com/actions/stale) to help with closing no-response/stale issues (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#318](https://github.com/10up/autoshare-for-twitter/pull/318)).
+- Added a "Testing" section in the `CONTRIBUTING.md` file (props [@kmgalanakis](https://github.com/kmgalanakis), [@jeffpaul](https://github.com/jeffpaul) via [#322](https://github.com/10up/autoshare-for-twitter/pull/322)).
+- Changed from `actions/upload-release-asset` to `softprops/action-gh-release` GitHub Action (props [@Sidsector9](https://github.com/Sidsector9), [@jeffpaul](https://github.com/jeffpaul) via [#325](https://github.com/10up/autoshare-for-twitter/pull/325)).
+
 ## [2.2.0] - 2024-01-04
 **Autoshare for Twitter rebranded / renamed to Autopost for X.**
 
@@ -249,6 +269,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.2.1]: https://github.com/10up/autoshare-for-twitter/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/10up/autoshare-for-twitter/compare/2.1.1...2.2.0
 [2.1.1]: https://github.com/10up/autoshare-for-twitter/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/10up/autoshare-for-twitter/compare/2.0.0...2.1.0
