@@ -31,10 +31,16 @@ function setup() {
 	require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-twitter-accounts.php';
 
 	// Initialize the Syndication Links integration if plugin is active.
-	if ( class_exists( 'Syn_Meta' ) ) {
-		require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-syndication-links.php';
-		\TenUp\AutoshareForTwitter\Core\Syndication\Syndication_Links::init();
-	}
+	add_action(
+		'plugins_loaded',
+		function() {
+			if ( class_exists( 'Syn_Meta' ) ) {
+				require_once plugin_dir_path( AUTOSHARE_FOR_TWITTER ) . 'includes/class-syndication-links.php';
+				\TenUp\AutoshareForTwitter\Core\Syndication\Syndication_Links::init();
+			}
+		},
+		99
+	);
 
 	\TenUp\AutoshareForTwitter\Admin\Assets\add_hook_callbacks();
 	\TenUp\AutoshareForTwitter\REST\add_hook_callbacks();
