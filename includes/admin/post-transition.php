@@ -331,8 +331,11 @@ function update_autoshare_for_twitter_meta_from_response( $post_id, $data, $hand
 
 	/**
 	 * Fires after the response from Twitter has been written as meta to the post.
+	 *
+	 * @param int   $post_id    The post ID
+	 * @param array $tweet_meta The tweet meta array containing tweet status data
 	 */
-	do_action( 'autoshare_for_twitter_post_tweet_status_updated' );
+	do_action( 'autoshare_for_twitter_post_tweet_status_updated', $post_id, $tweet_meta );
 }
 
 /**
