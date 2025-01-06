@@ -44,7 +44,7 @@ class Syndication_Links {
 
 				// Only add valid tweet URLs.
 				if ( self::is_valid_tweet_url( $uri ) ) {
-					\Syn_Meta::add_syndication_link( 'post', $post_id, $uri );
+					\Syn_Meta::add_syndication_link( get_post_type( $post_id ), $post_id, $uri );
 				}
 			}
 		}
