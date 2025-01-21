@@ -55,6 +55,8 @@ function opt_my_cpt_into_autoshare() {
 add_action( 'init', 'opt_my_cpt_into_autoshare' );
 `
 
+**autoshare_for_twitter_enabled_default** Filter
+
 In addition, adding support while registering custom post types also works. Post types are automatically set to autopost. Future versions of this plugin could allow this to be set manually.
 
 While the autopost feature can be opted into for post types using the above filter, by default the editor still has to manually enable autopost during the post prepublish flow. The `autoshare_for_twitter_enabled_default` filter allows autopost to be enabled by default for all posts of a given post type. Editors can still manually uncheck the option during the publishing flow.
@@ -70,6 +72,19 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 	return $enabled;
 }
 add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
+`
+
+**autoshare_for_twitter_post_tweet_status_updated** Action
+
+The plugin also passes the **$post_id** and **$tweet_meta** array to hooked functions immediately after the response from X/Twitter is written to post meta. Any function hooked to this action can use these parameters to manage custom integration flows (for example, saving Twitter URLs into other plugins’ metadata).
+
+Example:
+
+`
+function my_custom_action_handler( $post_id, $tweet_meta ) {
+	// Use $post_id and $tweet_meta to perform custom logic.
+}
+add_action( 'autoshare_for_twitter_post_tweet_status_updated', 'my_custom_action_handler', 10, 2 );
 `
 
 Additional technical details can be found in [our GitHub repository](https://github.com/10up/autoshare-for-twitter#overview).
