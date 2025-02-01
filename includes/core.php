@@ -502,6 +502,13 @@ function get_app_rate_limits_markup( $rate_limits ) {
  * @return string
  */
 function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
+	// If reset time is less than current time, then rate limit is not available.
+	if ( $reset && $reset < time() ) {
+		return sprintf(
+			'<p>%s</p>',
+			esc_html__( 'No X/Twitter rate limit available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
+		);
+	}
 
 	$remaining = isset( $remaining ) ? (int) $remaining : esc_html__( 'N/A', 'autoshare-for-twitter' );
 	$limit     = isset( $limit ) ? (int) $limit : esc_html__( 'N/A', 'autoshare-for-twitter' );
