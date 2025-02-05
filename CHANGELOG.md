@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
-## [2.3.0] - 2025-02-06
+## [2.3.0] - 2025-02-05
 **Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
 
 ### Added

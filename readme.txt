@@ -109,7 +109,7 @@ To avoid encountering this error in the future and to have higher usage limits, 
 
 == Changelog ==
 
-= 2.3.0 - 2025-02-06 =
+= 2.3.0 - 2025-02-05 =
 **Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
 
 * **Added:** Expose the X headers to the `autoshare_for_twitter_after_status_update` hook (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#353](https://github.com/10up/autoshare-for-twitter/pull/353)).
