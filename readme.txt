@@ -1,9 +1,8 @@
 === Autopost for X (formerly Autoshare for Twitter) ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, share, social media, posse
-Requires at least: 6.5
 Tested up to:      6.7
-Stable tag:        2.2.1
+Stable tag:        2.3.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -97,9 +96,9 @@ There are a few potential reasons for this error:
 
 = I'm encountering the error message "429: Too Many Requests." What could be the possible reason for this error? =
 
-If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of Twitter's Free API access. With the Free API, you are allowed **1,500 Posts per month** and **50 requests within a 24-hour period**. Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to post again.
+If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of X/Twitter's Free API access. With the Free API, you are allowed **500 requests per month** and **17 requests within a 24-hour period**. Please note that these limits were accurate at the time of writing and may have been updated. For the most up-to-date information, please refer to the X API [documentation](https://developer.x.com/en/docs/x-api/rate-limits). Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to post again.
 
-To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.twitter.com/en/products/twitter-api.
+To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.x.com/en/products/x-api.
 
 == Screenshots ==
 
@@ -109,6 +108,19 @@ To avoid encountering this error in the future and to have higher usage limits, 
 4. Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X/Twitter`.
 
 == Changelog ==
+
+= 2.3.0 - 2025-02-05 =
+**Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
+
+* **Added:** Expose the X headers to the `autoshare_for_twitter_after_status_update` hook (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#353](https://github.com/10up/autoshare-for-twitter/pull/353)).
+* **Added:** Admin dashboard widget for easy access to API usage statistics (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#354](https://github.com/10up/autoshare-for-twitter/pull/354)).
+* **Changed:** Display API usage statistics in the "Autopost to X/Twitter" block editor panel (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#354](https://github.com/10up/autoshare-for-twitter/pull/354)).
+* **Changed:** Bump WordPress "tested up to" version 6.7 (props [@sudip-md](https://github.com/sudip-md), [@dkotter](https://github.com/dkotter), [@thrijith](https://github.com/thrijith), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#335](https://github.com/10up/autoshare-for-twitter/pull/335), [#347](https://github.com/10up/autoshare-for-twitter/pull/347), [#348](https://github.com/10up/autoshare-for-twitter/pull/348)).
+* **Changed:** Bump WordPress minimum from 5.7 to 6.5 (props [@thrijith](https://github.com/thrijith), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#347](https://github.com/10up/autoshare-for-twitter/pull/347), [#348](https://github.com/10up/autoshare-for-twitter/pull/348)).
+* **Security:** Bump `braces` from 3.0.2 to 3.0.3, `pac-resolver` from 7.0.0 to 7.0.1, `socks` from 2.7.1 to 2.8.3, `ws` from 7.5.9 to 7.5.10 and removes `ip` (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#327](https://github.com/10up/autoshare-for-twitter/pull/327)).
+* **Security:** Bump `axios` from 1.6.7 to 1.7.4 (props [@dependabot](https://github.com/apps/dependabot), [@faisal-alvi](https://github.com/faisal-alvi), [@dkotter](https://github.com/dkotter) via [#336](https://github.com/10up/autoshare-for-twitter/pull/336), [#337](https://github.com/10up/autoshare-for-twitter/pull/337)).
+* **Security:** Bump `webpack` from 5.90.0 to 5.94.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#339](https://github.com/10up/autoshare-for-twitter/pull/339)).
+* **Security:** Bump `ws` from 7.5.10 to 8.18.0, `serve-static` from 1.15.0 to 1.16.2 and `express` from 4.19.2 to 4.21.0 (props [@dependabot](https://github.com/apps/dependabot), [@Sidsector9](https://github.com/Sidsector9) via [#343](https://github.com/10up/autoshare-for-twitter/pull/343)).
 
 = 2.2.1 - 2024-07-08 =
 * **Changed:** Bump WordPress "tested up to" version 6.5 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul) via [#319](https://github.com/10up/autoshare-for-twitter/pull/319)).
@@ -138,6 +150,10 @@ To avoid encountering this error in the future and to have higher usage limits, 
 Further changelog entries can be found in the [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/trunk/CHANGELOG.md) file.
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+This release bumps the WordPress minimum from 5.7 to 6.5.
+
 = 2.2.0 =
 Autoshare for Twitter rebranded / renamed to Autopost for X.
 
