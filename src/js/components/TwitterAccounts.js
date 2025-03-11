@@ -105,7 +105,11 @@ function TwitterAccount( props ) {
  * @return {JSX.Element} The account rate limits.
  */
 function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
-	if ( ! rateLimits || ! rateLimits.user_limit_24hour_limit ) {
+	if (
+		! rateLimits ||
+		! rateLimits.user_limit_24hour_limit ||
+		rateLimits?.user_limit_24hour_reset < Math.floor( Date.now() / 1000 )
+	) {
 		return (
 			<p>
 				{ __(
@@ -140,6 +144,14 @@ function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
  * @return {JSX.Element} The account rate limits.
  */
 function TwitterAppRateLimits( { rate_limits: rateLimits } ) {
+	if (
+		! rateLimits ||
+		! rateLimits.app_limit_24hour_limit ||
+		rateLimits?.app_limit_24hour_reset < Math.floor( Date.now() / 1000 )
+	) {
+		return null;
+	}
+
 	return (
 		<div className="autoshare-for-twitter-rate-monitor__app">
 			<TwitterRateLimits
