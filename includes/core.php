@@ -506,7 +506,7 @@ function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
 	if ( $reset && $reset < time() ) {
 		return sprintf(
 			'<p>%s</p>',
-			esc_html__( 'No X/Twitter rate limit available yet. Make a post to X/Twitter first.', 'autoshare-for-twitter' )
+			esc_html__( 'No X rate limit available yet. Make a post to X first.', 'autoshare-for-twitter' )
 		);
 	}
 
