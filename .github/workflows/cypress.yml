@@ -22,7 +22,7 @@ jobs:
         core:
           - { name: 'WP latest', version: 'latest' }
           - { name: 'WP trunk', version: 'WordPress/WordPress#master' }
-          - { name: 'WP minimum', version: 'WordPress/WordPress#6.5' }
+          - { name: 'WP minimum', version: 'WordPress/WordPress#6.6' }
 
     steps:
       - name: Checkout
@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set the core version and plugins config 
+      - name: Set the core version and plugins config
         run: ./tests/bin/set-wp-config.js --core=${{ matrix.core.version }} --plugins=./${{ github.event.repository.name }},https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip,./tests/test-plugin
 
       - name: Set up WP environment
