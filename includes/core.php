@@ -429,8 +429,6 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 
 	$timestamp = (int) $timestamp;
 
-	$datetime = new \DateTime( '@' . $timestamp, new \DateTimeZone( 'UTC' ) );
-
 	if ( empty( $date_format ) ) {
 		$date_format = sprintf(
 			'%s %s',
@@ -438,11 +436,7 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 			esc_html( get_option( 'time_format' ) )
 		);
 	}
-
-	$human_readable_time = $datetime->format( $date_format );
-	$human_readable_time = sprintf( '%s (UTC)', $human_readable_time );
-
-	return $human_readable_time;
+	return wp_date( $date_format, $timestamp );
 }
 
 /**

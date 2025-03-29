@@ -184,10 +184,9 @@ function TwitterRateLimits( { title, remaining, limit, reset, tooltip } ) {
 	if ( reset && settings?.formats?.datetime ) {
 		formattedResetTime = dateI18n(
 			settings.formats.datetime,
-			reset * 1000,
-			'UTC'
+			reset * 1000
 		);
-		formattedResetTime = sprintf( '%1$s (UTC)', formattedResetTime );
+		formattedResetTime = sprintf( 'Resets on %1$s', formattedResetTime );
 	}
 
 	return (
