@@ -516,7 +516,7 @@ function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
 		esc_html( $title ),
 		sprintf(
 			/* translators: %1$s: Remaining, %2$s: Limit */
-			esc_html__( '%1$s of %2$s requests available', 'autoshare-for-twitter' ),
+			esc_html__( '%1$s of %2$s requests remaining', 'autoshare-for-twitter' ),
 			esc_html( $remaining ),
 			esc_html( $limit )
 		),

@@ -198,7 +198,7 @@ function TwitterRateLimits( { title, remaining, limit, reset, tooltip } ) {
 				{ sprintf(
 					/* translators: %1$s: Remaining, %2$s: Limit */
 					__(
-						'%1$s of %2$s requests available',
+						'%1$s of %2$s requests remaining',
 						'autoshare-for-twitter'
 					),
 					remaining ?? __( 'N/A', 'autoshare-for-twitter' ),
