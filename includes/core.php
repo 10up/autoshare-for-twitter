@@ -429,8 +429,6 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 
 	$timestamp = (int) $timestamp;
 
-	$datetime = new \DateTime( '@' . $timestamp, new \DateTimeZone( 'UTC' ) );
-
 	if ( empty( $date_format ) ) {
 		$date_format = sprintf(
 			'%s %s',
@@ -438,11 +436,7 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 			esc_html( get_option( 'time_format' ) )
 		);
 	}
-
-	$human_readable_time = $datetime->format( $date_format );
-	$human_readable_time = sprintf( '%s (UTC)', $human_readable_time );
-
-	return $human_readable_time;
+	return wp_date( $date_format, $timestamp );
 }
 
 /**
@@ -522,7 +516,7 @@ function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
 		esc_html( $title ),
 		sprintf(
 			/* translators: %1$s: Remaining, %2$s: Limit */
-			esc_html__( '%1$s of %2$s', 'autoshare-for-twitter' ),
+			esc_html__( '%1$s of %2$s requests remaining', 'autoshare-for-twitter' ),
 			esc_html( $remaining ),
 			esc_html( $limit )
 		),
