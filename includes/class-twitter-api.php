@@ -218,7 +218,7 @@ class Twitter_API {
 	}
 
 	/**
-	 * Disconnect Twitter account.
+	 * Disconnect X account.
 	 *
 	 * @return bool True if account was disconnected, false otherwise.
 	 */
@@ -239,5 +239,14 @@ class Twitter_API {
 			// Do nothing.
 			return false;
 		}
+	}
+
+	/**
+	 * Get the HTTP headers from the most recent request.
+	 *
+	 * @return array
+	 */
+	public function get_last_headers() {
+		return $this->client->getLastXHeaders();
 	}
 }

@@ -81,6 +81,14 @@
 	background: #bbb;
 }
 
+.autoshare-settings table.twitter_accounts th#autoshare_accounts {
+	max-width: 160px;
+}
+
+.autoshare-settings table.twitter_accounts th#action {
+	max-width: 140px;
+}
+
 @media (min-width: 1024px) {
 	.autoshare-settings {
 		display: flex;
@@ -94,6 +102,11 @@
 	.autoshare-settings .brand {
 		display: block;
 	}
+
+}
+
+.autoshare-settings table.form-table tr th[scope="row"] {
+	min-width: 140px;
 }
 
 .autoshare-settings table.twitter_accounts th,

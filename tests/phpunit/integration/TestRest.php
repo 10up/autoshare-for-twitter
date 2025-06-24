@@ -117,7 +117,7 @@ class TestRest extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'enabled'       => true,
-				'message'       => 'Autoshare enabled.',
+				'message'       => 'Autopost to X/Twitter enabled.',
 				'override'      => true,
 				'allowImage'    => true,
 				'tweetAccounts' => [],

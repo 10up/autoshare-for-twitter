@@ -6,7 +6,7 @@ The following is a set of guidelines for contributors as well as information and
 
 ## Ways to contribute
 
-Contributing isn't just writing code - it's anything that improves the project. All contributions for AutoShare for Twitter are managed right here on GitHub. Here are some ways you can help:
+Contributing isn't just writing code - it's anything that improves the project. All contributions for Autopost for X are managed right here on GitHub. Here are some ways you can help:
 
 ### Reporting bugs
 
@@ -21,6 +21,10 @@ New features and enhancements are also managed via [issues](https://github.com/1
 Pull requests represent a proposed solution to a specified problem. They should always reference an issue that describes the problem and contains discussion about the problem itself. Discussion on pull requests should be limited to the pull request itself, i.e. code review.
 
 For more on how 10up writes and manages code, check out our [10up Engineering Best Practices](https://10up.github.io/Engineering-Best-Practices/).
+
+### Testing
+
+Helping to test an open source project and provide feedback on success or failure of those tests is also a helpful contribution.  You can find details on the Critical Flows and Test Cases in [this project's GitHub Wiki](https://github.com/10up/autoshare-for-twitter/wiki) as well as details on our overall approach to [Critical Flows and Test Cases in our Open Source Best Practices](https://10up.github.io/Open-Source-Best-Practices/testing/#critial-flows).  Submitting the results of testing via our Critical Flows as a comment on a Pull Request of a specific feature or as an Issue when testing the entire project is the best approach for providing testing results.
 
 ## Workflow
 

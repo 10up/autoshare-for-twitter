@@ -1,10 +1,14 @@
-describe('Twitter accounts should visible in Autotweet Panel and should respect Autoshare settings', () => {
+describe('X accounts should visible in Autotweet Panel and should respect Autoshare settings', () => {
 	before(() => {
 		cy.login();
 		cy.configurePlugin();
 	});
 
-	it('Can see Twitter accounts in Block editor', () => {
+	beforeEach(() => {
+		cy.login();
+	});
+
+	it('Can see X accounts in Block editor', () => {
 		//Block editor.
 		cy.enableEditor('block');
 		cy.startCreatePost();
