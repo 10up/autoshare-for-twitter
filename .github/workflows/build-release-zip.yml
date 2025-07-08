@@ -1,14 +1,14 @@
 name: Build release zip
 
-permissions:
-  contents: read
-
 on:
   workflow_dispatch:
   workflow_call:
   push:
    branches:
     - trunk
+
+permissions:
+  contents: read
 
 jobs:
   build:

@@ -1,8 +1,5 @@
 name: PHP Compatibility
 
-permissions:
-  contents: read
-
 on:
   push:
     branches:
@@ -13,6 +10,9 @@ on:
       - develop
     paths:
       - '**.php'
+
+permissions:
+  contents: read
 
 jobs:
   php_compatibility:

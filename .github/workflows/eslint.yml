@@ -1,6 +1,4 @@
 name: ESLint
-permissions:
-  contents: read
 
 on:
   push:
@@ -12,6 +10,9 @@ on:
       - develop
     paths: # Note: Update paths here will also require updating paths in ignore.eslint.yml.
       - '**.js'
+
+permissions:
+  contents: read
 
 jobs:
   eslint:

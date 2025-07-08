@@ -1,8 +1,5 @@
 name: PHPCS
 
-permissions:
-  contents: read
-
 on:
   push:
     branches:
@@ -13,6 +10,9 @@ on:
       - develop
     paths: # Note: Update paths here will also require updating paths in ignore.phpcs.yml.
       - '**.php'
+
+permissions:
+  contents: read
 
 jobs:
   phpcs:

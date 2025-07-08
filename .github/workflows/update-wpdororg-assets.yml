@@ -1,10 +1,13 @@
 name: Plugin asset/readme update
-permissions:
-  contents: read
+
 on:
   push:
     branches:
     - trunk
+
+permissions:
+  contents: read
+
 jobs:
   trunk:
     name: Push to trunk
