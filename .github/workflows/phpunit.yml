@@ -11,6 +11,9 @@ on:
     paths: # Note: Update paths here will also require updating paths in ignore.phpunit.yml.
       - '**.php'
 
+permissions:
+  contents: read
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
