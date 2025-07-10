@@ -1,7 +1,13 @@
 name: Deploy to WordPress.org
+
 on:
   release:
     types: [published]
+
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   tag:
     name: New release

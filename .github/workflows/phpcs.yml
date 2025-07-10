@@ -11,6 +11,9 @@ on:
     paths: # Note: Update paths here will also require updating paths in ignore.phpcs.yml.
       - '**.php'
 
+permissions:
+  contents: read
+
 jobs:
   phpcs:
     runs-on: ubuntu-latest
