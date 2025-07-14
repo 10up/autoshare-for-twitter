@@ -105,7 +105,11 @@ function TwitterAccount( props ) {
  * @return {JSX.Element} The account rate limits.
  */
 function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
-	if ( ! rateLimits || ! rateLimits.user_limit_24hour_limit ) {
+	if (
+		! rateLimits ||
+		! rateLimits.user_limit_24hour_limit ||
+		rateLimits?.user_limit_24hour_reset < Math.floor( Date.now() / 1000 )
+	) {
 		return (
 			<p>
 				{ __(
@@ -140,6 +144,14 @@ function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
  * @return {JSX.Element} The account rate limits.
  */
 function TwitterAppRateLimits( { rate_limits: rateLimits } ) {
+	if (
+		! rateLimits ||
+		! rateLimits.app_limit_24hour_limit ||
+		rateLimits?.app_limit_24hour_reset < Math.floor( Date.now() / 1000 )
+	) {
+		return null;
+	}
+
 	return (
 		<div className="autoshare-for-twitter-rate-monitor__app">
 			<TwitterRateLimits
@@ -172,10 +184,9 @@ function TwitterRateLimits( { title, remaining, limit, reset, tooltip } ) {
 	if ( reset && settings?.formats?.datetime ) {
 		formattedResetTime = dateI18n(
 			settings.formats.datetime,
-			reset * 1000,
-			'UTC'
+			reset * 1000
 		);
-		formattedResetTime = sprintf( '%1$s (UTC)', formattedResetTime );
+		formattedResetTime = sprintf( 'Resets on %1$s', formattedResetTime );
 	}
 
 	return (
@@ -186,7 +197,10 @@ function TwitterRateLimits( { title, remaining, limit, reset, tooltip } ) {
 				</Tooltip>{ ' ' }
 				{ sprintf(
 					/* translators: %1$s: Remaining, %2$s: Limit */
-					__( '%1$s of %2$s', 'autoshare-for-twitter' ),
+					__(
+						'%1$s of %2$s requests remaining',
+						'autoshare-for-twitter'
+					),
 					remaining ?? __( 'N/A', 'autoshare-for-twitter' ),
 					limit ?? __( 'N/A', 'autoshare-for-twitter' )
 				) }

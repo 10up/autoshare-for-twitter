@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.3.1] - 2025-07-14
+**Note that this version bumps the WordPress minimum supported version from 6.5 to 6.6.**
+
+### Changed
+- Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#367](https://github.com/10up/autoshare-for-twitter/pull/367), [#370](https://github.com/10up/autoshare-for-twitter/pull/370)).
+- Bump WordPress minimum supported version to 6.6 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@Sourabh208](https://github.com/Sourabh208), [@jeffpaul](https://github.com/jeffpaul) via [#359](https://github.com/10up/autoshare-for-twitter/pull/359), [#367](https://github.com/10up/autoshare-for-twitter/pull/367), [#370](https://github.com/10up/autoshare-for-twitter/pull/370)).
+- Make the API rate limit wording more clear (props [@jeckman](https://github.com/jeckman), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#365](https://github.com/10up/autoshare-for-twitter/pull/365)).
+
+### Fixed
+- Ensure that no rate limits are shown if the reset time has passed (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#356](https://github.com/10up/autoshare-for-twitter/pull/356)).
+
+### Security
+- Bump `@wordpress/scripts` from 27.9.0 to 30.10.0 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#359](https://github.com/10up/autoshare-for-twitter/pull/359)).
+- Bump `cookie` from 0.6.0 to 0.7.1, `express` from 4.21.0 to 4.21.2, `serialize-javascript` from 6.0.0 to 6.0.2 and `mocha` from 10.2.0 to 11.1.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#361](https://github.com/10up/autoshare-for-twitter/pull/361)).
+- Bump `http-proxy-middleware` from 2.0.6 to 2.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#369](https://github.com/10up/autoshare-for-twitter/pull/369)).
+- Bump `tar-fs` from 3.0.8 to 3.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#373](https://github.com/10up/autoshare-for-twitter/pull/373)).
+
+### Developer
+- Update all third-party actions our workflows rely on to use versions based on specific commit hashes (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#363](https://github.com/10up/autoshare-for-twitter/pull/363)).
+- Updated GitHub Action workflow permissions (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#375](https://github.com/10up/autoshare-for-twitter/pull/375)).
+
 ## [2.3.0] - 2025-02-05
 **Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
 
@@ -291,6 +312,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.3.1]: https://github.com/10up/autoshare-for-twitter/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/10up/autoshare-for-twitter/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/10up/autoshare-for-twitter/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/10up/autoshare-for-twitter/compare/2.1.1...2.2.0

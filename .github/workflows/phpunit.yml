@@ -11,6 +11,9 @@ on:
     paths: # Note: Update paths here will also require updating paths in ignore.phpunit.yml.
       - '**.php'
 
+permissions:
+  contents: read
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
@@ -29,9 +32,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
     - name: Set PHP version
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@9e72090525849c5e82e596468b86eb55e9cc5401 # v2.32.0
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: none

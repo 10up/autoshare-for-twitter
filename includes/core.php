@@ -429,8 +429,6 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 
 	$timestamp = (int) $timestamp;
 
-	$datetime = new \DateTime( '@' . $timestamp, new \DateTimeZone( 'UTC' ) );
-
 	if ( empty( $date_format ) ) {
 		$date_format = sprintf(
 			'%s %s',
@@ -438,11 +436,7 @@ function human_readable_time( $timestamp, $date_format = '' ) {
 			esc_html( get_option( 'time_format' ) )
 		);
 	}
-
-	$human_readable_time = $datetime->format( $date_format );
-	$human_readable_time = sprintf( '%s (UTC)', $human_readable_time );
-
-	return $human_readable_time;
+	return wp_date( $date_format, $timestamp );
 }
 
 /**
@@ -502,6 +496,13 @@ function get_app_rate_limits_markup( $rate_limits ) {
  * @return string
  */
 function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
+	// If reset time is less than current time, then rate limit is not available.
+	if ( $reset && $reset < time() ) {
+		return sprintf(
+			'<p>%s</p>',
+			esc_html__( 'No X rate limit available yet. Make a post to X first.', 'autoshare-for-twitter' )
+		);
+	}
 
 	$remaining = isset( $remaining ) ? (int) $remaining : esc_html__( 'N/A', 'autoshare-for-twitter' );
 	$limit     = isset( $limit ) ? (int) $limit : esc_html__( 'N/A', 'autoshare-for-twitter' );
@@ -515,7 +516,7 @@ function get_rate_limits_markup( $title, $remaining, $limit, $reset ) {
 		esc_html( $title ),
 		sprintf(
 			/* translators: %1$s: Remaining, %2$s: Limit */
-			esc_html__( '%1$s of %2$s', 'autoshare-for-twitter' ),
+			esc_html__( '%1$s of %2$s requests remaining', 'autoshare-for-twitter' ),
 			esc_html( $remaining ),
 			esc_html( $limit )
 		),
