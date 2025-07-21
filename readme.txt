@@ -3,7 +3,7 @@ Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, je
 Tags:              twitter, tweet, share, social media, posse
 Requires at least: 6.6
 Tested up to:      6.8
-Stable tag:        2.3.0
+Stable tag:        2.3.1
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -110,6 +110,18 @@ To avoid encountering this error in the future and to have higher usage limits, 
 
 == Changelog ==
 
+= 2.3.1 - 2025-07-14 =
+**Note that this version bumps the WordPress minimum supported version from 6.5 to 6.6.**
+
+* **Changed:** Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#367](https://github.com/10up/autoshare-for-twitter/pull/367), [#370](https://github.com/10up/autoshare-for-twitter/pull/370)).
+* **Changed:** Bump WordPress minimum supported version to 6.6 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@Sourabh208](https://github.com/Sourabh208), [@jeffpaul](https://github.com/jeffpaul) via [#359](https://github.com/10up/autoshare-for-twitter/pull/359), [#367](https://github.com/10up/autoshare-for-twitter/pull/367), [#370](https://github.com/10up/autoshare-for-twitter/pull/370)).
+* **Changed:** Make the API rate limit wording more clear (props [@jeckman](https://github.com/jeckman), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#365](https://github.com/10up/autoshare-for-twitter/pull/365)).
+* **Fixed:** Ensure that no rate limits are shown if the reset time has passed (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#356](https://github.com/10up/autoshare-for-twitter/pull/356)).
+* **Security:** Bump `@wordpress/scripts` from 27.9.0 to 30.10.0 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#359](https://github.com/10up/autoshare-for-twitter/pull/359)).
+* **Security:** Bump `cookie` from 0.6.0 to 0.7.1, `express` from 4.21.0 to 4.21.2, `serialize-javascript` from 6.0.0 to 6.0.2 and `mocha` from 10.2.0 to 11.1.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#361](https://github.com/10up/autoshare-for-twitter/pull/361)).
+* **Security:** Bump `http-proxy-middleware` from 2.0.6 to 2.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#369](https://github.com/10up/autoshare-for-twitter/pull/369)).
+* **Security:** Bump `tar-fs` from 3.0.8 to 3.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#373](https://github.com/10up/autoshare-for-twitter/pull/373)).
+
 = 2.3.0 - 2025-02-05 =
 **Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
 
@@ -131,26 +143,12 @@ To avoid encountering this error in the future and to have higher usage limits, 
 * **Security:** Bump `ip` from 1.1.8 to 1.1.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
 * **Security:** Bump `webpack-dev-middleware` from 5.3.3 to 5.3.4 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
 
-= 2.0.0 - 2023-01-04 =
-**Autoshare for Twitter rebranded / renamed to Autopost for X.**
-* **Changed:** Updated repo automator workflow (props [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#273](https://github.com/10up/autoshare-for-twitter/pull/273)).
-* **Changed:** Bump `Cypress` version from 11.2.0 to 13.0.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
-* **Changed:** Bump `@10up/cypress-wp-utils` version from 0.1.0 to 0.2.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
-* **Changed:** Bump `@wordpress/env` version from 5.7.0 to 8.6.0 (props [@iamdharmesh](https://github.com/iamdharmesh), [@Sidsector9](https://github.com/Sidsector9) via [#281](https://github.com/10up/autoshare-for-twitter/pull/281)).
-* **Changed:** Replaced the custom build process with WP-Scripts (props [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc), [@ravinderk](https://github.com/ravinderk) via [#282](https://github.com/10up/autoshare-for-twitter/pull/282)).
-* **Changed:** Disabled auto-sync for pull requests with the target branch (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#291](https://github.com/10up/autoshare-for-twitter/pull/291)).
-* **Changed:** Bump WordPress "tested up to" version 6.4 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@jeffpaul](https://github.com/jeffpaul) via [#292](https://github.com/10up/autoshare-for-twitter/pull/292)).
-* **Changed:** Renamed plugin from "Autoshare for Twitter" to "Autopost for X (formerly Autoshare for Twitter)" (props [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh), [Morgan Hartnett](https://www.morganhartnett.com/) via [#293](https://github.com/10up/autoshare-for-twitter/pull/293)).
-* **Fixed:** Resolved the issue with Twitter accounts' visibility in the classic editor (props [@iamdharmesh](https://github.com/iamdharmesh), [@ravinderk](https://github.com/ravinderk) via [#277](https://github.com/10up/autoshare-for-twitter/pull/277)).
-* **Fixed:** Fixed bugs related to calculating tweet length (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#288](https://github.com/10up/autoshare-for-twitter/pull/288)).
-* **Fixed:** Addressed auto-posting tweets for automatically published posts (props [@iamdharmesh](https://github.com/iamdharmesh), [@sunnmagic](https://github.com/sunnmagic), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#294](https://github.com/10up/autoshare-for-twitter/pull/294)).
-* **Fixed:** Fixed deprecation warning regarding implicit float-to-int conversion in PHP 8.2 (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#301](https://github.com/10up/autoshare-for-twitter/pull/301)).
-* **Security:** Bump `@babel/traverse` from 7.22.17 to 7.23.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#289](https://github.com/10up/autoshare-for-twitter/pull/289)).
-* **Security:** Bump `@wordpress/scripts`` from 26.12.0 to 26.19.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#298](https://github.com/10up/autoshare-for-twitter/pull/298)).
-
 Further changelog entries can be found in the [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/trunk/CHANGELOG.md) file.
 
 == Upgrade Notice ==
+
+= 2.3.1 =
+This release bumps the WordPress minimum from 6.5 to 6.6.
 
 = 2.3.0 =
 This release bumps the WordPress minimum from 5.7 to 6.5.
