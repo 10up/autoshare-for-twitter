@@ -1,0 +1,23 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "\/wp-admin\/admin.php?page=autoshare-for-twitter",
+	"preferredVersions": {
+		"php": "7.4",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "login"
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org\/plugins",
+				"slug": "autoshare-for-twitter"
+			},
+			"options": {
+				"activate": true
+			}
+		}
+	]
+}
