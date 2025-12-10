@@ -9,6 +9,10 @@ on:
     branches:
       - develop
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   build:
     uses: 10up/autoshare-for-twitter/.github/workflows/build-release-zip.yml@develop

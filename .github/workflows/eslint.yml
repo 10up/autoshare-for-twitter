@@ -11,6 +11,9 @@ on:
     paths: # Note: Update paths here will also require updating paths in ignore.eslint.yml.
       - '**.js'
 
+permissions:
+  contents: read
+
 jobs:
   eslint:
     runs-on: ubuntu-latest
