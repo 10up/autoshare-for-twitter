@@ -84,7 +84,7 @@ function enable_autoshare_by_default_for_core_post_type( $enabled, $post_type ) 
 add_filter( 'autoshare_for_twitter_enabled_default', 'enable_autoshare_by_default_for_core_post_type', 10, 2 );
 ```
 
-## FAQs
+## Frequently Asked Questions
 
 ### Does this plugin work with Gutenberg?
 
@@ -110,6 +110,10 @@ There are a few potential reasons for this error:
 If you're seeing the error message "429: Too Many Requests" it indicates that you have exceeded the usage limits of X/Twitter's Free API access. With the Free API, you are allowed **500 requests per month** and **17 requests within a 24-hour period**. Please note that these limits were accurate at the time of writing and may have been updated. For the most up-to-date information, please refer to the X API [documentation](https://developer.x.com/en/docs/x-api/rate-limits). Since you have surpassed the daily limit, we kindly advise waiting for 24 hours before attempting to post again.
 
 To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.x.com/en/products/x-api.
+
+### Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Autoshare for Twitter plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fba6a-26c2-4dd7-a2ae-b8628c65835e).  The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 ## Support Level
 
