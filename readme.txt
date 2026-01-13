@@ -101,6 +101,10 @@ If you're seeing the error message "429: Too Many Requests" it indicates that yo
 
 To avoid encountering this error in the future and to have higher usage limits, we recommend considering a subscription to either the Basic or Pro access level. These access levels provide increased quotas and additional benefits to accommodate your needs. For more information on X/Twitter API access levels, you can visit this link: https://developer.x.com/en/products/x-api.
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Autoshare for Twitter plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fba6a-26c2-4dd7-a2ae-b8628c65835e).  The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Screenshots ==
 
 1. Create post screen with Autopost for X/Twitter options.
