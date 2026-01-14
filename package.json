@@ -38,10 +38,9 @@
 	},
 	"homepage": "https://github.com/10up/autoshare#readme",
 	"devDependencies": {
-		"@10up/cypress-wp-utils": "^0.2.0",
-		"@wordpress/env": "^10.27.0",
-		"@wordpress/scripts": "^30.12.0",
-		"cypress": "^13.0.0",
+		"@10up/cypress-wp-utils": "^0.6.0",
+		"@wordpress/env": "^10.37.0",
+		"@wordpress/scripts": "^31.2.0",
 		"cypress-mochawesome-reporter": "^3.5.1",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
