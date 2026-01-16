@@ -101,6 +101,11 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );
 
+	// Ensure the user has edit permissions on the post.
+	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+		return false;
+	}
+
 	/*
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
