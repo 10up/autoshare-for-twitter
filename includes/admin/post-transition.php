@@ -194,11 +194,24 @@ function publish_tweet( $post_id, $force = false ) {
  * Handles Re-tweeting.
  */
 function retweet() {
+	// Ensure the nonce is valid.
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wp_rest' ) ) {
 		wp_send_json_error( __( 'Nonce verification failed.', 'autoshare-for-twitter' ) );
 	}
 
-	$post_id      = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+	// Ensure we have a post ID.
+	$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+
+	if ( 0 === $post_id ) {
+		wp_send_json_error( __( 'Invalid post ID.', 'autoshare-for-twitter' ) );
+	}
+
+	// Ensure the user has edit permissions on the post.
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_send_json_error( __( 'You do not have permission to retweet this post.', 'autoshare-for-twitter' ) );
+	}
+
+	// Publish the tweet.
 	$is_retweeted = publish_tweet( $post_id, true );
 
 	// Send status logs markup for classic editor.
