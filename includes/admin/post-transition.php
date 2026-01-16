@@ -101,6 +101,11 @@ function maybe_publish_tweet( $new_status, $old_status, $post ) {
 function publish_tweet( $post_id, $force = false ) {
 	$post = get_post( $post_id );
 
+	// Ensure we have a valid $post object.
+	if ( ! $post ) {
+		return false;
+	}
+
 	// Ensure the user has edit permissions on the post.
 	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
 		return false;
@@ -115,11 +120,6 @@ function publish_tweet( $post_id, $force = false ) {
 
 	// Don't publish tweets from staging/testing sites.
 	if ( ! AST_Staging::is_production_site() ) {
-		return false;
-	}
-
-	// Ensure we have a $post object.
-	if ( ! $post ) {
 		return false;
 	}
 
