@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.3.2] - 2026-01-29
 **Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
 
+### Security
+
+- Fix access control issue for retweeting (props [@nblirwn](https://github.com/nblirwn), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-9j39-fp7c-5453](https://github.com/10up/autoshare-for-twitter/security/advisories/GHSA-9j39-fp7c-5453)).
+
 ### Added
 - Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#297](https://github.com/10up/autoshare-for-twitter/pull/297)).
 

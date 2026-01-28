@@ -117,6 +117,7 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 = 2.3.2 - 2026-01-29 =
 **Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
 
+* **Security:** Fix access control issue for retweeting (props [@nblirwn](https://github.com/nblirwn), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-9j39-fp7c-5453](https://github.com/10up/autoshare-for-twitter/security/advisories/GHSA-9j39-fp7c-5453)).
 * **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#297](https://github.com/10up/autoshare-for-twitter/pull/297)).
 * **Changed:** Bumped WordPress "tested up to" version 6.9 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#390](https://github.com/10up/autoshare-for-twitter/pull/390)).
 * **Changed:** Bumped WordPress minimum supported version from 6.6 to 6.8 (props [@jeffpaul](https://github.com/jeffpaul) via [#397](https://github.com/10up/autoshare-for-twitter/pull/397)).
@@ -153,7 +154,7 @@ Further changelog entries can be found in the [CHANGELOG.md](https://github.com/
 == Upgrade Notice ==
 
 = 2.3.2 =
-This release bumps the WordPress minimum from 6.6 to 6.8.
+Security release: this patches an access control issue with retweets. Please upgrade promptly. This release bumps the WordPress minimum from 6.6 to 6.8.
 
 = 2.3.1 =
 This release bumps the WordPress minimum from 6.5 to 6.6.
