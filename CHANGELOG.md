@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - Bumped WordPress "tested up to" version 6.9 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#390](https://github.com/10up/autoshare-for-twitter/pull/390)).
+- Bumped WordPress minimum supported version from 6.6 to 6.8 (props [@jeffpaul](https://github.com/jeffpaul) via [#397](https://github.com/10up/autoshare-for-twitter/pull/397)).
 - Updated npm dependencies via `npm audit fix` (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
 
 ### Fixed

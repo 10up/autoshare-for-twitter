@@ -33,7 +33,7 @@ With Autopost for X, developers can further customize nearly everything about th
 ## Requirements
 
 - PHP 7.4+
-- [WordPress](http://wordpress.org) 6.6+
+- [WordPress](http://wordpress.org) 6.8+
 
 ## Installation
 

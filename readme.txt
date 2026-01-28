@@ -1,7 +1,7 @@
 === Autopost for X (formerly Autoshare for Twitter) ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, share, social media, posse
-Requires at least: 6.6
+Requires at least: 6.8
 Tested up to:      6.9
 Stable tag:        2.3.2
 License:           GPL-2.0-or-later
@@ -119,6 +119,7 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 
 * **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#297](https://github.com/10up/autoshare-for-twitter/pull/297)).
 * **Changed:** Bumped WordPress "tested up to" version 6.9 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#390](https://github.com/10up/autoshare-for-twitter/pull/390)).
+* **Changed:** Bumped WordPress minimum supported version from 6.6 to 6.8 (props [@jeffpaul](https://github.com/jeffpaul) via [#397](https://github.com/10up/autoshare-for-twitter/pull/397)).
 * **Changed:** Updated npm dependencies via `npm audit fix` (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
 * **Fixed:** Clear tweet text field only after post publish completes in block editor (props [@chandrapatel](https://github.com/chandrapatel), [@iamdharmesh](https://github.com/iamdharmesh) via [#378](https://github.com/10up/autoshare-for-twitter/pull/378)).
 
