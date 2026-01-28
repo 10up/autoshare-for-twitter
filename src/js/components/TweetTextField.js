@@ -2,7 +2,7 @@ import { TextareaControl, Tooltip } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { useTweetText } from '../hooks';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 
 const { siteUrl, isLocalSite, twitterURLLength } = adminAutoshareForTwitter;
 
@@ -66,20 +66,30 @@ export function TweetTextField() {
 	const [ tweetText, setTweetText ] = useTweetText();
 	const { tweetLength, overrideLengthClass } = getTweetLength();
 
-	const status = useSelect( ( __select ) =>
-		__select( 'core/editor' ).getEditedPostAttribute( 'status' )
+	const isPublishing = useSelect( ( select ) =>
+		select( 'core/editor' ).isPublishingPost()
 	);
-	const [ isPublished, setIsPublished ] = useState( status === 'publish' );
+	const isPublished = useSelect(
+		( select ) =>
+			select( 'core/editor' ).getEditedPostAttribute( 'status' ) ===
+			'publish'
+	);
+
+	// useRef is used here to keep track of the previous value of isPublishing across renders.
+	// This allows us to detect the exact moment when publishing transitions from true to false (i.e., when the publish request completes),
+	// so we can clear the tweet text only after the post has actually been published.
+	const wasPublishing = useRef( isPublishing );
 
 	useEffect( () => {
-		if ( 'publish' !== status || isPublished ) {
-			return;
+		// Only run when post is published.
+		if ( wasPublishing.current && ! isPublishing && isPublished ) {
+			setTweetText( '' );
 		}
 
-		setTweetText( '' );
-		setIsPublished( true );
+		wasPublishing.current = isPublishing;
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ status, isPublished ] );
+	}, [ isPublishing, isPublished ] );
 
 	const CounterTooltip = () => (
 		<Tooltip

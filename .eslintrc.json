@@ -7,5 +7,19 @@
 		"fetch": "readonly",
 		"ajaxurl": "readonly"
 	},
+	"settings": {
+		"import/core-modules": [
+			"@wordpress/api-fetch",
+			"@wordpress/components",
+			"@wordpress/compose",
+			"@wordpress/data",
+			"@wordpress/date",
+			"@wordpress/edit-post",
+			"@wordpress/element",
+			"@wordpress/i18n",
+			"@wordpress/plugins",
+			"@wordpress/primitives"
+		]
+	},
 	"extends": "plugin:@wordpress/eslint-plugin/recommended"
 }
