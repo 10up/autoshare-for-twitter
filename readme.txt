@@ -1,9 +1,9 @@
 === Autopost for X (formerly Autoshare for Twitter) ===
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, share, social media, posse
-Requires at least: 6.6
+Requires at least: 6.8
 Tested up to:      6.9
-Stable tag:        2.3.1
+Stable tag:        2.3.2
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -114,6 +114,16 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 
 == Changelog ==
 
+= 2.3.2 - 2026-01-29 =
+**Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
+
+* **Security:** Fix access control issue for retweeting (props [@nblirwn](https://github.com/nblirwn), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-9j39-fp7c-5453](https://github.com/10up/autoshare-for-twitter/security/advisories/GHSA-9j39-fp7c-5453)).
+* **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#297](https://github.com/10up/autoshare-for-twitter/pull/297)).
+* **Changed:** Bumped WordPress "tested up to" version 6.9 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#390](https://github.com/10up/autoshare-for-twitter/pull/390)).
+* **Changed:** Bumped WordPress minimum supported version from 6.6 to 6.8 (props [@jeffpaul](https://github.com/jeffpaul) via [#397](https://github.com/10up/autoshare-for-twitter/pull/397)).
+* **Changed:** Updated npm dependencies via `npm audit fix` (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
+* **Fixed:** Clear tweet text field only after post publish completes in block editor (props [@chandrapatel](https://github.com/chandrapatel), [@iamdharmesh](https://github.com/iamdharmesh) via [#378](https://github.com/10up/autoshare-for-twitter/pull/378)).
+
 = 2.3.1 - 2025-07-14 =
 **Note that this version bumps the WordPress minimum supported version from 6.5 to 6.6.**
 
@@ -139,17 +149,12 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 * **Security:** Bump `webpack` from 5.90.0 to 5.94.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#339](https://github.com/10up/autoshare-for-twitter/pull/339)).
 * **Security:** Bump `ws` from 7.5.10 to 8.18.0, `serve-static` from 1.15.0 to 1.16.2 and `express` from 4.19.2 to 4.21.0 (props [@dependabot](https://github.com/apps/dependabot), [@Sidsector9](https://github.com/Sidsector9) via [#343](https://github.com/10up/autoshare-for-twitter/pull/343)).
 
-= 2.2.1 - 2024-07-08 =
-* **Changed:** Bump WordPress "tested up to" version 6.5 (props [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul) via [#319](https://github.com/10up/autoshare-for-twitter/pull/319)).
-* **Fixed:** Ampersands no longer converted to HTML entities when adding query parameters to the post URL with the `autoshare_for_twitter_post_url` filter (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@iamdharmesh](https://github.com/iamdharmesh) via [#324](https://github.com/10up/autoshare-for-twitter/pull/324)).
-* **Security:** Bump `express` from 4.18.2 to 4.19.2 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
-* **Security:** Bump `follow-redirects` from 1.15.5 to 1.15.6 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
-* **Security:** Bump `ip` from 1.1.8 to 1.1.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
-* **Security:** Bump `webpack-dev-middleware` from 5.3.3 to 5.3.4 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#321](https://github.com/10up/autoshare-for-twitter/pull/321)).
-
 Further changelog entries can be found in the [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/trunk/CHANGELOG.md) file.
 
 == Upgrade Notice ==
+
+= 2.3.2 =
+Security release: this patches an access control issue with retweets. Please upgrade promptly. This release bumps the WordPress minimum from 6.6 to 6.8.
 
 = 2.3.1 =
 This release bumps the WordPress minimum from 6.5 to 6.6.

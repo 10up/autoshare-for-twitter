@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.3.2] - 2026-01-29
+**Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
+
+### Security
+
+- Fix access control issue for retweeting (props [@nblirwn](https://github.com/nblirwn), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-9j39-fp7c-5453](https://github.com/10up/autoshare-for-twitter/security/advisories/GHSA-9j39-fp7c-5453)).
+
+### Added
+- Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#297](https://github.com/10up/autoshare-for-twitter/pull/297)).
+
+### Changed
+- Bumped WordPress "tested up to" version 6.9 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#390](https://github.com/10up/autoshare-for-twitter/pull/390)).
+- Bumped WordPress minimum supported version from 6.6 to 6.8 (props [@jeffpaul](https://github.com/jeffpaul) via [#397](https://github.com/10up/autoshare-for-twitter/pull/397)).
+- Updated npm dependencies via `npm audit fix` (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
+
+### Fixed
+- Clear tweet text field only after post publish completes in block editor (props [@chandrapatel](https://github.com/chandrapatel), [@iamdharmesh](https://github.com/iamdharmesh) via [#378](https://github.com/10up/autoshare-for-twitter/pull/378)).
+
+### Developer
+- Add Patchstack security-reporting FAQ (props [@jeffpaul](https://github.com/jeffpaul) via [#391](https://github.com/10up/autoshare-for-twitter/pull/391)).
+- Bumped `bytes` from 3.0.0 to 3.1.2 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#379](https://github.com/10up/autoshare-for-twitter/pull/379)).
+- Bumped `compression` from 1.7.4 to 1.8.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#379](https://github.com/10up/autoshare-for-twitter/pull/379)).
+- Bumped `on-headers` from 1.0.2 to 1.1.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#379](https://github.com/10up/autoshare-for-twitter/pull/379)).
+- Set `negotiator` to version 0.6.4 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#379](https://github.com/10up/autoshare-for-twitter/pull/379)).
+- Bumped `safe-buffer` from 5.1.2 to 5.2.1 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#379](https://github.com/10up/autoshare-for-twitter/pull/379)).
+- Bumped `form-data` from 4.0.0 to 4.0.4 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#381](https://github.com/10up/autoshare-for-twitter/pull/381)).
+- Bumped `@cypress/request` from 3.0.1 to 3.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#381](https://github.com/10up/autoshare-for-twitter/pull/381)).
+- Bumped `tmp` from 0.2.1 to 0.2.4 (props [@dependabot](https://github.com/apps/dependabot), [@Sidsector9](https://github.com/Sidsector9) via [#382](https://github.com/10up/autoshare-for-twitter/pull/382)).
+- Bumped `@wordpress/env` from 9.2.0 to 10.37.0 (props [@dependabot](https://github.com/apps/dependabot), [@Sidsector9](https://github.com/Sidsector9), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#382](https://github.com/10up/autoshare-for-twitter/pull/382), [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
+- Bumped `@wordpress/scripts` from 30.12.0 to 31.2.0 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
+- Bumped `@10up/cypress-wp-utils` from from 0.2.0 to 0.6.0 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#392](https://github.com/10up/autoshare-for-twitter/pull/392)).
+- Bumped `lodash` from 4.17.21 to 4.17.23 (props [@dependabot](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#394](https://github.com/10up/autoshare-for-twitter/pull/394)).
+- Bumped `lodash-es` from 4.17.22 to 4.17.23 (props [@dependabot](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#395](https://github.com/10up/autoshare-for-twitter/pull/395)).
+
 ## [2.3.1] - 2025-07-14
 **Note that this version bumps the WordPress minimum supported version from 6.5 to 6.6.**
 
@@ -312,6 +346,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.3.2]: https://github.com/10up/autoshare-for-twitter/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/10up/autoshare-for-twitter/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/10up/autoshare-for-twitter/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/10up/autoshare-for-twitter/compare/2.2.0...2.2.1
