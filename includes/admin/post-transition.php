@@ -106,11 +106,6 @@ function publish_tweet( $post_id, $force = false ) {
 		return false;
 	}
 
-	// Ensure the user has edit permissions on the post.
-	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-		return false;
-	}
-
 	/*
 	 * Don't bother enqueuing assets if the post type hasn't opted into autosharing
 	 */
