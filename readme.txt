@@ -114,6 +114,9 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 
 == Changelog ==
 
+= 2.3.3 - 2026-02-02 =
+* **Fixed:** Bug preventing the autosharing of posts from working on scheduled posts (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#399](https://github.com/10up/autoshare-for-twitter/pull/399)).
+
 = 2.3.2 - 2026-01-29 =
 **Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
 
