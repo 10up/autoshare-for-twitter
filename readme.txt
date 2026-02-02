@@ -3,7 +3,7 @@ Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, je
 Tags:              twitter, tweet, share, social media, posse
 Requires at least: 6.8
 Tested up to:      6.9
-Stable tag:        2.3.2
+Stable tag:        2.3.3
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
