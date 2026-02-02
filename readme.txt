@@ -3,7 +3,7 @@ Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, je
 Tags:              twitter, tweet, share, social media, posse
 Requires at least: 6.8
 Tested up to:      6.9
-Stable tag:        2.3.2
+Stable tag:        2.3.3
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -113,6 +113,9 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 4. Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X/Twitter`.
 
 == Changelog ==
+
+= 2.3.3 - 2026-02-02 =
+* **Fixed:** Bug preventing the autosharing of posts from working on scheduled posts (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#399](https://github.com/10up/autoshare-for-twitter/pull/399)).
 
 = 2.3.2 - 2026-01-29 =
 **Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
