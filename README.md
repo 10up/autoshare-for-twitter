@@ -30,6 +30,12 @@ With Autopost for X, developers can further customize nearly everything about th
 
 [![Autopost for X/Twitter Settings, found under `Settings` > `Autopost for X/Twitter`.](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png)
 
+## Paid API Access
+
+In early 2026, X effectively [removed free API access](https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476) for all users except public utilities.
+
+Most users will now require paid API access via the [X Developer Console](https://console.x.com/).
+
 ## Requirements
 
 - PHP 7.4+

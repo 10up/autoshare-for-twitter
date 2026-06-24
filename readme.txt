@@ -25,6 +25,12 @@ With Autopost for X, developers can further customize nearly everything about th
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
 
+== Paid API Access ==
+
+In early 2026, X effectively [removed free API access](https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476) for all users except public utilities.
+
+Most users will now require paid API access via the [X Developer Console](https://console.x.com/).
+
 == Installation ==
 1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
 2. Activate the plugin.
