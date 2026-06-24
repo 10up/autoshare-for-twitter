@@ -2,7 +2,7 @@
 Contributors:      10up, johnwatkins0, adamsilverstein, scottlee, dinhtungdu, jeffpaul, dharm1025
 Tags:              twitter, tweet, share, social media, posse
 Requires at least: 6.8
-Tested up to:      6.9
+Tested up to:      7.0
 Stable tag:        2.3.3
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
@@ -24,6 +24,12 @@ With Autopost for X, developers can further customize nearly everything about th
 * Adds a link to the post to X/Twitter in the block editor sidebar.
 
 **Disclaimer:** *TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.*
+
+== Paid API Access ==
+
+In early 2026, X effectively [removed free API access](https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476) for all users except public utilities.
+
+Most users will now require paid API access via the [X Developer Console](https://console.x.com/).
 
 == Installation ==
 1. Install the plugin via the plugin installer, either by searching for it or uploading a .ZIP file.
