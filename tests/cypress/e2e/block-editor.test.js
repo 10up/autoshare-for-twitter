@@ -42,7 +42,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 			// Open pre-publish Panel.
 			cy.openPrePublishPanel();
-			
+
 			// Check enable checkbox for auto-share.
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
 
@@ -162,20 +162,20 @@ describe('Test Autopost for X with Block Editor.', () => {
 		it('Tweet Now should work fine', () => {
 			// Start create new post by enter post title
 			cy.startCreatePost();
-	
+
 			// Open pre-publish Panel.
 			cy.openPrePublishPanel();
-	
+
 			// Check enable checkbox for auto-share.
 			cy.enableCheckbox('.autoshare-for-twitter-toggle-control input:checkbox', defaultBehavior, false);
-	
+
 			// Publish
 			cy.publishPost();
-	
+
 			// Post-publish.
 			cy.get('.autoshare-for-twitter-post-status').should('be.visible');
 			cy.get('.autoshare-for-twitter-post-status').contains('This post has not been posted to X/Twitter.');
-	
+
 			cy.get('.editor-post-publish-panel button[aria-label="Close panel"]').click();
 			cy.openAutoTweetPanel();
 			cy.get('.autoshare-for-twitter-editor-panel button.autoshare-for-twitter-tweet-now').click();
@@ -202,6 +202,7 @@ describe('Test Autopost for X with Block Editor.', () => {
 
 		// Verify custom tweet message.
 		cy.reload();
+		cy.openAutoTweetPanel();
 		cy.get('.autoshare-for-twitter-tweet-text textarea').should('have.value', customTweetBody);
 
 		// Open pre-publish Panel.
