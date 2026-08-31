@@ -39,7 +39,7 @@ Most users will now require paid API access via the [X Developer Console](https:
 ## Requirements
 
 - PHP 7.4+
-- [WordPress](http://wordpress.org) 6.8+
+- [WordPress](http://wordpress.org) 6.9+
 
 ## Installation
 
