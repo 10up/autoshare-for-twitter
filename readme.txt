@@ -121,17 +121,24 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 == Changelog ==
 
 = 2.3.4 - 2026-09-01 =
+
 **Note that this version bumps the WordPress minimum supported version from 6.8 to 6.9.**
 
-* **Added:** Notice to readme files regarding X's removal of free API access (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
-* **Changed:** Bump WordPress minimum supported version to 6.9 (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
-* **Changed:** Bump "tested up to header" to indicate WordPress 7.1 support (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
-* **Changed:** Bump "tested up to header" to indicate WordPress 7.0 support (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+**Added** 
+
+- Notice to readme files regarding X's removal of free API access (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+
+**Changed**
+
+- Bump WordPress minimum supported version to 6.9 (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
+- Bump WordPress tested-up-to version 7.1 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@phpbits](https://github.com/phpbits), via [#426](https://github.com/10up/autoshare-for-twitter/pull/426), [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
 
 = 2.3.3 - 2026-02-02 =
+
 * **Fixed:** Bug preventing the autosharing of posts from working on scheduled posts (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#399](https://github.com/10up/autoshare-for-twitter/pull/399)).
 
 = 2.3.2 - 2026-01-29 =
+
 **Note that this version bumps the WordPress minimum supported version from 6.6 to 6.8.**
 
 * **Security:** Fix access control issue for retweeting (props [@nblirwn](https://github.com/nblirwn), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-9j39-fp7c-5453](https://github.com/10up/autoshare-for-twitter/security/advisories/GHSA-9j39-fp7c-5453)).
@@ -142,6 +149,7 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 * **Fixed:** Clear tweet text field only after post publish completes in block editor (props [@chandrapatel](https://github.com/chandrapatel), [@iamdharmesh](https://github.com/iamdharmesh) via [#378](https://github.com/10up/autoshare-for-twitter/pull/378)).
 
 = 2.3.1 - 2025-07-14 =
+
 **Note that this version bumps the WordPress minimum supported version from 6.5 to 6.6.**
 
 * **Changed:** Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#367](https://github.com/10up/autoshare-for-twitter/pull/367), [#370](https://github.com/10up/autoshare-for-twitter/pull/370)).
