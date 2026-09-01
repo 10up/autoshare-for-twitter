@@ -120,6 +120,14 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 
 == Changelog ==
 
+= 2.3.4 - 2026-09-01 =
+**Note that this version bumps the WordPress minimum supported version from 6.8 to 6.9.**
+
+* **Added:** Notice to readme files regarding X's removal of free API access (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+* **Changed:** Bump WordPress minimum supported version to 6.9 (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
+* **Changed:** Bump "tested up to header" to indicate WordPress 7.1 support (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
+* **Changed:** Bump "tested up to header" to indicate WordPress 7.0 support (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+
 = 2.3.3 - 2026-02-02 =
 * **Fixed:** Bug preventing the autosharing of posts from working on scheduled posts (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#399](https://github.com/10up/autoshare-for-twitter/pull/399)).
 
@@ -145,22 +153,12 @@ Please report security bugs found in the source code of the Autoshare for Twitte
 * **Security:** Bump `http-proxy-middleware` from 2.0.6 to 2.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#369](https://github.com/10up/autoshare-for-twitter/pull/369)).
 * **Security:** Bump `tar-fs` from 3.0.8 to 3.0.9 (props [@dependabot](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#373](https://github.com/10up/autoshare-for-twitter/pull/373)).
 
-= 2.3.0 - 2025-02-05 =
-**Note that this version bumps the WordPress minimum supported version from 5.7 to 6.5.**
-
-* **Added:** Expose the X headers to the `autoshare_for_twitter_after_status_update` hook (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#353](https://github.com/10up/autoshare-for-twitter/pull/353)).
-* **Added:** Admin dashboard widget for easy access to API usage statistics (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#354](https://github.com/10up/autoshare-for-twitter/pull/354)).
-* **Changed:** Display API usage statistics in the "Autopost to X/Twitter" block editor panel (props [@s3rgiosan](https://github.com/s3rgiosan), [@iamdharmesh](https://github.com/iamdharmesh) via [#354](https://github.com/10up/autoshare-for-twitter/pull/354)).
-* **Changed:** Bump WordPress "tested up to" version 6.7 (props [@sudip-md](https://github.com/sudip-md), [@dkotter](https://github.com/dkotter), [@thrijith](https://github.com/thrijith), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#335](https://github.com/10up/autoshare-for-twitter/pull/335), [#347](https://github.com/10up/autoshare-for-twitter/pull/347), [#348](https://github.com/10up/autoshare-for-twitter/pull/348)).
-* **Changed:** Bump WordPress minimum from 5.7 to 6.5 (props [@thrijith](https://github.com/thrijith), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#347](https://github.com/10up/autoshare-for-twitter/pull/347), [#348](https://github.com/10up/autoshare-for-twitter/pull/348)).
-* **Security:** Bump `braces` from 3.0.2 to 3.0.3, `pac-resolver` from 7.0.0 to 7.0.1, `socks` from 2.7.1 to 2.8.3, `ws` from 7.5.9 to 7.5.10 and removes `ip` (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#327](https://github.com/10up/autoshare-for-twitter/pull/327)).
-* **Security:** Bump `axios` from 1.6.7 to 1.7.4 (props [@dependabot](https://github.com/apps/dependabot), [@faisal-alvi](https://github.com/faisal-alvi), [@dkotter](https://github.com/dkotter) via [#336](https://github.com/10up/autoshare-for-twitter/pull/336), [#337](https://github.com/10up/autoshare-for-twitter/pull/337)).
-* **Security:** Bump `webpack` from 5.90.0 to 5.94.0 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#339](https://github.com/10up/autoshare-for-twitter/pull/339)).
-* **Security:** Bump `ws` from 7.5.10 to 8.18.0, `serve-static` from 1.15.0 to 1.16.2 and `express` from 4.19.2 to 4.21.0 (props [@dependabot](https://github.com/apps/dependabot), [@Sidsector9](https://github.com/Sidsector9) via [#343](https://github.com/10up/autoshare-for-twitter/pull/343)).
-
 Further changelog entries can be found in the [CHANGELOG.md](https://github.com/10up/autoshare-for-twitter/blob/trunk/CHANGELOG.md) file.
 
 == Upgrade Notice ==
+
+= 2.3.4 =
+This release bumps the WordPress minimum from 6.5 to 6.6.
 
 = 2.3.2 =
 Security release: this patches an access control issue with retweets. Please upgrade promptly. This release bumps the WordPress minimum from 6.6 to 6.8.

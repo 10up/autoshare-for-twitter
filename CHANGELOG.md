@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased] - TBD
 
+## [2.3.4] - 2026-09-01
+**Note that this version bumps the WordPress minimum supported version from 6.8 to 6.9.**
+
+### Added
+- Notice to readme files regarding X's removal of free API access (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+
+### Changed
+- Bump WordPress minimum supported version to 6.9 (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
+- Bump "tested up to header" to indicate WordPress 7.1 support (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
+- Bump "tested up to header" to indicate WordPress 7.0 support (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+
+### Developer
+- Bump `axios` from 1.13.2 to 1.16.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#420](https://github.com/10up/autoshare-for-twitter/pull/420), [#423](https://github.com/10up/autoshare-for-twitter/pull/423)).
+- Bump `basic-ftp` from 5.1.0 to 5.2.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#404](https://github.com/10up/autoshare-for-twitter/pull/404), [#418](https://github.com/10up/autoshare-for-twitter/pull/418), [#419](https://github.com/10up/autoshare-for-twitter/pull/419)).
+- Bump `fast-uri` from 3.1.0 to 3.1.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#424](https://github.com/10up/autoshare-for-twitter/pull/424)).
+- Bump `flatted` from 3.3.3 to 3.4.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#410](https://github.com/10up/autoshare-for-twitter/pull/410)).
+- Bump `follow-redirects` from 1.15.11 to 1.16.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#421](https://github.com/10up/autoshare-for-twitter/pull/421)).
+- Bump `immutable` from 5.1.4 to 5.1.5 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#406](https://github.com/10up/autoshare-for-twitter/pull/406)).
+- Bump `ip-address` from 10.1.0 to 10.2.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#422](https://github.com/10up/autoshare-for-twitter/pull/422)).
+- Bump `lodash` from 4.17.23 to 4.18.1 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#416](https://github.com/10up/autoshare-for-twitter/pull/416)).
+- Bump `lodash-es` from 4.17.23 to 4.18.1 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#414](https://github.com/10up/autoshare-for-twitter/pull/414)).
+- Bump `node-forge` from 1.3.3 to 1.4.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#413](https://github.com/10up/autoshare-for-twitter/pull/413)).
+- Bump `picomatch` from 2.3.1 to 2.3.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@dkotter](https://github.com/dkotter) via [#411](https://github.com/10up/autoshare-for-twitter/pull/411)).
+- Bump `qs` from 6.14.1 to 6.14.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#403](https://github.com/10up/autoshare-for-twitter/pull/403)).
+- Bump `simple-git` from 3.30.0 to 3.36.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#409](https://github.com/10up/autoshare-for-twitter/pull/409), [#423](https://github.com/10up/autoshare-for-twitter/pull/423)).
+- Bump `svgo` from 3.3.2 to 3.3.3 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#407](https://github.com/10up/autoshare-for-twitter/pull/407)).
+- Bump `postcss` from 8.5.6 to 8.5.14 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#423](https://github.com/10up/autoshare-for-twitter/pull/423)).
+
+
 ## [2.3.3] - 2026-02-02
 ### Fixed
 - Bug preventing the autosharing of posts from working on scheduled posts (props [@justinmaurerdotdev](https://github.com/justinmaurerdotdev), [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#399](https://github.com/10up/autoshare-for-twitter/pull/399)).
@@ -350,6 +379,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial closed source release (props [@scottlee](https://github.com/scottlee/)).
 
 [Unreleased]: https://github.com/10up/autoshare-for-twitter/compare/trunk...develop
+[2.3.4]: https://github.com/10up/autoshare-for-twitter/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/10up/autoshare-for-twitter/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/10up/autoshare-for-twitter/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/10up/autoshare-for-twitter/compare/2.3.0...2.3.1
