@@ -14,8 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - Bump WordPress minimum supported version to 6.9 (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
-- Bump "tested up to header" to indicate WordPress 7.1 support (props [@phpbits](https://github.com/phpbits), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
-- Bump "tested up to header" to indicate WordPress 7.0 support (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#426](https://github.com/10up/autoshare-for-twitter/pull/426)).
+- Bump WordPress tested-up-to version 7.1 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@phpbits](https://github.com/phpbits), via [#426](https://github.com/10up/autoshare-for-twitter/pull/426), [#430](https://github.com/10up/autoshare-for-twitter/pull/430)).
 
 ### Developer
 - Bump `axios` from 1.13.2 to 1.16.0 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#420](https://github.com/10up/autoshare-for-twitter/pull/420), [#423](https://github.com/10up/autoshare-for-twitter/pull/423)).
