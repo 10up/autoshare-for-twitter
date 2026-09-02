@@ -3,7 +3,7 @@
  * Plugin Name:       Autopost for X (formerly Autoshare for Twitter)
  * Description:       Automatically shares the post title or custom message and a link to the post to X/Twitter.
  * Disclaimer:        TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates.
- * Version:           2.3.3
+ * Version:           2.3.4
  * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'AUTOSHARE_FOR_TWITTER', __FILE__ );
-define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.3.3' );
+define( 'AUTOSHARE_FOR_TWITTER_VERSION', '2.3.4' );
 define( 'AUTOSHARE_FOR_TWITTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOSHARE_FOR_TWITTER_INC', AUTOSHARE_FOR_TWITTER_PATH . 'includes/' );
