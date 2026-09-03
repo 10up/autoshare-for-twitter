@@ -41,6 +41,7 @@
 		"@10up/cypress-wp-utils": "^0.7.2",
 		"@wordpress/env": "^10.37.0",
 		"@wordpress/scripts": "^31.2.0",
+		"cypress": "^13.17.0",
 		"cypress-mochawesome-reporter": "^3.5.1",
 		"husky": "^3.0.5",
 		"lint-staged": "^9.2.5",
