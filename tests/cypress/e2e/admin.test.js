@@ -28,6 +28,9 @@ describe('Plugin settings page has the necessary fields', () => {
 describe('Configure the plugin', () => {
 	beforeEach(() => {
 		cy.login();
+		// Reset so retries start clean — saved credentials hide the API fields
+		// (`.credentials-setup.connected + table { display: none }`).
+		cy.clearPluginSettings();
 	});
 
 	it('Configure the plugin settings and X accounts', () => {
