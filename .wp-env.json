@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip",
+    "https://downloads.wordpress.org/plugin/classic-editor.latest-stable.zip",
     ".",
     "./tests/test-plugin"
   ],
