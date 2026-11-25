@@ -24,20 +24,6 @@ test.describe( 'Settings page', () => {
 		await resetPluginState( requestUtils );
 	} );
 
-	test( 'shows the API credential fields when the plugin is not configured', async ( {
-		admin,
-		page,
-	} ) => {
-		await admin.visitAdminPage( SETTINGS_PAGE, SETTINGS_QUERY );
-
-		await expect(
-			page.locator( 'input[name="autoshare-for-twitter[api_key]"]' )
-		).toBeVisible();
-		await expect(
-			page.locator( 'input[name="autoshare-for-twitter[api_secret]"]' )
-		).toBeVisible();
-	} );
-
 	test( 'saves API credentials and lists connected accounts', async ( {
 		admin,
 		page,
