@@ -9,7 +9,7 @@ const settings = getSettings();
 /**
  * Twitter accounts component.
  *
- * @return {Function} Twitter accounts component.
+ * @return {Element} Twitter accounts component.
  */
 export function TwitterAccounts() {
 	const accounts = connectedAccounts
@@ -55,7 +55,7 @@ export function TwitterAccounts() {
  *
  * @param {Object} props Twitter account props.
  *
- * @return {Function} Twitter account component.
+ * @return {Element} Twitter account component.
  */
 function TwitterAccount( props ) {
 	const [ tweetAccounts, setTweetAccounts ] = useTweetAccounts();
@@ -102,7 +102,7 @@ function TwitterAccount( props ) {
  *
  * @param {Object} props
  * @param {Object} props.rate_limits - Rate limit data from the API.
- * @return {JSX.Element} The account rate limits.
+ * @return {Element} The account rate limits.
  */
 function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
 	if (
@@ -141,7 +141,7 @@ function TwitterUserRateLimits( { rate_limits: rateLimits } ) {
  *
  * @param {Object} props
  * @param {Object} props.rate_limits - Rate limit data from the API.
- * @return {JSX.Element} The account rate limits.
+ * @return {Element} The account rate limits.
  */
 function TwitterAppRateLimits( { rate_limits: rateLimits } ) {
 	if (
@@ -177,7 +177,7 @@ function TwitterAppRateLimits( { rate_limits: rateLimits } ) {
  * @param {number} props.limit     - The total limit for this type.
  * @param {number} props.reset     - The UNIX timestamp for when the limit resets.
  * @param {string} props.tooltip   - The tooltip for the rate limit.
- * @return {JSX.Element} The rate limit details.
+ * @return {Element} The rate limit details.
  */
 function TwitterRateLimits( { title, remaining, limit, reset, tooltip } ) {
 	let formattedResetTime = __( 'N/A', 'autoshare-for-twitter' );

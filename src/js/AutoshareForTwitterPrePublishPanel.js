@@ -35,11 +35,11 @@ export default function AutoshareForTwitterPrePublishPanel() {
 						? __(
 								'Post to X/Twitter when published',
 								'autoshare-for-twitter'
-						  )
+							)
 						: __(
 								"Don't post to X/Twitter",
 								'autoshare-for-twitter'
-						  )
+							)
 				}
 				checked={ autoshareEnabled }
 				onChange={ ( checked ) => {

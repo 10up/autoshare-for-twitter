@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"testsEnvironment": false,
+	"port": 8889,
+	"core": null,
+	"plugins": [
+		"https://downloads.wordpress.org/plugin/classic-editor.1.6.1.zip",
+		".",
+		"./tests/e2e-plugins/autoshare-for-twitter-e2e-helpers"
+	],
+	"config": {
+		"FS_METHOD": "direct",
+		"WP_DEBUG": true
+	},
+	"mappings": {
+		"/wp-content/plugins/autoshare-for-twitter": "."
+	}
+}

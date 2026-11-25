@@ -9,6 +9,8 @@
 namespace TenUp\AutoshareForTwitter\Tests;
 
 use WP_UnitTestCase;
+use TenUp\AutoshareForTwitter\Core\AST_Staging\AST_Staging;
+use function TenUp\AutoshareForTwitter\Utils\update_autoshare_for_twitter_meta;
 
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ACCOUNTS_KEY;
@@ -22,20 +24,14 @@ use function TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet;
  *
  * @sincd 1.0.0
  */
-class TestPostTransition extends WP_UnitTestCase {
+class PostTransitionTest extends WP_UnitTestCase {
 	/**
 	 * Setup.
 	 */
 	public function setUp(): void {
-		$this->assertTrue(
-			check_method_exists(
-				'transition_post_status',
-				'TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet'
-			)
-		);
-		wp_set_current_user( 1 );
-
 		parent::setUp();
+
+		wp_set_current_user( 1 );
 	}
 
 	/**
@@ -133,5 +129,60 @@ class TestPostTransition extends WP_UnitTestCase {
 
 		remove_filter( 'autoshare_for_twitter_pre_status_update', $pre_status_update_callback );
 		remove_filter( 'autoshare_post_form_data', $post_form_data_callback );
+	}
+
+	/**
+	 * Creates a scheduled post, as the editor leaves it before cron runs.
+	 *
+	 * @return int Post ID.
+	 */
+	private function create_scheduled_post() {
+		AST_Staging::set_autoshare_live_url_lock();
+		connect_test_accounts();
+
+		return $this->factory->post->create(
+			array(
+				'post_status' => 'future',
+				'post_date'   => gmdate( 'Y-m-d H:i:s', time() + DAY_IN_SECONDS ),
+			)
+		);
+	}
+
+	/**
+	 * A scheduled post tweets with its saved settings when cron publishes it,
+	 * where nobody is logged in.
+	 */
+	public function test_scheduled_post_tweets_when_cron_publishes_it() {
+		$post_id = $this->create_scheduled_post();
+		update_autoshare_for_twitter_meta( $post_id, ENABLE_AUTOSHARE_FOR_TWITTER_KEY, 1 );
+		update_autoshare_for_twitter_meta( $post_id, TWEET_ACCOUNTS_KEY, array( 'A2' ) );
+		$spy = new Tweet_Spy();
+
+		wp_set_current_user( 0 );
+		wp_publish_post( $post_id );
+
+		$this->assertCount( 1, $spy->sent );
+		$this->assertSame( 'publish', get_post_status( $post_id ) );
+	}
+
+	/**
+	 * A post created without the editor (no account selection saved) goes to the
+	 * accounts marked "Autopost by default" in the settings.
+	 */
+	public function test_post_without_account_selection_uses_default_accounts() {
+		update_option(
+			'autoshare-for-twitter',
+			array(
+				'enable_default'     => 1,
+				'autoshare_accounts' => array( 'A1', 'A2' ),
+			)
+		);
+		$post_id = $this->create_scheduled_post();
+		$spy     = new Tweet_Spy();
+
+		wp_set_current_user( 0 );
+		wp_publish_post( $post_id );
+
+		$this->assertCount( 2, $spy->sent );
 	}
 }

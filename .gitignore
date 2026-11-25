@@ -5,7 +5,7 @@ screenshots
 tests/coverage
 vendor
 
-tests/cypress/downloads
-tests/cypress/screenshots
-tests/cypress/videos
-tests/cypress/reports
+/artifacts
+tests/.phpunit.result.cache
+/release
+.wp-env.test.override.json
