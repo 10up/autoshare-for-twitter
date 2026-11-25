@@ -127,28 +127,64 @@ export async function useEditor(
 /**
  * Opens a new post in the classic editor and types a title.
  *
+ * Blurring the title of a new post makes core autosave it (wp-admin/js/post.js),
+ * and core ignores clicks on Publish / Save Draft while that runs. Wait for the
+ * autosave to finish so later clicks aren't swallowed.
+ *
  * @param page  Page.
  * @param admin Admin utils.
  */
 export async function classicStartCreatePost( page: Page, admin: Admin ) {
 	await admin.visitAdminPage( 'post-new.php' );
-	await page
-		.locator( '#title' )
-		.fill(
-			`Random Post Title ${ Math.random().toString( 36 ).slice( 2, 8 ) }`
-		);
+	const title = page.locator( '#title' );
+	await title.fill(
+		`Random Post Title ${ Math.random().toString( 36 ).slice( 2, 8 ) }`
+	);
+	await title.blur();
+	await expect( page.locator( '#sample-permalink' ) ).toBeVisible();
+	await classicButtonsReady( page );
 }
 
 /**
- * Waits for the block editor's debounced save of the Autopost meta.
+ * Waits until core's autosave has re-enabled the classic editor's submit buttons.
  *
  * @param page Page.
  */
-export function waitForMetaSave( page: Page ) {
+export async function classicButtonsReady( page: Page ) {
+	await expect( page.locator( '#publish' ) ).toBeEnabled();
+	await expect( page.locator( '#publish' ) ).not.toHaveClass(
+		/\bdisabled\b/
+	);
+}
+
+/** The body the block editor sends to the Autopost meta route. */
+export type MetaSaveBody = {
+	autoshare_for_twitter: boolean;
+	'tweet-body': string;
+	'tweet-allow-image': boolean;
+	tweet_accounts: string[];
+};
+
+/**
+ * Waits for the block editor's debounced save of the Autopost meta to finish
+ * with the given state.
+ *
+ * The editor also saves once on load, and a save can still be in flight when a
+ * test changes a control, so match on the request body rather than taking the
+ * next response.
+ *
+ * @param page    Page.
+ * @param matches Returns true for the request body the test is waiting for.
+ */
+export function waitForMetaSave(
+	page: Page,
+	matches: ( body: MetaSaveBody ) => boolean
+) {
 	return page.waitForResponse(
 		( response ) =>
 			response.url().includes( 'post-autoshare-for-twitter-meta' ) &&
-			response.request().method() === 'POST'
+			response.request().method() === 'POST' &&
+			matches( response.request().postDataJSON() )
 	);
 }
 

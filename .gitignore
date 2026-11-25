@@ -7,3 +7,5 @@ vendor
 
 /artifacts
 tests/.phpunit.result.cache
+/release
+.wp-env.test.override.json

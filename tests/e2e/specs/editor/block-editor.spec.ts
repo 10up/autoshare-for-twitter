@@ -44,7 +44,10 @@ async function setAutoshare(
 		.first();
 	await expect( toggle ).toBeChecked( { checked: current } );
 	if ( current !== wanted ) {
-		const saved = waitForMetaSave( page );
+		const saved = waitForMetaSave(
+			page,
+			( body ) => body.autoshare_for_twitter === wanted
+		);
 		await toggle.setChecked( wanted );
 		await saved;
 	}
@@ -64,7 +67,10 @@ async function setFirstAccount( page: Page, panel: Locator, wanted: boolean ) {
 			'.autoshare-for-twitter-account-toggle input[type="checkbox"]'
 		)
 		.first();
-	const saved = waitForMetaSave( page );
+	const saved = waitForMetaSave(
+		page,
+		( body ) => body.tweet_accounts.includes( ACCOUNT_ID ) === wanted
+	);
 	await toggle.setChecked( wanted );
 	await saved;
 	await expect( toggle ).toBeChecked( { checked: wanted } );
@@ -238,7 +244,10 @@ test.describe( 'Block editor', () => {
 		await panel
 			.locator( '.autoshare-for-twitter-prepublish__override-row button' )
 			.click();
-		const saved = waitForMetaSave( page );
+		const saved = waitForMetaSave(
+			page,
+			( body ) => body[ 'tweet-body' ] === customTweetBody
+		);
 		await panel
 			.locator( '.autoshare-for-twitter-tweet-text textarea' )
 			.fill( customTweetBody );

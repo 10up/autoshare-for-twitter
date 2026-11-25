@@ -3,6 +3,7 @@
 /.github
 /.wordpress-org
 /artifacts
+/release
 /node_modules
 /tests
 /src

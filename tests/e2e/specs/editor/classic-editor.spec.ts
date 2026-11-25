@@ -15,6 +15,7 @@ import {
 	ACCOUNT_ID,
 	NOT_POSTED,
 	POSTED,
+	classicButtonsReady,
 	classicStartCreatePost,
 	configurePlugin,
 	resetPluginState,
@@ -60,6 +61,7 @@ async function setFirstAccount( page: Page, wanted: boolean ) {
  * @param page Page.
  */
 async function saveDraft( page: Page ) {
+	await classicButtonsReady( page );
 	await page.locator( '#save-post' ).click();
 	await expect( page.locator( '#message' ) ).toContainText(
 		'Post draft updated'
@@ -72,7 +74,7 @@ async function saveDraft( page: Page ) {
  * @param page Page.
  */
 async function publish( page: Page ) {
-	await expect( page.locator( '#publish' ) ).toBeEnabled();
+	await classicButtonsReady( page );
 	await page.locator( '#publish' ).click();
 	await expect( page.locator( '#message' ) ).toContainText(
 		'Post published'
