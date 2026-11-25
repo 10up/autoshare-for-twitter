@@ -15,7 +15,14 @@ use function TenUp\AutoshareForTwitter\Utils\compose_tweet_body;
 /**
  * Tests for the Publish_Tweet class.
  */
-class TestPublish_Tweet extends WP_UnitTestCase {
+class PublishTweetTest extends WP_UnitTestCase {
+	/**
+	 * Instance under test.
+	 *
+	 * @var Publish_Tweet
+	 */
+	private $publish_tweet;
+
 	/**
 	 * Setup method.
 	 */
@@ -70,16 +77,14 @@ class TestPublish_Tweet extends WP_UnitTestCase {
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
 
-		// phpcs:disable WordPress.DateTime.RestrictedFunctions.date_date
-		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/33772-1536x864.jpg', date( 'Y' ), date( 'm' ) ), $file );
+		$this->assertEquals( wp_upload_dir()['path'] . '/33772-1536x864.jpg', $file );
 		$attachment = $this->factory->attachment->create_upload_object( DIR_TESTDATA . '/images/2004-07-22-DSC_0008.jpg' ); // ~109kb image.
 		$file       = $this->publish_tweet->get_largest_acceptable_image(
 			get_attached_file( $attachment ),
 			wp_get_attachment_metadata( $attachment )['sizes']
 		);
-		$this->assertEquals( sprintf( '/tmp/wordpress/wp-content/uploads/%s/%s/2004-07-22-DSC_0008.jpg', date( 'Y' ), date( 'm' ) ), $file );
+		$this->assertEquals( wp_upload_dir()['path'] . '/2004-07-22-DSC_0008.jpg', $file );
 		remove_filter( 'autoshare_for_twitter_max_image_size', $set_150kb_max_filesize );
-		// phpcs:enable WordPress.DateTime.RestrictedFunctions.date_date
 		$set_1kb_max_filesize = function() {
 			return 1000;
 		};

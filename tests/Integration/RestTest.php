@@ -23,7 +23,7 @@ use const TenUp\AutoshareForTwitter\Core\POST_TYPE_SUPPORT_FEATURE;
  *
  * @sincd 1.0.0
  */
-class TestRest extends WP_UnitTestCase {
+class RestTest extends WP_UnitTestCase {
 
 	/**
 	 * Test all methods and hooks in add_hook_callbacks().

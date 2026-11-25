@@ -22,7 +22,7 @@ use function TenUp\AutoshareForTwitter\Core\Post_Transition\maybe_publish_tweet;
  *
  * @sincd 1.0.0
  */
-class TestPostTransition extends WP_UnitTestCase {
+class PostTransitionTest extends WP_UnitTestCase {
 	/**
 	 * Setup.
 	 */

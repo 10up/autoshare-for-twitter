@@ -26,7 +26,7 @@ use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
  *
  * @sincd 1.0.0
  */
-class TestUtils extends WP_UnitTestCase {
+class UtilsTest extends WP_UnitTestCase {
 
 	/**
 	 * Tests the get_autoshare_for_twitter_meta utility function.

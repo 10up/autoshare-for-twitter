@@ -17,17 +17,17 @@
 		"wp-coding-standards/wpcs": "^2.2",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
 		"10up/phpcs-composer": "dev-master",
-		"phpunit/phpunit": "9.6.x-dev",
-		"yoast/phpunit-polyfills": "2.0.0"
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^4.0",
+		"wp-phpunit/wp-phpunit": "^7.1"
 	},
 	"scripts": {
-		"test": "phpunit",
-		"setup-local-tests": "bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest",
 		"phpcs": "vendor/bin/phpcs autoshare-for-twitter.php includes/ --extensions=php -s",
-		"phpcs:compat": "vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.0-",
+		"phpcs:compat": "vendor/bin/phpcs autoshare-for-twitter.php includes/ --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.4-",
 		"lint-fix": "./vendor/bin/phpcbf --extensions=php ."
 	},
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"config": {
 		"platform": {
 			"php": "7.4"

@@ -16,7 +16,7 @@ use function TenUp\AutoshareForTwitter\Core\set_post_type_supports_with_custom_c
  *
  * @since 1.0.0
  */
-class TestCore extends WP_UnitTestCase {
+class CoreTest extends WP_UnitTestCase {
 
 	/**
 	 * Test all methods and hooks in setup().

@@ -30,7 +30,7 @@ use function TenUp\AutoshareForTwitter\Utils\link_from_twitter;
  *
  * @group post_meta
  */
-class TestPostMeta extends WP_UnitTestCase {
+class PostMetaTest extends WP_UnitTestCase {
 
 	/**
 	 * Test all methods and hooks in setup().
