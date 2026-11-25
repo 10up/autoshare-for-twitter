@@ -130,11 +130,11 @@ export function AutoshareForTwitterPostStatusInfo() {
 								? __(
 										'Posting to X/Twitter…',
 										'autoshare-for-twitter'
-								  )
+									)
 								: __(
 										'Post to X/Twitter',
 										'autoshare-for-twitter'
-								  )
+									)
 						}
 						onClick={ () => {
 							reTweetHandler();

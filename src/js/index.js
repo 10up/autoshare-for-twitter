@@ -41,16 +41,16 @@ class AutoshareForTwitterPrePublishPanelPlugin extends Component {
 				? __(
 						'This post will be posted to X/Twitter',
 						'autoshare-for-twitter'
-				  )
+					)
 				: __(
 						'This post will not be posted to X/Twitter',
 						'autoshare-for-twitter'
-				  );
+					);
 
 			if ( enabledText !== this.state.enabledText ) {
 				this.setState( { enabled, enabledText } );
 			}
-		} catch ( e ) {}
+		} catch {}
 	}
 
 	render() {
@@ -108,12 +108,12 @@ class AutoshareForTwitterEditorPanelPlugin extends Component {
 				: __(
 						'Autopost to X/Twitter disabled',
 						'autoshare-for-twitter'
-				  );
+					);
 
 			if ( enabledText !== this.state.enabledText ) {
 				this.setState( { enabledText, enabled } );
 			}
-		} catch ( e ) {}
+		} catch {}
 	}
 
 	render() {
