@@ -121,25 +121,21 @@ class PublishTweetTest extends WP_UnitTestCase {
 			}
 		);
 
-		// Get the body of the Tweet, including the URL, with all the relevant filters.
-		$tweet = compose_tweet_body( $post );
-
-		// Make the assertion inside the 'autoshare_for_twitter_tweet' filter.
-		$test_class = $this;
+		// Capture what would be sent to X instead of sending it.
+		$sent = null;
 		add_filter(
-			'autoshare_for_twitter_tweet',
-			function( $update_data ) use ( $expected_url, $test_class ) {
-				// Extract the URL from the real Tweet body.
-				preg_match_all( '#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $update_data['text'], $match );
-				$link = $match[0][0];
-				$test_class->assertEquals( $expected_url, $link );
-				return $update_data;
-			}
+			'autoshare_for_twitter_pre_status_update',
+			function ( $response, $update_data ) use ( &$sent ) {
+				$sent = $update_data;
+				return (object) array( 'id' => 1 );
+			},
+			10,
+			2
 		);
 
-		// Short circuit and don't actually post the status update.
-		add_filter( 'autoshare_for_twitter_pre_status_update', '__return_true' );
+		$this->publish_tweet->status_update( compose_tweet_body( $post ), $post );
 
-		$this->publish_tweet->status_update( $tweet, $post );
+		$this->assertIsArray( $sent, 'The tweet was never handed to the X API.' );
+		$this->assertStringEndsWith( ' ' . $expected_url, $sent['text'] );
 	}
 }

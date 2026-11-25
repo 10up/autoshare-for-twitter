@@ -20,6 +20,7 @@ use function TenUp\AutoshareForTwitter\Utils\get_available_post_types;
 use function TenUp\AutoshareForTwitter\Utils\get_autoshare_for_twitter_settings;
 use const TenUp\AutoshareForTwitter\Core\Post_Meta\META_PREFIX;
 use const \TenUp\AutoshareForTwitter\Core\Post_Meta\TWEET_ALLOW_IMAGE;
+use const TenUp\AutoshareForTwitter\Core\Post_Meta\ENABLE_AUTOSHARE_FOR_TWITTER_KEY;
 
 /**
  * TestUtils class.
@@ -86,27 +87,38 @@ class UtilsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests the autoshare_enabled function.
+	 * A post without its own setting follows the site's "enable by default"
+	 * setting, and a post's own setting wins over it.
 	 *
-	 * @since 1.1.0
+	 * @dataProvider data_autoshare_enabled
+	 *
+	 * @param int         $enable_default Site setting.
+	 * @param string|null $post_value     Post's own setting, or null for none.
+	 * @param bool        $expected       Whether the post autoposts.
 	 */
-	public function test_autoshare_enabled() {
+	public function test_post_setting_overrides_site_default( $enable_default, $post_value, $expected ) {
+		update_option( 'autoshare-for-twitter', array( 'enable_default' => $enable_default ) );
 		$post = $this->factory->post->create();
 
-		$authoshare_enabled = function( $enabled, $post_type, $id ) use ( $post ) {
-			if ( intval( $post ) === intval( $id ) ) {
-				return true;
-			}
+		if ( null !== $post_value ) {
+			update_autoshare_for_twitter_meta( $post, ENABLE_AUTOSHARE_FOR_TWITTER_KEY, $post_value );
+		}
 
-			return true;
-		};
-		add_filter( 'autoshare_for_twitter_enabled_default', $authoshare_enabled, 99, 3 );
-		$this->assertTrue( autoshare_enabled( $post ) );
-		remove_filter( 'autoshare_for_twitter_enabled_default', $authoshare_enabled, 99 );
+		$this->assertSame( $expected, (bool) autoshare_enabled( $post ) );
+	}
 
-		$post_type  = register_non_default_post_type();
-		$other_post = $this->factory->post->create( compact( 'post_type' ) );
-		$this->assertFalse( autoshare_enabled( $other_post ) );
+	/**
+	 * Cases for test_post_setting_overrides_site_default().
+	 *
+	 * @return array
+	 */
+	public function data_autoshare_enabled() {
+		return array(
+			'site on, post unset'  => array( 1, null, true ),
+			'site off, post unset' => array( 0, null, false ),
+			'site on, post off'    => array( 1, '0', false ),
+			'site off, post on'    => array( 0, '1', true ),
+		);
 	}
 
 	/**
