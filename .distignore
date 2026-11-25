@@ -2,7 +2,7 @@
 /.git
 /.github
 /.wordpress-org
-/bin
+/artifacts
 /node_modules
 /tests
 /src
@@ -20,6 +20,7 @@ LICENSE.md
 package-lock.json
 package.json
 phpcs.xml
-phpunit.xml
+eslint.config.mjs
+phpunit.xml.dist
 README.md
 webpack.config.js
